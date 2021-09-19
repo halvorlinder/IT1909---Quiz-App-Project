@@ -14,32 +14,24 @@ import java.io.IOException;
  */
 public class App extends Application {
 
-    private static Stage primaryStage; // **Declare static Stage**
-
-    private void setPrimaryStage(Stage stage) {
-        App.primaryStage = stage;
-    }
-
-    static public Stage getPrimaryStage() {
-        return App.primaryStage;
-    }
+    private static Scene scene; // **Declare static scene**
 
     @Override
     public void start(Stage stage) throws IOException {
-        setPrimaryStage(stage);
-        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("App.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("HomePage.fxml"));
         Parent parent = fxmlLoader.load();
         stage.setScene(new Scene(parent));
         stage.show();
     }
 
+    private static Parent loadFXML(String FXMLfile) throws IOException {
+        FXMLLoader loader = new FXMLLoader(App.class.getResource(FXMLfile));
+        return loader.load();
+    }
+
     @FXML
-    public void setRoot(String FXMLFile) throws IOException { // Switches view to desired FXML file
-        Parent root = FXMLLoader.load(getClass().getResource(FXMLFile));
-        Scene scene = new Scene(root);
-        Stage primaryStage = getPrimaryStage();
-        primaryStage.setScene(scene);
-        primaryStage.show();
+    public static void setRoot(String FXMLfile) throws IOException { // Switches view to desired FXML file
+        scene.setRoot(loadFXML(FXMLfile));
     }
 
     public static void main(String[] args) {
