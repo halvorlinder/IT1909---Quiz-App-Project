@@ -1,5 +1,6 @@
 package ui;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Question {
@@ -11,7 +12,7 @@ public class Question {
         if (answer>=choices.size() || answer<0)
             throw new IllegalArgumentException("The answer must map to a choice");
         this.question = question;
-        this.choices = choices;
+        this.choices = new ArrayList<>(choices);
         this.answer = answer;
     }
 
