@@ -22,7 +22,7 @@ public class HomePageController {
 
     @FXML
     public void showStartQuiz(ActionEvent event) throws IOException { // Switch scene to StartQuiz
-        App.setRoot("StartQuiz.FXML");
+        App.setRoot("QuestionPage.fxml");
     }
 
     @FXML
