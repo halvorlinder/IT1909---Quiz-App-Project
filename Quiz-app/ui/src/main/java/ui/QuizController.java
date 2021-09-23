@@ -32,6 +32,10 @@ public class QuizController {
     private List<RadioButton> radios;
     private int selected;
 
+    /**
+     * Initializes a new quiz
+     * @throws IOException
+     */
     public void initialize() throws IOException {
         //TODO Get data from the backend instead of hard coding
         radios = Arrays.asList(option1, option2, option3, option4);
@@ -41,6 +45,10 @@ public class QuizController {
         displayQuestion();
     }
 
+    /**
+     * Displays the current question to the GUI
+     * @throws IOException
+     */
     @FXML
     public void displayQuestion() throws IOException {
         Question q = quiz.getCurrentQuestion();
@@ -53,13 +61,22 @@ public class QuizController {
             }
         }
     }
+
+    /**
+     * Submits the selected answer and progresses to the next question
+     * @throws IOException
+     */
     @FXML
-    public void submitQuestion(ActionEvent e) throws IOException {
+    public void submitQuestion() throws IOException {
         quiz.submitQuestion(option.getToggles().indexOf(option.getSelectedToggle()));
         radios.forEach(radioButton -> radioButton.setSelected(false));
         displayQuestion();
     }
 
+    /**
+     * Ends the quiz by returning to the home page
+     * @throws IOException
+     */
     private void endQuiz() throws IOException {
         App.setRoot("HomePage.fxml");
     }
