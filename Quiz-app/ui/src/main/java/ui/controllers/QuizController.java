@@ -7,8 +7,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import ui.App;
-import ui.Question;
-import ui.Quiz;
+import core.Question;
+import core.Quiz;
 
 import java.io.IOException;
 import java.util.ArrayList;
