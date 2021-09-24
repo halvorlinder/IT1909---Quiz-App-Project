@@ -29,6 +29,10 @@ public class Quiz {
         return questions.get(currentQuestionNumber);
     }
 
+    public List<Question> getQuestions(){
+        return new ArrayList<>(questions);
+    }
+
     /**
      * submits a question by checking its correctness, updating the correct counter as well as the
      * question counter
