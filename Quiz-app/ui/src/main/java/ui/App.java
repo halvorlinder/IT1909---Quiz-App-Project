@@ -18,20 +18,19 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("HomePage.fxml"));
-        Parent parent = fxmlLoader.load();
-        stage.setScene(new Scene(parent));
+        scene = new Scene(loadFXML("HomePage.fxml"));
+        stage.setScene(scene);
         stage.show();
     }
 
-    private static Parent loadFXML(String FXMLfile) throws IOException {
-        FXMLLoader loader = new FXMLLoader(App.class.getResource(FXMLfile));
+    private static Parent loadFXML(String FXMLFile) throws IOException {
+        FXMLLoader loader = new FXMLLoader(App.class.getResource(FXMLFile));
         return loader.load();
     }
 
     @FXML
-    public static void setRoot(String FXMLfile) throws IOException { // Switches view to desired FXML file
-        scene.setRoot(loadFXML(FXMLfile));
+    public static void setRoot(String FXMLFile) throws IOException { // Switches view to desired FXML file
+        scene.setRoot(new FXMLLoader((App.class.getResource(FXMLFile))).load());
     }
 
     public static void main(String[] args) {

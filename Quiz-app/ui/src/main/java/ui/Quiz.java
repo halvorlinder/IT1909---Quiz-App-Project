@@ -17,7 +17,6 @@ public class Quiz {
      */
     public Quiz(List<Question> questions){
         this.questions = new ArrayList<>(questions);
-        currentQuestionNumber = -1;
     }
 
     /**
