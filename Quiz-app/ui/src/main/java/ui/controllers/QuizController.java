@@ -79,7 +79,7 @@ public class QuizController {
     }
 
     /**
-     * Ends the quiz by returning to the home page
+     * Ends the quiz by going to the result page
      * @throws IOException
      */
     private void endQuiz() throws IOException {
