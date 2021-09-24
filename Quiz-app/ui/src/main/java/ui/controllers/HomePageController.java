@@ -1,10 +1,11 @@
-package ui;
+package ui.controllers;
 
 import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import ui.App;
 
 public class HomePageController {
     
