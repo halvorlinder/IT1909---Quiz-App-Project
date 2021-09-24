@@ -63,6 +63,10 @@ public class Quiz {
         return correct;
     }
 
+    /**
+     *
+     * @return the length of the quiz
+     */
     public int getQuizLength(){
         return questions.size();
     }

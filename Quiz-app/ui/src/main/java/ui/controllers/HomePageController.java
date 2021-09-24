@@ -21,18 +21,30 @@ public class HomePageController {
     // App.setRoot needs to be completed
     // All FXML files need to be created and named accordingly
 
+    /**
+     * Sets the current root to be the question page
+     * @throws IOException
+     */
     @FXML
-    public void showStartQuiz(ActionEvent event) throws IOException { // Switch scene to StartQuiz
+    public void showStartQuiz() throws IOException { // Switch scene to StartQuiz
         App.setRoot("QuestionPage.fxml");
     }
 
+    /**
+     * Sets the current root to be the new question page
+     * @throws IOException
+     */
     @FXML
-    public void showNewQuestion(ActionEvent event) throws IOException { // Switch scene to StartQuiz
+    public void showNewQuestion() throws IOException { // Switch scene to StartQuiz
         App.setRoot("NewQuestion.FXML");
     }
 
+    /**
+     * Sets the current root to be the leaderboard page
+     * @throws IOException
+     */
     @FXML
-    public void showLeaderboard(ActionEvent event) throws IOException { // Switch scene to StartQuiz
+    public void showLeaderboard() throws IOException { // Switch scene to StartQuiz
         App.setRoot("Leaderboard.FXML");
     }
 

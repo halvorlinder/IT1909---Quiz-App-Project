@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="625.0" prefWidth="600.0" type="AnchorPane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.NewQuestionController">
+   <children>
+      <GridPane layoutX="-6.0" prefHeight="625.0" prefWidth="607.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="194.199951171875" minWidth="10.0" prefWidth="16.5999698638916" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="518.3999572753908" minWidth="10.0" prefWidth="518.3999572753908" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="144.40002441406256" minWidth="10.0" prefWidth="21.200042724609375" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TextArea fx:id="questionText" prefHeight="56.0" prefWidth="200.0" promptText="Write a question" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.valignment="BASELINE" GridPane.vgrow="NEVER" />
+            <TextField fx:id="choice1" prefHeight="35.0" prefWidth="212.0" promptText="Option 1" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Comic Sans MS" size="12.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="choice2" promptText="Option 2" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <font>
+                  <Font name="Comic Sans MS" size="12.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="choice3" promptText="Option 3" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <font>
+                  <Font name="Comic Sans MS" size="12.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="choice4" promptText="Option 4" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <font>
+                  <Font name="Comic Sans MS" size="12.0" />
+               </font>
+            </TextField>
+            <RadioButton fx:id="radioButton1" mnemonicParsing="false" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <toggleGroup>
+                  <ToggleGroup fx:id="radioButton" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="radioButton2" mnemonicParsing="false" toggleGroup="$radioButton" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <RadioButton fx:id="radioButton3" mnemonicParsing="false" toggleGroup="$radioButton" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <RadioButton fx:id="radioButton4" mnemonicParsing="false" toggleGroup="$radioButton" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <Button fx:id="submitButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#submitQuestion" prefHeight="30.0" prefWidth="139.0" text="Submit" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+         </children>
+      </GridPane>
+   </children>
+</fx:root>
