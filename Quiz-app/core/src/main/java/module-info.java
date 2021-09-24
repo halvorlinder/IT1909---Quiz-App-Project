@@ -1,3 +1,3 @@
-module calc.core {
+module quiz.core {
     exports core;
 }

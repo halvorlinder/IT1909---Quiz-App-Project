@@ -1,10 +1,11 @@
-package ui;
+package ui.controllers;
 
 import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import ui.App;
 
 public class HomePageController {
     
@@ -22,7 +23,7 @@ public class HomePageController {
 
     @FXML
     public void showStartQuiz(ActionEvent event) throws IOException { // Switch scene to StartQuiz
-        App.setRoot("StartQuiz.FXML");
+        App.setRoot("QuestionPage.fxml");
     }
 
     @FXML
