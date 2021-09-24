@@ -23,14 +23,31 @@ public class App extends Application {
         stage.show();
     }
 
+    /**
+     *
+     * @param FXMLFile a string that corresponds to the name of the fxml file
+     * @return an FXMLLoader with the given file
+     * @throws IOException
+     */
     public static FXMLLoader getFXMLLoader(String FXMLFile) throws IOException {
         return new FXMLLoader(App.class.getResource(FXMLFile));
     }
 
+    /**
+     * Sets the root
+     * @param FXMLFile the name of the fxml file containing the new root
+     * @throws IOException
+     */
     @FXML
     public static void setRoot(String FXMLFile) throws IOException { // Switches view to desired FXML file
         scene.setRoot(new FXMLLoader((App.class.getResource(FXMLFile))).load());
     }
+
+    /**
+     * Sets the root
+     * @param loader an FXMLLoader containing the new root
+     * @throws IOException
+     */
     @FXML
     public static void setRoot(FXMLLoader loader) throws IOException { // Switches view to desired FXML file
         scene.setRoot(loader.load());
