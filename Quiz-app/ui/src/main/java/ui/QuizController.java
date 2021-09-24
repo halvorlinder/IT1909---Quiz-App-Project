@@ -1,6 +1,7 @@
 package ui;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -40,6 +41,7 @@ public class QuizController {
     public void initialize() throws IOException {
         //TODO Get data from the backend instead of hard coding
         radios = Arrays.asList(option1, option2, option3, option4);
+        radios.forEach(radio -> radio.setOnAction(ae -> submitAnswer.setDisable(false)));
         Question q1 = new Question("Hva heter den??", new ArrayList<String>(Arrays.asList("a", "b", "c", "d")), 2);
         Question q2 = new Question("Hva heter den andre??", new ArrayList<String>(Arrays.asList("1", "2", "3", "4")), 2);
         quiz = new Quiz(List.of(new Question[]{q1, q2}));
@@ -53,6 +55,7 @@ public class QuizController {
     @FXML
     public void displayQuestion() throws IOException {
         Question q = quiz.getCurrentQuestion();
+        submitAnswer.setDisable(true);
         if (q==null)
             endQuiz();
         else{
