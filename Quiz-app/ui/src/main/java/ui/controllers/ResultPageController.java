@@ -24,6 +24,6 @@ public class ResultPageController {
     }
 
     public void returnToHomePage() throws IOException {
-        App.setRoot("HomePage.FXML");
+        App.setRoot("HomePage.fxml");
     }
 }
