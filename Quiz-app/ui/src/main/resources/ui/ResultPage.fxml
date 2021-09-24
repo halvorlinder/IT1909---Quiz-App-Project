@@ -22,12 +22,12 @@
             <Font name="Comic Sans MS" size="40.0" />
          </font>
       </Label>
-      <Label text="Du fikk 2/5 poeng" GridPane.rowIndex="1">
+      <Label text="Du fikk 2/5 poeng" fx:id="result" GridPane.rowIndex="1">
          <font>
             <Font name="Comic Sans MS" size="25.0" />
          </font>
       </Label>
-      <Button mnemonicParsing="false" prefHeight="67.0" prefWidth="327.0" text="Gå til hjemskjermen" GridPane.rowIndex="2">
+      <Button mnemonicParsing="false" prefHeight="67.0" prefWidth="327.0" text="Gå til hjemskjermen" GridPane.rowIndex="2" onAction="#returnToHomePage">
          <font>
             <Font name="Comic Sans MS" size="25.0" />
          </font>

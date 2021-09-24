@@ -59,4 +59,8 @@ public class Quiz {
         return correct;
     }
 
+    public int getQuizLength(){
+        return questions.size();
+    }
+
 }
