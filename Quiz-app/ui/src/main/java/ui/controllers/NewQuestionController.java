@@ -74,7 +74,7 @@ public class NewQuestionController {
         if(!checkIfTextAreaEmpty(questionText)){
             throw new IllegalStateException("Du må skrive inn et spørsmål");
         }
-        question = new Question(getTextFromTA(questionText),getListOfAnswers(),getCheckedId());
+        question = new Question(getTextFromTA(questionText).replace('\n',' '),getListOfAnswers(),getCheckedId());
         QuizStorageHandler handler = new QuizStorageHandler("quiz101");
         handler.writeQuestion(question);
         App.setRoot("HomePage.fxml");
@@ -100,7 +100,7 @@ public class NewQuestionController {
         return radioButton.getToggles().indexOf(radioButton.getSelectedToggle());
     }
     public List<String> getListOfAnswers(){
-        return listOfTextFields.stream().map(TextInputControl::getText).collect(Collectors.toList());
+        return listOfTextFields.stream().map(field->field.getText().replace('\n', ' ')).collect(Collectors.toList());
     }
 
 }
