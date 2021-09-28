@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Question {
-    private final String question;
-    private final List<String> choices;
-    private final int answer;
+    private String question;
+    private List<String> choices;
+    private int answer;
 
     /**
      *
@@ -50,5 +50,22 @@ public class Question {
         if (n<0 || n>=choices.size())
             throw new IllegalArgumentException("The choice does not exist");
         return choices.get(n);
+    }
+
+    public String[] getChoices(){
+        return choices.toArray(new String[0]);
+    }
+
+    public int getAnswer() {
+        return answer;
+    }
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "question='" + question + '\'' +
+                ", choices=" + choices +
+                ", answer=" + answer +
+                '}';
     }
 }
