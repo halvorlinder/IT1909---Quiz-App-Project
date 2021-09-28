@@ -40,7 +40,7 @@
                   <Font name="Comic Sans MS Bold Italic" size="41.0" />
                </font>
             </Label>
-            <Button fx:id="newQuestionButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" text="Nytt Spørsmål" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+            <Button fx:id="newQuestionButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" text="Nytt Spørsmål" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" onAction="#showNewQuestion">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
