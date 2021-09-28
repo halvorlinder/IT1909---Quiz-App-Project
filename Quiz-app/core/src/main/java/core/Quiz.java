@@ -39,12 +39,16 @@ public class Quiz {
      * @param answer the integer corresponding to the index of the answer
      * @return true if the answer is correct, else otherwise
      */
-    public boolean submitQuestion(int answer) {
+    public boolean submitAnswer(int answer) {
         boolean isCorrect = getCurrentQuestion().isCorrect(answer);
         if(isCorrect)
             correct++;
         currentQuestionNumber++;
         return isCorrect;
+    }
+
+    public void addQuestion(Question question){
+        questions.add(question);
     }
 
     /**
@@ -71,4 +75,12 @@ public class Quiz {
         return questions.size();
     }
 
+    @Override
+    public String toString() {
+        return "Quiz{" +
+                "correct=" + correct +
+                ", currentQuestionNumber=" + currentQuestionNumber +
+                ", questions=" + questions +
+                '}';
+    }
 }

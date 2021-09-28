@@ -73,7 +73,7 @@ public class QuizController {
      */
     @FXML
     public void submitQuestion() throws IOException {
-        quiz.submitQuestion(option.getToggles().indexOf(option.getSelectedToggle()));
+        quiz.submitAnswer(option.getToggles().indexOf(option.getSelectedToggle()));
         radios.forEach(radioButton -> radioButton.setSelected(false));
         displayQuestion();
     }
