@@ -1,5 +1,6 @@
 package ui.controllers;
 
+import io.QuizStorageHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -40,12 +41,10 @@ public class QuizController {
      * @throws IOException
      */
     public void initialize() throws IOException {
-        //TODO Get data from the backend instead of hard coding
         radios = Arrays.asList(option1, option2, option3, option4);
         radios.forEach(radio -> radio.setOnAction(ae -> submitAnswer.setDisable(false)));
-        Question q1 = new Question("Hva heter den??", new ArrayList<String>(Arrays.asList("a", "b", "c", "d")), 2);
-        Question q2 = new Question("Hva heter den andre??", new ArrayList<String>(Arrays.asList("1", "2", "3", "4")), 2);
-        quiz = new Quiz(List.of(new Question[]{q1, q2}));
+        QuizStorageHandler quizStorageHandler = new QuizStorageHandler("quiz101");
+        quiz = quizStorageHandler.getQuiz();
         displayQuestion();
     }
 
