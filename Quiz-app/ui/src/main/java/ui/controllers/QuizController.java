@@ -32,7 +32,7 @@ public class QuizController {
     @FXML
     private Button submitAnswer;
 
-    private Quiz quiz;
+    private final Quiz quiz;
     private List<RadioButton> radios;
     private int selected;
 
@@ -43,9 +43,11 @@ public class QuizController {
     public void initialize() throws IOException {
         radios = Arrays.asList(option1, option2, option3, option4);
         radios.forEach(radio -> radio.setOnAction(ae -> submitAnswer.setDisable(false)));
-        QuizStorageHandler quizStorageHandler = new QuizStorageHandler("quiz101");
-        quiz = quizStorageHandler.getQuiz();
         displayQuestion();
+    }
+
+    public QuizController(Quiz quiz){
+        this.quiz = quiz;
     }
 
     /**
