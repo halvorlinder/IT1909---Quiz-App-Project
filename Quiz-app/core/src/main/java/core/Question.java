@@ -52,10 +52,18 @@ public class Question {
         return choices.get(n);
     }
 
+    /**
+     *
+     * @return an array of the choices
+     */
     public String[] getChoices(){
         return choices.toArray(new String[0]);
     }
 
+    /**
+     *
+     * @return the index of the correct answer
+     */
     public int getAnswer() {
         return answer;
     }

@@ -29,6 +29,10 @@ public class Quiz {
         return questions.get(currentQuestionNumber);
     }
 
+    /**
+     *
+     * @return a copy of the questions in the quiz
+     */
     public List<Question> getQuestions(){
         return new ArrayList<>(questions);
     }
@@ -47,6 +51,10 @@ public class Quiz {
         return isCorrect;
     }
 
+    /**
+     * adds a question object to the quiz
+     * @param question the question to be added
+     */
     public void addQuestion(Question question){
         questions.add(question);
     }
