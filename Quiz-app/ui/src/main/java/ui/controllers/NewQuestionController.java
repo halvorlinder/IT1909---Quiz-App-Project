@@ -1,13 +1,11 @@
 package ui.controllers;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import core.Question;
-import javafx.event.ActionEvent;
+import io.QuizStorageHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import ui.App;
@@ -46,7 +44,7 @@ public class NewQuestionController {
     private RadioButton radioButton4;
 
     @FXML
-    private ToggleGroup options;
+    private ToggleGroup radioButton;
 
     private Question question;
     private List<TextField> listOfTextFields;
@@ -58,7 +56,6 @@ public class NewQuestionController {
 
     public void initialize(){
         listOfTextFields = List.of(choice1,choice2,choice3,choice4);
-        listOfAnswers = listOfTextFields.stream().map(textField -> textField.getText()).collect(Collectors.toList());
         listOfRadioButtons = List.of(radioButton1, radioButton2, radioButton3, radioButton4);
         listOfRadioButtons.forEach(radio -> radio.setOnAction(ae -> submitButton.setDisable(false)));
 
@@ -77,8 +74,10 @@ public class NewQuestionController {
         if(!checkIfTextAreaEmpty(questionText)){
             throw new IllegalStateException("Du må skrive inn et spørsmål");
         }
-        question = new Question(getTextFromTA(questionText),getListOfAnswers(),getCheckedId());
-        App.setRoot("HomePage.FXML");
+        question = new Question(getTextFromTA(questionText).replace('\n',' '),getListOfAnswers(),getCheckedId());
+        QuizStorageHandler handler = new QuizStorageHandler("quiz101");
+        handler.writeQuestion(question);
+        App.setRoot("HomePage.fxml");
     }
 
     private boolean checkIfTextfieldEmpty(TextField textfield) {
@@ -98,11 +97,10 @@ public class NewQuestionController {
     }
 
     public int getCheckedId(){
-        return options.getToggles().indexOf(options.getSelectedToggle());
+        return radioButton.getToggles().indexOf(radioButton.getSelectedToggle());
     }
-
     public List<String> getListOfAnswers(){
-        return listOfAnswers;
+        return listOfTextFields.stream().map(field->field.getText().replace('\n', ' ')).collect(Collectors.toList());
     }
 
 }

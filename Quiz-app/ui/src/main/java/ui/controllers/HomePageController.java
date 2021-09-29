@@ -36,7 +36,7 @@ public class HomePageController {
      */
     @FXML
     public void showNewQuestion() throws IOException { // Switch scene to StartQuiz
-        App.setRoot("NewQuestion.FXML");
+        App.setRoot("NewQuestion.fxml");
     }
 
     /**

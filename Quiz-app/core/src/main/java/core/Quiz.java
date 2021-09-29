@@ -30,17 +30,33 @@ public class Quiz {
     }
 
     /**
+     *
+     * @return a copy of the questions in the quiz
+     */
+    public List<Question> getQuestions(){
+        return new ArrayList<>(questions);
+    }
+
+    /**
      * submits a question by checking its correctness, updating the correct counter as well as the
      * question counter
      * @param answer the integer corresponding to the index of the answer
      * @return true if the answer is correct, else otherwise
      */
-    public boolean submitQuestion(int answer) {
+    public boolean submitAnswer(int answer) {
         boolean isCorrect = getCurrentQuestion().isCorrect(answer);
         if(isCorrect)
             correct++;
         currentQuestionNumber++;
         return isCorrect;
+    }
+
+    /**
+     * adds a question object to the quiz
+     * @param question the question to be added
+     */
+    public void addQuestion(Question question){
+        questions.add(question);
     }
 
     /**
@@ -67,4 +83,12 @@ public class Quiz {
         return questions.size();
     }
 
+    @Override
+    public String toString() {
+        return "Quiz{" +
+                "correct=" + correct +
+                ", currentQuestionNumber=" + currentQuestionNumber +
+                ", questions=" + questions +
+                '}';
+    }
 }

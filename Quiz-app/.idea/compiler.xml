@@ -11,9 +11,9 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="modules-core" target="16" />
-      <module name="modules-template" target="16" />
-      <module name="modules-ui" target="16" />
+      <module name="modules-core" target="15" />
+      <module name="modules-template" target="15" />
+      <module name="modules-ui" target="15" />
     </bytecodeTargetLevel>
   </component>
 </project>
