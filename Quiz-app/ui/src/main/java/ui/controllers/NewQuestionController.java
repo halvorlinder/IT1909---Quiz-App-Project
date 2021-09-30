@@ -75,7 +75,7 @@ public class NewQuestionController {
         if(questionText.getText().isEmpty()){
             throw new IllegalStateException("Du må skrive inn et spørsmål");
         }
-        question = new Question(questionText.getText().replace('\n',' '),getListOfAnswers(),getCheckedId());
+        question = new Question(questionText.getText().replaceAll("\n"," ").replaceAll("\\$", " "),getListOfAnswers(),getCheckedId());
         QuizStorageHandler handler = new QuizStorageHandler("quiz101");
         handler.writeQuestion(question);
         App.setRoot("HomePage.fxml");
