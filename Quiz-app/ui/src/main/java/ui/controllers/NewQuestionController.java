@@ -9,6 +9,7 @@ import io.QuizStorageHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import ui.App;
+import ui.ModalWindowUtility;
 
 public class NewQuestionController {
 
@@ -68,11 +69,12 @@ public class NewQuestionController {
 
         for (TextField textField : listOfTextFields) {
             if(textField.getText().isEmpty()){
+                ModalWindowUtility.alertUser("You have to fill out all the options before you can submit!");
                 throw new IllegalStateException("You have to fill out all the options before you can submit!");
-
             }
         }
         if(questionText.getText().isEmpty()){
+            ModalWindowUtility.alertUser("Du må skrive inn et spørsmål");
             throw new IllegalStateException("Du må skrive inn et spørsmål");
         }
         question = new Question(questionText.getText().replace('\n',' '),getListOfAnswers(),getCheckedId());
