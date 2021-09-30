@@ -67,34 +67,20 @@ public class NewQuestionController {
     public void submitQuestion() throws IOException { //Takes you back to the home page
 
         for (TextField textField : listOfTextFields) {
-            if(!checkIfTextfieldEmpty(textField)){
+            if(textField.getText().isEmpty()){
                 throw new IllegalStateException("You have to fill out all the options before you can submit!");
+
             }
         }
-        if(!checkIfTextAreaEmpty(questionText)){
+        if(questionText.getText().isEmpty()){
             throw new IllegalStateException("Du må skrive inn et spørsmål");
         }
-        question = new Question(getTextFromTA(questionText).replace('\n',' '),getListOfAnswers(),getCheckedId());
+        question = new Question(questionText.getText().replace('\n',' '),getListOfAnswers(),getCheckedId());
         QuizStorageHandler handler = new QuizStorageHandler("quiz101");
         handler.writeQuestion(question);
         App.setRoot("HomePage.fxml");
     }
 
-    private boolean checkIfTextfieldEmpty(TextField textfield) {
-        return !textfield.getText().isEmpty();
-    }
-        
-    private boolean checkIfTextAreaEmpty(TextArea question){
-        return !question.getText().isEmpty();
-        }
-
-    public String getTextFromTF(TextField textfield){
-        return textfield.getText();
-    }
-
-    public String getTextFromTA(TextArea textArea){
-        return textArea.getText();
-    }
 
     public int getCheckedId(){
         return radioButton.getToggles().indexOf(radioButton.getSelectedToggle());
