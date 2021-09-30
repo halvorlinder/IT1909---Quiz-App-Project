@@ -9,7 +9,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class QuestionTest {
+public class QuestionTest {
 
     private String question;
     private List<String> choices;
@@ -17,7 +17,7 @@ class QuestionTest {
     private Question realQ;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         question = "Hvor mange føtter har mennesker?";
         choices = List.of("1","2","3","4");
         answer = 1;
@@ -25,7 +25,7 @@ class QuestionTest {
     }
 
     @Test
-    void constructorTest(){
+    public void constructorTest(){
         setUp();
         answer = -1;
         assertConstructorThrows();
@@ -46,7 +46,7 @@ class QuestionTest {
     }
 
     @Test
-    void isCorrect() {
+    public void isCorrect() {
         setUp();
         answer = -1;
         assertChoicesThrows();
@@ -58,7 +58,7 @@ class QuestionTest {
 
 
     @Test
-    void getChoice() {
+    public void getChoice() {
         setUp();
         assertGetChoiceThrows(-1);
         assertGetChoiceThrows(5);
