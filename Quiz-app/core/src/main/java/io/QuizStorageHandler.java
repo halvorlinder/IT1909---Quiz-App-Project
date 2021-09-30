@@ -40,7 +40,7 @@ public class QuizStorageHandler {
             quiz.addQuestion(question);
             FileWriter fileWriter = new FileWriter(file);
             for(Question q:quiz.getQuestions()){
-                fileWriter.write("%s,%s,%s,%s,%s,%s\n".formatted(q.getQuestion(), q.getChoice(0), q.getChoice(1), q.getChoice(2), q.getChoice(3), q.getAnswer()));
+                fileWriter.write("%s$%s$%s$%s$%s$%s\n".formatted(q.getQuestion(), q.getChoice(0), q.getChoice(1), q.getChoice(2), q.getChoice(3), q.getAnswer()));
             }
             fileWriter.flush();
         } catch (IOException exception) {
@@ -54,7 +54,7 @@ public class QuizStorageHandler {
      * @return the Question object parsed from the string
      */
     private Question parseQuestion(String questionString){
-        String[] data = questionString.split(",");
+        String[] data = questionString.split("\\$");
         return new Question(data[0], List.of(data[1], data[2], data[3], data[4]), Integer.parseInt(data[5]));
     }
 
