@@ -15,7 +15,7 @@ public class Question {
      * @param answer an int corresponding to the index of the correct answer
      */
     public Question(String question, List<String> choices, int answer){
-        if (answer>=choices.size() || answer<0)
+        if (answer>=choices.size() || answer<0 || choices.size()!=4)
             throw new IllegalArgumentException("The answer must map to a choice");
         this.question = question;
         this.choices = new ArrayList<>(choices);
