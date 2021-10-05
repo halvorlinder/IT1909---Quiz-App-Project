@@ -1,42 +1,71 @@
-# Brukerhistorier
+# User stories
 
-Dette dokumentet inneholder alle brukerhistoriene knyttet til prosjektet. Under hver brukerhistorie står det noen konkrete ting som må implementeres.
+This document contains all user stories related to the project. Each story contains concrete features that need to be implemented.
 
-## Svare på spørsmål (us-1)
+## Answer questions (us-1)
 
-Som bruker vil jeg svare på quiz-spørsmål med flervalg, slik at jeg kan teste kunnskapen min.
+As a user, I would like to answer multiple-choice questions, to check my knowledge.
 
-Brukeren har behov for å kunne starte en ny quiz og deretter svare på alle spørsmålene i quizen.
+The user needs to be able to start a new quiz, and answer all the questions related to the quiz.
 
-### Viktig å kunne se
+### Important to see
 
-- En knapp for å starte quizen og gå til første spørsmål
-- Et vindu for hvert spørsmål der bruker kan se:
-    - Fire radio-buttons som mapper til de fire svaralternativene
-    - En knapp for å sende inn svar og gå til neste spørsmål
-    - Hvilket spørsmål brukeren er på og hvor mange som er igjen (format: 11/20)
+- A button to start the quiz, and view the first question
+- A window for each question where the user can see:
+    - Four radio buttons mapping to each of the four answers
+    - A button to submit answer and move on to the next question
+    - Progress in the quiz, which question the user is on and how many are left (format: 11/20)
 
-### Viktig å kunne gjøre
+### Important to do
 
-- Huke av på flervalgsspørsmål
-- Sende inn svar
+- Check off multiple-choice questions
+- Sumbit answers
 
-## Sende inn nye spørsmål (us-2)
+## Submit new questions (us-2)
 
-Som bruker ønsker jeg å opprette og legge til nye spørsmål i quizen, slik at jeg og vennene mine kan dele spørsmål med hverandre
+As a user, I would like to create and sumbit new questions to be added to the quiz, so that me and my friends can share questions with each other.
 
-### Viktig å kunne se
+### Important to see
 
-- En knapp for å gå til opprett spørsmål-siden
-- På denne skal man kunne se
-    - Et tekstfelt til spørsmålsteksten
-    - Fire tekstfelter for svaralternativer
-    - Fire radio buttons for å markere riktig svar
-    - En knapp for å sende inn spørsmål
+- A button that sends the user to the Create Question-page
+- Create Question-page should contain:
+    - A text field where you can write the question
+    - Four text fields for the different answers
+    - Four radio buttons to indicate the correct answer
+    - A button to submit the question
 
-### Viktig å kunne gjøre
+### Important to do
 
-- Trykke på knappen for å opprette et nytt spørsmål
-- Skrive inn spørsmålsteksten
-- Markere riktig svar
-- Trykke på knappen for å sende inn spørsmål
+- Push button that creates new empty question
+- Ability to write question text
+- Ability to mark correct answer
+- Push button to submit question
+
+## Multiple quizzes (us-3)
+
+As a user, I would like to select between different quizzes to play depending on genre.
+
+### Important to see
+
+- A dropdown menu containing all quizzes
+    - Names of quizzes
+    - Total number of questions
+- Ability to view selected quiz
+
+### Important to do
+
+- Select quiz among list of all quizzes
+
+## Username and leaderboard
+
+As a user I would like to see my score on a leaderboard after I am done taking the quiz. It should be easy to see which score was mine.
+
+### Important to see
+
+- Scoreboard with names and their respective scores
+    - Board should contain current and previous games
+
+### Important to do
+
+- Exit from scoreboard to main page (or play quiz again)
+
