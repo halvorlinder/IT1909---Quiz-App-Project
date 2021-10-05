@@ -56,7 +56,7 @@ As a user, I would like to select between different quizzes to play depending on
 
 - Select quiz among list of all quizzes
 
-## Username and leaderboard
+## Username and leaderboard (us-4)
 
 As a user I would like to see my score on a leaderboard after I am done taking the quiz. It should be easy to see which score was mine.
 
