@@ -28,10 +28,10 @@ coverage:
   image: registry.gitlab.com/haynes/jacoco2cobertura:1.0.7
   script:
     # convert report from jacoco to cobertura, using relative project path
-    - python /opt/cover2cover.py Quiz-app/ui/target/site/jacoco-aggregate/jacoco.xml Quiz-app/ui/src/main/java/ui > target/site/cobertura.xml
+    - python /opt/cover2cover.py Quiz-app/ui/target/site/jacoco-aggregate/jacoco.xml Quiz-app/ui/src/main/java/ui > Quiz-app/ui/target/site/jacoco-aggregate/cobertura.xml
   needs: ["test"]
   dependencies:
     - test
   artifacts:
     reports:
-      cobertura: target/site/cobertura.xml
+      cobertura: Quiz-app/ui/target/site/jacoco-aggregate/cobertura.xml
