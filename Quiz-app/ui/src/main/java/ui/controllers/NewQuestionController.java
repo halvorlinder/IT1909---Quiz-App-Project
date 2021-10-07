@@ -55,8 +55,8 @@ public class NewQuestionController {
     // App.setRoot needs to be completed
     // All FXML files need to be created and named accordingly
 
-    public void initialize(){
-        listOfTextFields = List.of(choice1,choice2,choice3,choice4);
+    public void initialize() {
+        listOfTextFields = List.of(choice1, choice2, choice3, choice4);
         listOfRadioButtons = List.of(radioButton1, radioButton2, radioButton3, radioButton4);
         listOfRadioButtons.forEach(radio -> radio.setOnAction(ae -> submitButton.setDisable(false)));
 
@@ -68,27 +68,28 @@ public class NewQuestionController {
     public void submitQuestion() throws IOException { //Takes you back to the home page
 
         for (TextField textField : listOfTextFields) {
-            if(textField.getText().isEmpty()){
+            if (textField.getText().isEmpty()) {
                 ModalWindowUtility.alertUser("You have to fill out all the options before you can submit!");
                 throw new IllegalStateException("You have to fill out all the options before you can submit!");
             }
         }
-        if(questionText.getText().isEmpty()){
+        if (questionText.getText().isEmpty()) {
             ModalWindowUtility.alertUser("Du må skrive inn et spørsmål");
             throw new IllegalStateException("Du må skrive inn et spørsmål");
         }
-        question = new Question(questionText.getText().replaceAll("\n"," ").replaceAll("\\$", " "),getListOfAnswers(),getCheckedId());
+        question = new Question(questionText.getText().replaceAll("\n", " ").replaceAll("\\$", " "), getListOfAnswers(), getCheckedId());
         QuizStorageHandler handler = new QuizStorageHandler("quiz101");
         handler.writeQuestion(question);
         App.setRoot("HomePage.fxml");
     }
 
 
-    public int getCheckedId(){
+    public int getCheckedId() {
         return radioButton.getToggles().indexOf(radioButton.getSelectedToggle());
     }
-    public List<String> getListOfAnswers(){
-        return listOfTextFields.stream().map(field->field.getText().replace('\n', ' ')).collect(Collectors.toList());
+
+    public List<String> getListOfAnswers() {
+        return listOfTextFields.stream().map(field -> field.getText().replace('\n', ' ')).collect(Collectors.toList());
     }
 
 }

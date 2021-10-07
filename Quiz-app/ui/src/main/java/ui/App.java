@@ -24,7 +24,6 @@ public class App extends Application {
     }
 
     /**
-     *
      * @param FXMLFile a string that corresponds to the name of the fxml file
      * @return an FXMLLoader with the given file
      * @throws IOException
@@ -35,6 +34,7 @@ public class App extends Application {
 
     /**
      * Sets the root
+     *
      * @param FXMLFile the name of the fxml file containing the new root
      * @throws IOException
      */
@@ -45,6 +45,7 @@ public class App extends Application {
 
     /**
      * Sets the root
+     *
      * @param loader an FXMLLoader containing the new root
      * @throws IOException
      */

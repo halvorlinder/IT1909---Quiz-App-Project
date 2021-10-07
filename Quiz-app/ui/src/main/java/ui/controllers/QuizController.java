@@ -38,6 +38,7 @@ public class QuizController {
 
     /**
      * Initializes a new quiz
+     *
      * @throws IOException
      */
     public void initialize() throws IOException {
@@ -46,23 +47,24 @@ public class QuizController {
         displayQuestion();
     }
 
-    public QuizController(Quiz quiz){
+    public QuizController(Quiz quiz) {
         this.quiz = quiz;
     }
 
     /**
      * Displays the current question to the GUI
+     *
      * @throws IOException
      */
     @FXML
     public void displayQuestion() throws IOException {
         Question q = quiz.getCurrentQuestion();
         submitAnswer.setDisable(true);
-        if (q==null)
+        if (q == null)
             endQuiz();
-        else{
+        else {
             questionLabel.setText(q.getQuestion());
-            for(int i = 0; i<radios.size(); i++){
+            for (int i = 0; i < radios.size(); i++) {
                 radios.get(i).setText(q.getChoice(i));
             }
         }
@@ -70,6 +72,7 @@ public class QuizController {
 
     /**
      * Submits the selected answer and progresses to the next question
+     *
      * @throws IOException
      */
     @FXML
@@ -81,6 +84,7 @@ public class QuizController {
 
     /**
      * Ends the quiz by going to the result page
+     *
      * @throws IOException
      */
     private void endQuiz() throws IOException {
@@ -89,8 +93,6 @@ public class QuizController {
         loader.setController(controller);
         App.setRoot(loader);
     }
-
-
 
 
 }

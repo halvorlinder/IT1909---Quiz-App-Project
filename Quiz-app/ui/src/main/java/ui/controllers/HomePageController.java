@@ -11,7 +11,7 @@ import javafx.scene.control.Button;
 import ui.App;
 
 public class HomePageController {
-    
+
     @FXML
     private Button startQuizButton;
 
@@ -26,13 +26,14 @@ public class HomePageController {
 
     /**
      * Sets the current root to be the question page
+     *
      * @throws IOException
      */
     @FXML
     public void showStartQuiz() throws IOException { // Switch scene to StartQuiz
         QuizStorageHandler quizStorageHandler = new QuizStorageHandler("quiz101");
         Quiz quiz = quizStorageHandler.getQuiz();
-        if(quiz.getQuizLength()==0)
+        if (quiz.getQuizLength() == 0)
             return;
         FXMLLoader loader = App.getFXMLLoader("QuestionPage.fxml");
         QuizController controller = new QuizController(quiz);
@@ -42,6 +43,7 @@ public class HomePageController {
 
     /**
      * Sets the current root to be the new question page
+     *
      * @throws IOException
      */
     @FXML
@@ -51,13 +53,13 @@ public class HomePageController {
 
     /**
      * Sets the current root to be the leaderboard page
+     *
      * @throws IOException
      */
     @FXML
     public void showLeaderboard() throws IOException { // Switch scene to StartQuiz
         App.setRoot("Leaderboard.FXML");
     }
-
 
 
 }
