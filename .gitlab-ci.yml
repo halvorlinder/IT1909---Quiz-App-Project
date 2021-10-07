@@ -17,7 +17,7 @@ test:
     - mvn verify
   artifacts:
     paths:
-      - Quiz-app/ui/target/site/jacoco-aggregate/
+      - Quiz-app/core/target/site/jacoco/jacoco.xml
 
 
 coverage:
@@ -28,10 +28,12 @@ coverage:
   image: registry.gitlab.com/haynes/jacoco2cobertura:1.0.7
   script:
     # convert report from jacoco to cobertura, using relative project path
-    - python /opt/cover2cover.py Quiz-app/ui/target/site/jacoco-aggregate/jacoco.xml Quiz-app/ui/src/main/java/ui > Quiz-app/ui/target/site/jacoco-aggregate/cobertura.xml
+    - python /opt/cover2cover.py
+      Quiz-app/core/target/site/jacoco/jacoco.xml
+      > Quiz-app/core/target/site/jacoco/cobertura.xml
   needs: ["test"]
   dependencies:
     - test
   artifacts:
     reports:
-      cobertura: Quiz-app/ui/target/site/jacoco-aggregate/cobertura.xml
+      cobertura: Quiz-app/core/target/site/jacoco/cobertura.xml
