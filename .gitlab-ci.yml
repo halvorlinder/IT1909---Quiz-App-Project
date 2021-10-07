@@ -1,0 +1,15 @@
+stages:
+  - build
+  - test
+
+build:
+  stage: build
+  script:
+    - cd Quiz-app
+    - mvn install
+
+test:
+  stage: test
+  script:
+    - cd Quiz-app
+    - mvn verify
