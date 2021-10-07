@@ -64,6 +64,7 @@ public final class NewQuestionController {
         listOfRadioButtons.forEach(radio -> radio.setOnAction(ae -> submitButton.setDisable(false)));
 
         submitButton.setDisable(true);
+
     }
 
     /**
