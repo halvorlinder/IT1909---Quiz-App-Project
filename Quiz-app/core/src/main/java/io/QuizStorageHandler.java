@@ -16,19 +16,18 @@ import java.util.Scanner;
  */
 public class QuizStorageHandler {
     private final File file;
-    private boolean exists = true;
 
     /**
-     *
      * @param quizName the name of the quiz file to be handled
      * @throws IOException
      */
     public QuizStorageHandler(String quizName) throws IOException {
         file = new File(System.getProperty("user.home") + "/QuizApp/" + quizName + ".txt");
         if (!file.exists()) {
-            file.getParentFile().mkdirs();
-            file.createNewFile();
-            exists = false;
+            boolean createFolders = file.getParentFile().mkdirs();
+            boolean createFile = file.createNewFile();
+            if (createFile && createFolders)
+                System.out.println("Created a new file named " + quizName);
         }
     }
 
@@ -37,13 +36,11 @@ public class QuizStorageHandler {
      *
      * @param question the question to be written
      */
-    public void writeQuestion(Question question) {
-        Quiz quiz;
-        try {
-            quiz = getQuiz();
+    public void writeQuestion(Question question) throws IOException {
+        Quiz quiz = getQuiz();
+        try (FileWriter fileWriter = new FileWriter(file)) {
             System.out.println(Arrays.toString(question.getChoices()));
             quiz.addQuestion(question);
-            FileWriter fileWriter = new FileWriter(file);
             for (Question q : quiz.getQuestions()) {
                 fileWriter.write("%s$%s$%s$%s$%s$%s\n".formatted(q.getQuestion(),
                         q.getChoice(0),
