@@ -2,6 +2,7 @@ image: maven:latest
 stages:
   - build
   - test
+  - visualize
 
 build:
   stage: build
@@ -14,3 +15,23 @@ test:
   script:
     - cd Quiz-app
     - mvn verify
+  artifacts:
+    paths:
+      - Quiz-app/ui/target/site/jacoco-aggregate/jacoco.xml
+
+
+coverage:
+  # Must be in a stage later than test-jdk11's stage.
+  # The `visualize` stage does not exist by default.
+  # Please define it first, or choose an existing stage like `deploy`.
+  stage: visualize
+  image: registry.gitlab.com/haynes/jacoco2cobertura:1.0.7
+  script:
+    # convert report from jacoco to cobertura, using relative project path
+    - python /opt/cover2cover.py Quiz-app/ui/target/site/jacoco-aggregate/jacoco.xml Quiz-app/ui/src/main/java/ui > target/site/cobertura.xml
+  needs: ["test"]
+  dependencies:
+    - test
+  artifacts:
+    reports:
+      cobertura: target/site/cobertura.xml
