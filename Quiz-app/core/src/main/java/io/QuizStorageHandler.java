@@ -36,7 +36,8 @@ public class QuizStorageHandler {
         Quiz quiz;
         try{
             quiz = getQuiz();
-            System.out.println(Arrays.toString(question.getChoices()));
+            String listString = String.join(", ", question.getChoices());
+            System.out.println(listString);
             quiz.addQuestion(question);
             FileWriter fileWriter = new FileWriter(file);
             for(Question q:quiz.getQuestions()){
