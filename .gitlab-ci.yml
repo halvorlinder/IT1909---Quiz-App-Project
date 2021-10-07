@@ -17,7 +17,7 @@ test:
     - mvn verify
   artifacts:
     paths:
-      - Quiz-app/ui/target/site/jacoco-aggregate/jacoco.xml
+      - Quiz-app/ui/target/site/jacoco-aggregate/
 
 
 coverage:
