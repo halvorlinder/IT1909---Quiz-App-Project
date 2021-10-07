@@ -1,14 +1,13 @@
 package ui.controllers;
 
-import java.io.IOException;
-
 import core.Quiz;
 import io.QuizStorageHandler;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import ui.App;
+
+import java.io.IOException;
 
 public class HomePageController {
 

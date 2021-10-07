@@ -1,6 +1,7 @@
 package ui.controllers;
 
-import io.QuizStorageHandler;
+import core.Question;
+import core.Quiz;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -8,11 +9,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import ui.App;
-import core.Question;
-import core.Quiz;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -47,6 +45,10 @@ public class QuizController {
         displayQuestion();
     }
 
+    /**
+     *
+     * @param quiz the quiz presented to the user
+     */
     public QuizController(Quiz quiz) {
         this.quiz = quiz;
     }

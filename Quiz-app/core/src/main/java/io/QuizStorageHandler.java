@@ -4,7 +4,6 @@ import core.Question;
 import core.Quiz;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,6 +18,11 @@ public class QuizStorageHandler {
     private final File file;
     private boolean exists = true;
 
+    /**
+     *
+     * @param quizName the name of the quiz file to be handled
+     * @throws IOException
+     */
     public QuizStorageHandler(String quizName) throws IOException {
         file = new File(System.getProperty("user.home") + "/QuizApp/" + quizName + ".txt");
         if (!file.exists()) {
@@ -41,7 +45,12 @@ public class QuizStorageHandler {
             quiz.addQuestion(question);
             FileWriter fileWriter = new FileWriter(file);
             for (Question q : quiz.getQuestions()) {
-                fileWriter.write("%s$%s$%s$%s$%s$%s\n".formatted(q.getQuestion(), q.getChoice(0), q.getChoice(1), q.getChoice(2), q.getChoice(3), q.getAnswer()));
+                fileWriter.write("%s$%s$%s$%s$%s$%s\n".formatted(q.getQuestion(),
+                        q.getChoice(0),
+                        q.getChoice(1),
+                        q.getChoice(2),
+                        q.getChoice(3),
+                        q.getAnswer()));
             }
             fileWriter.flush();
         } catch (IOException exception) {

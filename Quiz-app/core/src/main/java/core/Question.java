@@ -3,10 +3,11 @@ package core;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Question {
+public final class Question {
     private String question;
     private List<String> choices;
     private int answer;
+    private static final int NUMBER_OF_CHOICES = 4;
 
     /**
      * @param question a string representing the question text
@@ -14,7 +15,7 @@ public class Question {
      * @param answer   an int corresponding to the index of the correct answer
      */
     public Question(String question, List<String> choices, int answer) {
-        if (answer >= choices.size() || answer < 0 || choices.size() != 4)
+        if (answer >= choices.size() || answer < 0 || choices.size() != NUMBER_OF_CHOICES)
             throw new IllegalArgumentException("The answer must map to a choice");
         this.question = question;
         this.choices = new ArrayList<>(choices);
