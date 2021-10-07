@@ -82,8 +82,6 @@ public class QuestionTest {
     @Test
     public void testToString(){
         String test = realQ.toString();
-        System.out.println(test);
-        System.out.println("question=" + realQ.getQuestion() + "\'");
         Assertions.assertTrue(test.contains("question='" + realQ.getQuestion() + "\'"));
         Assertions.assertTrue(test.contains("choices=" + realQ.getChoices()));
         Assertions.assertTrue(test.contains("answer=" + realQ.getAnswer()));

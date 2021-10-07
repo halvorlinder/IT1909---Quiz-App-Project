@@ -54,7 +54,7 @@ public class Question {
 
     /**
      *
-     * @return an array of the choices
+     * @return a List of the choices
      */
     public List<String> getChoices(){
         List<String> copy = new ArrayList<>(choices);
