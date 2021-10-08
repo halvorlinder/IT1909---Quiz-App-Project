@@ -1,12 +1,7 @@
 <!-- PROJECT LOGO -->
-<br />
-<p align="center">
-
-<h3 align="center">Quiz App</h3>
-
 [![coverage report](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/badges/main/coverage.svg)](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/commits/main)
 [![pipeline status](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/badges/main/pipeline.svg)](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/commits/main)
-
+<h1 align="center">Quiz App</h3>
 
 <!-- TABLE OF CONTENTS -->
 <details open="open">
