@@ -15,7 +15,7 @@ public final class NewQuestionController {
 
 
     @FXML
-    private TextArea questionText;
+    private TextField questionText;
 
     @FXML
     private TextField choice1;
