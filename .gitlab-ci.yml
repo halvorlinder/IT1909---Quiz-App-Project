@@ -20,8 +20,8 @@ test:
     when: always
     paths:
       - Quiz-app/core/target/site/jacoco/jacoco.xml
-    reports:
-      junit: Quiz-app/core/target/test/**/Test-*.xml
+#    reports:
+#      junit: Quiz-app/core/target/test/**/Test-*.xml
 
 
 coverage:
