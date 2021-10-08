@@ -78,7 +78,7 @@ public class QuizStorageHandler {
             while (scanner.hasNextLine()) {
                 questions.add(parseQuestion(scanner.nextLine()));
             }
-            return new Quiz(questions);
+            return new Quiz("quiz101", questions);
         }
     }
 }
