@@ -19,7 +19,7 @@ test:
   artifacts:
     when: always
     paths:
-      - Quiz-app/core/target/site/jacoco/jacoco.xml
+      - Quiz-app/core/target/site/jacoco/core/index.xml
 #    reports:
 #      junit: Quiz-app/core/target/test/**/Test-*.xml
 
