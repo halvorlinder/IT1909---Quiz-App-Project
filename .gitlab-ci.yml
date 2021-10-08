@@ -15,9 +15,13 @@ test:
   script:
     - cd Quiz-app
     - mvn verify
+    - cat Quiz-app/core/target/site/jacoco/jacoco.html | grep -o '<tfoot>.*</tfoot>'
   artifacts:
+    when: always
     paths:
       - Quiz-app/core/target/site/jacoco/jacoco.xml
+    reports:
+      junit: Quiz-app/core/target/test/**/Test-*.xml
 
 
 coverage:
