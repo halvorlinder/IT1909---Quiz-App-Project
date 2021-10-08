@@ -3,19 +3,19 @@ package core;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Question {
+public final class Question {
     private String question;
     private List<String> choices;
     private int answer;
+    private static final int NUMBER_OF_CHOICES = 4;
 
     /**
-     *
      * @param question a string representing the question text
-     * @param choices a list a strings representing the choices for the question
-     * @param answer an int corresponding to the index of the correct answer
+     * @param choices  a list a strings representing the choices for the question
+     * @param answer   an int corresponding to the index of the correct answer
      */
-    public Question(String question, List<String> choices, int answer){
-        if (answer>=choices.size() || answer<0 || choices.size()!=4)
+    public Question(String question, List<String> choices, int answer) {
+        if (answer >= choices.size() || answer < 0 || choices.size() != NUMBER_OF_CHOICES)
             throw new IllegalArgumentException("The answer must map to a choice");
         this.question = question;
         this.choices = new ArrayList<>(choices);
@@ -23,18 +23,16 @@ public class Question {
     }
 
     /**
-     *
      * @param answer the index of the answer to be checked for correctness
      * @return true if the answer is correct, false otherwise
      */
-    public boolean isCorrect(int answer){
-        if (answer<0 || answer>=choices.size())
+    public boolean isCorrect(int answer) {
+        if (answer < 0 || answer >= choices.size())
             throw new IllegalArgumentException("The choice does not exist");
-        return answer==this.answer;
+        return answer == this.answer;
     }
 
     /**
-     *
      * @return the string representing the question text
      */
     public String getQuestion() {
@@ -42,12 +40,11 @@ public class Question {
     }
 
     /**
-     *
      * @param n the index of the choice
      * @return the string corresponding to the choice with index n
      */
     public String getChoice(int n) {
-        if (n<0 || n>=choices.size())
+        if (n < 0 || n >= choices.size())
             throw new IllegalArgumentException("The choice does not exist");
         return choices.get(n);
     }
@@ -56,13 +53,12 @@ public class Question {
      *
      * @return a List of the choices
      */
-    public List<String> getChoices(){
+    public List<String> getChoices() {
         List<String> copy = new ArrayList<>(choices);
         return copy;
     }
 
     /**
-     *
      * @return the index of the correct answer
      */
     public int getAnswer() {
