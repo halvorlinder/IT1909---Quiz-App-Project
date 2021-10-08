@@ -4,8 +4,10 @@ import core.Question;
 import core.Quiz;
 
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -38,7 +40,10 @@ public class QuizStorageHandler {
      */
     public void writeQuestion(Question question) throws IOException {
         Quiz quiz = getQuiz();
-        try (FileWriter fileWriter = new FileWriter(file)) {
+        try (FileOutputStream fileStream = new FileOutputStream(file);
+             OutputStreamWriter fileWriter = new OutputStreamWriter(fileStream, StandardCharsets.UTF_8)
+        ) {
+
             System.out.println(Arrays.toString(question.getChoices()));
             quiz.addQuestion(question);
             for (Question q : quiz.getQuestions()) {
@@ -71,7 +76,7 @@ public class QuizStorageHandler {
      * @throws IOException
      */
     public Quiz getQuiz() throws IOException {
-        try (Scanner scanner = new Scanner(file)) {
+        try (Scanner scanner = new Scanner(file, StandardCharsets.UTF_8)) {
             List<Question> questions = new ArrayList<>();
             while (scanner.hasNextLine()) {
                 questions.add(parseQuestion(scanner.nextLine()));
