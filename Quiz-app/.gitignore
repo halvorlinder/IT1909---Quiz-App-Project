@@ -11,3 +11,4 @@ org.eclipse.*.prefs
 ui/modules-ui.iml
 core/modules-core.iml
 modules-template.iml
+/img.png
