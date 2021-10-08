@@ -110,7 +110,7 @@
                 <configuration>
                     <xmlOutput>false</xmlOutput>
 <!--                    <htmlOutput>true</htmlOutput>-->
-<!--                    <excludeFilterFile>config/spotbugs/exclude.xml</excludeFilterFile>-->
+                    <excludeFilterFile>excludeFilterFile.xml</excludeFilterFile>
                 </configuration>
                 <executions>
                     <execution>
