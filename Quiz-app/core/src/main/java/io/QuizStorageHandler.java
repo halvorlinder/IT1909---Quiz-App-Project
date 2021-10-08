@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -43,8 +42,6 @@ public class QuizStorageHandler {
         try (FileOutputStream fileStream = new FileOutputStream(file);
              OutputStreamWriter fileWriter = new OutputStreamWriter(fileStream, StandardCharsets.UTF_8)
         ) {
-
-            System.out.println(Arrays.toString(question.getChoices()));
             quiz.addQuestion(question);
             for (Question q : quiz.getQuestions()) {
                 fileWriter.write("%s$%s$%s$%s$%s$%s\n".formatted(q.getQuestion(),
