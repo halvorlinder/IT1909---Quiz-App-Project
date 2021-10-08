@@ -8,14 +8,17 @@ import java.util.List;
  */
 public final class Quiz {
 
+    private final String name;
     private int correct;
     private int currentQuestionNumber;
     private final List<Question> questions;
 
     /**
+     * @param name
      * @param questions a list of question objects
      */
-    public Quiz(List<Question> questions) {
+    public Quiz(String name, List<Question> questions) {
+        this.name = name;
         this.questions = new ArrayList<>(questions);
     }
 
@@ -87,5 +90,9 @@ public final class Quiz {
                 ", currentQuestionNumber=" + currentQuestionNumber +
                 ", questions=" + questions +
                 '}';
+    }
+
+    public String getName() {
+        return name;
     }
 }
