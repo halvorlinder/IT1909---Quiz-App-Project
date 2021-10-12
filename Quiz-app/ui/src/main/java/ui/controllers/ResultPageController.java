@@ -1,8 +1,11 @@
 package ui.controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import ui.App;
+import ui.Utilities;
 
 import java.io.IOException;
 
@@ -36,7 +39,7 @@ public class ResultPageController {
      *
      * @throws IOException
      */
-    public void returnToHomePage() throws IOException {
-        App.setRoot("HomePage.fxml");
+    public void returnToHomePage(ActionEvent ae) throws IOException {
+        ((Node)ae.getSource()).getScene().setRoot(Utilities.getFXMLLoader("HomePage.fxml").load());;
     }
 }

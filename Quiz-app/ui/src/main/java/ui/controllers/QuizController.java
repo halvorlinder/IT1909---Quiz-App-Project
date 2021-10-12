@@ -2,6 +2,7 @@ package ui.controllers;
 
 import core.Question;
 import core.Quiz;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -9,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import ui.App;
+import ui.Utilities;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -93,7 +95,7 @@ public class QuizController {
         FXMLLoader loader = App.getFXMLLoader("ResultPage.fxml");
         ResultPageController controller = new ResultPageController(quiz.getCorrect(), quiz.getQuizLength());
         loader.setController(controller);
-        App.setRoot(loader);
+        submitAnswer.getScene().setRoot(Utilities.getFXMLLoader("HomePage.fxml").load());
     }
 
 

@@ -2,10 +2,12 @@ package ui.controllers;
 
 import core.Quiz;
 import io.QuizStorageHandler;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import ui.App;
+import ui.Utilities;
 
 import java.io.IOException;
 
@@ -37,7 +39,7 @@ public class HomePageController {
         FXMLLoader loader = App.getFXMLLoader("QuestionPage.fxml");
         QuizController controller = new QuizController(quiz);
         loader.setController(controller);
-        App.setRoot(loader);
+        newQuestionButton.getScene().setRoot(loader.load());
     }
 
     /**
@@ -46,8 +48,9 @@ public class HomePageController {
      * @throws IOException
      */
     @FXML
-    public void showNewQuestion() throws IOException { // Switch scene to StartQuiz
-        App.setRoot("NewQuestion.fxml");
+    public void showNewQuestion(ActionEvent actionEvent) throws IOException { // Switch scene to StartQuiz
+
+        newQuestionButton.getScene().setRoot(Utilities.getFXMLLoader("NewQuestion.fxml").load());
     }
 
     /**
@@ -57,7 +60,7 @@ public class HomePageController {
      */
     @FXML
     public void showLeaderboard() throws IOException { // Switch scene to StartQuiz
-        App.setRoot("Leaderboard.FXML");
+        //newQuestionButton.getScene().setRoot(Utilities.getFXMLLoader(".fxml").load());
     }
 
 
