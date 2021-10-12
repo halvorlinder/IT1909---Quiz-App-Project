@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class Question {
-    private String question;
-    private List<String> choices;
-    private int answer;
+    private final String question;
+    private final List<String> choices;
+    private final int answer;
     private static final int NUMBER_OF_CHOICES = 4;
 
     /**
@@ -20,6 +20,13 @@ public final class Question {
         this.question = question;
         this.choices = new ArrayList<>(choices);
         this.answer = answer;
+    }
+
+    /**
+     *
+     */
+    public Question() {
+        this("", List.of("", "", "", ""), 0);
     }
 
     /**
@@ -50,7 +57,6 @@ public final class Question {
     }
 
     /**
-     *
      * @return a List of the choices
      */
     public List<String> getChoices() {
