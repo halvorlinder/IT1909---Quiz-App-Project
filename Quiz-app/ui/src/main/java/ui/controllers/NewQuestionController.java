@@ -1,7 +1,8 @@
 package ui.controllers;
 
 import core.Question;
-import io.QuizStorageHandler;
+import core.Quiz;
+import io.QuizPersistence;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import ui.App;
@@ -68,6 +69,7 @@ public final class NewQuestionController {
 
     /**
      * submits a question from the UI
+     *
      * @throws IOException
      */
     @FXML
@@ -88,13 +90,14 @@ public final class NewQuestionController {
         question = new Question(questionText.getText()
                 .replaceAll("\n", " ")
                 .replaceAll("\\$", " "), getListOfAnswers(), getCheckedId());
-        QuizStorageHandler handler = new QuizStorageHandler("quiz101");
-        handler.writeQuestion(question);
+        QuizPersistence quizPersistence = new QuizPersistence();
+        Quiz quiz = quizPersistence.loadQuiz("quiz101");
+        quiz.addQuestion(question);
+        quizPersistence.saveQuiz(quiz);
         App.setRoot("HomePage.fxml");
     }
 
     /**
-     *
      * @return id of the checked button
      */
     public int getCheckedId() {
@@ -102,7 +105,6 @@ public final class NewQuestionController {
     }
 
     /**
-     *
      * @return list of choices provided by the user
      */
     public List<String> getListOfAnswers() {
