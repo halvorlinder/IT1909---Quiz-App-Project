@@ -46,7 +46,6 @@ public class QuizController {
     }
 
     /**
-     *
      * @param quiz the quiz presented to the user
      */
     public QuizController(Quiz quiz) {

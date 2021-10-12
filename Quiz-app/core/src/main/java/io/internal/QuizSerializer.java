@@ -18,7 +18,7 @@ class QuizSerializer extends JsonSerializer<Quiz> {
     public void serialize(Quiz quiz, JsonGenerator jsonGen, SerializerProvider serializerProvider)
             throws IOException {
         jsonGen.writeStartObject();
-        jsonGen.writeStringField("quizName", quiz.getName());
+        jsonGen.writeStringField("name", quiz.getName());
         jsonGen.writeArrayFieldStart("questions");
         for (Question question : quiz.getQuestions()) {
             jsonGen.writeObject(question);

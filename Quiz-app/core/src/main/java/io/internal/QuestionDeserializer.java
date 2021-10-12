@@ -21,8 +21,8 @@ public final class QuestionDeserializer extends JsonDeserializer<Question> {
 
     Question deserialize(JsonNode jsonNode) {
         if (jsonNode instanceof ObjectNode objectNode) {
-            JsonNode questionTextNode = objectNode.get("questionText");
-            JsonNode correctAnswerNode = objectNode.get("correctAnswer");
+            JsonNode questionTextNode = objectNode.get("question");
+            JsonNode correctAnswerNode = objectNode.get("answer");
             String questionText = questionTextNode.asText();
             int correctAnswer = correctAnswerNode.asInt();
             List<String> choiceList = new ArrayList<>();
