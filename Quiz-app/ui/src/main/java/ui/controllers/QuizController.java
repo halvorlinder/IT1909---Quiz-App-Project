@@ -2,7 +2,6 @@ package ui.controllers;
 
 import core.Question;
 import core.Quiz;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;

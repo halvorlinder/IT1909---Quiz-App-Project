@@ -46,6 +46,7 @@ public class HomePageController {
      * Sets the current root to be the new question page
      *
      * @throws IOException
+     * @param actionEvent
      */
     @FXML
     public void showNewQuestion(ActionEvent actionEvent) throws IOException { // Switch scene to StartQuiz

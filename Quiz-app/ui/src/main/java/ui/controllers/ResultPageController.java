@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import ui.App;
 import ui.Utilities;
 
 import java.io.IOException;
@@ -37,9 +36,10 @@ public class ResultPageController {
     /**
      * Sets the current root to be the homepage
      *
+     * @param ae
      * @throws IOException
      */
     public void returnToHomePage(ActionEvent ae) throws IOException {
-        ((Node)ae.getSource()).getScene().setRoot(Utilities.getFXMLLoader("HomePage.fxml").load());;
+        ((Node) ae.getSource()).getScene().setRoot(Utilities.getFXMLLoader("HomePage.fxml").load());
     }
 }

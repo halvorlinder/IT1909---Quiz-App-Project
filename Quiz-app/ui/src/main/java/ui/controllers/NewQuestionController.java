@@ -69,6 +69,8 @@ public final class NewQuestionController {
 
     /**
      * submits a question from the UI
+     *
+     * @param ae
      * @throws IOException
      */
     @FXML
@@ -91,12 +93,11 @@ public final class NewQuestionController {
                 .replaceAll("\\$", " "), getListOfAnswers(), getCheckedId());
         QuizStorageHandler handler = new QuizStorageHandler("quiz101");
         handler.writeQuestion(question);
-        ((Node)ae.getSource()).getScene().setRoot(Utilities.getFXMLLoader("HomePage.fxml").load());
+        ((Node) ae.getSource()).getScene().setRoot(Utilities.getFXMLLoader("HomePage.fxml").load());
 
     }
 
     /**
-     *
      * @return id of the checked button
      */
     public int getCheckedId() {
@@ -104,7 +105,6 @@ public final class NewQuestionController {
     }
 
     /**
-     *
      * @return list of choices provided by the user
      */
     public List<String> getListOfAnswers() {

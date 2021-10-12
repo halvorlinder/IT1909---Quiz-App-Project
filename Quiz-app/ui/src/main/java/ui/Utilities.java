@@ -8,6 +8,7 @@ public abstract class Utilities {
 
     /**
      * displays a modal error window to the user
+     *
      * @param errorMessage the message to be displayed
      */
     public static void alertUser(String errorMessage) {
@@ -16,7 +17,11 @@ public abstract class Utilities {
         alert.showAndWait();
     }
 
-    public static FXMLLoader getFXMLLoader(String fxmlString){
+    /**
+     * @param fxmlString name of fxml file
+     * @return returns the FXMl loader from a fxml file
+     */
+    public static FXMLLoader getFXMLLoader(String fxmlString) {
         return new FXMLLoader(App.class.getResource(fxmlString));
     }
 
