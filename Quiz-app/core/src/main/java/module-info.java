@@ -4,4 +4,5 @@ module quiz.core {
     exports core;
     exports io;
     exports io.internal;
+    opens core to com.fasterxml.jackson.databind;
 }
