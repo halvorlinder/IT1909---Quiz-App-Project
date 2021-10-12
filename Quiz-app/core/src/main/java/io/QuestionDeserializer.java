@@ -1,7 +1,6 @@
 package io;
 
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -13,9 +12,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuestionDeserializer extends JsonDeserializer<Question> {
+public final class QuestionDeserializer extends JsonDeserializer<Question> {
     @Override
-    public Question deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+    public Question deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
+            throws IOException {
         return deserialize(jsonParser.getCodec().readTree(jsonParser));
     }
 
