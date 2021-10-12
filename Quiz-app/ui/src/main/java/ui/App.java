@@ -1,7 +1,6 @@
 package ui;
 
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -31,30 +30,8 @@ public final class App extends Application {
         return new FXMLLoader(App.class.getResource(fxmlFile));
     }
 
-    /**
-     * Sets the root
-     *
-     * @param fxmlFile the name of the fxml file containing the new root
-     * @throws IOException
-     */
-    @FXML
-    public static void setRoot(String fxmlFile) throws IOException { // Switches view to desired FXML file
-        scene.setRoot(new FXMLLoader((App.class.getResource(fxmlFile))).load());
-    }
 
     /**
-     * Sets the root
-     *
-     * @param loader an FXMLLoader containing the new root
-     * @throws IOException
-     */
-    @FXML
-    public static void setRoot(FXMLLoader loader) throws IOException { // Switches view to desired FXML file
-        scene.setRoot(loader.load());
-    }
-
-    /**
-     *
      * @param args args
      */
     public static void main(String[] args) {

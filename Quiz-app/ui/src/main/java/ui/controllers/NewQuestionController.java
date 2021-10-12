@@ -2,10 +2,11 @@ package ui.controllers;
 
 import core.Question;
 import io.QuizStorageHandler;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
-import ui.App;
-import ui.ModalWindowUtility;
+import ui.Utilities;
 
 import java.io.IOException;
 import java.util.List;
@@ -68,21 +69,23 @@ public final class NewQuestionController {
 
     /**
      * submits a question from the UI
+     *
+     * @param ae
      * @throws IOException
      */
     @FXML
-    public void submitQuestion() throws IOException { //Takes you back to the home page
+    public void submitQuestion(ActionEvent ae) throws IOException { //Takes you back to the home page
 
         for (TextField textField : listOfTextFields) {
             if (textField.getText().isEmpty()) {
-                ModalWindowUtility.alertUser(
+                Utilities.alertUser(
                         "You have to fill out all the options before you can submit!");
                 throw new IllegalStateException(
                         "You have to fill out all the options before you can submit!");
             }
         }
         if (questionText.getText().isEmpty()) {
-            ModalWindowUtility.alertUser("Du må skrive inn et spørsmål");
+            Utilities.alertUser("Du må skrive inn et spørsmål");
             throw new IllegalStateException("Du må skrive inn et spørsmål");
         }
         question = new Question(questionText.getText()
@@ -90,11 +93,11 @@ public final class NewQuestionController {
                 .replaceAll("\\$", " "), getListOfAnswers(), getCheckedId());
         QuizStorageHandler handler = new QuizStorageHandler("quiz101");
         handler.writeQuestion(question);
-        App.setRoot("HomePage.fxml");
+        ((Node) ae.getSource()).getScene().setRoot(Utilities.getFXMLLoader("HomePage.fxml").load());
+
     }
 
     /**
-     *
      * @return id of the checked button
      */
     public int getCheckedId() {
@@ -102,7 +105,6 @@ public final class NewQuestionController {
     }
 
     /**
-     *
      * @return list of choices provided by the user
      */
     public List<String> getListOfAnswers() {
