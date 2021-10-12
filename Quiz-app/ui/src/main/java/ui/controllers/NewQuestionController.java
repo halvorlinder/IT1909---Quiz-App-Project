@@ -50,7 +50,6 @@ public final class NewQuestionController {
     private Question question;
     private List<TextField> listOfTextFields;
     private List<RadioButton> listOfRadioButtons;
-    private List<String> listOfAnswers;
 
     // App.setRoot needs to be completed
     // All FXML files need to be created and named accordingly

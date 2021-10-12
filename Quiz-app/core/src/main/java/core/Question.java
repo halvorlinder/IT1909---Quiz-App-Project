@@ -50,10 +50,12 @@ public final class Question {
     }
 
     /**
-     * @return an array of the choices
+     *
+     * @return a List of the choices
      */
-    public String[] getChoices() {
-        return choices.toArray(new String[0]);
+    public List<String> getChoices() {
+        List<String> copy = new ArrayList<>(choices);
+        return copy;
     }
 
     /**

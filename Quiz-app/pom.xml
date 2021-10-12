@@ -103,14 +103,14 @@
                 </executions>
             </plugin>
             <!-- Run the spotbugs code quality tool -->
-           <!-- <plugin>
+           <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
                 <version>4.4.1</version>
                 <configuration>
                     <xmlOutput>false</xmlOutput>
-                    <htmlOutput>true</htmlOutput>
-                    <excludeFilterFile>config/spotbugs/exclude.xml</excludeFilterFile>
+<!--                    <htmlOutput>true</htmlOutput>-->
+                    <excludeFilterFile>excludeFilterFile.xml</excludeFilterFile>
                 </configuration>
                 <executions>
                     <execution>
@@ -121,7 +121,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>-->
+            </plugin>
             <!-- Configure jacoco code coverage -->
             <plugin>
                 <groupId>org.jacoco</groupId>
