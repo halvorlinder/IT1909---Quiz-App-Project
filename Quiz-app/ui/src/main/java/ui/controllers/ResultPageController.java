@@ -36,10 +36,10 @@ public class ResultPageController {
     /**
      * Sets the current root to be the homepage
      *
-     * @param ae
+     * @param actionEvent
      * @throws IOException
      */
-    public void returnToHomePage(ActionEvent ae) throws IOException {
-        ((Node) ae.getSource()).getScene().setRoot(Utilities.getFXMLLoader("HomePage.fxml").load());
+    public void returnToHomePage(ActionEvent actionEvent) throws IOException {
+        ((Node) actionEvent.getSource()).getScene().setRoot(Utilities.getFXMLLoader("HomePage.fxml").load());
     }
 }

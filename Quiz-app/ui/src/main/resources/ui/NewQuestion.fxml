@@ -120,7 +120,7 @@
                         </RadioButton>
                      </children>
                   </HBox>
-                  <Button id="backButton" mnemonicParsing="false" text="Back" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                  <Button id="backButton" fx:id="backButton" mnemonicParsing="false" onAction="#showHomePage" text="Back" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                   <Button id="submitButton" fx:id="submitButton" mnemonicParsing="false" onAction="#submitQuestion" text="Submit" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                </children>
             </GridPane>
