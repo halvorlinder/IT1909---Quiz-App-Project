@@ -11,7 +11,8 @@
 <?import javafx.scene.text.Font?>
 
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+      prefWidth="600.0" xmlns="http://javafx.com/javafx/16" fx:controller="ui.controllers.LogInController" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="430.0" prefWidth="600.0">
          <children>
@@ -37,11 +38,11 @@
                <children>
                   <Label text="Brukernavn:" />
                   <Label layoutX="10.0" layoutY="17.0" text="Passord:" GridPane.rowIndex="1" />
-                  <TextField layoutX="310.0" layoutY="13.0" prefHeight="25.0" prefWidth="152.0" GridPane.columnIndex="1" />
-                  <PasswordField prefHeight="25.0" prefWidth="151.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField layoutX="310.0" layoutY="13.0" prefHeight="25.0" prefWidth="152.0" GridPane.columnIndex="1" fx:id="logInUserName"/>
+                  <PasswordField prefHeight="25.0" prefWidth="151.0" GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="logInPassword"/>
                </children>
             </GridPane>
-            <Button mnemonicParsing="false" text="Logg inn" />
+            <Button mnemonicParsing="false" text="Logg inn" onAction="#attemptLogIn"/>
             <Label prefHeight="48.0" prefWidth="178.0" text="Registrer ny bruker">
                <font>
                   <Font name="Comic Sans MS" size="19.0" />
@@ -59,11 +60,11 @@
                <children>
                   <Label text="Brukernavn:" />
                   <Label layoutX="10.0" layoutY="17.0" text="Passord:" GridPane.rowIndex="1" />
-                  <TextField layoutX="310.0" layoutY="13.0" prefHeight="25.0" prefWidth="152.0" GridPane.columnIndex="1" />
-                  <PasswordField prefHeight="25.0" prefWidth="151.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField layoutX="310.0" layoutY="13.0" prefHeight="25.0" prefWidth="152.0" GridPane.columnIndex="1" fx:id="registerUserName"/>
+                  <PasswordField prefHeight="25.0" prefWidth="151.0" GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="registerPassword"/>
                </children>
             </GridPane>
-            <Button layoutX="279.0" layoutY="205.0" mnemonicParsing="false" text="Registrer ny bruker " />
+            <Button layoutX="279.0" layoutY="205.0" mnemonicParsing="false" text="Registrer ny bruker " onAction="#attemptRegister"/>
          </children>
       </VBox>
    </children>
