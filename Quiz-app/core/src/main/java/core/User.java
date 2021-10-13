@@ -1,10 +1,10 @@
 package core;
 
 public abstract class User {
-    private String userName;
+    private static String userName;
 
-    public void setUserName(String userName){
-        this.userName = userName;
+    public static void setUserName(String name){
+        userName = name;
     }
 
     public String getUserName() {
