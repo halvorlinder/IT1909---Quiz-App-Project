@@ -1,4 +1,4 @@
-module quiz.core {
+module core {
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;
     exports core;
