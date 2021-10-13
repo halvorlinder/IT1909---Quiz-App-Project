@@ -5,11 +5,13 @@ import io.QuizPersistence;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import ui.App;
 import ui.Utilities;
 
 import java.io.IOException;
+
 
 public class HomePageController {
 
@@ -64,5 +66,12 @@ public class HomePageController {
         //newQuestionButton.getScene().setRoot(Utilities.getFXMLLoader(".fxml").load());
     }
 
-
+    @FXML
+    public void signOut(ActionEvent actionEvent) {
+        try {
+            ((Node)actionEvent.getSource()).getScene().setRoot(Utilities.getFXMLLoader("LogInPage.fxml").load());
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+    }
 }
