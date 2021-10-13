@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import ui.App;
 import ui.Utilities;
+import javafx.scene.Node;
 
 import java.io.IOException;
 
@@ -29,9 +30,10 @@ public class HomePageController {
      * Sets the current root to be the question page
      *
      * @throws IOException
+     * @param actionEvent
      */
     @FXML
-    public void showStartQuiz() throws IOException { // Switch scene to StartQuiz
+    public void showStartQuiz(ActionEvent actionEvent) throws IOException { // Switch scene to StartQuiz
         QuizPersistence quizPersistence = new QuizPersistence();
         Quiz quiz = quizPersistence.loadQuiz("quiz101");
         if (quiz.getQuizLength() == 0)
@@ -39,7 +41,7 @@ public class HomePageController {
         FXMLLoader loader = App.getFXMLLoader("QuestionPage.fxml");
         QuizController controller = new QuizController(quiz);
         loader.setController(controller);
-        newQuestionButton.getScene().setRoot(loader.load());
+        ((Node) actionEvent.getSource()).getScene().setRoot(loader.load());
     }
 
     /**
@@ -51,7 +53,7 @@ public class HomePageController {
     @FXML
     public void showNewQuestion(ActionEvent actionEvent) throws IOException { // Switch scene to StartQuiz
 
-        newQuestionButton.getScene().setRoot(Utilities.getFXMLLoader("NewQuestion.fxml").load());
+        ((Node) actionEvent.getSource()).getScene().setRoot(Utilities.getFXMLLoader("NewQuestion.fxml").load());
     }
 
     /**
