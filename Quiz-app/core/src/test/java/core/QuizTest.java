@@ -1,11 +1,11 @@
 package core;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class QuizTest {
 
@@ -23,7 +23,7 @@ public class QuizTest {
             Question question = new Question(q_text, choices, answer);
             questions.add(question);
         }
-        quiz = new Quiz(questions);
+        quiz = new Quiz("quiz101", questions);
     }
 
     @Test

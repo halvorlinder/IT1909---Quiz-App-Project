@@ -1,7 +1,7 @@
 package ui.controllers;
 
 import core.Quiz;
-import io.QuizStorageHandler;
+import io.QuizPersistence;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,8 +32,8 @@ public class HomePageController {
      */
     @FXML
     public void showStartQuiz() throws IOException { // Switch scene to StartQuiz
-        QuizStorageHandler quizStorageHandler = new QuizStorageHandler("quiz101");
-        Quiz quiz = quizStorageHandler.getQuiz();
+        QuizPersistence quizPersistence = new QuizPersistence();
+        Quiz quiz = quizPersistence.loadQuiz("quiz101");
         if (quiz.getQuizLength() == 0)
             return;
         FXMLLoader loader = App.getFXMLLoader("QuestionPage.fxml");

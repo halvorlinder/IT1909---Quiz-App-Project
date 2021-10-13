@@ -7,8 +7,6 @@ target/
 org.eclipse.*.prefs
 
 # ignore IntelliJ files
-.idea/*
-ui/modules-ui.iml
-core/modules-core.iml
-modules-template.iml
+/.idea/
 /img.png
+*.iml

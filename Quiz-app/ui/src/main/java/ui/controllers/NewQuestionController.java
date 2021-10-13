@@ -1,7 +1,8 @@
 package ui.controllers;
 
 import core.Question;
-import io.QuizStorageHandler;
+import core.Quiz;
+import io.QuizPersistence;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -91,8 +92,10 @@ public final class NewQuestionController {
         question = new Question(questionText.getText()
                 .replaceAll("\n", " ")
                 .replaceAll("\\$", " "), getListOfAnswers(), getCheckedId());
-        QuizStorageHandler handler = new QuizStorageHandler("quiz101");
-        handler.writeQuestion(question);
+        QuizPersistence quizPersistence = new QuizPersistence();
+        Quiz quiz = quizPersistence.loadQuiz("quiz101");
+        quiz.addQuestion(question);
+        quizPersistence.saveQuiz(quiz);
         ((Node) ae.getSource()).getScene().setRoot(Utilities.getFXMLLoader("HomePage.fxml").load());
 
     }
@@ -105,6 +108,7 @@ public final class NewQuestionController {
     }
 
     /**
+     *
      * @return list of choices provided by the user
      */
     public List<String> getListOfAnswers() {
