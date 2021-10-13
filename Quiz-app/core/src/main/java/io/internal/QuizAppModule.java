@@ -18,6 +18,9 @@ public class QuizAppModule extends SimpleModule {
     public QuizAppModule() {
         super(NAME, Version.unknownVersion());
         addSerializer(Question.class, new QuestionSerializer());
+        addDeserializer(Question.class, new QuestionDeserializer());
+
         addSerializer(Quiz.class, new QuizSerializer());
+        addDeserializer(Quiz.class, new QuizDeserializer());
     }
 }

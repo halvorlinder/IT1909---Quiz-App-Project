@@ -1,14 +1,7 @@
 image: maven:latest
 stages:
-  - build
   - test
   - visualize
-
-build:
-  stage: build
-  script:
-    - cd Quiz-app
-    - mvn install
 
 test:
   stage: test
