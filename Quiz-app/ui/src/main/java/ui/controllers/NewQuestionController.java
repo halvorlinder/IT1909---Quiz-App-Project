@@ -74,7 +74,7 @@ public final class NewQuestionController {
     /**
      * submits a question from the UI
      *
-     * @param ae
+     * @param actionEvent
      * @throws IOException
      */
     @FXML
