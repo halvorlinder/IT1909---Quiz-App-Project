@@ -68,7 +68,7 @@ public class QuizPersistence {
      * @param quizName the name of the quiz
      * @return the loaded QuizAppModule
      */
-    public Quiz loadQuiz(String quizName) throws IOException, IllegalStateException {
+    public Quiz loadQuiz(String quizName) throws IOException {
         try (Reader reader = new FileReader(BASE_PATH + quizName + ".json", StandardCharsets.UTF_8)) {
             return readQuiz(reader);
         }
@@ -79,7 +79,7 @@ public class QuizPersistence {
      *
      * @param quiz the quiz to save
      */
-    public void saveQuiz(Quiz quiz) throws IOException, IllegalStateException {
+    public void saveQuiz(Quiz quiz) throws IOException {
         String quizName = quiz.getName();
 
         try (Writer writer = new FileWriter(BASE_PATH + quizName + ".json", StandardCharsets.UTF_8)) {
