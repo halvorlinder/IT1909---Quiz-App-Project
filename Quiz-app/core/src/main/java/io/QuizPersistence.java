@@ -1,6 +1,7 @@
 package io;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import core.Quiz;
 import io.internal.QuizAppModule;
 
@@ -15,10 +16,11 @@ public class QuizPersistence {
 
     /**
      * Inits a new QuizPersistence Object
+     *
      * @throws IOException
      */
     public QuizPersistence() throws IOException {
-        mapper = new ObjectMapper().registerModule(new QuizAppModule());
+        mapper = createObjectMapper();
         if (!Files.exists(Path.of(BASE_PATH))) {
             Files.createDirectory(Path.of(BASE_PATH));
         }
@@ -26,6 +28,21 @@ public class QuizPersistence {
 
     /**
      *
+     * @return an ObjectMapper for handling quizzes
+     */
+    public static ObjectMapper createObjectMapper() {
+        return new ObjectMapper().registerModule(createJacksonModule());
+    }
+
+    /**
+     *
+     * @return a new QuizAppModule
+     */
+    public static SimpleModule createJacksonModule() {
+        return new QuizAppModule();
+    }
+
+    /**
      * @param reader a Reader containing a file with a Quiz
      * @return a Quiz object read from the Reader
      * @throws IOException
@@ -36,7 +53,8 @@ public class QuizPersistence {
 
     /**
      * writes a Quiz object to the file
-     * @param quiz the Quiz to be written
+     *
+     * @param quiz   the Quiz to be written
      * @param writer the Writer containing the file
      * @throws IOException
      */
