@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import ui.App;
+import ui.Utilities;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -92,7 +93,7 @@ public class QuizController {
         FXMLLoader loader = App.getFXMLLoader("ResultPage.fxml");
         ResultPageController controller = new ResultPageController(quiz.getCorrect(), quiz.getQuizLength());
         loader.setController(controller);
-        App.setRoot(loader);
+        submitAnswer.getScene().setRoot(loader.load());
     }
 
 
