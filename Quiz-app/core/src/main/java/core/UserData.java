@@ -4,17 +4,16 @@ import java.util.HashMap;
 import java.util.OptionalInt;
 import java.util.Set;
 
-public class UserData {
+public final class UserData {
     private final HashMap<String, Integer> users = new HashMap<>();
 
     /**
      * creates a UserDataObject
+     *
      * @param userMap a Hashmap mapping usernames to password hashes
      */
     public UserData(HashMap<String, Integer> userMap) {
-        for (String name : userMap.keySet()) {
-            users.put(name, userMap.get(name));
-        }
+        users.putAll(userMap);
     }
 
     /**
@@ -25,7 +24,6 @@ public class UserData {
     }
 
     /**
-     *
      * @return a set containing all current usernames
      */
     public Set<String> getUserNames() {
@@ -33,7 +31,6 @@ public class UserData {
     }
 
     /**
-     *
      * @param username the user who's password hash is returned
      * @return the password hash of the user
      */
@@ -44,7 +41,6 @@ public class UserData {
     }
 
     /**
-     *
      * @param username the username to be checked
      * @return true is the username exists, false otherwise
      */
@@ -53,7 +49,6 @@ public class UserData {
     }
 
     /**
-     *
      * @param username the username to be checked
      * @param password the password to be checked
      * @return true if the combination of username and password exists, false otherwise
@@ -62,8 +57,14 @@ public class UserData {
         return userExists(username) && users.get(username) == hash(password);
     }
 
-    public boolean attemptRegister(String username, String password){
-        if(userExists(username))
+    /**
+     *
+     * @param username the username to be registered
+     * @param password the password to be registered
+     * @return true if the registration was successful, false otherwise
+     */
+    public boolean attemptRegister(String username, String password) {
+        if (userExists(username))
             return false;
         addUser(username, password);
         return true;
@@ -71,6 +72,7 @@ public class UserData {
 
     /**
      * adds a user to the object
+     *
      * @param username the username of the user
      * @param password the password of the user
      */
@@ -82,6 +84,7 @@ public class UserData {
 
     /**
      * adds a user given a password and a username
+     *
      * @param username the username of the user
      * @param password the password of the user
      */
@@ -93,7 +96,6 @@ public class UserData {
 
 
     /**
-     *
      * @param password the password to be hashed
      * @return the hash of the password
      */

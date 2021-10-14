@@ -2,7 +2,6 @@ package io;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import core.Quiz;
 import core.UserData;
 import io.internal.QuizAppModule;
 
@@ -53,8 +52,8 @@ public final class UserPersistence {
     /**
      * writes a Quiz object to the file
      *
-     * @param userData   the Quiz to be written
-     * @param writer the Writer containing the file
+     * @param userData the Quiz to be written
+     * @param writer   the Writer containing the file
      * @throws IOException
      */
     public void writeUserData(UserData userData, Writer writer) throws IOException {
@@ -69,7 +68,7 @@ public final class UserPersistence {
     public UserData loadUserData() throws IOException {
         try (Reader reader = new FileReader(BASE_PATH + "users.json", StandardCharsets.UTF_8)) {
             return readUserData(reader);
-        }catch (IOException ioException){
+        } catch (IOException ioException) {
             return new UserData();
         }
     }
@@ -88,5 +87,5 @@ public final class UserPersistence {
             writeUserData(userData, writer);
         }
     }
-    
+
 }

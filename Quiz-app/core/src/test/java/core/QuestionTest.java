@@ -7,8 +7,6 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 public class QuestionTest {
 
     private String question;
@@ -19,13 +17,13 @@ public class QuestionTest {
     @BeforeEach
     public void setUp() {
         question = "Hvor mange føtter har mennesker?";
-        choices = List.of("1","2","3","4");
+        choices = List.of("1", "2", "3", "4");
         answer = 1;
-        realQ = new Question(question,  choices, answer);
+        realQ = new Question(question, choices, answer);
     }
 
     @Test
-    public void constructorTest(){
+    public void constructorTest() {
         setUp();
         answer = -1;
         assertConstructorThrows();
@@ -38,9 +36,9 @@ public class QuestionTest {
         assertConstructorThrows();
         choices.add("1");
         answer = 2;
-        Assertions.assertDoesNotThrow(() ->{
-            Question q = new Question(question,choices,answer);
-            Assertions.assertEquals(question,q.getQuestion());
+        Assertions.assertDoesNotThrow(() -> {
+            Question q = new Question(question, choices, answer);
+            Assertions.assertEquals(question, q.getQuestion());
             Assertions.assertEquals(choices, q.getChoices());
         });
         choices.add("5");
@@ -65,38 +63,44 @@ public class QuestionTest {
         setUp();
         assertGetChoiceThrows(-1);
         assertGetChoiceThrows(5);
-        Assertions.assertEquals("1",realQ.getChoice(0));
+        Assertions.assertEquals("1", realQ.getChoice(0));
     }
 
     @Test
     public void getAnswer() {
         setUp();
         Assertions.assertEquals(answer, realQ.getAnswer());
-        for(int i=0; i < 4; i++){
-            if(realQ.isCorrect(i)){
+        for (int i = 0; i < 4; i++) {
+            if (realQ.isCorrect(i)) {
                 Assertions.assertEquals(i, realQ.getAnswer());
             }
         }
     }
 
     @Test
-    public void testToString(){
+    public void testToString() {
         String test = realQ.toString();
         Assertions.assertTrue(test.contains("question='" + realQ.getQuestion() + "\'"));
         Assertions.assertTrue(test.contains("choices=" + realQ.getChoices()));
         Assertions.assertTrue(test.contains("answer=" + realQ.getAnswer()));
     }
 
-    private void assertConstructorThrows(){
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {Question q = new Question(question,choices,answer);});
+    private void assertConstructorThrows() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            Question q = new Question(question, choices, answer);
+        });
     }
 
-    private void assertChoicesThrows(){
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {realQ.isCorrect(answer);});
+    private void assertChoicesThrows() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            realQ.isCorrect(answer);
+        });
     }
 
-    private void assertGetChoiceThrows(int n){
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {realQ.getChoice(n);});
+    private void assertGetChoiceThrows(int n) {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            realQ.getChoice(n);
+        });
     }
 
 }

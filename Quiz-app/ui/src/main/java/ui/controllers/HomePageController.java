@@ -11,12 +11,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import ui.App;
 import ui.Utilities;
-import javafx.scene.Node;
 
 import java.io.IOException;
 
 
-public class HomePageController {
+public final class HomePageController {
 
     @FXML
     private Button startQuizButton;
@@ -30,16 +29,19 @@ public class HomePageController {
     @FXML
     private Label nameDisplay;
 
+    /**
+     * sets the text to display username
+     */
     @FXML
-    public void initialize(){
+    public void initialize() {
         nameDisplay.setText("Logget inn som " + User.getUserName());
     }
 
     /**
      * Sets the current root to be the question page
      *
-     * @throws IOException
      * @param actionEvent
+     * @throws IOException
      */
     @FXML
     public void showStartQuiz(ActionEvent actionEvent) throws IOException { // Switch scene to StartQuiz
@@ -75,10 +77,15 @@ public class HomePageController {
         //newQuestionButton.getScene().setRoot(Utilities.getFXMLLoader(".fxml").load());
     }
 
+    /**
+     * signs out of the application
+     * @param actionEvent
+     */
     @FXML
     public void signOut(ActionEvent actionEvent) {
         try {
             ((Node) actionEvent.getSource()).getScene().setRoot(Utilities.getFXMLLoader("LogInPage.fxml").load());
+
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }

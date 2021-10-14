@@ -6,14 +6,13 @@ import io.UserPersistence;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import ui.Utilities;
 
 import java.io.IOException;
 
-public class LogInController {
+public final class LogInController {
     @FXML
     private PasswordField logInPassword;
     @FXML
@@ -26,8 +25,11 @@ public class LogInController {
     private UserPersistence userPersistence;
     private UserData userData;
 
+    /**
+     * fetches userData
+     */
     @FXML
-    public void initialize(){
+    public void initialize() {
         try {
             userPersistence = new UserPersistence();
             userData = userPersistence.loadUserData();
@@ -36,6 +38,10 @@ public class LogInController {
         }
     }
 
+    /**
+     * attempts to log a user into the application
+     * @param actionEvent the actionEvent
+     */
     @FXML
     public void attemptLogIn(ActionEvent actionEvent) {
         System.out.println(userData.getUserNames());
@@ -50,6 +56,10 @@ public class LogInController {
 
     }
 
+    /**
+     * attempts to log a user into the application
+     * @param actionEvent the actionEvent
+     */
     @FXML
     public void attemptRegister(ActionEvent actionEvent) {
         //TODO create logic for registering and checking username and password
@@ -57,8 +67,7 @@ public class LogInController {
             if (userData.attemptRegister(registerUserName.getText(), registerPassword.getText())) {
                 userPersistence.saveUserData(userData);
                 logIn(actionEvent, registerUserName.getText());
-            }
-            else{
+            } else {
                 Utilities.alertUser("Brukernavn er tatt");
             }
         } catch (IOException ioException) {
@@ -66,6 +75,12 @@ public class LogInController {
         }
     }
 
+    /**
+     * logs into the applicatio
+     * @param actionEvent
+     * @param username
+     * @throws IOException
+     */
     private void logIn(ActionEvent actionEvent, String username) throws IOException {
         User.setUserName(username);
         ((Node) actionEvent.getSource()).getScene().setRoot(Utilities.getFXMLLoader("HomePage.fxml").load());

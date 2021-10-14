@@ -2,12 +2,9 @@ package io;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import core.Question;
 import core.Quiz;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static io.TestHelpers.checkQuiz;
 import static io.TestHelpers.createQuizWithTwoQuestions;
