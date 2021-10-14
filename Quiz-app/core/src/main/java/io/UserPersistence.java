@@ -3,6 +3,7 @@ package io;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import core.Quiz;
+import core.UserData;
 import io.internal.QuizAppModule;
 
 import java.io.*;
@@ -40,49 +41,52 @@ public final class UserPersistence {
         return new QuizAppModule();
     }
 
-//    /**
-//     * @param reader a Reader containing a file with a Quiz
-//     * @return a Quiz object read from the Reader
-//     * @throws IOException
-//     */
-//    public Quiz readQuiz(Reader reader) throws IOException {
-//        return mapper.readValue(reader, Quiz.class);
-//    }
-//
-//    /**
-//     * writes a Quiz object to the file
-//     *
-//     * @param quiz   the Quiz to be written
-//     * @param writer the Writer containing the file
-//     * @throws IOException
-//     */
-//    public void writeQuiz(Quiz quiz, Writer writer) throws IOException {
-//        mapper.writerWithDefaultPrettyPrinter().writeValue(writer, quiz);
-//    }
-//
-//    /**
-//     * Loads a QuizAppModule from the saved file (saveFilePath) in the user.home folder.
-//     *
-//     * @param quizName the name of the quiz
-//     * @return the loaded QuizAppModule
-//     */
-//    public Quiz loadQuiz(String quizName) throws IOException {
-//        try (Reader reader = new FileReader(BASE_PATH + quizName + ".json", StandardCharsets.UTF_8)) {
-//            return readQuiz(reader);
-//        }
-//    }
-//
-//    /**
-//     * Saves a Quiz to the saveFilePath in the user.home folder.
-//     *
-//     * @param quiz the quiz to save
-//     */
-//    public void saveQuiz(Quiz quiz) throws IOException {
-//        String quizName = quiz.getName();
-//
-//        try (Writer writer = new FileWriter(BASE_PATH + quizName + ".json", StandardCharsets.UTF_8)) {
-//            writeQuiz(quiz, writer);
-//        }
-//    }
+    /**
+     * @param reader a Reader containing a file with a Quiz
+     * @return a Quiz object read from the Reader
+     * @throws IOException
+     */
+    public UserData readUserData(Reader reader) throws IOException {
+        return mapper.readValue(reader, UserData.class);
+    }
+
+    /**
+     * writes a Quiz object to the file
+     *
+     * @param userData   the Quiz to be written
+     * @param writer the Writer containing the file
+     * @throws IOException
+     */
+    public void writeUserData(UserData userData, Writer writer) throws IOException {
+        mapper.writerWithDefaultPrettyPrinter().writeValue(writer, userData);
+    }
+
+    /**
+     * Loads a QuizAppModule from the saved file (saveFilePath) in the user.home folder.
+     *
+     * @return the loaded QuizAppModule
+     */
+    public UserData loadUserData() throws IOException {
+        try (Reader reader = new FileReader(BASE_PATH + "users.json", StandardCharsets.UTF_8)) {
+            return readUserData(reader);
+        }catch (IOException ioException){
+            return new UserData();
+        }
+    }
+
+    /**
+     * Saves a Quiz to the saveFilePath in the user.home folder.
+     *
+     * @param userData the quiz to save
+     */
+    public void saveUserData(UserData userData) throws IOException {
+        File file = new File(BASE_PATH + "users.json");
+        if (!file.exists()) {
+            boolean junk = file.createNewFile();
+        }
+        try (Writer writer = new FileWriter(BASE_PATH + "users.json", StandardCharsets.UTF_8)) {
+            writeUserData(userData, writer);
+        }
+    }
     
 }
