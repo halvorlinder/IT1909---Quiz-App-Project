@@ -1,6 +1,7 @@
 package ui.controllers;
 
 import core.User;
+import core.UserData;
 import io.UserPersistence;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,13 +22,23 @@ public class LogInController {
     @FXML
     private TextField registerUserName;
 
-    UserPersistence userPersistence = new UserPersistence();
+    private UserPersistence userPersistence;
+    private UserData userData;
+
+    @FXML
+    public void initialize(){
+        try {
+            userPersistence = new UserPersistence();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+    }
 
     @FXML
     public void attemptLogIn(ActionEvent actionEvent) {
         //TODO create logic for checking username and password
         try {
-            if (userPersistence.successfulLogIn(logInUserName.getText(), logInPassword.getText()))
+            if (true)
                 logIn(actionEvent, logInUserName.getText());
             else
                 System.out.println("Username or password is wrong");
@@ -41,8 +52,8 @@ public class LogInController {
     public void attemptRegister(ActionEvent actionEvent) {
         //TODO create logic for registering and checking username and password
         try {
-            if (!userPersistence.userExists(registerUserName.getText())) {
-                userPersistence.addUser(registerUserName.getText(), registerPassword.getText());
+            if (true) {
+//                userPersistence.addUser(registerUserName.getText(), registerPassword.getText());
                 logIn(actionEvent, registerUserName.getText());
             }
         } catch (IOException ioException) {
@@ -50,8 +61,8 @@ public class LogInController {
         }
     }
 
-    private void logIn(ActionEvent actionEvent, String userName) throws IOException {
-        User.setUserName(userName);
+    private void logIn(ActionEvent actionEvent, String username) throws IOException {
+        User.setUserName(username);
         ((Node) actionEvent.getSource()).getScene().setRoot(Utilities.getFXMLLoader("HomePage.fxml").load());
     }
 
