@@ -1,12 +1,14 @@
 package ui.controllers;
 
 import core.Quiz;
+import core.User;
 import io.QuizPersistence;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import ui.App;
 import ui.Utilities;
 import javafx.scene.Node;
@@ -25,8 +27,13 @@ public class HomePageController {
     @FXML
     private Button leaderboardButton;
 
-    // App.setRoot needs to be completed
-    // All FXML files need to be created and named accordingly
+    @FXML
+    private Label nameDisplay;
+
+    @FXML
+    public void initialize(){
+        nameDisplay.setText("Logget inn som " + User.getUserName());
+    }
 
     /**
      * Sets the current root to be the question page
