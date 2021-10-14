@@ -2,6 +2,8 @@ package io;
 
 import core.Question;
 import core.Quiz;
+import core.User;
+import core.UserData;
 
 import java.util.List;
 
@@ -28,6 +30,14 @@ public class TestHelpers {
         assertEquals(quiz1.getQuizLength(), quiz2.getQuizLength());
         for (int i = 0; i < quiz1.getQuizLength(); i++) {
             checkQuestion(quiz1.getQuestions().get(i), quiz2.getQuestions().get(i));
+        }
+    }
+
+    static void checkUserData(UserData ud1, UserData ud2){
+        assertEquals(ud1.getUserNames().size(), ud2.getUserNames().size());
+        assertEquals(ud1.getUserNames(), ud2.getUserNames());
+        for(String username:ud1.getUserNames()){
+            assertEquals(ud1.getPasswordHash(username), ud2.getPasswordHash(username));
         }
     }
 }
