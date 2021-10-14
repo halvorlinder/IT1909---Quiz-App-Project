@@ -25,7 +25,7 @@ public final class UserDataDeserializer extends JsonDeserializer<UserData> {
                 int passwordHash = objectNode.get(username).asInt();
                 userData.reAddUser(username, passwordHash);
             }
-            return new UserData();
+            return userData;
 
         }
         return null;
