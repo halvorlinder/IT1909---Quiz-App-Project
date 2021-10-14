@@ -40,4 +40,11 @@ public class TestHelpers {
             assertEquals(ud1.getPasswordHash(username), ud2.getPasswordHash(username));
         }
     }
+
+    static UserData createUserDataWithTwoEntries(){
+        UserData userData = new UserData();
+        userData.attemptRegister("user1", "password");
+        userData.attemptRegister("user2", "pWord");
+        return userData;
+    }
 }
