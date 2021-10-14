@@ -8,15 +8,6 @@ public final class UserData {
     private final HashMap<String, Integer> users = new HashMap<>();
 
     /**
-     * creates a UserDataObject
-     *
-     * @param userMap a Hashmap mapping usernames to password hashes
-     */
-    public UserData(HashMap<String, Integer> userMap) {
-        users.putAll(userMap);
-    }
-
-    /**
      * creates an empty UserDataObject
      */
     public UserData() {
@@ -76,9 +67,7 @@ public final class UserData {
      * @param username the username of the user
      * @param password the password of the user
      */
-    public void addUser(String username, String password) {
-        if (userExists(username))
-            throw new IllegalStateException("The user already exists");
+    private void addUser(String username, String password) {
         users.put(username, hash(password));
     }
 
@@ -89,8 +78,6 @@ public final class UserData {
      * @param password the password of the user
      */
     public void reAddUser(String username, int password) {
-        if (userExists(username))
-            throw new IllegalStateException("The user already exists");
         users.put(username, password);
     }
 
@@ -99,7 +86,7 @@ public final class UserData {
      * @param password the password to be hashed
      * @return the hash of the password
      */
-    private int hash(String password) {
+    public int hash(String password) {
         OptionalInt optionalInt = password.chars().reduce((x, y) -> (x * y) % 16384);
         return optionalInt.isPresent() ? optionalInt.getAsInt() : 0;
     }
