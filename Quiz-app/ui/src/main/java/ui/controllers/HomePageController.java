@@ -47,8 +47,8 @@ public class HomePageController {
     /**
      * Sets the current root to be the new question page
      *
-     * @throws IOException
      * @param actionEvent
+     * @throws IOException
      */
     @FXML
     public void showNewQuestion(ActionEvent actionEvent) throws IOException { // Switch scene to StartQuiz
@@ -69,7 +69,7 @@ public class HomePageController {
     @FXML
     public void signOut(ActionEvent actionEvent) {
         try {
-            ((Node)actionEvent.getSource()).getScene().setRoot(Utilities.getFXMLLoader("LogInPage.fxml").load());
+            ((Node) actionEvent.getSource()).getScene().setRoot(Utilities.getFXMLLoader("LogInPage.fxml").load());
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }

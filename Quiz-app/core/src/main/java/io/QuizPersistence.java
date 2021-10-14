@@ -27,7 +27,6 @@ public class QuizPersistence {
     }
 
     /**
-     *
      * @return an ObjectMapper for handling quizzes
      */
     public static ObjectMapper createObjectMapper() {
@@ -35,7 +34,6 @@ public class QuizPersistence {
     }
 
     /**
-     *
      * @return a new QuizAppModule
      */
     public static SimpleModule createJacksonModule() {

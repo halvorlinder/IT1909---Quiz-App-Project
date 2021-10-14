@@ -27,7 +27,7 @@ public class LogInController {
     public void attemptLogIn(ActionEvent actionEvent) {
         //TODO create logic for checking username and password
         try {
-            if(userPersistence.successfulLogIn(logInUserName.getText(), logInPassword.getText()))
+            if (userPersistence.successfulLogIn(logInUserName.getText(), logInPassword.getText()))
                 logIn(actionEvent, logInUserName.getText());
             else
                 System.out.println("Username or password is wrong");
@@ -41,7 +41,7 @@ public class LogInController {
     public void attemptRegister(ActionEvent actionEvent) {
         //TODO create logic for registering and checking username and password
         try {
-            if(!userPersistence.userExists(registerUserName.getText())){
+            if (!userPersistence.userExists(registerUserName.getText())) {
                 userPersistence.addUser(registerUserName.getText(), registerPassword.getText());
                 logIn(actionEvent, registerUserName.getText());
             }

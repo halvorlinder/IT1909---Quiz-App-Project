@@ -108,7 +108,6 @@ public final class NewQuestionController {
     }
 
     /**
-     *
      * @return list of choices provided by the user
      */
     public List<String> getListOfAnswers() {

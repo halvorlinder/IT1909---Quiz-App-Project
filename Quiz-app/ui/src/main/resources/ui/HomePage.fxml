@@ -57,7 +57,7 @@
                   <Font name="Comic Sans MS Bold Italic" size="20.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" text="Sign out" GridPane.columnIndex="2" onAction="#signOut"/>
+            <Button mnemonicParsing="false" onAction="#signOut" text="Sign out" GridPane.columnIndex="2" />
          </children>
       </GridPane>
    </children>

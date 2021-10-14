@@ -1,7 +1,6 @@
 package core;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.OptionalInt;
 import java.util.Set;
 
@@ -42,7 +41,7 @@ public class UserData {
         users.put(userName, hash(password));
     }
 
-    public void reAddUser(String userName, int password){
+    public void reAddUser(String userName, int password) {
         if (userExists(userName))
             throw new IllegalStateException("The user already exists");
         users.put(userName, password);
