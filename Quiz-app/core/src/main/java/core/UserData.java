@@ -1,7 +1,9 @@
 package core;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.OptionalInt;
+import java.util.Set;
 
 public class UserData {
     private final HashMap<String, Integer> users = new HashMap<>();
@@ -10,6 +12,20 @@ public class UserData {
         for (String name : userMap.keySet()) {
             users.put(name, userMap.get(name));
         }
+    }
+
+    public UserData() {
+
+    }
+
+    public Set<String> getUserNames() {
+        return users.keySet();
+    }
+
+    public int getPasswordHash(String userName) {
+        if (!users.containsKey(userName))
+            throw new IllegalStateException("No such user");
+        return users.get(userName);
     }
 
     public boolean userExists(String username) {
@@ -21,9 +37,15 @@ public class UserData {
     }
 
     public void addUser(String userName, String password) {
-        if (users.containsKey(userName))
+        if (userExists(userName))
             throw new IllegalStateException("The user already exists");
         users.put(userName, hash(password));
+    }
+
+    public void reAddUser(String userName, int password){
+        if (userExists(userName))
+            throw new IllegalStateException("The user already exists");
+        users.put(userName, password);
     }
 
     private int hash(String password) {
