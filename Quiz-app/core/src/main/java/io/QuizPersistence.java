@@ -9,6 +9,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 public class QuizPersistence {
     private final ObjectMapper mapper;
@@ -69,6 +70,8 @@ public class QuizPersistence {
     public Quiz loadQuiz(String quizName) throws IOException {
         try (Reader reader = new FileReader(BASE_PATH + quizName + ".json", StandardCharsets.UTF_8)) {
             return readQuiz(reader);
+        } catch (IOException e) {
+            return new Quiz(quizName, List.of());
         }
     }
 
@@ -79,7 +82,11 @@ public class QuizPersistence {
      */
     public void saveQuiz(Quiz quiz) throws IOException {
         String quizName = quiz.getName();
+        File file = new File(BASE_PATH + quizName + ".json");
+        if (!file.exists()) {
 
+            boolean junk = file.createNewFile();
+        }
         try (Writer writer = new FileWriter(BASE_PATH + quizName + ".json", StandardCharsets.UTF_8)) {
             writeQuiz(quiz, writer);
         }
