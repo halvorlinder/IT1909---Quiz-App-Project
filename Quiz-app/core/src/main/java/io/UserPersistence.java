@@ -1,6 +1,6 @@
 package io;
 
-public class UserPersistence {
+public final class UserPersistence {
     public boolean addUser(String userName, String password) {
         return false;
     }

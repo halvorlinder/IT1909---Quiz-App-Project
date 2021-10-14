@@ -7,9 +7,10 @@ import core.UserData;
 
 import java.io.IOException;
 
-public class UserDataSerializer extends JsonSerializer<UserData> {
+public final class UserDataSerializer extends JsonSerializer<UserData> {
     @Override
-    public void serialize(UserData userData, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+    public void serialize(UserData userData, JsonGenerator jsonGenerator, SerializerProvider serializerProvider)
+            throws IOException {
         jsonGenerator.writeStartObject();
         for (String name : userData.getUserNames()) {
             jsonGenerator.writeNumberField(name, userData.getPasswordHash(name));

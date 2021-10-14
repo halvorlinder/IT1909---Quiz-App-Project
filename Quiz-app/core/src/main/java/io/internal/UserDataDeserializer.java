@@ -10,9 +10,10 @@ import core.UserData;
 import java.io.IOException;
 import java.util.Iterator;
 
-public class UserDataDeserializer extends JsonDeserializer<UserData> {
+public final class UserDataDeserializer extends JsonDeserializer<UserData> {
     @Override
-    public UserData deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
+    public UserData deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
+            throws IOException {
         return deserialize(jsonParser.getCodec().readTree(jsonParser));
     }
 
