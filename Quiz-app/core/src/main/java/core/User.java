@@ -7,7 +7,7 @@ public final class User {
         username = name;
     }
 
-    public String getUserName() {
+    public static String getUserName() {
         return username;
     }
 }
