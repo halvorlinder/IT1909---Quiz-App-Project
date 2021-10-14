@@ -29,9 +29,7 @@ public class UserSerializeDeserializeTest {
 
     @Test
     public void testSerializers() {
-        UserData userData = new UserData();
-        userData.attemptRegister("user1", "password");
-        userData.attemptRegister("user2", "pWord");
+        UserData userData = createUserDataWithTwoEntries();
         try {
             assertEquals(usersWithTwoEntries.replaceAll("\\s+", ""), mapper.writeValueAsString(userData));
         } catch (JsonProcessingException e) {
@@ -41,9 +39,7 @@ public class UserSerializeDeserializeTest {
 
     @Test
     public void testDeserializers() {
-        UserData userData = new UserData();
-        userData.attemptRegister("user1", "password");
-        userData.attemptRegister("user2", "pWord");
+        UserData userData = createUserDataWithTwoEntries();
         try {
             UserData userData1 = mapper.readValue(usersWithTwoEntries, UserData.class);
             checkUserData(userData, userData1);
