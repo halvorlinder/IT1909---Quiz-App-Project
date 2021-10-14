@@ -34,13 +34,13 @@ public class UserData {
 
     /**
      *
-     * @param userName the user who's password hash is returned
+     * @param username the user who's password hash is returned
      * @return the password hash of the user
      */
-    public int getPasswordHash(String userName) {
-        if (!users.containsKey(userName))
+    public int getPasswordHash(String username) {
+        if (!users.containsKey(username))
             throw new IllegalStateException("No such user");
-        return users.get(userName);
+        return users.get(username);
     }
 
     /**
@@ -54,35 +54,43 @@ public class UserData {
 
     /**
      *
-     * @param userName the username to be checked
+     * @param username the username to be checked
      * @param password the password to be checked
      * @return true if the combination of username and password exists, false otherwise
      */
-    public boolean userNameAndPasswordCorrelate(String userName, String password) {
-        return userExists(userName) && users.get(userName) == hash(password);
+    public boolean attemptLogIn(String username, String password) {
+        return userExists(username) && users.get(username) == hash(password);
+    }
+
+    public boolean attemptRegister(String username, String password){
+        if(userExists(username))
+            return false;
+        addUser(username, password);
+        return true;
     }
 
     /**
      * adds a user to the object
-     * @param userName the username of the user
+     * @param username the username of the user
      * @param password the password of the user
      */
-    public void addUser(String userName, String password) {
-        if (userExists(userName))
+    public void addUser(String username, String password) {
+        if (userExists(username))
             throw new IllegalStateException("The user already exists");
-        users.put(userName, hash(password));
+        users.put(username, hash(password));
     }
 
     /**
      * adds a user given a password and a username
-     * @param userName the username of the user
+     * @param username the username of the user
      * @param password the password of the user
      */
-    public void reAddUser(String userName, int password) {
-        if (userExists(userName))
+    public void reAddUser(String username, int password) {
+        if (userExists(username))
             throw new IllegalStateException("The user already exists");
-        users.put(userName, password);
+        users.put(username, password);
     }
+
 
     /**
      *
