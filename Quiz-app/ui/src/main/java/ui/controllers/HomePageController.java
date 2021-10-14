@@ -85,7 +85,7 @@ public final class HomePageController {
     public void signOut(ActionEvent actionEvent) {
         try {
             ((Node) actionEvent.getSource()).getScene().setRoot(Utilities.getFXMLLoader("LogInPage.fxml").load());
-
+            User.setUserName(null);
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
