@@ -57,6 +57,18 @@ The project is seperated into modules; the core and the ui. The core module cont
 * Checkstyle
 * Spotbugs
 
+#### Checkstyle settings
+We use a default checkstyle template, with minor changes:
+- Line length: We think that the line lenght restriction in the template is a bit to strict so we have upped it to 120
+- End Of Line Operator: We specified that operators should be at end of line rather than the start, due to IntelliJ formattiing.
+- Hidden Field: We disabed this check because we think that the this.field syntax is useful and clean
+- Magic number: We changed this from error to warning, because we want them in some cases, but seldomly.
+- Javadoc Grammar: We disabled grammar checks i javadoc, because this is unimportant
+
+#### Spotbugs settings
+We have edited a few spotbugs settings:
+- Disabled unused field in controllers that arent linked to a FXML file, because the fields are used but the compiler doesnt understand it
+
 <!-- GETTING STARTED -->
 
 ## Getting Started
@@ -169,6 +181,10 @@ Sequence diagram of what happens when a user attempts to log in
 
 ![image](docs/Diagrams/LogInInit.png)  
 Sequence diagram of what happens when the log in page is initialized
+
+### Storage choices
+
+We have chosen to use implicit file saving. The reasoning behind this is that the user has no use for specifying how and where files are stored. This also contributes to a smoother user experience. 
 
 
 ## Roadmap
