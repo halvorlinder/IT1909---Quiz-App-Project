@@ -8,7 +8,7 @@ test:
   script:
     - cd Quiz-app
     - mvn verify -DskipUiTests=true
-#    - cat core/target/site/jacoco/index.html | grep -o '<tfoot>.*</tfoot>'
+    - cat core/target/site/jacoco/index.html | grep -o '<tfoot>.*</tfoot>'
   artifacts:
     when: always
     paths:
