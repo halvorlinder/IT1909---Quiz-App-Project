@@ -68,6 +68,9 @@
                     <version>3.0.0-M5</version>
                     <configuration>
                         <skipTests>${skipTests}</skipTests>
+                        <argLine>
+                            --add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
+                        </argLine>
                     </configuration>
                 </plugin>
             </plugins>

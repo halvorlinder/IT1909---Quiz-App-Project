@@ -29,8 +29,12 @@ public class NewQuestionControllerTest extends ApplicationTest {
 
     private NewQuestionController controller;
     private Map<String, Object> fxmlNamespace;
-    private List<TextField> textFieldList = new ArrayList<>();
     private Stage stage;
+    private QuizPersistence quizPersistence;
+    private String question;
+    private String choice1, choice2, choice3, choice4;
+    private Quiz quiz = null;
+    private int rightAnswer;
 
     @Override
     public void start(final Stage stage) throws Exception {
@@ -40,24 +44,12 @@ public class NewQuestionControllerTest extends ApplicationTest {
         final Parent root = loader.load();
         this.controller = loader.getController();
         this.fxmlNamespace = loader.getNamespace();
-        toggleGroupRadioButton = (ToggleGroup) fxmlNamespace.get("$radioButton");
-        for(int i=0; i<4; i++){
-            this.textFieldList.add((TextField) fxmlNamespace.get("choice"+i));
-        }
-        submitButton = lookup("#submitQuestion").query();
         stage.setScene(new Scene(root));
         stage.show();
 
 
     }
 
-    private QuizPersistence quizPersistence;
-    private String question;
-    private String choice1, choice2, choice3, choice4;
-    private int rightAnswer;
-    private ToggleGroup toggleGroupRadioButton;
-    private Button submitButton;
-    private Quiz quiz = null;
 
     @BeforeEach
     public void setupItems() {
@@ -68,27 +60,13 @@ public class NewQuestionControllerTest extends ApplicationTest {
         }
         assertNotNull(quiz);
         writeQuestion("How many days in a year?", "121", "354", "360", "365", 3);
-        for(Object radioButton : toggleGroupRadioButton.getToggles()){
-            ((RadioButton) radioButton).setSelected(false);
-        }
-    }
-
-    @Test
-    public void testSubmitUncheckedRadio() {
-        Assertions.assertTrue(submitButton.isDisabled());
-        /*
-        Check if the root is the same
-         */
-        clickOn("#submitButton");
-        assertEquals("NewQuestionTest.fxml", stage.getScene().getRoot());
-
     }
 
     @Test
     public void testSubmitEmptyFields() {
-        toggleGroupRadioButton.getToggles().get(0).setSelected(true);
-        for(TextField textField : textFieldList){
-            textField.setText("");
+        clickOn("#radioButton1");
+        for(int i=1; i<5; i++){
+            clickOn("#choice"+i).write("");
         }
         Assertions.assertThrows(IllegalArgumentException.class, () -> {clickOn("#submitButton");});
     }
@@ -100,7 +78,7 @@ public class NewQuestionControllerTest extends ApplicationTest {
         clickOn("#choice2").write(choice2);
         clickOn("#choice3").write(choice3);
         clickOn("#choice4").write(choice4);
-        toggleGroupRadioButton.getToggles().get(3).setSelected(true);
+        clickOn("#radioButton4");
         clickOn("#submitButton");
         assertEquals(quiz.getQuestions().get(0).getQuestion(),controller.getQuestion());
         for(int i = 0; i<quiz.getQuizLength(); i++){

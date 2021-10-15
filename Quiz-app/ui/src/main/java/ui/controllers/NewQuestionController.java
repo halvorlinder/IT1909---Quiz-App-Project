@@ -35,6 +35,9 @@ public final class NewQuestionController {
     private Button submitButton;
 
     @FXML
+    private Button backButton;
+
+    @FXML
     private RadioButton radioButton1;
 
     @FXML
@@ -70,11 +73,11 @@ public final class NewQuestionController {
     /**
      * submits a question from the UI
      *
-     * @param ae
+     * @param actionEvent
      * @throws IOException
      */
     @FXML
-    public void submitQuestion(ActionEvent ae) throws IOException { //Takes you back to the home page
+    public void submitQuestion(ActionEvent actionEvent) throws IOException { //Takes you back to the home page
 
         for (TextField textField : listOfTextFields) {
             if (textField.getText().isEmpty()) {
@@ -95,7 +98,7 @@ public final class NewQuestionController {
         Quiz quiz = quizPersistence.loadQuiz("quiz101");
         quiz.addQuestion(question);
         quizPersistence.saveQuiz(quiz);
-        ((Node) ae.getSource()).getScene().setRoot(Utilities.getFXMLLoader("HomePage.fxml").load());
+        ((Node) actionEvent.getSource()).getScene().setRoot(Utilities.getFXMLLoader("HomePage.fxml").load());
 
     }
 
@@ -116,6 +119,17 @@ public final class NewQuestionController {
 
     public String getQuestion(){
         return questionText.getText();
+    }
+    /**
+     * Sets the current root to be the home page
+     *
+     * @throws IOException
+     * @param actionEvent
+     */
+    @FXML
+    public void showHomePage(ActionEvent actionEvent) throws IOException { // Switch scene to HomePage
+
+        ((Node) actionEvent.getSource()).getScene().setRoot(Utilities.getFXMLLoader("HomePage.fxml").load());
     }
 
 }

@@ -1,5 +1,5 @@
 {
-  "name" : "quiz101",
+  "name" : "quiz_test",
   "questions" : [ {
     "question" : "How many days in a year?",
     "answer" : 3,
