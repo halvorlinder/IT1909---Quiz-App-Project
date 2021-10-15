@@ -6,13 +6,42 @@ The gitlab sprint can be found [here](https://gitlab.stud.idi.ntnu.no/it1901/gro
 ## Functionality
 
 The second release is based around testing, code quality and streamlining our productivity.
-We have also introduced a new user system, which allows users to register, and later log into the app. We had also planned to add the ability to create quizzes and to choose which quiz to play, as well as leaderboards that utilize the user system
+We have also introduced a new user system, which allows users to register, and later log into the app. Error handling has also been improved. A modal window now displays errors whenever something goes wrong in the app (like for example an unsuccessful log in).We had also planned to add the ability to create quizzes and to choose which quiz to play, as well as leaderboards that utilize the user system. We did, however not manage to implement these features during the sprint, and we therefore have to postpone these features to next release. We could probably have rushed these features out, but we chose to instead focus on code quality.
 
 ## User Stories
 
+### Multiple quizzes (us-3)
+
+As a user, I would like to select between different quizzes to play depending on genre.
+
+#### Important to see
+
+- A dropdown menu containing all quizzes
+    - Names of quizzes
+    - Total number of questions
+- Ability to view selected quiz
+
+#### Important to do
+
+- Select quiz among list of all quizzes
+
+### Username and leaderboard (us-4)
+
+As a user I would like to see my score on a leaderboard after I am done taking the quiz. It should be easy to see which score was mine.
+
+#### Important to see
+
+- Scoreboard with names and their respective scores
+    - Board should contain current and previous games
+
+#### Important to do
+
+- Exit from scoreboard to main page (or play quiz again)
 
 
-## Workflow 
+
+
+### Workflow 
 
 As previously mentioned we've focused on improving our agile workflow during this sprint. This has been achieved through a number of factors.  
 We have continued to ensure code quality through code reviews. The code reviews are now faster and easier due to the introduction of a Gitlab ci pipeline which runs all our core/io tests automatically whenever code is pushed to the remote or a merge request is created. The pipeline also runs Checkstyle and Spotbugs, as well as Jacoco for test coverage. If any of the tests fail, or if there are Checkstyle/Spotbugs errors, the merge request is halted until these issues have been adressed. This allows us to merge code into the main branch with higher confidence that the main branch doesn't break.
