@@ -158,16 +158,16 @@ To get a local copy up and running follow these simple steps.
 
 The following diagrams represent the macro architecture of the app:
 
-![image](docs/Diagrams/CreateQuestion.png)
+![image](docs/Diagrams/CreateQuestion.png)  
 Sequence diagram of what happens when a user creates a new question  
 
-![image](docs/Diagrams/SubmitQuestion.png)
+![image](docs/Diagrams/SubmitQuestion.png)  
 Sequence diagram of what happens when a user submits an answer in an ongoing quiz  
 
-![image](docs/Diagrams/LogInAttempt.png)
+![image](docs/Diagrams/LogInAttempt.png)  
 Sequence diagram of what happens when a user attempts to log in 
 
-![image](docs/Diagrams/LogInInit.png)
+![image](docs/Diagrams/LogInInit.png)  
 Sequence diagram of what happens when the log in page is initialized
 
 
