@@ -58,9 +58,25 @@ public final class NewQuestionController {
     private Question question;
     private List<TextField> listOfTextFields;
     private List<RadioButton> listOfRadioButtons;
+    private String quizName;
 
     // App.setRoot needs to be completed
     // All FXML files need to be created and named accordingly
+
+    /**
+     *
+     * @param quizName
+     */
+    public NewQuestionController(String quizName) {
+        this.quizName = quizName;
+    }
+
+    /**
+     * Sets paramet to default quiz
+     */
+    public NewQuestionController() {
+        this.quizName = "quiz101";
+    }
 
     /**
      * initializes the controller
@@ -69,7 +85,6 @@ public final class NewQuestionController {
         listOfTextFields = List.of(choice1, choice2, choice3, choice4);
         listOfRadioButtons = List.of(radioButton1, radioButton2, radioButton3, radioButton4);
         listOfRadioButtons.forEach(radio -> radio.setOnAction(ae -> submitButton.setDisable(false)));
-
         submitButton.setDisable(true);
 
     }
@@ -99,7 +114,7 @@ public final class NewQuestionController {
                 .replaceAll("\n", " ")
                 .replaceAll("\\$", " "), getListOfAnswers(), getCheckedId());
         QuizPersistence quizPersistence = new QuizPersistence();
-        Quiz quiz = quizPersistence.loadQuiz("quiz101");
+        Quiz quiz = quizPersistence.loadQuiz(quizName);
         quiz.addQuestion(question);
         quizPersistence.saveQuiz(quiz);
         ((Node) actionEvent.getSource()).getScene().setRoot(Utilities.getFXMLLoader("HomePage.fxml").load());
@@ -120,6 +135,9 @@ public final class NewQuestionController {
         return listOfTextFields.stream().map(field -> field.getText().replace('\n', ' ')).collect(Collectors.toList());
     }
 
+    public String getQuestion() {
+        return questionText.getText();
+    }
     /**
      * Sets the current root to be the home page
      *
