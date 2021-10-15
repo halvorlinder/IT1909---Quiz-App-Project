@@ -154,6 +154,23 @@ To get a local copy up and running follow these simple steps.
 - Fxml for the result page after the quiz is done
 <!-- ROADMAP -->
 
+##Architecture
+
+The following diagrams represent the macro architecture of the app:
+
+![image](docs/Diagrams/CreateQuestion.png)
+Sequence diagram of what happens when a user creates a new question  
+
+![image](docs/Diagrams/SubmitQuestion.png)
+Sequence diagram of what happens when a user submits an answer in an ongoing quiz  
+
+![image](docs/Diagrams/LogInAttempt.png)
+Sequence diagram of what happens when a user attempts to log in 
+
+![image](docs/Diagrams/LogInInit.png)
+Sequence diagram of what happens when the log in page is initialized
+
+
 ## Roadmap
 
 See the [open issues](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/issues) for a list of proposed
