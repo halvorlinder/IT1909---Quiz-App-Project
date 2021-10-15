@@ -80,7 +80,7 @@ To get a local copy up and running follow these simple steps.
 This app is a wondeful place to learn a lot about everything. The questions that will change your future.
 
 For more examples, please refer to
-the [user stories](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/user-stories.md)_
+the [user stories](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/user-stories.md)
 
 
 
