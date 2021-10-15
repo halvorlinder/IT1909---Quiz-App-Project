@@ -9,13 +9,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
 import ui.controllers.LogInController;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -25,13 +29,29 @@ public class LogInTest extends ApplicationTest {
 
     @Override
     public void start(final Stage stage) throws Exception {
+        File file = new File(System.getProperty("user.home") + "/QuizApp/testUsers.json");
+        userPersistence = new UserPersistence("testUsers.json");
+        if(!file.exists())
+            file.createNewFile();
+        UserData userData = new UserData();
+        userData.attemptRegister("halvor", "password");
+        userPersistence.saveUserData(userData);
         LogInController logInController = new LogInController("testUsers.json");
         final FXMLLoader loader = new FXMLLoader(getClass().getResource("LogInPageTest.fxml"));
         loader.setController(logInController);
         final Parent root = loader.load();
-        userPersistence = new UserPersistence("testUsers.json");
         stage.setScene(new Scene(root));
         stage.show();
+    }
+
+    @AfterAll
+    public static void deleteFile(){
+        String fileName = System.getProperty("user.home") + "/QuizApp/testUsers.json";
+        try {
+            Files.delete(Paths.get(fileName));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @BeforeEach
@@ -58,7 +78,6 @@ public class LogInTest extends ApplicationTest {
         clickOn("#logInUserName").write("halvor");
         clickOn("#logInPassword").write("password1");
         clickOn("#logIn");
-        Thread.sleep(1000);
         Node dialogPane = lookup(".dialog-pane").query();
         Assertions.assertDoesNotThrow(() -> {
             from(dialogPane).lookup((Text t) -> t.getText().startsWith("Brukernavn eller passord er feil")).query();
