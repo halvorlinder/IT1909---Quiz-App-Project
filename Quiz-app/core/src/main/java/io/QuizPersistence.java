@@ -13,7 +13,7 @@ import java.util.List;
 
 public class QuizPersistence {
     private final ObjectMapper mapper;
-    private static final String BASE_PATH = System.getProperty("user.home") + "/QuizApp/";
+    private static final String BASE_PATH = System.getProperty("user.home") + "/QuizApp/Quizzes/";
 
     /**
      * Inits a new QuizPersistence Object
@@ -22,13 +22,13 @@ public class QuizPersistence {
      */
     public QuizPersistence() throws IOException {
         mapper = createObjectMapper();
-        if (!Files.exists(Path.of(BASE_PATH))) {
-            Files.createDirectory(Path.of(BASE_PATH));
+        Path path = Path.of(BASE_PATH);
+        if (!Files.exists(path)) {
+            Files.createDirectories(path);
         }
     }
 
     /**
-     *
      * @return an ObjectMapper for handling quizzes
      */
     public static ObjectMapper createObjectMapper() {
@@ -36,7 +36,6 @@ public class QuizPersistence {
     }
 
     /**
-     *
      * @return a new QuizAppModule
      */
     public static SimpleModule createJacksonModule() {

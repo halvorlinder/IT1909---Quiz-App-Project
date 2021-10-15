@@ -7,7 +7,7 @@ test:
   stage: test
   script:
     - cd Quiz-app
-    - mvn verify
+    - mvn verify -DskipUiTests=true
     - cat core/target/site/jacoco/index.html | grep -o '<tfoot>.*</tfoot>'
   artifacts:
     when: always
@@ -17,20 +17,20 @@ test:
 #      junit: Quiz-app/core/target/test/**/Test-*.xml
 
 
-coverage:
+#coverage:
   # Must be in a stage later than test-jdk11's stage.
   # The `visualize` stage does not exist by default.
   # Please define it first, or choose an existing stage like `deploy`.
-  stage: visualize
-  image: registry.gitlab.com/haynes/jacoco2cobertura:1.0.7
-  script:
+#  stage: visualize
+#  image: registry.gitlab.com/haynes/jacoco2cobertura:1.0.7
+#  script:
     # convert report from jacoco to cobertura, using relative project path
-    - python /opt/cover2cover.py
-      Quiz-app/core/target/site/jacoco/jacoco.xml
-      > Quiz-app/core/target/site/jacoco/cobertura.xml
-  needs: ["test"]
-  dependencies:
-    - test
-  artifacts:
-    reports:
-      cobertura: Quiz-app/core/target/site/jacoco/cobertura.xml
+#    - python /opt/cover2cover.py
+#      Quiz-app/core/target/site/jacoco/jacoco.xml
+#      > Quiz-app/core/target/site/jacoco/cobertura.xml
+#  needs: ["test"]
+#  dependencies:
+#    - test
+#  artifacts:
+#    reports:
+#      cobertura: Quiz-app/core/target/site/jacoco/cobertura.xml

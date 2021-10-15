@@ -6,7 +6,10 @@ import io.QuizPersistence;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import ui.Utilities;
 
 import java.io.IOException;
@@ -60,11 +63,18 @@ public final class NewQuestionController {
     // App.setRoot needs to be completed
     // All FXML files need to be created and named accordingly
 
-    public NewQuestionController(String quizName){
+    /**
+     *
+     * @param quizName
+     */
+    public NewQuestionController(String quizName) {
         this.quizName = quizName;
     }
 
-    public NewQuestionController(){
+    /**
+     * Sets paramet to default quiz
+     */
+    public NewQuestionController() {
         this.quizName = "quiz101";
     }
 
@@ -119,21 +129,20 @@ public final class NewQuestionController {
     }
 
     /**
-     *
      * @return list of choices provided by the user
      */
     public List<String> getListOfAnswers() {
         return listOfTextFields.stream().map(field -> field.getText().replace('\n', ' ')).collect(Collectors.toList());
     }
 
-    public String getQuestion(){
+    public String getQuestion() {
         return questionText.getText();
     }
     /**
      * Sets the current root to be the home page
      *
-     * @throws IOException
      * @param actionEvent
+     * @throws IOException
      */
     @FXML
     public void showHomePage(ActionEvent actionEvent) throws IOException { // Switch scene to HomePage
