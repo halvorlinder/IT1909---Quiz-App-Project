@@ -1,6 +1,7 @@
 package io;
 
 import core.Quiz;
+import core.UserData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -8,27 +9,28 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 
+import static io.TestHelpers.checkUserData;
+import static io.TestHelpers.createUserDataWithTwoEntries;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class QuizPersistenceTest {
+public class UserPersistenceTest {
 
-    private QuizPersistence quizPersistence;
+    private UserPersistence userPersistence;
 
     @BeforeEach
     public void setup() throws IOException {
-        quizPersistence = new QuizPersistence();
+        userPersistence = new UserPersistence();
     }
 
     @Test
     public void testSerializersDeserializers() {
-        Quiz quiz = TestHelpers.createQuizWithTwoQuestions();
+        UserData userData = createUserDataWithTwoEntries();
         try {
             StringWriter writer = new StringWriter();
-            quizPersistence.writeQuiz(quiz, writer);
+            userPersistence.writeUserData(userData, writer);
             String json = writer.toString();
-            Quiz quiz2 = quizPersistence.readQuiz(new StringReader(json));
-            TestHelpers.checkQuiz(quiz, quiz2);
-
+            UserData userData1 = userPersistence.readUserData(new StringReader(json));
+            checkUserData(userData, userData1);
         } catch (IOException e) {
             fail(e.getMessage());
         }

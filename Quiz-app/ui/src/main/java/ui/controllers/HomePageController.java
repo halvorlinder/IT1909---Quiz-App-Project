@@ -1,18 +1,21 @@
 package ui.controllers;
 
 import core.Quiz;
+import core.User;
 import io.QuizPersistence;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import ui.App;
 import ui.Utilities;
-import javafx.scene.Node;
 
 import java.io.IOException;
 
-public class HomePageController {
+
+public final class HomePageController {
 
     @FXML
     private Button startQuizButton;
@@ -23,14 +26,22 @@ public class HomePageController {
     @FXML
     private Button leaderboardButton;
 
-    // App.setRoot needs to be completed
-    // All FXML files need to be created and named accordingly
+    @FXML
+    private Label nameDisplay;
+
+    /**
+     * sets the text to display username
+     */
+    @FXML
+    public void initialize() {
+        nameDisplay.setText("Logget inn som " + User.getUserName());
+    }
 
     /**
      * Sets the current root to be the question page
      *
-     * @throws IOException
      * @param actionEvent
+     * @throws IOException
      */
     @FXML
     public void showStartQuiz(ActionEvent actionEvent) throws IOException { // Switch scene to StartQuiz
@@ -47,8 +58,8 @@ public class HomePageController {
     /**
      * Sets the current root to be the new question page
      *
-     * @throws IOException
      * @param actionEvent
+     * @throws IOException
      */
     @FXML
     public void showNewQuestion(ActionEvent actionEvent) throws IOException { // Switch scene to StartQuiz
@@ -66,5 +77,17 @@ public class HomePageController {
         //newQuestionButton.getScene().setRoot(Utilities.getFXMLLoader(".fxml").load());
     }
 
-
+    /**
+     * signs out of the application
+     * @param actionEvent
+     */
+    @FXML
+    public void signOut(ActionEvent actionEvent) {
+        try {
+            ((Node) actionEvent.getSource()).getScene().setRoot(Utilities.getFXMLLoader("LogInPage.fxml").load());
+            User.setUserName(null);
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+    }
 }

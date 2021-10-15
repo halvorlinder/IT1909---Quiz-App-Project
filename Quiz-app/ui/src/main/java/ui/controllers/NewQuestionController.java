@@ -6,7 +6,10 @@ import io.QuizPersistence;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import ui.Utilities;
 
 import java.io.IOException;
@@ -111,7 +114,6 @@ public final class NewQuestionController {
     }
 
     /**
-     *
      * @return list of choices provided by the user
      */
     public List<String> getListOfAnswers() {
@@ -121,8 +123,8 @@ public final class NewQuestionController {
     /**
      * Sets the current root to be the home page
      *
-     * @throws IOException
      * @param actionEvent
+     * @throws IOException
      */
     @FXML
     public void showHomePage(ActionEvent actionEvent) throws IOException { // Switch scene to HomePage
