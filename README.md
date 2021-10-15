@@ -50,8 +50,12 @@ The project is seperated into modules; the core and the ui. The core module cont
 ### Built With
 
 * Java
+* JavaFX
 * Maven
 * Json and Jackson
+* Jacoco
+* Checkstyle
+* Spotbugs
 
 <!-- GETTING STARTED -->
 
