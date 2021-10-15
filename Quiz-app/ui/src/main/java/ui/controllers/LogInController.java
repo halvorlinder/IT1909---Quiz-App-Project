@@ -24,6 +24,7 @@ public final class LogInController {
 
     private UserPersistence userPersistence;
     private UserData userData;
+    private final String fileName;
 
     /**
      * fetches userData
@@ -31,7 +32,7 @@ public final class LogInController {
     @FXML
     public void initialize() {
         try {
-            userPersistence = new UserPersistence();
+            userPersistence = new UserPersistence(fileName);
             userData = userPersistence.loadUserData();
         } catch (IOException ioException) {
             ioException.printStackTrace();
@@ -39,7 +40,22 @@ public final class LogInController {
     }
 
     /**
+     *
+     */
+    public LogInController() {
+        fileName = "users.json";
+    }
+
+    /**
+     * @param fileName the file where users are saved
+     */
+    public LogInController(String fileName) {
+        this.fileName = fileName;
+    }
+
+    /**
      * attempts to log a user into the application
+     *
      * @param actionEvent the actionEvent
      */
     @FXML
@@ -58,6 +74,7 @@ public final class LogInController {
 
     /**
      * attempts to log a user into the application
+     *
      * @param actionEvent the actionEvent
      */
     @FXML
@@ -77,6 +94,7 @@ public final class LogInController {
 
     /**
      * logs into the applicatio
+     *
      * @param actionEvent
      * @param username
      * @throws IOException
