@@ -55,9 +55,18 @@ public final class NewQuestionController {
     private Question question;
     private List<TextField> listOfTextFields;
     private List<RadioButton> listOfRadioButtons;
+    private String quizName;
 
     // App.setRoot needs to be completed
     // All FXML files need to be created and named accordingly
+
+    public NewQuestionController(String quizName){
+        this.quizName = quizName;
+    }
+
+    public NewQuestionController(){
+        this.quizName = "quiz101";
+    }
 
     /**
      * initializes the controller
@@ -95,7 +104,7 @@ public final class NewQuestionController {
                 .replaceAll("\n", " ")
                 .replaceAll("\\$", " "), getListOfAnswers(), getCheckedId());
         QuizPersistence quizPersistence = new QuizPersistence();
-        Quiz quiz = quizPersistence.loadQuiz("quiz101");
+        Quiz quiz = quizPersistence.loadQuiz(quizName);
         quiz.addQuestion(question);
         quizPersistence.saveQuiz(quiz);
         ((Node) actionEvent.getSource()).getScene().setRoot(Utilities.getFXMLLoader("HomePage.fxml").load());
