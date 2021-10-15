@@ -54,7 +54,7 @@ In addition to this we have utilized pair programming to a higher degree. We bel
 ## Design
 
 The designs for this release are the new design for the login page and a redesign of the home page.
-The designs are made using figma and can found [here](designs.md)
+The designs are made using figma and can found [here](https://www.figma.com/file/fIa83jzzjFGX31jdjN8C2o/Untitled?node-id=12%3A2)
 
 ## Meetings
 
