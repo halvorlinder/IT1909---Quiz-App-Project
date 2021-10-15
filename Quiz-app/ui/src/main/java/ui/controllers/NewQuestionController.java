@@ -63,7 +63,6 @@ public final class NewQuestionController {
         listOfTextFields = List.of(choice1, choice2, choice3, choice4);
         listOfRadioButtons = List.of(radioButton1, radioButton2, radioButton3, radioButton4);
         listOfRadioButtons.forEach(radio -> radio.setOnAction(ae -> submitButton.setDisable(false)));
-
         submitButton.setDisable(true);
 
     }
@@ -113,6 +112,10 @@ public final class NewQuestionController {
      */
     public List<String> getListOfAnswers() {
         return listOfTextFields.stream().map(field -> field.getText().replace('\n', ' ')).collect(Collectors.toList());
+    }
+
+    public String getQuestion(){
+        return questionText.getText();
     }
 
 }

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import java.lang.String?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.NewQuestionController">
+    <children>
+        <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+
+            <fx:define>
+                <String fx:id="sampleNewQuestionResource" fx:value="test-newQuestion.json"/>
+            </fx:define>
+
+
+            <children>
+
+                <TextField id="questionText" fx:id="questionText" alignment="TOP_LEFT" prefHeight="120.0" prefWidth="400.0" promptText="Write your question here...">
+                </TextField>
+                <GridPane prefHeight="200.0" prefWidth="600.0">
+
+                    <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                            <children>
+                                <TextField id="choice1" fx:id="choice1" prefHeight="26.0" prefWidth="200.0" promptText="Answer 1...">
+                                </TextField>
+                                <RadioButton id="radioButton1" fx:id="radioButton1" mnemonicParsing="false">
+                                    <toggleGroup>
+                                        <ToggleGroup fx:id="radioButton" />
+                                    </toggleGroup>
+                                </RadioButton>
+                            </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+                            <children>
+                                <TextField id="choice2" fx:id="choice2" prefHeight="26.0" prefWidth="200.0" promptText="Answer 2...">
+                                </TextField>
+
+                                <RadioButton id="radioButton2" fx:id="radioButton2" mnemonicParsing="false" toggleGroup="$radioButton">
+                                </RadioButton>
+                            </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
+                            <children>
+                                <TextField id="choice3" fx:id="choice3" prefHeight="26.0" prefWidth="200.0" promptText="Answer 3...">
+                                </TextField>
+
+                                <RadioButton id="radioButton3" fx:id="radioButton3" mnemonicParsing="false" toggleGroup="$radioButton">
+                                </RadioButton>
+                            </children>
+                        </HBox>
+                        <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <children>
+                                <TextField id="choice4" fx:id="choice4" prefHeight="26.0" prefWidth="200.0" promptText="Answer 4...">
+                                </TextField>
+
+                                <RadioButton id="radioButton4" fx:id="radioButton4" mnemonicParsing="false" toggleGroup="$radioButton">
+                                </RadioButton>
+                            </children>
+                        </HBox>
+                        <Button id="backButton" mnemonicParsing="false" text="Back" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                        <Button id="submitButton" fx:id="submitButton" mnemonicParsing="false" onAction="#submitQuestion" text="Submit" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                    </children>
+                </GridPane>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
