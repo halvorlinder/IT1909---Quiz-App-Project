@@ -140,6 +140,11 @@ To get a local copy up and running follow these simple steps.
 - Convert Json object of UserData to a String format
 
 
+### JSON Format 
+The JSON schema for saving Quizzes can be found [here](docs/JSON/quiz_schema.md)  
+The JSON schema for saving Users can be found [here](docs/JSON/users_schema.md)
+
+
 ## UI
 
 ### ui
