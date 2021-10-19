@@ -1,5 +1,6 @@
 package ui.controllers;
 
+import core.Question;
 import core.Quiz;
 import core.User;
 import io.QuizPersistence;
@@ -10,11 +11,14 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import ui.App;
 import ui.Utilities;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public final class HomePageController {
@@ -31,6 +35,12 @@ public final class HomePageController {
     private Button leaderboardButton;
 
     @FXML
+    private Button addNewQuizButton;
+
+    @FXML
+    private TextField questionNameField;
+
+    @FXML
     private Label nameDisplay;
 
     @FXML
@@ -43,6 +53,10 @@ public final class HomePageController {
     public void initialize() {
 
         nameDisplay.setText("Logget inn som " + User.getUserName());
+        updateQuizzes();
+    }
+
+    private void updateQuizzes() {
         File[] files = new File(BASE_PATH).listFiles();
         if (files == null) {
             return;
@@ -108,6 +122,30 @@ public final class HomePageController {
     @FXML
     public void showLeaderboard() throws IOException { // Switch scene to StartQuiz
         //newQuestionButton.getScene().setRoot(Utilities.getFXMLLoader(".fxml").load());
+    }
+
+    /**
+     * Creates a new quiz with a given name
+     *
+     * @param actionEvent
+     * @throws IOException
+     */
+
+    // TODO Make sure that the name passed is suitable as a file name
+
+    @FXML
+    public void addNewQuiz(ActionEvent actionEvent) throws IOException {
+        System.out.println(questionNameField.getText());
+        if (questionNameField.getText().isEmpty()) {
+            // TODO Alert user that they cant add a quiz with that name
+            return;
+        }
+        String newQuizName = questionNameField.getText();
+        List<Question> noQuestions = new ArrayList<>();
+        Quiz newQuiz = new Quiz(newQuizName, noQuestions);
+        QuizPersistence quizPersistence = new QuizPersistence();
+        quizPersistence.saveQuiz(newQuiz);
+        updateQuizzes();
     }
 
     /**
