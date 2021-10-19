@@ -7,15 +7,20 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import ui.App;
 import ui.Utilities;
 
+import java.io.File;
 import java.io.IOException;
 
 
 public final class HomePageController {
+
+    private static final String BASE_PATH = System.getProperty("user.home") + "/QuizApp/Quizzes/";
 
     @FXML
     private Button startQuizButton;
@@ -29,12 +34,22 @@ public final class HomePageController {
     @FXML
     private Label nameDisplay;
 
+    @FXML
+    private ChoiceBox choiceBox;
+
     /**
      * sets the text to display username
      */
     @FXML
     public void initialize() {
+
         nameDisplay.setText("Logget inn som " + User.getUserName());
+        File[] files = new File(BASE_PATH).listFiles();
+        for (File file : files) {
+            if (file.isFile()) {
+                choiceBox.getItems().add(file.getName().replaceFirst("[.][^.]+$", ""));
+            }
+        }
     }
 
     /**
@@ -46,9 +61,17 @@ public final class HomePageController {
     @FXML
     public void showStartQuiz(ActionEvent actionEvent) throws IOException { // Switch scene to StartQuiz
         QuizPersistence quizPersistence = new QuizPersistence();
-        Quiz quiz = quizPersistence.loadQuiz("quiz101");
-        if (quiz.getQuizLength() == 0)
+        String currentQuiz = (String) choiceBox.getSelectionModel().getSelectedItem();
+        System.out.println(currentQuiz);
+        if(currentQuiz == null) {
+            // TODO: alert user that a quiz needs to be selected
             return;
+        }
+        Quiz quiz = quizPersistence.loadQuiz(currentQuiz);
+        if (quiz.getQuizLength() == 0) {
+            // TODO: alert user that quiz is too short
+            return;
+        }
         FXMLLoader loader = App.getFXMLLoader("QuestionPage.fxml");
         QuizController controller = new QuizController(quiz);
         loader.setController(controller);
@@ -63,8 +86,16 @@ public final class HomePageController {
      */
     @FXML
     public void showNewQuestion(ActionEvent actionEvent) throws IOException { // Switch scene to StartQuiz
-
-        ((Node) actionEvent.getSource()).getScene().setRoot(Utilities.getFXMLLoader("NewQuestion.fxml").load());
+        String currentQuiz = (String) choiceBox.getSelectionModel().getSelectedItem();
+        System.out.println(currentQuiz);
+        if(currentQuiz == null) {
+            // TODO: alert user that a quiz needs to be selected
+            return;
+        }
+        FXMLLoader loader = App.getFXMLLoader("NewQuestion.fxml");
+        NewQuestionController controller = new NewQuestionController(currentQuiz);
+        loader.setController(controller);
+        ((Node) actionEvent.getSource()).getScene().setRoot(loader.load());
     }
 
     /**
