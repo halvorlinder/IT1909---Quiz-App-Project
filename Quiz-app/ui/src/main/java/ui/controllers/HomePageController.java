@@ -7,7 +7,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -45,6 +44,9 @@ public final class HomePageController {
 
         nameDisplay.setText("Logget inn som " + User.getUserName());
         File[] files = new File(BASE_PATH).listFiles();
+        if (files == null) {
+            return;
+        }
         for (File file : files) {
             if (file.isFile()) {
                 choiceBox.getItems().add(file.getName().replaceFirst("[.][^.]+$", ""));
@@ -63,13 +65,13 @@ public final class HomePageController {
         QuizPersistence quizPersistence = new QuizPersistence();
         String currentQuiz = (String) choiceBox.getSelectionModel().getSelectedItem();
         System.out.println(currentQuiz);
-        if(currentQuiz == null) {
-            // TODO: alert user that a quiz needs to be selected
+        if (currentQuiz == null) {
+            // TODO Alert user that a quiz needs to be selected
             return;
         }
         Quiz quiz = quizPersistence.loadQuiz(currentQuiz);
         if (quiz.getQuizLength() == 0) {
-            // TODO: alert user that quiz is too short
+            // TODO Alert user that quiz is too short
             return;
         }
         FXMLLoader loader = App.getFXMLLoader("QuestionPage.fxml");
@@ -88,8 +90,8 @@ public final class HomePageController {
     public void showNewQuestion(ActionEvent actionEvent) throws IOException { // Switch scene to StartQuiz
         String currentQuiz = (String) choiceBox.getSelectionModel().getSelectedItem();
         System.out.println(currentQuiz);
-        if(currentQuiz == null) {
-            // TODO: alert user that a quiz needs to be selected
+        if (currentQuiz == null) {
+            // TODO Alert user that a quiz needs to be selected
             return;
         }
         FXMLLoader loader = App.getFXMLLoader("NewQuestion.fxml");
