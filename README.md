@@ -185,7 +185,7 @@ To get a local copy up and running follow these simple steps.
 - Fxml for the log in-page
 <!-- ROADMAP -->
 
-##Architecture
+## Architecture
 
 The following diagrams represent the macro architecture of the app:
 
