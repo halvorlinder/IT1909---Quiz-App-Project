@@ -8,10 +8,13 @@ component core {
 }
 
 core.io ..> core.io.internal
+core.io ..> jackson
+core.io.internal ..> jackson
+
 component jackson {
 }
 
-core.io.internal ..> jackson
+
 
 
 component ui {
@@ -20,19 +23,18 @@ component ui {
 }
 
 ui.ui ..> ui.ui.controllers
-ui.ui ..> core.core
-ui.ui ..> core.io
+ui.ui.controllers ..> core.core
+ui.ui.controllers ..> core.io
 
 component javafx {
-	package resources
+    component fxml{
+    }
 }
 
-component fxml{
-}
 
-javafx ..> fxml
 ui ..> javafx
-ui ..> resources
+ui ..> fxml
+
 
 
 
