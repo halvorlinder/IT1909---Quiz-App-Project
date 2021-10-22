@@ -1,0 +1,41 @@
+
+@startuml
+
+component core {
+	package core.core
+	package core.io
+	package core.io.internal
+}
+
+core.io ..> core.io.internal
+component jackson {
+}
+
+core.io.internal ..> jackson
+
+
+component ui {
+	package ui.ui
+	package ui.ui.controllers
+}
+
+ui.ui ..> ui.ui.controllers
+ui.ui ..> core.core
+ui.ui ..> core.io
+
+component javafx {
+	package resources
+}
+
+component fxml{
+}
+
+javafx ..> fxml
+ui ..> javafx
+ui ..> resources
+
+
+
+
+
+@enduml
