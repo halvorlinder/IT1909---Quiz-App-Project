@@ -63,11 +63,11 @@ We use a default checkstyle template, with minor changes:
 - End Of Line Operator: We specified that operators should be at end of line rather than the start, due to IntelliJ formattiing.
 - Hidden Field: We disabed this check because we think that the this.field syntax is useful and clean
 - Magic number: We changed this from error to warning, because we want them in some cases, but seldomly.
-- Javadoc Grammar: We disabled grammar checks i javadoc, because this is unimportant
+- Javadoc Grammar: We disabled grammar checks in javadoc, because this is unimportant
 
 #### Spotbugs settings
 We have edited a few spotbugs settings:
-- Disabled unused field in controllers that arent linked to a FXML file, because the fields are used but the compiler doesnt understand it
+- Disabled unused field in controllers that arent linked to a FXML file, because the fields are used but the compiler doesn't understand it
 
 <!-- GETTING STARTED -->
 
@@ -104,9 +104,17 @@ To get a local copy up and running follow these simple steps.
 [Quiz](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/core/src/main/java/core/Quiz.java)
 - Handles a quiz session by keeping track of list of questions.
 
+[User](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/core/src/main/java/core/User.java)
+- Contains the information of a single user, with a set- and get-function for the username.
+
+[UserData](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/core/src/main/java/core/UserData.java)
+- Handles User-objects. Links usernames to hashed passwords.
+
 ### io
 
-[QuizPersistance](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/core/src/main/java/io/QuizPersistence.java) - Take Json Object and persist
+[QuizPersistance](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/core/src/main/java/io/QuizPersistence.java) - Take Json Object of quiz(zes) and persist
+
+[UserPersistance](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/core/src/main/java/io/UserPersistence.java) - Take Json Object user(s) and persist
 
 **Internal:**
 
@@ -120,11 +128,21 @@ To get a local copy up and running follow these simple steps.
 - A Jackson module for configuring JSON serialization of QuizAppModule instances
 
 [QuizDeserializer](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/core/src/main/java/io/internal/QuizDeserializer.java) 
-- Convert data related to quiz from String format to Json Object
+- Convert data related to Quiz from String format to Json Object
 
 [QuizSerializer](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/core/src/main/java/io/internal/QuizSerializer.java) 
 - Convert Json object of Quiz to a String format
 
+[UserDataDeserializer](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/core/src/main/java/io/internal/UserDataDeserializer.java) 
+- Convert data related to UserData from String format to Json Object
+
+[UserDataSerializer](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/core/src/main/java/io/internal/UserDataSerializer.java) 
+- Convert Json object of UserData to a String format
+
+
+### JSON Format 
+The JSON schema for saving Quizzes can be found [here](docs/JSON/quiz_schema.md)  
+The JSON schema for saving Users can be found [here](docs/JSON/users_schema.md)
 
 
 ## UI
@@ -151,22 +169,28 @@ To get a local copy up and running follow these simple steps.
 [ResultPageController](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/ui/src/main/java/ui/controllers/ResultPageController.java)
 - Controller for final score after taking the quiz
 
+[LogInController](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/ui/src/main/java/ui/controllers/LogInController.java)
+- Controller for creating a profile and logging in
+
 ### Resources
 
 [HomePage fxml](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/ui/src/main/resources/ui/HomePage.fxml)
 - Fxml for the homepage
 
 [New Question fxml](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/ui/src/main/resources/ui/NewQuestion.fxml)
-- Fxml for the new question page
+- Fxml for the new question-page
 
 [Quiz fxml](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/ui/src/main/resources/ui/QuestionPage.fxml)
-- Fxml for the quiz page
+- Fxml for the quiz-page
 
-[Result page fxml](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/ui/src/main/resources/ui/ResultPage.fxml)
-- Fxml for the result page after the quiz is done
+[Result Page fxml](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/ui/src/main/resources/ui/ResultPage.fxml)
+- Fxml for the result-page after the quiz is done
+
+[Log In fxml](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/ui/src/main/resources/ui/ResultPage.fxml)
+- Fxml for the log in-page
 <!-- ROADMAP -->
 
-##Architecture
+## Architecture
 
 The following diagrams represent the macro architecture of the app:
 

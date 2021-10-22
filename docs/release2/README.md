@@ -41,13 +41,17 @@ As a user I would like to see my score on a leaderboard after I am done taking t
 
 
 
-### Workflow 
+## Workflow 
 
 As previously mentioned we've focused on improving our agile workflow during this sprint. This has been achieved through a number of factors.  
 We have continued to ensure code quality through code reviews. The code reviews are now faster and easier due to the introduction of a Gitlab ci pipeline which runs all our core/io tests automatically whenever code is pushed to the remote or a merge request is created. The pipeline also runs Checkstyle and Spotbugs, as well as Jacoco for test coverage. If any of the tests fail, or if there are Checkstyle/Spotbugs errors, the merge request is halted until these issues have been adressed. This allows us to merge code into the main branch with higher confidence that the main branch doesn't break.
 The test coverage is also displayed as a badge on the project in addition to on each merge request. This is achieved through a Gitlab merge request template.  
 In the future we plan on displaying the test coverage reports in gitlab after the pipeline is done. 
-In addition to this we have utilized pair programming to a higher degree. We believe that this has helped us in our effort to write clean reusable and functional code.
+In addition to this we have utilized pair programming to a higher degree. We believe that this has helped us in our effort to write clean, reusable and functional code.
+
+### Trunk-based development
+
+We opted to go for a trunk-based development. This means that we have many, short-lived branches that solve a concrete problem. The branches are most often handled by one person only. The branches are, when done, merged into the main branch. As we are a small team, we all share knowledge of all components in the main branch and how they work together. We also have a rigid system to ensure that the main branch is never broken. We don't have a product that needs to be available at all times (like a webpage), and so IF it would break, the short amount of downtime before we could revert back to an older version or fix the change, would not be detrimental. Trunk-based development is a key enabler of our agile workflow.
 
 
 
