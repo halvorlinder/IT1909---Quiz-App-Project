@@ -5,7 +5,9 @@ import core.UserData;
 import io.UserPersistence;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import ui.Utilities;
@@ -101,7 +103,11 @@ public final class LogInController {
      */
     private void logIn(ActionEvent actionEvent, String username) throws IOException {
         User.setUserName(username);
-        ((Node) actionEvent.getSource()).getScene().setRoot(Utilities.getFXMLLoader("HomePage.fxml").load());
+        final FXMLLoader loader = Utilities.getFXMLLoader("HomePage.fxml");
+        // HomePageController controller = new HomePageController();
+        // loader.setController(controller);
+        final Parent root = loader.load();
+        ((Node) actionEvent.getSource()).getScene().setRoot(root);
     }
 
 }

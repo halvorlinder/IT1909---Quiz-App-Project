@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" vbarPolicy="ALWAYS" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" vbarPolicy="ALWAYS" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controllers.HomePageController">
    <content>
       <VBox maxHeight="1.7976931348623157E308" prefHeight="392.0" prefWidth="596.0">
          <children>
@@ -44,13 +44,13 @@
                   </Label>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <children>
-                        <TextField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="99.0" promptText="Navn" />
-                        <Button alignment="CENTER" mnemonicParsing="false" text="Ny Quiz" />
+                        <TextField fx:id="quizNameField" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="99.0" promptText="Navn" />
+                        <Button fx:id="addNewQuizButton" alignment="CENTER" mnemonicParsing="false" onAction="#addNewQuizFile" text="Ny Quiz" />
                      </children>
                   </VBox>
                </children>
             </GridPane>
-            <VBox prefHeight="200.0" prefWidth="100.0" />
+            <VBox fx:id="quizList" prefHeight="200.0" prefWidth="100.0" />
          </children>
          <opaqueInsets>
             <Insets />

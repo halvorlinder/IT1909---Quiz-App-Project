@@ -25,7 +25,7 @@ public class HomePageTest extends ApplicationTest {
     @Test
     public void testCreateEmptyNameQuiz() {
         HomePageController controller = loader.getController();
-        Assertions.assertThrows(IllegalArgumentException.class, () -> controller.addNewQuiz());
+        Assertions.assertThrows(IllegalArgumentException.class, () -> controller.addNewQuizFile());
     }
 
 }
