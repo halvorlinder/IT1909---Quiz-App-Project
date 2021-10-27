@@ -25,19 +25,19 @@
               </rowConstraints>
                <children>
                   <Button minWidth="90.0" mnemonicParsing="false" text="Tilbake" />
-                  <Label text="Endre &lt;quiznavn&gt;" GridPane.columnIndex="1">
+                  <Label text="Endre &lt;quiznavn&gt;" GridPane.columnIndex="1" fx:id="titleText">
                      <font>
                         <Font name="Comic Sans MS" size="30.0" />
                      </font>
                   </Label>
-                  <Button mnemonicParsing="false" text="Nytt spørsmål" GridPane.columnIndex="2">
+                  <Button mnemonicParsing="false" text="Nytt spørsmål" GridPane.columnIndex="2" onAction="#showNewQuestion">
                      <GridPane.margin>
                         <Insets right="14.0" />
                      </GridPane.margin>
                   </Button>
                </children>
             </GridPane>
-            <VBox maxHeight="1.7976931348623157E308" prefHeight="30.0" prefWidth="582.0" />
+            <VBox maxHeight="1.7976931348623157E308" prefHeight="30.0" prefWidth="582.0" fx:id="questionList"/>
             <GridPane minHeight="-Infinity" prefHeight="50.0" prefWidth="596.0">
               <columnConstraints>
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
