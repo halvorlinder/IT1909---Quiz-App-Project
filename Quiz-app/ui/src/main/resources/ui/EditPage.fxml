@@ -30,7 +30,7 @@
                         <Font name="Comic Sans MS" size="30.0" />
                      </font>
                   </Label>
-                  <Button mnemonicParsing="false" text="Nytt spørsmål" GridPane.columnIndex="2" onAction="#showNewQuestion">
+                  <Button mnemonicParsing="false" text="Nytt spørsmål" GridPane.columnIndex="2" fx:id="newQuestionButton" onAction="#showNewQuestion">
                      <GridPane.margin>
                         <Insets right="14.0" />
                      </GridPane.margin>
