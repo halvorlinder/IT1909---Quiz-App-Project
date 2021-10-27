@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
@@ -84,6 +83,7 @@ public final class HomePageController {
 
         Button editButton = new Button();
         editButton.setText("Endre");
+        editButton.setOnAction((ActionEvent ae) -> showEditPage(quizName));
         gridPane.add(editButton, 2, 0, 1, 1);
 
         Button leaderboardButton = new Button();
@@ -91,6 +91,18 @@ public final class HomePageController {
         gridPane.add(leaderboardButton, 3, 0, 1, 1);
 
         quizList.getChildren().add(gridPane);
+    }
+
+    private void showEditPage(String quizName) {
+        try{
+            FXMLLoader loader = App.getFXMLLoader("EditPage.fxml");
+            EditPageController controller = new EditPageController(quizName);
+            loader.setController(controller);
+            quizList.getScene().setRoot(loader.load());
+        }catch (IOException ioException){
+            ioException.printStackTrace();
+            Utilities.alertUser();
+        }
     }
 
     /**
