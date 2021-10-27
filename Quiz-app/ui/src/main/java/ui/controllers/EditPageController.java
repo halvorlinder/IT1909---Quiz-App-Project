@@ -24,22 +24,36 @@ public class EditPageController {
 
     private final String quizName;
     private Quiz quiz;
-    public EditPageController(String quizName){
+
+    /**
+     *
+     * @param quizName the name of the quiz to be edited
+     */
+    public EditPageController(String quizName) {
         this.quizName = quizName;
     }
 
+    /**
+     * initializes the page by filling in question rows and displaying name
+     * @throws IOException
+     */
     @FXML
     private void initialize() throws IOException {
         QuizPersistence quizPersistence = new QuizPersistence();
         quiz = quizPersistence.loadQuiz(quizName);
         titleText.setText("Endre " + quizName);
-        for (int i = 0; i<quiz.getQuizLength(); i++){
+        for (int i = 0; i < quiz.getQuizLength(); i++) {
             addQuestionElement(i);
         }
     }
 
-    private void addQuestionElement(int questionId){
-        Question question = quiz.getQuestions().get(questionId); //TODO this should be changed after new changes are in main
+    /**
+     * adds a gui element representing a question from the quiz
+     * @param questionId the id of the question
+     */
+    private void addQuestionElement(int questionId) {
+        //TODO this should be changed after new changes are in main
+        Question question = quiz.getQuestions().get(questionId);
         GridPane gridPane = new GridPane();
         ColumnConstraints column1 = new ColumnConstraints(300);
         ColumnConstraints column2 = new ColumnConstraints(100);
@@ -51,20 +65,25 @@ public class EditPageController {
 
         Button editButton = new Button();
         editButton.setText("Endre");
-        editButton.setOnAction((ActionEvent ae) -> {}); //TODO implement this
+        editButton.setOnAction((ActionEvent ae) -> {
+        }); //TODO implement this
         gridPane.add(editButton, 1, 0, 1, 1);
 
         Button deleteButton = new Button();
         deleteButton.setText("Slett");
-        deleteButton.setOnAction((ActionEvent ae) -> {}); //TODO implement this
+        deleteButton.setOnAction((ActionEvent ae) -> {
+        }); //TODO implement this
         gridPane.add(deleteButton, 2, 0, 1, 1);
 
         questionList.getChildren().add(gridPane);
     }
 
 
+    /**
+     * renders the new question page
+     */
     @FXML
-    public void showNewQuestion(){
+    public void showNewQuestion() {
         try {
             FXMLLoader loader = App.getFXMLLoader("NewQuestion.fxml");
             loader.setController(new NewQuestionController(quizName));

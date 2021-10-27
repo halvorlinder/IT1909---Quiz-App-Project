@@ -51,6 +51,9 @@ public final class HomePageController {
         updateInitialQuizzes();
     }
 
+    /**
+     * adds all quiz names to a list so that they can be rendered
+     */
     private void updateInitialQuizzes() {
         File[] files = new File(BASE_PATH).listFiles();
         if (files == null) {
@@ -58,13 +61,17 @@ public final class HomePageController {
         }
         for (File file : files) {
             if (file.isFile()) {
-                String quizName  = file.getName().replaceFirst("[.][^.]+$", "");
+                String quizName = file.getName().replaceFirst("[.][^.]+$", "");
                 quizzes.add(quizName);
                 addQuizElement(quizName);
             }
         }
     }
 
+    /**
+     * displays a quiz as a row on the page
+     * @param quizName the name of the quiz
+     */
     private void addQuizElement(String quizName) {
         GridPane gridPane = new GridPane();
         ColumnConstraints column1 = new ColumnConstraints(300);
@@ -93,13 +100,17 @@ public final class HomePageController {
         quizList.getChildren().add(gridPane);
     }
 
+    /**
+     * displays the edit page for a given quiz
+     * @param quizName the name of the quiz
+     */
     private void showEditPage(String quizName) {
-        try{
+        try {
             FXMLLoader loader = App.getFXMLLoader("EditPage.fxml");
             EditPageController controller = new EditPageController(quizName);
             loader.setController(controller);
             quizList.getScene().setRoot(loader.load());
-        }catch (IOException ioException){
+        } catch (IOException ioException) {
             ioException.printStackTrace();
             Utilities.alertUser();
         }
@@ -108,7 +119,7 @@ public final class HomePageController {
     /**
      * Sets the current root to be the question page
      *
-     * @param quizName
+     * @param quizName the name of the quiz to be played
      * @throws IOException
      */
     @FXML
@@ -130,25 +141,24 @@ public final class HomePageController {
         }
     }
 
-    /**
-     * Sets the current root to be the new question page
-     *
-     * @param actionEvent
-     * @throws IOException
-     */
-    @FXML
-    public void showNewQuestion(ActionEvent actionEvent) throws IOException { // Switch scene to StartQuiz
-        // TODO: get name if quiz from button
-        String currentQuiz = "oskar-spesial";
-        System.out.println(currentQuiz);
-        if (currentQuiz == null) {
-            throw new IllegalStateException("No quiz selected");
-        }
-        FXMLLoader loader = App.getFXMLLoader("NewQuestion.fxml");
-        NewQuestionController controller = new NewQuestionController(currentQuiz);
-        loader.setController(controller);
-        ((Node) actionEvent.getSource()).getScene().setRoot(loader.load());
-    }
+//    /**
+//     * Sets the current root to be the new question page
+//     *
+//     * @param actionEvent
+//     * @throws IOException
+//     */
+//    @FXML
+//    public void showNewQuestion(ActionEvent actionEvent) throws IOException { // Switch scene to StartQuiz
+//        String currentQuiz = "oskar-spesial";
+//        System.out.println(currentQuiz);
+//        if (currentQuiz == null) {
+//            throw new IllegalStateException("No quiz selected");
+//        }
+//        FXMLLoader loader = App.getFXMLLoader("NewQuestion.fxml");
+//        NewQuestionController controller = new NewQuestionController(currentQuiz);
+//        loader.setController(controller);
+//        ((Node) actionEvent.getSource()).getScene().setRoot(loader.load());
+//    }
 
     /**
      * Sets the current root to be the leaderboard page
@@ -165,8 +175,6 @@ public final class HomePageController {
      *
      * @throws IOException
      */
-
-
     @FXML
     public void addNewQuizFile() throws IOException {
         String newQuizName = quizNameField.getText();
@@ -183,6 +191,7 @@ public final class HomePageController {
 
     /**
      * signs out of the application
+     *
      * @param actionEvent
      */
     @FXML
