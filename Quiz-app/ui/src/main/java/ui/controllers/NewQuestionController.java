@@ -6,10 +6,7 @@ import io.QuizPersistence;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import ui.Utilities;
 
 import java.io.IOException;
@@ -18,6 +15,8 @@ import java.util.stream.Collectors;
 
 public final class NewQuestionController {
 
+    @FXML
+    private Label headline;
 
     @FXML
     private TextField questionText;
@@ -86,6 +85,7 @@ public final class NewQuestionController {
         listOfRadioButtons = List.of(radioButton1, radioButton2, radioButton3, radioButton4);
         listOfRadioButtons.forEach(radio -> radio.setOnAction(ae -> submitButton.setDisable(false)));
         submitButton.setDisable(true);
+        headline.setText(quizName);
 
     }
 

@@ -83,7 +83,7 @@ public class NewQuestionControllerTest extends ApplicationTest {
 
     @AfterAll
     public static void deleteFile(){
-        String fileName = System.getProperty("user.home") + "/QuizApp/testNewQuestion.json";
+        String fileName = System.getProperty("user.home") + "/QuizApp/Quizzes/testNewQuestion.json";
         try {
             Files.delete(Paths.get(fileName));
         } catch (IOException e) {
