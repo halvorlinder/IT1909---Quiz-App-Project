@@ -22,6 +22,7 @@ import org.testfx.framework.junit5.ApplicationTest;
 import ui.controllers.NewQuestionController;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static ui.TestHelpers.deleteQuiz;
 
 public class NewQuestionControllerTest extends ApplicationTest {
 
@@ -82,13 +83,8 @@ public class NewQuestionControllerTest extends ApplicationTest {
     }
 
     @AfterAll
-    public static void deleteFile(){
-        String fileName = System.getProperty("user.home") + "/QuizApp/Quizzes/testNewQuestion.json";
-        try {
-            Files.delete(Paths.get(fileName));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public static void cleanUp(){
+        deleteQuiz("testNewQuestion");
     }
 
     private void writeQuestion(String question, String choice1, String choice2, String choice3, String choice4, int rightAnswer){
