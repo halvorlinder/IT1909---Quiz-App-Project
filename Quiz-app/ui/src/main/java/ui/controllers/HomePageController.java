@@ -78,15 +78,15 @@ public final class HomePageController {
         gridPane.add(name, 0, 0, 1, 1);
 
         Button playButton = new Button();
-        playButton.setText("Play");
+        playButton.setText("Spill");
         gridPane.add(playButton, 1, 0, 1, 1);
 
         Button editButton = new Button();
-        editButton.setText("Edit");
+        editButton.setText("Endre");
         gridPane.add(editButton, 2, 0, 1, 1);
 
         Button leaderboardButton = new Button();
-        leaderboardButton.setText("Leaderboard");
+        leaderboardButton.setText("Ledertavle");
         gridPane.add(leaderboardButton, 3, 0, 1, 1);
 
         quizList.getChildren().add(gridPane);
