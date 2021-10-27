@@ -69,5 +69,6 @@ public class EditPageTest extends ApplicationTest {
         Assertions.assertDoesNotThrow(() -> {
             lookup("#headline").query();
         });
+        deleteQuiz("testQuiz");
     }
 }
