@@ -16,6 +16,11 @@ public abstract class Utilities {
         alert.initModality(Modality.APPLICATION_MODAL);
         alert.showAndWait();
     }
+    public static void alertUser() {
+        Alert alert = new Alert(Alert.AlertType.ERROR, "Noe gikk galt.");
+        alert.initModality(Modality.APPLICATION_MODAL);
+        alert.showAndWait();
+    }
 
     /**
      * @param fxmlString name of fxml file
