@@ -79,6 +79,13 @@ public final class HomePageController {
 
         Button playButton = new Button();
         playButton.setText("Spill");
+        playButton.setOnAction((ActionEvent ae)-> {
+            try {
+                showStartQuiz(quizName);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
         gridPane.add(playButton, 1, 0, 1, 1);
 
         Button editButton = new Button();
@@ -95,26 +102,20 @@ public final class HomePageController {
     /**
      * Sets the current root to be the question page
      *
-     * @param actionEvent
+     * @param quizName
      * @throws IOException
      */
     @FXML
-    public void showStartQuiz(ActionEvent actionEvent) throws IOException { // Switch scene to StartQuiz
+    public void showStartQuiz(String quizName) throws IOException { // Switch scene to StartQuiz
         QuizPersistence quizPersistence = new QuizPersistence();
-        // TODO: get name if quiz from button
-        String currentQuiz = "oskar-spesial";
-        System.out.println(currentQuiz);
-        if (currentQuiz == null) {
-            throw new IllegalStateException("No quiz selected");
-        }
-        Quiz quiz = quizPersistence.loadQuiz(currentQuiz);
+        Quiz quiz = quizPersistence.loadQuiz(quizName);
         if (quiz.getQuizLength() == 0) {
             throw new IllegalStateException("Quiz has no questions");
         }
         FXMLLoader loader = App.getFXMLLoader("QuestionPage.fxml");
         QuizController controller = new QuizController(quiz);
         loader.setController(controller);
-        ((Node) actionEvent.getSource()).getScene().setRoot(loader.load());
+        quizList.getScene().setRoot(loader.load());
     }
 
     /**
