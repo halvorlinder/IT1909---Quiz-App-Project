@@ -51,7 +51,6 @@ public final class HomePageController {
      */
     @FXML
     public void initialize() {
-
         nameDisplay.setText("Logget inn som " + User.getUserName());
         updateQuizzes();
     }
@@ -80,13 +79,11 @@ public final class HomePageController {
         String currentQuiz = (String) choiceBox.getSelectionModel().getSelectedItem();
         System.out.println(currentQuiz);
         if (currentQuiz == null) {
-            // TODO Alert user that a quiz needs to be selected
-            return;
+            throw new IllegalStateException("No quiz selected");
         }
         Quiz quiz = quizPersistence.loadQuiz(currentQuiz);
         if (quiz.getQuizLength() == 0) {
-            // TODO Alert user that quiz is too short
-            return;
+            throw new IllegalStateException("Quiz has no questions");
         }
         FXMLLoader loader = App.getFXMLLoader("QuestionPage.fxml");
         QuizController controller = new QuizController(quiz);
@@ -105,8 +102,7 @@ public final class HomePageController {
         String currentQuiz = (String) choiceBox.getSelectionModel().getSelectedItem();
         System.out.println(currentQuiz);
         if (currentQuiz == null) {
-            // TODO Alert user that a quiz needs to be selected
-            return;
+            throw new IllegalStateException("No quiz selected");
         }
         FXMLLoader loader = App.getFXMLLoader("NewQuestion.fxml");
         NewQuestionController controller = new NewQuestionController(currentQuiz);
@@ -127,18 +123,16 @@ public final class HomePageController {
     /**
      * Creates a new quiz with a given name
      *
-     * @param actionEvent
      * @throws IOException
      */
 
     // TODO Make sure that the name passed is suitable as a file name
 
     @FXML
-    public void addNewQuiz(ActionEvent actionEvent) throws IOException {
+    public void addNewQuiz() throws IOException {
         System.out.println(questionNameField.getText());
         if (questionNameField.getText().isEmpty()) {
-            // TODO Alert user that they cant add a quiz with that name
-            return;
+            throw new IllegalArgumentException("You can't create a quiz with an empty name");
         }
         String newQuizName = questionNameField.getText();
         List<Question> noQuestions = new ArrayList<>();
