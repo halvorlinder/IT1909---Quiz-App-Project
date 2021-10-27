@@ -13,7 +13,7 @@ import java.util.List;
 
 public class QuizPersistence {
     private final ObjectMapper mapper;
-    private static final String BASE_PATH = System.getProperty("user.home") + "/QuizApp/Quizzes/";
+    private static final String BASE_PATH = Paths.getBasePath() + "Quizzes/";
 
     /**
      * Inits a new QuizPersistence Object

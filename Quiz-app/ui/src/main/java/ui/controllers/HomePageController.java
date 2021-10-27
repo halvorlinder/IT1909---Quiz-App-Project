@@ -3,6 +3,7 @@ package ui.controllers;
 import core.Question;
 import core.Quiz;
 import core.User;
+import io.Paths;
 import io.QuizPersistence;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,7 +26,7 @@ import java.util.List;
 
 public final class HomePageController {
 
-    private static final String BASE_PATH = System.getProperty("user.home") + "/QuizApp/Quizzes/";
+    private static final String BASE_PATH = Paths.getBasePath() + "Quizzes/";
 
     @FXML
     private Button addNewQuizButton;
@@ -70,6 +71,7 @@ public final class HomePageController {
 
     /**
      * displays a quiz as a row on the page
+     *
      * @param quizName the name of the quiz
      */
     private void addQuizElement(String quizName) {
@@ -102,6 +104,7 @@ public final class HomePageController {
 
     /**
      * displays the edit page for a given quiz
+     *
      * @param quizName the name of the quiz
      */
     private void showEditPage(String quizName) {
