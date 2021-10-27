@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
@@ -101,7 +100,7 @@ public final class HomePageController {
     @FXML
     public void showStartQuiz(ActionEvent actionEvent) throws IOException { // Switch scene to StartQuiz
         QuizPersistence quizPersistence = new QuizPersistence();
-        // TODO: get name if quiz from button
+        // REMEMBER: get name if quiz from button
         String currentQuiz = "oskar-spesial";
         System.out.println(currentQuiz);
         if (currentQuiz == null) {
@@ -125,7 +124,7 @@ public final class HomePageController {
      */
     @FXML
     public void showNewQuestion(ActionEvent actionEvent) throws IOException { // Switch scene to StartQuiz
-        // TODO: get name if quiz from button
+        // REMEMBER: get name if quiz from button
         String currentQuiz = "oskar-spesial";
         System.out.println(currentQuiz);
         if (currentQuiz == null) {
