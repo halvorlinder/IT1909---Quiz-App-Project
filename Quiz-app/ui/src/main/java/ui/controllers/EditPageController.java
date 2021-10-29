@@ -83,7 +83,7 @@ public class EditPageController {
      * renders the new question page
      */
     @FXML
-    public void showNewQuestion() {
+    private void showNewQuestion() {
         try {
             FXMLLoader loader = App.getFXMLLoader("NewQuestion.fxml");
             loader.setController(new NewQuestionController(quizName));
