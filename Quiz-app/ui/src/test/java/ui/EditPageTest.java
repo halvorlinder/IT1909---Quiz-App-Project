@@ -3,24 +3,19 @@ package ui;
 import org.testfx.framework.junit5.ApplicationTest;
 import core.Question;
 import core.Quiz;
-import io.Paths;
+import io.SavePaths;
 import io.QuizPersistence;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.testfx.framework.junit5.ApplicationTest;
-import ui.controllers.HomePageController;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.List;
 
 import static ui.TestHelpers.deleteQuiz;
@@ -28,7 +23,7 @@ import static ui.TestHelpers.deleteQuiz;
 public class EditPageTest extends ApplicationTest {
     @Override
     public void start(final Stage stage) throws Exception {
-        Paths.setBasePath("test");
+        SavePaths.enableTestMode();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("HomePage.fxml"));
         final Parent root = loader.load();
         stage.setScene(new Scene(root));
