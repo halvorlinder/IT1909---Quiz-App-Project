@@ -3,7 +3,7 @@ package ui.controllers;
 import core.Question;
 import core.Quiz;
 import core.User;
-import io.Paths;
+import io.SavePaths;
 import io.QuizPersistence;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,7 +26,7 @@ import java.util.List;
 
 public final class HomePageController {
 
-    private static final String BASE_PATH = Paths.getBasePath() + "Quizzes/";
+    private static final String BASE_PATH = SavePaths.getBasePath() + "Quizzes/";
 
     @FXML
     private Button addNewQuizButton;
