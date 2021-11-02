@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" vbarPolicy="ALWAYS" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16">
+   <content>
+      <VBox maxHeight="1.7976931348623157E308" prefHeight="392.0" prefWidth="596.0">
+         <children>
+            <GridPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="540.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="192.33331298828125" minWidth="10.0" prefWidth="60.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="340.33334732055664" minWidth="10.0" prefWidth="340.33334732055664" />
+                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="60.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Button minWidth="90.0" mnemonicParsing="false" text="Tilbake" />
+                  <Label text="Endre &lt;quiznavn&gt;" GridPane.columnIndex="1" fx:id="titleText">
+                     <font>
+                        <Font name="Comic Sans MS" size="30.0" />
+                     </font>
+                  </Label>
+                  <Button mnemonicParsing="false" text="Nytt spørsmål" GridPane.columnIndex="2" fx:id="newQuestionButton" onAction="#showNewQuestion">
+                     <GridPane.margin>
+                        <Insets right="14.0" />
+                     </GridPane.margin>
+                  </Button>
+               </children>
+            </GridPane>
+            <VBox maxHeight="1.7976931348623157E308" prefHeight="30.0" prefWidth="582.0" fx:id="questionList"/>
+            <GridPane minHeight="-Infinity" prefHeight="50.0" prefWidth="596.0">
+              <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Button mnemonicParsing="false" text="Slett quiz" />
+               </children>
+            </GridPane>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </VBox>
+   </content>
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+</ScrollPane>

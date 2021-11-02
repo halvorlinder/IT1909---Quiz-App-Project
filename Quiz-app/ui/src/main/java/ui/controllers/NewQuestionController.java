@@ -63,7 +63,6 @@ public final class NewQuestionController {
     // All FXML files need to be created and named accordingly
 
     /**
-     *
      * @param quizName
      */
     public NewQuestionController(String quizName) {
@@ -138,6 +137,7 @@ public final class NewQuestionController {
     public String getQuestion() {
         return questionText.getText();
     }
+
     /**
      * Sets the current root to be the home page
      *

@@ -18,6 +18,15 @@ public abstract class Utilities {
     }
 
     /**
+     * displays a modal window to the user with the message "Noe gikk galt."
+     */
+    public static void alertUser() {
+        Alert alert = new Alert(Alert.AlertType.ERROR, "Noe gikk galt.");
+        alert.initModality(Modality.APPLICATION_MODAL);
+        alert.showAndWait();
+    }
+
+    /**
      * @param fxmlString name of fxml file
      * @return returns the FXMl loader from a fxml file
      */
