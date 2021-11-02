@@ -37,7 +37,7 @@ public class LogInTest extends ApplicationTest {
         userData.attemptRegister("halvor", "password");
         userPersistence.saveUserData(userData);
         LogInController logInController = new LogInController("testUsers.json");
-        final FXMLLoader loader = new FXMLLoader(getClass().getResource("LogInPageTest.fxml"));
+        final FXMLLoader loader = new FXMLLoader(getClass().getResource("LogInPage.fxml"));
         loader.setController(logInController);
         final Parent root = loader.load();
         stage.setScene(new Scene(root));

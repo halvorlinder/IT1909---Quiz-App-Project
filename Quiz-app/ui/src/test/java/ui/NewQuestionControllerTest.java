@@ -36,7 +36,7 @@ public class NewQuestionControllerTest extends ApplicationTest {
     @Override
     public void start(final Stage stage) throws Exception {
         quizPersistence = new QuizPersistence();
-        final FXMLLoader loader = new FXMLLoader(getClass().getResource("NewQuestionTest.fxml"));
+        final FXMLLoader loader = new FXMLLoader(getClass().getResource("NewQuestion.fxml"));
         this.controller = new NewQuestionController("testNewQuestion");
         loader.setController(this.controller);
         final Parent root = loader.load();
