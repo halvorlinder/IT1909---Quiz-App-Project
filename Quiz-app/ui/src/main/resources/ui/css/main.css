@@ -13,6 +13,7 @@
 .h1 {
     -fx-font-family: "Arial";
     -fx-font-size: 40px;
+    -fx-font-weight: bold;
 }
 
 .h2 {
@@ -68,4 +69,23 @@
 .green-button:hover {
     -fx-background-color: #1E7167;
     -fx-cursor: hand;
+}
+
+RadioButton {
+    -fx-color: #E76F51;
+}
+
+RadioButton:focused {
+    -fx-color: #2A9D8F;
+}
+
+/* WHY DOES IT NOT WORK WHEN HOVERING BUTTON REEEEEEEEEEEEEEEE
+This literally works everywhere else FFS*/
+
+RadioButton:hover {
+    -fx-color: #2A9D8F;
+}
+
+RadioButton:selected {
+    -fx-color: #2A9D8F;
 }
