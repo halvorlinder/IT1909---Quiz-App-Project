@@ -1,5 +1,6 @@
 package rest;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import core.Question;
 import core.Quiz;
@@ -46,14 +47,19 @@ public class QuizController {
     }
 
     @PostMapping("/quizzes")
-    public String postQuiz(@RequestBody String quiz, HttpServletResponse response){
+    public String postQuiz(@RequestBody String quizJSON, HttpServletResponse response){
         try {
-            quizPersistence.saveQuiz(objectMapper.readValue(quiz, Quiz.class));
-            return quiz;
+            Quiz quiz = objectMapper.readValue(quizJSON, Quiz.class);
+            if(quizPersistence.getListOfQuizNames().stream().anyMatch(name->name.equals(quiz.getName()))){
+                response.setStatus(403);
+                return null;
+            }
+            quizPersistence.saveQuiz(objectMapper.readValue(quizJSON, Quiz.class));
+            return quizJSON;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        response.setStatus(404);
+        response.setStatus(500);
         return null;
     }
 
