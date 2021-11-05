@@ -77,8 +77,8 @@ public class QuizController {
             Quiz quiz = quizPersistence.loadQuiz(quizName);
             quiz.setQuestion(questionId,objectMapper.readValue(question,Question.class));
             quizPersistence.saveQuiz(quiz);
-            return question;
-        } catch (IOException e) {
+            return objectMapper.writeValueAsString(quiz);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         response.setStatus(404);
