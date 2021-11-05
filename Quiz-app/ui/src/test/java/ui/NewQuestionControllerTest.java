@@ -22,6 +22,7 @@ import org.testfx.framework.junit5.ApplicationTest;
 import ui.controllers.NewQuestionController;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static ui.TestHelpers.deleteQuiz;
 
 public class NewQuestionControllerTest extends ApplicationTest {
 
@@ -35,7 +36,7 @@ public class NewQuestionControllerTest extends ApplicationTest {
     @Override
     public void start(final Stage stage) throws Exception {
         quizPersistence = new QuizPersistence();
-        final FXMLLoader loader = new FXMLLoader(getClass().getResource("NewQuestionTest.fxml"));
+        final FXMLLoader loader = new FXMLLoader(getClass().getResource("NewQuestion.fxml"));
         this.controller = new NewQuestionController("testNewQuestion");
         loader.setController(this.controller);
         final Parent root = loader.load();
@@ -82,13 +83,8 @@ public class NewQuestionControllerTest extends ApplicationTest {
     }
 
     @AfterAll
-    public static void deleteFile(){
-        String fileName = System.getProperty("user.home") + "/QuizApp/testNewQuestion.json";
-        try {
-            Files.delete(Paths.get(fileName));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public static void cleanUp(){
+        deleteQuiz("testNewQuestion");
     }
 
     private void writeQuestion(String question, String choice1, String choice2, String choice3, String choice4, int rightAnswer){

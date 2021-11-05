@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-      prefWidth="600.0" xmlns="http://javafx.com/javafx/16" fx:controller="ui.controllers.LogInController"
+      prefWidth="600.0" xmlns="http://javafx.com/javafx/16"
       xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <VBox alignment="TOP_CENTER" prefHeight="430.0" prefWidth="600.0">
@@ -38,7 +38,7 @@
                                        GridPane.rowIndex="1" fx:id="logInPassword"/>
                     </children>
                 </GridPane>
-                <Button mnemonicParsing="false" text="Logg inn" onAction="#attemptLogIn"/>
+                <Button mnemonicParsing="false" text="Logg inn" fx:id="logIn" onAction="#attemptLogIn"/>
                 <Label prefHeight="48.0" prefWidth="178.0" text="Registrer ny bruker">
                     <font>
                         <Font name="Comic Sans MS" size="19.0"/>
@@ -62,7 +62,7 @@
                                        GridPane.rowIndex="1" fx:id="registerPassword"/>
                     </children>
                 </GridPane>
-                <Button layoutX="279.0" layoutY="205.0" mnemonicParsing="false" text="Registrer ny bruker "
+                <Button layoutX="279.0" layoutY="205.0" mnemonicParsing="false" text="Registrer ny bruker " fx:id="register"
                         onAction="#attemptRegister"/>
             </children>
         </VBox>
