@@ -9,6 +9,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -24,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public final class HomePageController {
+public final class HomePageController implements InitializableController{
 
     private static final String BASE_PATH = SavePaths.getBasePath() + "Quizzes/";
 
@@ -40,14 +42,14 @@ public final class HomePageController {
     @FXML
     private TextField quizNameField;
 
-    private List<String> quizzes = new ArrayList<>();
 
 
     /**
      * sets the text to display username
      */
-    @FXML
+    @Override
     public void initialize() {
+        quizList.getChildren().clear();
         nameDisplay.setText("Logget inn som " + User.getUserName());
         updateInitialQuizzes();
     }
@@ -63,7 +65,6 @@ public final class HomePageController {
         for (File file : files) {
             if (file.isFile()) {
                 String quizName = file.getName().replaceFirst("[.][^.]+$", "");
-                quizzes.add(quizName);
                 addQuizElement(quizName);
             }
         }
@@ -112,7 +113,8 @@ public final class HomePageController {
             FXMLLoader loader = App.getFXMLLoader("EditPage.fxml");
             EditPageController controller = new EditPageController(quizName);
             loader.setController(controller);
-            quizList.getScene().setRoot(loader.load());
+            controller.setPreviousPageInfo(this, getScene().getRoot());
+            getScene().setRoot(loader.load());
         } catch (IOException ioException) {
             ioException.printStackTrace();
             Utilities.alertUser();
@@ -138,7 +140,7 @@ public final class HomePageController {
             FXMLLoader loader = App.getFXMLLoader("QuestionPage.fxml");
             QuizController controller = new QuizController(quiz);
             loader.setController(controller);
-            quizList.getScene().setRoot(loader.load());
+            getScene().setRoot(loader.load());
         } catch (IOException ioException) {
             Utilities.alertUser();
         }
@@ -189,7 +191,6 @@ public final class HomePageController {
         QuizPersistence quizPersistence = new QuizPersistence();
         quizPersistence.saveQuiz(newQuiz);
         addQuizElement(newQuizName);
-        quizzes.add(newQuizName);
     }
 
     /**
@@ -205,5 +206,9 @@ public final class HomePageController {
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
+    }
+
+    private Scene getScene() {
+        return quizList.getScene();
     }
 }
