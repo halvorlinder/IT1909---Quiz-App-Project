@@ -35,8 +35,14 @@ public class QuizController {
     }
 
     @GetMapping("/quizzes")
-    public String getQuizzes(){
-        return "{names:"+quizPersistence.getListOfQuizNames().toString()+"}";
+    public String getQuizzes(HttpServletResponse response){
+        try {
+            return objectMapper.writeValueAsString(quizPersistence.getListOfQuizNames());
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        response.setStatus(500);
+        return null;
     }
 
     @PostMapping("/quizzes")
