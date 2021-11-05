@@ -1,63 +1,59 @@
 package rest;
 
+import java.io.IOException;
 
-import core.Quiz;
-import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.ArrayList;
-import static org.mockito.Mockito.*;
-class QuizControllerTest {
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-    private String testQuiz = """
-            {
-              "name" : "postTestQuiz",
-              "questions" : [%s]
-              }""";
-    private String baseQuestion = """
-             {
-                    "question" : "How old i Halvor?",
-                    "answer" : 1,
-                    "choices" : [ "12", "20", "122", "36" ]
-                  }
-            """;
-    private HttpServletResponse httpServletResponse;
-    private QuizController quizController;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+@ExtendWith(SpringExtension.class)
+@SpringBootTest(classes = QuizServerApplication.class)
+@WebAppConfiguration
+public class QuizControllerTest {
+    private MockMvc mvc;
+    @Autowired
+    WebApplicationContext webApplicationContext;
+
+    @BeforeAll
+    public static void start(){
+
+    }
 
     @BeforeEach
-    void setUp() {
-        httpServletResponse = mock(HttpServletResponse.class);
-        quizController.postQuiz(testQuiz.formatted(baseQuestion), httpServletResponse);
+    public void setUp() {
+        mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
     @Test
-    void getQuiz() {
-        setUp();
-        quizController.getQuiz("wrongQuizName",httpServletResponse);
-        System.out.println(httpServletResponse.getStatus());
-        Assertions.assertEquals(testQuiz.formatted(baseQuestion),quizController.getQuiz("postTestQuiz",httpServletResponse));
-    }
+    public void getProductsList() throws Exception {
+        String uri = "/api/quizzes";
+        MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(uri)
+                .accept(MediaType.APPLICATION_JSON_VALUE)).andReturn();
 
-    @Test
-    void getQuizzes() {
-    }
-
-    @Test
-    void addQuestion() {
-    }
-
-    @Test
-    void editQuestion() {
-    }
-
-    @Test
-    void deleteQuiz() {
-    }
-
-    @Test
-    void deleteQuestion() {
+        int status = mvcResult.getResponse().getStatus();
+        assertEquals(200, status);
+        String content = mvcResult.getResponse().getContentAsString();
+        System.out.println(content);
+        //TODO: assert that the request actually works
+        assertTrue(true);
     }
 }
