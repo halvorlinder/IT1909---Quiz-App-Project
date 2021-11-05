@@ -36,7 +36,7 @@ public class QuizController {
 
     @GetMapping("/quizzes")
     public String getQuizzes(){
-        return quizPersistence.getListOfQuizNames().toString();
+        return "{names:"+quizPersistence.getListOfQuizNames().toString()+"}";
     }
 
     @PostMapping("/quizzes")
