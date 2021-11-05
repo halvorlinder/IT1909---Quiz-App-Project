@@ -65,7 +65,6 @@ public final class LogInController {
      */
     @FXML
     public void attemptLogIn(ActionEvent actionEvent) {
-        System.out.println(userData.getUserNames());
         try {
             if (userData.attemptLogIn(logInUserName.getText(), logInPassword.getText()))
                 logIn(actionEvent, logInUserName.getText());
