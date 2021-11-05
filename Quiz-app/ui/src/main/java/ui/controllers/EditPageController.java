@@ -6,6 +6,7 @@ import io.QuizPersistence;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
@@ -16,11 +17,13 @@ import ui.Utilities;
 
 import java.io.IOException;
 
-public class EditPageController {
+public class EditPageController extends GoBackController implements InitializableController{
     @FXML
     private Label titleText;
     @FXML
     private VBox questionList;
+    @FXML
+    private Button backButton;
 
     private final String quizName;
     private Quiz quiz;
@@ -37,14 +40,24 @@ public class EditPageController {
      * initializes the page by filling in question rows and displaying name
      * @throws IOException
      */
-    @FXML
-    private void initialize() throws IOException {
-        QuizPersistence quizPersistence = new QuizPersistence();
-        quiz = quizPersistence.loadQuiz(quizName);
-        titleText.setText("Endre " + quizName);
-        for (int i = 0; i < quiz.getQuizLength(); i++) {
-            addQuestionElement(i);
+    @Override
+    public void initialize() {
+        setBackButton(backButton);
+        QuizPersistence quizPersistence = null;
+        try {
+            quizPersistence = new QuizPersistence();
+            quiz = quizPersistence.loadQuiz(quizName);
+            titleText.setText("Endre " + quizName);
+            for (int i = 0; i < quiz.getQuizLength(); i++) {
+                addQuestionElement(i);
+            }
+        } catch (IOException ioException) {
+            Utilities.alertUser();
         }
+    }
+
+    private Scene getScene() {
+        return titleText.getScene();
     }
 
     /**
