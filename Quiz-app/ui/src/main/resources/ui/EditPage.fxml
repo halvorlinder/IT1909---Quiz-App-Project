@@ -24,7 +24,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button minWidth="90.0" mnemonicParsing="false" text="Tilbake" />
+                  <Button minWidth="90.0" mnemonicParsing="false" text="Tilbake" fx:id="backButton"/>
                   <Label text="Endre &lt;quiznavn&gt;" GridPane.columnIndex="1" fx:id="titleText">
                      <font>
                         <Font name="Comic Sans MS" size="30.0" />
