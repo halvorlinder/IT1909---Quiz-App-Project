@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -200,7 +201,13 @@ public final class HomePageController {
     @FXML
     public void signOut(ActionEvent actionEvent) {
         try {
-            ((Node) actionEvent.getSource()).getScene().setRoot(Utilities.getFXMLLoader("LogInPage.fxml").load());
+            final FXMLLoader loader = Utilities.getFXMLLoader("LogInPage.fxml");
+            LogInController controller = new LogInController();
+            loader.setController(controller);
+            final Parent root = loader.load();
+            // Scene scene = new Scene(root);
+            ((Node) actionEvent.getSource()).getScene().setRoot(root);
+            // ((Node) actionEvent.getSource()).getScene().setRoot(Utilities.getFXMLLoader("LogInPage.fxml").load());
             User.setUserName(null);
         } catch (IOException ioException) {
             ioException.printStackTrace();
