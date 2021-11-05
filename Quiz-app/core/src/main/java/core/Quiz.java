@@ -70,6 +70,18 @@ public final class Quiz {
     }
 
     /**
+     * delete a question from the quiz
+     * @param questionId
+     */
+    public void deleteQuestion(int questionId) {
+        questions.remove(questionId);
+    }
+
+    public void setQuestion(int questionId, Question question){
+        questions.set(questionId, question);
+    }
+
+    /**
      * @return the index of the current question
      */
     public int getCurrentQuestionNumber() {
