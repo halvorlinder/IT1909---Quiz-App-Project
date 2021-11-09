@@ -92,20 +92,20 @@ public class QuizPersistence {
         }
     }
 
-    public List<String> getListOfQuizNames(){
+    public List<String> getListOfQuizNames() {
 
         List<String> listOfFileNames = new ArrayList<>();
         File[] files = new File(BASE_PATH).listFiles();
 
         assert files != null;
-        for(File file : files)
-            if(file.isFile())
-               listOfFileNames.add(file.getName().replace(".json", ""));
+        for (File file : files)
+            if (file.isFile())
+                listOfFileNames.add(file.getName().replace(".json", ""));
 
         return listOfFileNames;
     }
 
-    public boolean deleteQuiz(String quizName){
+    public boolean deleteQuiz(String quizName) {
         File file = new File(BASE_PATH + quizName + ".json");
         return file.delete();
     }

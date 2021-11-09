@@ -25,7 +25,7 @@ public class QuizController {
 
 
     @GetMapping("/quizzes/{name}")
-    public String getQuiz (@PathVariable("name")String name, HttpServletResponse response) {
+    public String getQuiz(@PathVariable("name") String name, HttpServletResponse response) {
         try {
             return objectMapper.writeValueAsString(quizPersistence.loadQuiz(name));
         } catch (IOException e) {
@@ -36,7 +36,7 @@ public class QuizController {
     }
 
     @GetMapping("/quizzes")
-    public String getQuizzes(HttpServletResponse response){
+    public String getQuizzes(HttpServletResponse response) {
         try {
             return objectMapper.writeValueAsString(quizPersistence.getListOfQuizNames());
         } catch (JsonProcessingException e) {
@@ -47,10 +47,10 @@ public class QuizController {
     }
 
     @PostMapping("/quizzes")
-    public String postQuiz(@RequestBody String quizJSON, HttpServletResponse response){
+    public String postQuiz(@RequestBody String quizJSON, HttpServletResponse response) {
         try {
             Quiz quiz = objectMapper.readValue(quizJSON, Quiz.class);
-            if(quizPersistence.getListOfQuizNames().stream().anyMatch(name->name.equals(quiz.getName()))){
+            if (quizPersistence.getListOfQuizNames().stream().anyMatch(name -> name.equals(quiz.getName()))) {
                 response.setStatus(403);
                 return null;
             }
@@ -81,7 +81,7 @@ public class QuizController {
     public String editQuestion(@RequestBody String question, @PathVariable("name") String quizName, @PathVariable("id") int questionId, HttpServletResponse response) {
         try {
             Quiz quiz = quizPersistence.loadQuiz(quizName);
-            quiz.setQuestion(questionId,objectMapper.readValue(question,Question.class));
+            quiz.setQuestion(questionId, objectMapper.readValue(question, Question.class));
             quizPersistence.saveQuiz(quiz);
             return objectMapper.writeValueAsString(quiz);
         } catch (Exception e) {
@@ -101,7 +101,7 @@ public class QuizController {
 
     @DeleteMapping("quizzes/{name}/{id}")
     @ResponseBody
-    public String deleteQuestion(@PathVariable("name") String quizName, @PathVariable("id") int questionId, HttpServletResponse response){
+    public String deleteQuestion(@PathVariable("name") String quizName, @PathVariable("id") int questionId, HttpServletResponse response) {
         try {
             Quiz quiz = quizPersistence.loadQuiz(quizName);
             quiz.deleteQuestion(questionId);
