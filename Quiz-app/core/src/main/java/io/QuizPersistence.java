@@ -13,7 +13,7 @@ import java.util.List;
 
 public class QuizPersistence {
     private final ObjectMapper mapper;
-    private static final String BASE_PATH = SavePaths.getBasePath() + "Quizzes/";
+    private final String BASE_PATH;
 
     /**
      * Inits a new QuizPersistence Object
@@ -21,6 +21,7 @@ public class QuizPersistence {
      * @throws IOException
      */
     public QuizPersistence() throws IOException {
+        BASE_PATH = SavePaths.getBasePath() + "Quizzes/";
         mapper = createObjectMapper();
         Path path = Path.of(BASE_PATH);
         if (!Files.exists(path)) {
