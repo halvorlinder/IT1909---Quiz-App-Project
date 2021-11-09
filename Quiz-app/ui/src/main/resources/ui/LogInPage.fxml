@@ -3,9 +3,9 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-      prefWidth="600.0" xmlns="http://javafx.com/javafx/16" fx:controller="ui.controllers.LogInController"
-      xmlns:fx="http://javafx.com/fxml/1" styleClass="bg">
+      prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" styleClass="bg">
     <children>
         <VBox alignment="TOP_CENTER" prefHeight="430.0" prefWidth="600.0">
             <children>
@@ -31,7 +31,7 @@
                                        GridPane.rowIndex="1" fx:id="logInPassword"/>
                     </children>
                 </GridPane>
-                <Button mnemonicParsing="false" text="Logg inn" onAction="#attemptLogIn" styleClass="blue-button"/>
+                <Button mnemonicParsing="false" text="Logg inn" fx:id="logIn" onAction="#attemptLogIn" styleClass="blue-button"/>
                 <Label prefHeight="48.0" prefWidth="178.0" text="Registrer ny bruker" styleClass="h2">
                 </Label>
                 <GridPane alignment="CENTER" prefHeight="91.0" prefWidth="600.0">
@@ -52,7 +52,7 @@
                                        GridPane.rowIndex="1" fx:id="registerPassword"/>
                     </children>
                 </GridPane>
-                <Button layoutX="279.0" layoutY="205.0" mnemonicParsing="false" text="Registrer ny bruker "
+                <Button layoutX="279.0" layoutY="205.0" mnemonicParsing="false" text="Registrer ny bruker " fx:id="register"
                         onAction="#attemptRegister" styleClass="blue-button"/>
             </children>
         </VBox>

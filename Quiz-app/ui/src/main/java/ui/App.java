@@ -2,8 +2,10 @@ package ui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import ui.controllers.LogInController;
 
 import java.io.IOException;
 
@@ -14,7 +16,11 @@ public final class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        Scene scene = new Scene(getFXMLLoader("LogInPage.fxml").load());
+        final FXMLLoader loader = Utilities.getFXMLLoader("LogInPage.fxml");
+        LogInController controller = new LogInController();
+        loader.setController(controller);
+        final Parent root = loader.load();
+        Scene scene = new Scene(root);
         String css = this.getClass().getResource("css/main.css").toExternalForm();
         scene.getStylesheets().add(css);
         stage.setScene(scene);
