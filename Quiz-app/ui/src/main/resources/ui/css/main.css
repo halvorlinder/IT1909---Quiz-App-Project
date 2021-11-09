@@ -10,6 +10,10 @@
     -fx-background-color: #717D98;
 }
 
+.table-box {
+    -fx-background-color: #E9C46A;
+}
+
 .h1 {
     -fx-font-family: "Arial";
     -fx-font-size: 40px;
@@ -74,17 +78,20 @@
 RadioButton {
     -fx-color: #E76F51;
 }
-
+/*
 RadioButton:focused {
     -fx-color: #2A9D8F;
 }
+*/
 
 /* WHY DOES IT NOT WORK WHEN HOVERING BUTTON REEEEEEEEEEEEEEEE
-This literally works everywhere else FFS*/
+This literally works everywhere else FFS
 
 RadioButton:hover {
     -fx-color: #2A9D8F;
+    -fx-background-color: #000000;
 }
+*/
 
 RadioButton:selected {
     -fx-color: #2A9D8F;

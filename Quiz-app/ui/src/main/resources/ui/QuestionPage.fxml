@@ -2,9 +2,9 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-            prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+            prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" styleClass="bg">
     <children>
         <GridPane alignment="CENTER" prefHeight="400.0" prefWidth="600.0">
             <columnConstraints>
@@ -19,43 +19,25 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
             </rowConstraints>
             <children>
-                <Label fx:id="questionLabel" alignment="CENTER" prefHeight="80.0" prefWidth="600.0" text="Spørsmål">
-                    <font>
-                        <Font name="Comic Sans MS" size="40.0"/>
-                    </font>
+                <Label fx:id="questionLabel" alignment="CENTER" prefHeight="80.0" prefWidth="600.0" text="Spørsmål" styleClass="h1">
                 </Label>
                 <RadioButton fx:id="option1" mnemonicParsing="false" text="Alt 1" GridPane.halignment="CENTER"
-                             GridPane.rowIndex="1">
-                    <font>
-                        <Font name="Comic Sans MS" size="12.0"/>
-                    </font>
+                             GridPane.rowIndex="1" styleClass="h3">
                     <toggleGroup>
                         <ToggleGroup fx:id="option"/>
                     </toggleGroup>
                 </RadioButton>
                 <RadioButton fx:id="option2" mnemonicParsing="false" text="Alt 2" toggleGroup="$option"
-                             GridPane.halignment="CENTER" GridPane.rowIndex="2">
-                    <font>
-                        <Font name="Comic Sans MS" size="12.0"/>
-                    </font>
+                             GridPane.halignment="CENTER" GridPane.rowIndex="2" styleClass="h3">
                 </RadioButton>
                 <RadioButton fx:id="option3" mnemonicParsing="false" text="Alt 3" toggleGroup="$option"
-                             GridPane.halignment="CENTER" GridPane.rowIndex="3">
-                    <font>
-                        <Font name="Comic Sans MS" size="12.0"/>
-                    </font>
+                             GridPane.halignment="CENTER" GridPane.rowIndex="3" styleClass="h3">
                 </RadioButton>
                 <Button fx:id="submitAnswer" mnemonicParsing="false" text="Avgi svar" GridPane.halignment="CENTER"
-                        GridPane.rowIndex="5" onAction="#submitQuestion">
-                    <font>
-                        <Font name="Comic Sans MS" size="20.0"/>
-                    </font>
+                        GridPane.rowIndex="5" onAction="#submitQuestion" styleClass="blue-button">
                 </Button>
                 <RadioButton fx:id="option4" mnemonicParsing="false" text="Alt 4" toggleGroup="$option"
-                             GridPane.halignment="CENTER" GridPane.rowIndex="4">
-                    <font>
-                        <Font name="Comic Sans MS" size="12.0"/>
-                    </font>
+                             GridPane.halignment="CENTER" GridPane.rowIndex="4" styleClass="h3">
                 </RadioButton>
             </children>
         </GridPane>

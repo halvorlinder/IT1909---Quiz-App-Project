@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
 <ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
             prefHeight="400.0" prefWidth="600.0" vbarPolicy="ALWAYS" xmlns="http://javafx.com/javafx/15.0.1"
@@ -29,9 +28,6 @@
                </rowConstraints>
                <children>
                   <Label alignment="CENTER" minHeight="-Infinity" prefHeight="115.0" prefWidth="447.0" text="Quiz-appen" GridPane.columnIndex="1" styleClass="h1">
-                     <font>
-                        <Font name="Comic Sans MS Bold Italic" size="41.0" />
-                     </font>
                   </Label>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
                      <children>
@@ -39,10 +35,7 @@
                         <Button fx:id="signOut" alignment="CENTER" mnemonicParsing="false" onAction="#signOut" text="Logg ut" styleClass="red-button"/>
                      </children>
                   </VBox>
-                  <Label text="Tilgjengelige Quizzer" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" styleClass="h2">
-                     <font>
-                        <Font name="Comic Sans MS" size="15.0" />
-                     </font>
+                  <Label text="Tilgjengelige quizzer" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" styleClass="h2">
                   </Label>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <children>
@@ -52,7 +45,7 @@
                   </VBox>
                </children>
             </GridPane>
-            <VBox fx:id="quizList" prefHeight="200.0" prefWidth="100.0" />
+            <VBox fx:id="quizList" prefHeight="200.0" prefWidth="100.0" styleClass="table-box"/>
          </children>
          <opaqueInsets>
             <Insets />
