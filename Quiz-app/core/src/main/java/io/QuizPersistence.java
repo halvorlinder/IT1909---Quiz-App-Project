@@ -14,7 +14,7 @@ import java.util.List;
 
 public class QuizPersistence {
     private final ObjectMapper mapper;
-    private static final String BASE_PATH = SavePaths.getBasePath() + "Quizzes/";
+    private final String BASE_PATH;
 
     /**
      * Inits a new QuizPersistence Object
@@ -22,6 +22,7 @@ public class QuizPersistence {
      * @throws IOException
      */
     public QuizPersistence() throws IOException {
+        BASE_PATH = SavePaths.getBasePath() + "Quizzes/";
         mapper = createObjectMapper();
         Path path = Path.of(BASE_PATH);
         if (!Files.exists(path)) {
@@ -72,6 +73,8 @@ public class QuizPersistence {
     public Quiz loadQuiz(String quizName) throws IOException {
         try (Reader reader = new FileReader(BASE_PATH + quizName + ".json", StandardCharsets.UTF_8)) {
             return readQuiz(reader);
+        } catch (IOException e) {
+            return new Quiz(quizName, List.of());
         }
     }
 
@@ -92,6 +95,10 @@ public class QuizPersistence {
         }
     }
 
+    /**
+     *
+     * @return a list containing all available quiz names
+     */
     public List<String> getListOfQuizNames() {
 
         List<String> listOfFileNames = new ArrayList<>();
@@ -105,6 +112,11 @@ public class QuizPersistence {
         return listOfFileNames;
     }
 
+    /**
+     * deletes a quiz given its name
+     * @param quizName the name of the quiz
+     * @return true if successful, false otherwise
+     */
     public boolean deleteQuiz(String quizName) {
         File file = new File(BASE_PATH + quizName + ".json");
         return file.delete();
