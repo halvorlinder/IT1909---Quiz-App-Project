@@ -5,7 +5,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <GridPane alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-          prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16">
+          prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16"
+          styleClass="bg">
     <columnConstraints>
         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
     </columnConstraints>
@@ -18,21 +19,12 @@
                         vgrow="SOMETIMES"/>
     </rowConstraints>
     <children>
-        <Label text="Quizen er ferdig ">
-            <font>
-                <Font name="Comic Sans MS" size="40.0"/>
-            </font>
+        <Label text="Quizen er ferdig " styleClass="h1">
         </Label>
-        <Label text="Du fikk 2/5 poeng" fx:id="result" GridPane.rowIndex="1">
-            <font>
-                <Font name="Comic Sans MS" size="25.0"/>
-            </font>
+        <Label text="Du fikk 2/5 poeng" fx:id="result" GridPane.rowIndex="1" styleClass="h2">
         </Label>
         <Button mnemonicParsing="false" prefHeight="67.0" prefWidth="327.0" text="Gå til hjemskjermen"
-                GridPane.rowIndex="2" onAction="#returnToHomePage">
-            <font>
-                <Font name="Comic Sans MS" size="25.0"/>
-            </font>
+                GridPane.rowIndex="2" onAction="#returnToHomePage" styleClass="blue-button, h2">
         </Button>
     </children>
 </GridPane>
