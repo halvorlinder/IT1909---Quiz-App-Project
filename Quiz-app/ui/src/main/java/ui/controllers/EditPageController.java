@@ -62,15 +62,18 @@ public class EditPageController {
         Label name = new Label();
         name.setText(question.getQuestion());
         gridPane.add(name, 0, 0, 1, 1);
+        gridPane.getStyleClass().add("light-grid");
 
         Button editButton = new Button();
         editButton.setText("Endre");
+        editButton.getStyleClass().add("green-button");
         editButton.setOnAction((ActionEvent ae) -> {
         }); //TODO implement this
         gridPane.add(editButton, 1, 0, 1, 1);
 
         Button deleteButton = new Button();
         deleteButton.setText("Slett");
+        deleteButton.getStyleClass().add("red-button");
         deleteButton.setOnAction((ActionEvent ae) -> {
         }); //TODO implement this
         gridPane.add(deleteButton, 2, 0, 1, 1);

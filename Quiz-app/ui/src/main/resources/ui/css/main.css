@@ -1,0 +1,98 @@
+.bg {
+    -fx-background-color: #E9C46A;
+}
+
+.light-grid {
+    -fx-background-color: #B8BECC;
+}
+
+.dark-grid {
+    -fx-background-color: #717D98;
+}
+
+.table-box {
+    -fx-background-color: #E9C46A;
+}
+
+.h1 {
+    -fx-font-family: "Arial";
+    -fx-font-size: 40px;
+    -fx-font-weight: bold;
+}
+
+.h2 {
+    -fx-font-family: "Arial";
+    -fx-font-size: 18px;
+}
+
+.h3 {
+    -fx-font-family: "Arial";
+    -fx-font-size: 14px;
+}
+
+.blue-button {
+    -fx-background-color: #5798B2;
+    -fx-font-family: "Arial";
+    -fx-font-size: 12;
+}
+
+.blue-button:focused {
+    -fx-background-color: #40768C;
+}
+
+.blue-button:hover {
+    -fx-background-color: #40768C;
+    -fx-cursor: hand;
+}
+
+.red-button {
+    -fx-background-color: #E76F51;
+    -fx-font-family: "Arial";
+    -fx-font-size: 12;
+}
+
+.red-button:focused {
+    -fx-background-color: #D7431D;
+}
+
+.red-button:hover {
+    -fx-background-color: #D7431D;
+    -fx-cursor: hand;
+}
+
+.green-button {
+    -fx-background-color: #2A9D8F;
+    -fx-font-family: "Arial";
+    -fx-font-size: 12;
+}
+
+.green-button:focused {
+    -fx-background-color: #1E7167;
+}
+
+.green-button:hover {
+    -fx-background-color: #1E7167;
+    -fx-cursor: hand;
+}
+
+RadioButton {
+    -fx-color: #E76F51;
+}
+/*
+RadioButton:focused {
+    -fx-color: #2A9D8F;
+}
+*/
+
+/* WHY DOES IT NOT WORK WHEN HOVERING BUTTON REEEEEEEEEEEEEEEE
+This literally works everywhere else FFS
+
+RadioButton:hover {
+    -fx-color: #2A9D8F;
+    -fx-background-color: #000000;
+}
+*/
+
+RadioButton:selected {
+    -fx-color: #2A9D8F;
+}

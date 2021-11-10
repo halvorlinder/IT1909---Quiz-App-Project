@@ -82,6 +82,7 @@ public final class HomePageController {
         ColumnConstraints column3 = new ColumnConstraints(100);
         ColumnConstraints column4 = new ColumnConstraints(100);
         gridPane.getColumnConstraints().addAll(column1, column2, column3, column4);
+        gridPane.getStyleClass().add("light-grid");
         Label name = new Label();
         name.setText(quizName);
         gridPane.add(name, 0, 0, 1, 1);
@@ -89,17 +90,19 @@ public final class HomePageController {
         Button playButton = new Button();
         playButton.setText("Spill");
         playButton.setOnAction((ActionEvent ae) -> startQuiz(quizName));
+        playButton.getStyleClass().add("green-button");
         gridPane.add(playButton, 1, 0, 1, 1);
 
         Button editButton = new Button();
         editButton.setText("Endre");
         editButton.setOnAction((ActionEvent ae) -> showEditPage(quizName));
+        editButton.getStyleClass().add("red-button");
         gridPane.add(editButton, 2, 0, 1, 1);
 
         Button leaderboardButton = new Button();
         leaderboardButton.setText("Ledertavle");
+        leaderboardButton.getStyleClass().add("blue-button");
         gridPane.add(leaderboardButton, 3, 0, 1, 1);
-
         quizList.getChildren().add(gridPane);
     }
 
