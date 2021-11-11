@@ -98,7 +98,6 @@ public class QuizPersistence {
     }
 
     /**
-     *
      * @return a list containing all available quiz names
      */
     public List<String> getListOfQuizNames() {
@@ -116,6 +115,7 @@ public class QuizPersistence {
 
     /**
      * deletes a quiz given its name
+     *
      * @param quizName the name of the quiz
      * @return true if successful, false otherwise
      */
