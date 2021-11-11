@@ -71,6 +71,8 @@ public class QuizPersistence {
      * @return the loaded QuizAppModule
      */
     public Quiz loadQuiz(String quizName) throws IOException {
+        if (!Files.exists(Path.of(basePath + quizName + ".json")))
+            throw new IOException();
         try (Reader reader = new FileReader(basePath + quizName + ".json", StandardCharsets.UTF_8)) {
             return readQuiz(reader);
         } catch (IOException e) {
