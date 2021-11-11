@@ -97,17 +97,15 @@ public final class NewQuestionController {
     @FXML
     public void submitQuestion(ActionEvent actionEvent) throws IOException { //Takes you back to the home page
 
-        for (TextField textField : listOfTextFields) {
-            if (textField.getText().isEmpty()) {
-                Utilities.alertUser(
-                        "You have to fill out all the options before you can submit!");
-                throw new IllegalStateException(
-                        "You have to fill out all the options before you can submit!");
-            }
-        }
         if (questionText.getText().isEmpty()) {
             Utilities.alertUser("Du må skrive inn et spørsmål");
-            throw new IllegalStateException("Du må skrive inn et spørsmål");
+            return;
+        }
+        for (TextField textField : listOfTextFields) {
+            if (textField.getText().isEmpty()) {
+                Utilities.alertUser("Du må fylle ut alle feltene!");
+                return;
+            }
         }
         question = new Question(questionText.getText()
                 .replaceAll("\n", " ")

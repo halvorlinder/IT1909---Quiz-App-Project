@@ -21,6 +21,8 @@ public final class App extends Application {
         loader.setController(controller);
         final Parent root = loader.load();
         Scene scene = new Scene(root);
+        String css = this.getClass().getResource("css/main.css").toExternalForm();
+        scene.getStylesheets().add(css);
         stage.setScene(scene);
         stage.show();
     }
@@ -28,7 +30,7 @@ public final class App extends Application {
     /**
      * @param fxmlFile a string that corresponds to the name of the fxml file
      * @return an FXMLLoader with the given file
-     * @throws IOException
+     * @throws IOException if FXMLLoader cant get resource
      */
     public static FXMLLoader getFXMLLoader(String fxmlFile) throws IOException {
         return new FXMLLoader(App.class.getResource(fxmlFile));
