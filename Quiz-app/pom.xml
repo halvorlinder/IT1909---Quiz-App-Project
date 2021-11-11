@@ -70,6 +70,7 @@
                         <argLine>
                             @{jaCoCoArgLine} --add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
                             --add-exports javafx.controls/com.sun.javafx.scene.control=ui
+                            --add-exports java.base/java.lang=ALL-UNNAMED
                         </argLine>
                     </configuration>
                 </plugin>
@@ -165,5 +166,6 @@
     <modules>
         <module>core</module>
         <module>ui</module>
+        <module>rest</module>
     </modules>
 </project>
