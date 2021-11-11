@@ -26,7 +26,6 @@ public class EditPageController {
     private Quiz quiz;
 
     /**
-     *
      * @param quizName the name of the quiz to be edited
      */
     public EditPageController(String quizName) {
@@ -35,6 +34,7 @@ public class EditPageController {
 
     /**
      * initializes the page by filling in question rows and displaying name
+     *
      * @throws IOException
      */
     @FXML
@@ -49,6 +49,7 @@ public class EditPageController {
 
     /**
      * adds a gui element representing a question from the quiz
+     *
      * @param questionId the id of the question
      */
     private void addQuestionElement(int questionId) {

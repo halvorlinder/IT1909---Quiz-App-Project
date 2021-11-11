@@ -49,7 +49,6 @@ public final class UserData {
     }
 
     /**
-     *
      * @param username the username to be registered
      * @param password the password to be registered
      * @return true if the registration was successful, false otherwise
