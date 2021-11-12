@@ -43,6 +43,11 @@ public class EditPageController {
     private void initialize() throws IOException, InterruptedException {
 
         apiClientService = new APIClientService();
+        display();
+    }
+
+    private void display() throws IOException, InterruptedException {
+        questionList.getChildren().clear();
         quiz = apiClientService.getQuiz(quizName);
         titleText.setText("Endre " + quizName);
         for (int i = 0; i < quiz.getQuizLength(); i++) {
