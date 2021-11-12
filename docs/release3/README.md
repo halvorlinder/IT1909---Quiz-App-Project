@@ -47,10 +47,10 @@ The project is seperated in three modules; core, rest and ui.
 ## Frameworks
 
 The project is built with maven. 
-Javafx is used for handling the GUI.
-Jacoco is used for measuring test coverage.
-Checkstyle is used for checking code style and code quality.
-Spotbugs is used to catch potential bugs.
-Jackson is used for handling JSON data.
-Spring is used for the REST services.
-HTTPUrlConnection is used for communicating with the API.
+ - Javafx is used for handling the GUI.
+ - Jacoco is used for measuring test coverage.
+ - Checkstyle is used for checking code style and code quality.
+ - Spotbugs is used to catch potential bugs.
+ - Jackson is used for handling JSON data.
+ - Spring is used for the REST services.
+ - HTTPUrlConnection is used for communicating with the API.
