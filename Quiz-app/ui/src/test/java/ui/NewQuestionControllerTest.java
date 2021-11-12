@@ -1,98 +1,92 @@
 package ui;
 
 
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
-import core.Quiz;
-import io.QuizPersistence;
+import com.github.tomakehurst.wiremock.WireMockServer;
+import com.github.tomakehurst.wiremock.client.WireMock;
+import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
+import io.SavePaths;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
-
-
 import ui.controllers.NewQuestionController;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static ui.TestHelpers.deleteQuiz;
+import java.io.IOException;
+
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
 
 public class NewQuestionControllerTest extends ApplicationTest {
 
-    private NewQuestionController controller;
-    private QuizPersistence quizPersistence;
-    private String question;
-    private String choice1, choice2, choice3, choice4;
-    private Quiz quiz = null;
-    private int rightAnswer;
+
+    private WireMockConfiguration config;
+    private WireMockServer wireMockServer;
 
     @Override
     public void start(final Stage stage) throws Exception {
-        quizPersistence = new QuizPersistence();
-        final FXMLLoader loader = new FXMLLoader(getClass().getResource("NewQuestionTest.fxml"));
-        this.controller = new NewQuestionController("testNewQuestion");
-        loader.setController(this.controller);
+        SavePaths.enableTestMode();
+        final FXMLLoader loader = new FXMLLoader(getClass().getResource("NewQuestion.fxml"));
+        NewQuestionController controller = new NewQuestionController("a");
+        loader.setController(controller);
         final Parent root = loader.load();
         stage.setScene(new Scene(root));
         stage.show();
     }
 
-
-    @BeforeEach
-    public void setupItems() {
-        try {
-            quiz = quizPersistence.readQuiz(new InputStreamReader(getClass().getResourceAsStream("test-newQuestion.json")));
-        } catch (IOException e) {
-            fail("Couldn't load test-newQuestion.json");
-        }
-        assertNotNull(quiz);
-        writeQuestion("How many days in a year?", "121", "354", "360", "365", 3);
-    }
-
     @Test
     public void testSubmitEmptyFields() {
-        clickOn("#questionText").write(question);
-        clickOn("#radioButton1");
-        for(int i=1; i<5; i++){
-            clickOn("#choice"+i).write("");
-        }
-        // Assertions.assertThrows(IllegalStateException.class, () -> {clickOn("#submitButton");});
+        writeQuestion("?", "1", "", "3", "4", 0);
+        Node dialogPane = lookup(".dialog-pane").query();
+        Assertions.assertDoesNotThrow(() -> {
+            from(dialogPane).lookup((Text t) -> t.getText().startsWith("Du må fylle ut alle feltene!")).query();
+        });
     }
 
     @Test
-    public void testQuestionList(){
+    public void testSubmitEmptyQuestion() {
+        writeQuestion("", "1", "2", "3", "4", 0);
+        Node dialogPane = lookup(".dialog-pane").query();
+        Assertions.assertDoesNotThrow(() -> {
+            from(dialogPane).lookup((Text t) -> t.getText().startsWith("Du må skrive inn et spørsmål")).query();
+        });
+    }
+
+    @Test
+    public void testSubmitQuestion() throws IOException {
+        config = WireMockConfiguration.wireMockConfig().port(8080);
+        wireMockServer = new WireMockServer(config.portNumber());
+        wireMockServer.start();
+        WireMock.configureFor("localhost", config.portNumber());
+        stubFor(post(urlEqualTo("/api/quizzes/a"))
+                .withRequestBody(equalToJson("{\"question\":\"?\",\"answer\":0,\"choices\":[\"a\",\"b\",\"c\",\"d\"]}"))
+                .willReturn(aResponse()
+                        .withBody("[]")
+                        .withStatus(200)));
+        stubFor(get(urlEqualTo("/api/quizzes"))
+                .willReturn(aResponse()
+                        .withBody("[]")));
+        writeQuestion("?", "a", "b", "c", "d", 0);
+    }
+
+    private void writeQuestion(String question, String choice1, String choice2, String choice3, String choice4, int rightAnswer) {
         clickOn("#questionText").write(question);
         clickOn("#choice1").write(choice1);
         clickOn("#choice2").write(choice2);
         clickOn("#choice3").write(choice3);
         clickOn("#choice4").write(choice4);
-        clickOn("#radioButton"+(rightAnswer+1));
+        if (rightAnswer >= 0)
+            clickOn("#radioButton" + (rightAnswer + 1));
         clickOn("#submitButton");
-        assertEquals(quiz.getQuestions().get(0).getQuestion(),controller.getQuestion());
-        for(int i = 0; i<quiz.getQuizLength(); i++){
-            assertEquals(quiz.getQuestions().get(0).getChoice(i),controller.getListOfAnswers().get(0));
-        }
-        assertEquals(rightAnswer, quiz.getQuestions().get(0).getAnswer());
     }
 
-    @AfterAll
-    public static void cleanUp(){
-        deleteQuiz("testNewQuestion");
-    }
-
-    private void writeQuestion(String question, String choice1, String choice2, String choice3, String choice4, int rightAnswer){
-        this.question = question;
-        this.choice1 = choice1;
-        this.choice2 = choice2;
-        this.choice3 = choice3;
-        this.choice4 = choice4;
-        this.rightAnswer = rightAnswer;
+    @AfterEach
+    public void stopServer() {
+        if (wireMockServer != null)
+            wireMockServer.stop();
     }
 }

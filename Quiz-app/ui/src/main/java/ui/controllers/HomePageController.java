@@ -4,11 +4,11 @@ import core.Question;
 import core.Quiz;
 import core.User;
 import io.SavePaths;
-import io.QuizPersistence;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,10 +17,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import ui.APIClientService;
 import ui.App;
 import ui.Utilities;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,31 +42,32 @@ public final class HomePageController implements InitializableController{
     @FXML
     private TextField quizNameField;
 
+    private List<String> quizzes = new ArrayList<>();
 
+    private APIClientService apiClientService;
 
     /**
      * sets the text to display username
      */
-    @Override
+    @FXML
     public void initialize() {
-        quizList.getChildren().clear();
         nameDisplay.setText("Logget inn som " + User.getUserName());
-        updateInitialQuizzes();
+        apiClientService = new APIClientService();
+        try {
+            updateInitialQuizzes();
+        } catch (Exception e) {
+            Utilities.alertUser();
+        }
     }
 
     /**
      * adds all quiz names to a list so that they can be rendered
      */
-    private void updateInitialQuizzes() {
-        File[] files = new File(BASE_PATH).listFiles();
-        if (files == null) {
-            return;
-        }
-        for (File file : files) {
-            if (file.isFile()) {
-                String quizName = file.getName().replaceFirst("[.][^.]+$", "");
-                addQuizElement(quizName);
-            }
+    private void updateInitialQuizzes() throws IOException, InterruptedException {
+        quizList.getChildren().clear();
+        quizzes = apiClientService.getListOfQuizNames();
+        for (String quizName : quizzes) {
+            addQuizElement(quizName);
         }
     }
 
@@ -82,6 +83,7 @@ public final class HomePageController implements InitializableController{
         ColumnConstraints column3 = new ColumnConstraints(100);
         ColumnConstraints column4 = new ColumnConstraints(100);
         gridPane.getColumnConstraints().addAll(column1, column2, column3, column4);
+        gridPane.getStyleClass().add("light-grid");
         Label name = new Label();
         name.setText(quizName);
         gridPane.add(name, 0, 0, 1, 1);
@@ -89,17 +91,19 @@ public final class HomePageController implements InitializableController{
         Button playButton = new Button();
         playButton.setText("Spill");
         playButton.setOnAction((ActionEvent ae) -> startQuiz(quizName));
+        playButton.getStyleClass().add("green-button");
         gridPane.add(playButton, 1, 0, 1, 1);
 
         Button editButton = new Button();
         editButton.setText("Endre");
         editButton.setOnAction((ActionEvent ae) -> showEditPage(quizName));
+        editButton.getStyleClass().add("red-button");
         gridPane.add(editButton, 2, 0, 1, 1);
 
         Button leaderboardButton = new Button();
         leaderboardButton.setText("Ledertavle");
+        leaderboardButton.getStyleClass().add("blue-button");
         gridPane.add(leaderboardButton, 3, 0, 1, 1);
-
         quizList.getChildren().add(gridPane);
     }
 
@@ -129,10 +133,8 @@ public final class HomePageController implements InitializableController{
      */
     @FXML
     public void startQuiz(String quizName) { // Switch scene to StartQuiz
-        QuizPersistence quizPersistence = null;
         try {
-            quizPersistence = new QuizPersistence();
-            Quiz quiz = quizPersistence.loadQuiz(quizName);
+            Quiz quiz = apiClientService.getQuiz(quizName);
             if (quiz.getQuizLength() == 0) {
                 Utilities.alertUser("Denne quizen har ingen spørsmål");
                 return;
@@ -141,29 +143,10 @@ public final class HomePageController implements InitializableController{
             QuizController controller = new QuizController(quiz);
             loader.setController(controller);
             getScene().setRoot(loader.load());
-        } catch (IOException ioException) {
+        } catch (Exception e) {
             Utilities.alertUser();
         }
     }
-
-//    /**
-//     * Sets the current root to be the new question page
-//     *
-//     * @param actionEvent
-//     * @throws IOException
-//     */
-//    @FXML
-//    public void showNewQuestion(ActionEvent actionEvent) throws IOException { // Switch scene to StartQuiz
-//        String currentQuiz = "oskar-spesial";
-//        System.out.println(currentQuiz);
-//        if (currentQuiz == null) {
-//            throw new IllegalStateException("No quiz selected");
-//        }
-//        FXMLLoader loader = App.getFXMLLoader("NewQuestion.fxml");
-//        NewQuestionController controller = new NewQuestionController(currentQuiz);
-//        loader.setController(controller);
-//        ((Node) actionEvent.getSource()).getScene().setRoot(loader.load());
-//    }
 
     /**
      * Sets the current root to be the leaderboard page
@@ -181,16 +164,15 @@ public final class HomePageController implements InitializableController{
      * @throws IOException
      */
     @FXML
-    public void addNewQuizFile() throws IOException {
+    public void addNewQuizFile() throws IOException, InterruptedException {
         String newQuizName = quizNameField.getText();
         if (newQuizName.isEmpty()) {
             throw new IllegalArgumentException("You can't create a quiz with an empty name");
         }
         List<Question> noQuestions = new ArrayList<>();
         Quiz newQuiz = new Quiz(newQuizName, noQuestions);
-        QuizPersistence quizPersistence = new QuizPersistence();
-        quizPersistence.saveQuiz(newQuiz);
-        addQuizElement(newQuizName);
+        apiClientService.postQuiz(newQuiz);
+        updateInitialQuizzes();
     }
 
     /**
@@ -201,7 +183,11 @@ public final class HomePageController implements InitializableController{
     @FXML
     public void signOut(ActionEvent actionEvent) {
         try {
-            ((Node) actionEvent.getSource()).getScene().setRoot(Utilities.getFXMLLoader("LogInPage.fxml").load());
+            final FXMLLoader loader = Utilities.getFXMLLoader("LogInPage.fxml");
+            LogInController controller = new LogInController();
+            loader.setController(controller);
+            final Parent root = loader.load();
+            ((Node) actionEvent.getSource()).getScene().setRoot(root);
             User.setUserName(null);
         } catch (IOException ioException) {
             ioException.printStackTrace();

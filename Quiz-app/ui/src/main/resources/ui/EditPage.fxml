@@ -10,9 +10,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" vbarPolicy="ALWAYS" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16">
+<ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="400.0" prefWidth="600.0" vbarPolicy="ALWAYS" xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/16" styleClass="bg">
    <content>
-      <VBox maxHeight="1.7976931348623157E308" prefHeight="392.0" prefWidth="596.0">
+      <VBox maxHeight="1.7976931348623157E308" prefHeight="392.0" prefWidth="596.0" styleClass="bg">
          <children>
             <GridPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="540.0">
               <columnConstraints>
@@ -24,13 +26,10 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button minWidth="90.0" mnemonicParsing="false" text="Tilbake" fx:id="backButton"/>
-                  <Label text="Endre &lt;quiznavn&gt;" GridPane.columnIndex="1" fx:id="titleText">
-                     <font>
-                        <Font name="Comic Sans MS" size="30.0" />
-                     </font>
+                  <Button minWidth="90.0" mnemonicParsing="false" text="Tilbake" styleClass="blue-button" fx:id="backButton"/>
+                  <Label text="Endre &lt;quiznavn&gt;" GridPane.columnIndex="1" fx:id="titleText" styleClass="h2">
                   </Label>
-                  <Button mnemonicParsing="false" text="Nytt spørsmål" GridPane.columnIndex="2" fx:id="newQuestionButton" onAction="#showNewQuestion">
+                  <Button mnemonicParsing="false" text="Nytt spørsmål" GridPane.columnIndex="2" fx:id="newQuestionButton" onAction="#showNewQuestion" styleClass="blue-button">
                      <GridPane.margin>
                         <Insets right="14.0" />
                      </GridPane.margin>
@@ -46,7 +45,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button mnemonicParsing="false" text="Slett quiz" />
+                  <Button mnemonicParsing="false" text="Slett quiz" styleClass="red-button" onAction="#deleteQuiz"/>
                </children>
             </GridPane>
          </children>

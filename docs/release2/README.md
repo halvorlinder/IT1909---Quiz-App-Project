@@ -1,4 +1,4 @@
-# Release 1
+# Release 2
 This is the documentation for the second release
 
 The gitlab sprint can be found [here](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/milestones/2)
