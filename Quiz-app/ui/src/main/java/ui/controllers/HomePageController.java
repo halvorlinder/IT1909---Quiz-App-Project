@@ -3,7 +3,6 @@ package ui.controllers;
 import core.Question;
 import core.Quiz;
 import core.User;
-import io.QuizPersistence;
 import io.SavePaths;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,7 +19,6 @@ import ui.APIClientService;
 import ui.App;
 import ui.Utilities;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
