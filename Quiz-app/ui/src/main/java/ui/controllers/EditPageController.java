@@ -26,7 +26,6 @@ public class EditPageController {
     private Quiz quiz;
 
     /**
-     *
      * @param quizName the name of the quiz to be edited
      */
     public EditPageController(String quizName) {
@@ -35,6 +34,7 @@ public class EditPageController {
 
     /**
      * initializes the page by filling in question rows and displaying name
+     *
      * @throws IOException
      */
     @FXML
@@ -49,6 +49,7 @@ public class EditPageController {
 
     /**
      * adds a gui element representing a question from the quiz
+     *
      * @param questionId the id of the question
      */
     private void addQuestionElement(int questionId) {
@@ -62,15 +63,18 @@ public class EditPageController {
         Label name = new Label();
         name.setText(question.getQuestion());
         gridPane.add(name, 0, 0, 1, 1);
+        gridPane.getStyleClass().add("light-grid");
 
         Button editButton = new Button();
         editButton.setText("Endre");
+        editButton.getStyleClass().add("green-button");
         editButton.setOnAction((ActionEvent ae) -> {
         }); //TODO implement this
         gridPane.add(editButton, 1, 0, 1, 1);
 
         Button deleteButton = new Button();
         deleteButton.setText("Slett");
+        deleteButton.getStyleClass().add("red-button");
         deleteButton.setOnAction((ActionEvent ae) -> {
         }); //TODO implement this
         gridPane.add(deleteButton, 2, 0, 1, 1);

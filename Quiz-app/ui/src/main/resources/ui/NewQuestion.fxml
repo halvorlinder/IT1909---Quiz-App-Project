@@ -12,21 +12,15 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+            prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" styleClass="bg">
     <children>
         <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <Label fx:id="headline" alignment="CENTER" contentDisplay="CENTER" prefHeight="70.0" prefWidth="600.0" text="Write A New Question">
-                    <font>
-                        <Font name="Comic Sans MS" size="27.0" />
-                    </font>
+                <Label fx:id="headline" alignment="CENTER" contentDisplay="CENTER" prefHeight="70.0" prefWidth="600.0" text="Write A New Question" styleClass="h1">
                 </Label>
-                <Label alignment="CENTER" prefHeight="18.0" prefWidth="650.0" text="Question">
-                    <font>
-                        <Font name="Comic Sans MS Bold" size="12.0" />
-                    </font>
+                <Label alignment="CENTER" prefHeight="18.0" prefWidth="650.0" text="Question" styleClass="h3">
                     <padding>
                         <Insets bottom="5.0" />
                     </padding>
@@ -36,10 +30,7 @@
                         <Insets left="80.0" right="80.0" />
                     </VBox.margin>
                 </TextField>
-                <Label alignment="CENTER" prefHeight="18.0" prefWidth="633.0" text="Answer (check off the correct one)">
-                    <font>
-                        <Font name="Comic Sans MS Bold" size="12.0" />
-                    </font>
+                <Label alignment="CENTER" prefHeight="18.0" prefWidth="633.0" text="Answer (check off the correct one)" styleClass="h3">
                     <VBox.margin>
                         <Insets top="5.0" />
                     </VBox.margin>
@@ -120,8 +111,8 @@
                                 </RadioButton>
                             </children>
                         </HBox>
-                        <Button id="backButton" fx:id="backButton" mnemonicParsing="false" onAction="#showHomePage" text="Back" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                        <Button id="submitButton" fx:id="submitButton" mnemonicParsing="false" onAction="#submitQuestion" text="Submit" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                        <Button id="backButton" fx:id="backButton" mnemonicParsing="false" onAction="#showHomePage" text="Back" GridPane.halignment="CENTER" GridPane.rowIndex="2" styleClass="red-button"/>
+                        <Button id="submitButton" fx:id="submitButton" mnemonicParsing="false" onAction="#submitQuestion" text="Submit" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" styleClass="green-button"/>
                     </children>
                 </GridPane>
             </children>

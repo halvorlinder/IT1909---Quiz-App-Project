@@ -34,7 +34,7 @@ public class LogInTest extends ApplicationTest {
         if(!file.exists())
             file.createNewFile();
         UserData userData = new UserData();
-        userData.attemptRegister("halvor", "password");
+        userData.attemptRegister("h", "p");
         userPersistence.saveUserData(userData);
         LogInController logInController = new LogInController("testUsers.json");
         final FXMLLoader loader = new FXMLLoader(getClass().getResource("LogInPage.fxml"));
@@ -57,17 +57,17 @@ public class LogInTest extends ApplicationTest {
     @BeforeEach
     public void setupItems() throws IOException {
         UserData userData = new UserData();
-        userData.attemptRegister("halvor", "password");
+        userData.attemptRegister("h", "p");
         userPersistence.saveUserData(userData);
     }
 
     @Test
     public void testLogInOut() throws InterruptedException {
-        clickOn("#logInUserName").write("halvor");
-        clickOn("#logInPassword").write("password");
+        clickOn("#logInUserName").write("h");
+        clickOn("#logInPassword").write("p");
         clickOn("#logIn");
         Label name = lookup("#nameDisplay").query();
-        assertEquals(name.getText(), "Logget inn som halvor");
+        assertEquals(name.getText(), "Logget inn som h");
         clickOn("#signOut");
         Label welcome = lookup("#welcome").query();
         assertEquals(welcome.getText(), "Velkommen til Quiz-appen");
@@ -75,8 +75,8 @@ public class LogInTest extends ApplicationTest {
 
     @Test
     public void testFailedLogIn() throws InterruptedException {
-        clickOn("#logInUserName").write("halvor");
-        clickOn("#logInPassword").write("password1");
+        clickOn("#logInUserName").write("h");
+        clickOn("#logInPassword").write("q");
         clickOn("#logIn");
         Node dialogPane = lookup(".dialog-pane").query();
         Assertions.assertDoesNotThrow(() -> {
@@ -86,17 +86,17 @@ public class LogInTest extends ApplicationTest {
 
     @Test
     public void testRegister() {
-        clickOn("#registerUserName").write("halvor1");
-        clickOn("#registerPassword").write("password");
+        clickOn("#registerUserName").write("i");
+        clickOn("#registerPassword").write("p");
         clickOn("#register");
         Label name = lookup("#nameDisplay").query();
-        assertEquals(name.getText(), "Logget inn som halvor1");
+        assertEquals(name.getText(), "Logget inn som i");
     }
 
     @Test
     public void testFailedRegister() {
-        clickOn("#registerUserName").write("halvor");
-        clickOn("#registerPassword").write("password");
+        clickOn("#registerUserName").write("h");
+        clickOn("#registerPassword").write("p");
         clickOn("#register");
         Node dialogPane = lookup(".dialog-pane").query();
         Assertions.assertDoesNotThrow(() -> {

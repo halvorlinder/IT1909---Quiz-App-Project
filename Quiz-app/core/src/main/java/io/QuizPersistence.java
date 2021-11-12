@@ -9,11 +9,12 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 
 public class QuizPersistence {
     private final ObjectMapper mapper;
-    private static final String BASE_PATH = SavePaths.getBasePath() + "Quizzes/";
+    private final String basePath;
 
     /**
      * Inits a new QuizPersistence Object
@@ -21,8 +22,9 @@ public class QuizPersistence {
      * @throws IOException
      */
     public QuizPersistence() throws IOException {
+        basePath = SavePaths.getBasePath() + "Quizzes/";
         mapper = createObjectMapper();
-        Path path = Path.of(BASE_PATH);
+        Path path = Path.of(basePath);
         if (!Files.exists(path)) {
             Files.createDirectories(path);
         }
@@ -69,7 +71,9 @@ public class QuizPersistence {
      * @return the loaded QuizAppModule
      */
     public Quiz loadQuiz(String quizName) throws IOException {
-        try (Reader reader = new FileReader(BASE_PATH + quizName + ".json", StandardCharsets.UTF_8)) {
+        if (!Files.exists(Path.of(basePath + quizName + ".json")))
+            throw new IOException();
+        try (Reader reader = new FileReader(basePath + quizName + ".json", StandardCharsets.UTF_8)) {
             return readQuiz(reader);
         } catch (IOException e) {
             return new Quiz(quizName, List.of());
@@ -83,14 +87,41 @@ public class QuizPersistence {
      */
     public void saveQuiz(Quiz quiz) throws IOException {
         String quizName = quiz.getName();
-        File file = new File(BASE_PATH + quizName + ".json");
+        File file = new File(basePath + quizName + ".json");
         if (!file.exists()) {
 
             boolean junk = file.createNewFile();
         }
-        try (Writer writer = new FileWriter(BASE_PATH + quizName + ".json", StandardCharsets.UTF_8)) {
+        try (Writer writer = new FileWriter(basePath + quizName + ".json", StandardCharsets.UTF_8)) {
             writeQuiz(quiz, writer);
         }
+    }
+
+    /**
+     * @return a list containing all available quiz names
+     */
+    public List<String> getListOfQuizNames() {
+
+        List<String> listOfFileNames = new ArrayList<>();
+        File[] files = new File(basePath).listFiles();
+
+        assert files != null;
+        for (File file : files)
+            if (file.isFile())
+                listOfFileNames.add(file.getName().replace(".json", ""));
+
+        return listOfFileNames;
+    }
+
+    /**
+     * deletes a quiz given its name
+     *
+     * @param quizName the name of the quiz
+     * @return true if successful, false otherwise
+     */
+    public boolean deleteQuiz(String quizName) {
+        File file = new File(basePath + quizName + ".json");
+        return file.delete();
     }
 
 }

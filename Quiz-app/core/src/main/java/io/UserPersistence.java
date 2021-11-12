@@ -29,6 +29,7 @@ public final class UserPersistence {
 
     /**
      * creates a new UserPersistence object
+     *
      * @param fileName the location of read/write
      * @throws IOException
      */

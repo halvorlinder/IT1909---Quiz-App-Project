@@ -38,7 +38,7 @@ public class HomePageTest extends ApplicationTest {
     }
 
     private void initQuiz() {
-        clickOn("#quizNameField").write("testQuiz");
+        clickOn("#quizNameField").write("x");
         clickOn("#addNewQuizButton");
     }
 
@@ -53,9 +53,9 @@ public class HomePageTest extends ApplicationTest {
         initQuiz();
         VBox vBox = lookup("#quizList").query();
         Assertions.assertDoesNotThrow(() -> {
-            from(vBox).lookup((Label label) -> label.getText().equals("testQuiz")).query();
+            from(vBox).lookup((Label label) -> label.getText().equals("x")).query();
         });
-        deleteQuiz("testQuiz");
+        deleteQuiz("x");
     }
 
     @Test
@@ -67,13 +67,13 @@ public class HomePageTest extends ApplicationTest {
         Assertions.assertDoesNotThrow(() -> {
             from(dialogPane).lookup((Text t) -> t.getText().startsWith("Denne quizen har ingen spørsmål")).query();
         });
-        deleteQuiz("testQuiz");
+        deleteQuiz("x");
     }
 
     @Test
     public void testStartQuiz() {
         initQuiz();
-        Quiz quiz = new Quiz("testQuiz", List.of(new Question()));
+        Quiz quiz = new Quiz("x", List.of(new Question()));
         try {
             QuizPersistence quizPersistence = new QuizPersistence();
             quizPersistence.saveQuiz(quiz);
@@ -85,7 +85,7 @@ public class HomePageTest extends ApplicationTest {
         Assertions.assertDoesNotThrow(() -> {
             lookup("#questionLabel").query();
         });
-        deleteQuiz("testQuiz");
+        deleteQuiz("x");
     }
 
 }
