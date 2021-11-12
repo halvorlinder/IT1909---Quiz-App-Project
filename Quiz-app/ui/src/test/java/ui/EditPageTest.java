@@ -1,5 +1,10 @@
 package ui;
 
+import com.github.tomakehurst.wiremock.WireMockServer;
+import com.github.tomakehurst.wiremock.client.WireMock;
+import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.testfx.framework.junit5.ApplicationTest;
 import core.Question;
 import core.Quiz;
@@ -18,52 +23,69 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.List;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static ui.TestHelpers.deleteQuiz;
 
 public class EditPageTest extends ApplicationTest {
+
+    private WireMockConfiguration config;
+    private WireMockServer wireMockServer;
+
     @Override
     public void start(final Stage stage) throws Exception {
         SavePaths.enableTestMode();
+
+        config = WireMockConfiguration.wireMockConfig().port(8080);
+        wireMockServer = new WireMockServer(config.portNumber());
+        wireMockServer.start();
+        WireMock.configureFor("localhost", config.portNumber());
+        stubFor(get(urlEqualTo("/api/quizzes"))
+                .willReturn(aResponse()
+                        .withBody("[\"x\"]")));
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("HomePage.fxml"));
         final Parent root = loader.load();
+        wireMockServer.stop();
         stage.setScene(new Scene(root));
         stage.show();
     }
 
-    private void initQuiz(){
-        clickOn("#quizNameField").write("x");
-        clickOn("#addNewQuizButton");
-        Quiz quiz = new Quiz("x", List.of(new Question("a", List.of("a", "a", "a", "a"), 0), new Question("b", List.of("a", "a", "a", "a"), 0)));
-        try {
-            QuizPersistence quizPersistence = new QuizPersistence();
-            quizPersistence.saveQuiz(quiz);
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-        }
+    @BeforeEach
+    public void startWireMockServerAndSetup(){
+        config = WireMockConfiguration.wireMockConfig().port(8080);
+        wireMockServer = new WireMockServer(config.portNumber());
+        wireMockServer.start();
+        WireMock.configureFor("localhost", config.portNumber());
+        stubFor(get(urlEqualTo("/api/quizzes/x"))
+                .willReturn(aResponse()
+                        .withBody("{\"name\":\"x\",\"questions\":[{\"question\":\"?\",\"answer\":0,\"choices\":[\"a\",\"b \",\"c \",\"d \"]}]}")
+                        .withStatus(200)));
+
         VBox vBox = lookup("#quizList").query();
         clickOn(from(vBox).lookup((Button b) -> b.getText().equals("Endre")).queryButton());
     }
 
     @Test
     public void testDataDisplay(){
-        initQuiz();
         VBox vBox = lookup("#questionList").query();
         Assertions.assertDoesNotThrow(() -> {
-            from(vBox).lookup((Label label) -> label.getText().equals("a")).query();
-            from(vBox).lookup((Label label) -> label.getText().equals("b")).query();
+            from(vBox).lookup((Label label) -> label.getText().equals("?")).query();
         });
         Label label = lookup("#titleText").query();
         Assertions.assertEquals("Endre x", label.getText());
-        deleteQuiz("x");
     }
 
     @Test
     public void testAddQuestion(){
-        initQuiz();
         clickOn("#newQuestionButton");
         Assertions.assertDoesNotThrow(() -> {
             lookup("#headline").query();
         });
-        deleteQuiz("x");
+    }
+
+    @AfterEach
+    public void stopServer(){
+        wireMockServer.stop();
     }
 }
