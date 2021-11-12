@@ -97,7 +97,8 @@ public final class NewQuestionController {
      * @throws IOException
      */
     @FXML
-    public void submitQuestion(ActionEvent actionEvent) throws IOException, InterruptedException { //Takes you back to the home page
+    public void submitQuestion(ActionEvent actionEvent) throws IOException, InterruptedException {
+        //Takes you back to the home page
 
         if (questionText.getText().isEmpty()) {
             Utilities.alertUser("Du må skrive inn et spørsmål");

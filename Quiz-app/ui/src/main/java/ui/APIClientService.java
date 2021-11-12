@@ -16,7 +16,7 @@ import org.springframework.http.HttpStatus;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.QuizPersistence;
 
-public class APIClientService{
+public class APIClientService {
 
     private static final String API_URL = "http://localhost:8080/api";
     private final HttpClient client = HttpClient.newHttpClient();
@@ -37,9 +37,8 @@ public class APIClientService{
      * @throws InterruptedException
      */
     public Quiz getQuiz(String quizName) throws IOException, InterruptedException {
-        HttpResponse<String> response = sendRequest("GET","/quizzes/"+quizName,"");
-        Quiz quiz = objectMapper.readValue(response.body(),Quiz.class);
-        return quiz;
+        HttpResponse<String> response = sendRequest("GET", "/quizzes/" + quizName, "");
+        return objectMapper.readValue(response.body(), Quiz.class);
     }
 
     /**
@@ -49,7 +48,7 @@ public class APIClientService{
      * @throws InterruptedException
      */
     public List<String> getListOfQuizNames() throws IOException, InterruptedException {
-        HttpResponse<String> response = sendRequest("GET","/quizzes","");
+        HttpResponse<String> response = sendRequest("GET", "/quizzes", "");
         return objectMapper.readValue(response.body(), List.class);
     }
 
@@ -60,7 +59,7 @@ public class APIClientService{
      * @throws InterruptedException
      */
     public void postQuiz(Quiz quiz) throws IOException, InterruptedException {
-       sendRequest("POST","/quizzes",objectMapper.writeValueAsString(quiz));
+        sendRequest("POST", "/quizzes", objectMapper.writeValueAsString(quiz));
     }
 
     /**
@@ -84,7 +83,7 @@ public class APIClientService{
      * @throws InterruptedException
      */
     public void deleteQuiz(String quizName) throws IOException, InterruptedException {
-        sendRequest("DELETE","/quizzes/"+quizName,"");
+        sendRequest("DELETE", "/quizzes/" + quizName, "");
     }
 
     /**
@@ -95,7 +94,7 @@ public class APIClientService{
      * @throws InterruptedException
      */
     public void deleteQuestion(String quizName, int questionID) throws IOException, InterruptedException {
-        sendRequest("DELETE","/quizzes/" + quizName + "/" + questionID, "");
+        sendRequest("DELETE", "/quizzes/" + quizName + "/" + questionID, "");
     }
 
     /**
@@ -106,7 +105,7 @@ public class APIClientService{
      * @throws InterruptedException
      */
     public void addQuestion(String quizName, Question newQuestion) throws IOException, InterruptedException {
-        sendRequest("POST","/quizzes/"+ quizName,objectMapper.writeValueAsString(newQuestion));
+        sendRequest("POST", "/quizzes/" + quizName, objectMapper.writeValueAsString(newQuestion));
     }
 
 

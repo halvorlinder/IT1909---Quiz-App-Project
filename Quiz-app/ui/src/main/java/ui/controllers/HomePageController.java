@@ -45,6 +45,7 @@ public final class HomePageController {
     private List<String> quizzes = new ArrayList<>();
 
     private APIClientService apiClientService;
+
     /**
      * sets the text to display username
      */
@@ -60,8 +61,8 @@ public final class HomePageController {
      */
     private void updateInitialQuizzes() throws IOException, InterruptedException {
         quizList.getChildren().clear();
-        quizzes =  apiClientService.getListOfQuizNames();
-        for(String quizName : quizzes){
+        quizzes = apiClientService.getListOfQuizNames();
+        for (String quizName : quizzes) {
             addQuizElement(quizName);
         }
         System.out.println(quizzes);
