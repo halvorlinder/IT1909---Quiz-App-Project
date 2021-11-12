@@ -27,8 +27,8 @@ public class APIClientService{
     }
 
 
-    public Quiz getQuiz(String quizname) throws IOException, InterruptedException {
-        HttpResponse<String> response = sendRequest("GET","/quizzes/"+quizname,"");
+    public Quiz getQuiz(String quizName) throws IOException, InterruptedException {
+        HttpResponse<String> response = sendRequest("GET","/quizzes/"+quizName,"");
         Quiz quiz = objectMapper.readValue(response.body(),Quiz.class);
         return quiz;
     }
