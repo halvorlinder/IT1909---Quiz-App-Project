@@ -1,8 +1,6 @@
 package ui.controllers;
 
 import core.Question;
-import core.Quiz;
-import io.QuizPersistence;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -56,6 +54,9 @@ public final class NewQuestionController {
     private ToggleGroup radioButton;
 
     private Question question;
+    private Question preFilledQuestion;
+    private int questionId;
+    private boolean editMode;
     private List<TextField> listOfTextFields;
     private List<RadioButton> listOfRadioButtons;
     private String quizName;
@@ -71,6 +72,19 @@ public final class NewQuestionController {
     }
 
     /**
+     * initializes the page with pre-filled information and in edit mode
+     * @param quizName
+     * @param questionId
+     * @param question
+     */
+    public NewQuestionController(String quizName, int questionId, Question question) {
+        this(quizName);
+        editMode = true;
+        preFilledQuestion = question;
+        this.questionId = questionId;
+    }
+
+    /**
      * Sets paramet to default quiz
      */
     public NewQuestionController() {
@@ -82,11 +96,19 @@ public final class NewQuestionController {
      */
     public void initialize() throws IOException, InterruptedException {
         apiClientService = new APIClientService();
+        headline.setText(quizName);
         listOfTextFields = List.of(choice1, choice2, choice3, choice4);
         listOfRadioButtons = List.of(radioButton1, radioButton2, radioButton3, radioButton4);
-        listOfRadioButtons.forEach(radio -> radio.setOnAction(ae -> submitButton.setDisable(false)));
-        submitButton.setDisable(true);
-        headline.setText(quizName);
+        if (!editMode) {
+            listOfRadioButtons.forEach(radio -> radio.setOnAction(ae -> submitButton.setDisable(false)));
+            submitButton.setDisable(true);
+        } else {
+            questionText.setText(preFilledQuestion.getQuestion());
+            for (int i = 0; i < listOfTextFields.size(); i++) {
+                listOfTextFields.get(i).setText(preFilledQuestion.getChoice(i));
+            }
+            listOfRadioButtons.get(preFilledQuestion.getAnswer()).setSelected(true);
+        }
 
     }
 
@@ -113,8 +135,10 @@ public final class NewQuestionController {
         question = new Question(questionText.getText()
                 .replaceAll("\n", " ")
                 .replaceAll("\\$", " "), getListOfAnswers(), getCheckedId());
-        Quiz quiz = apiClientService.getQuiz(quizName);
-        apiClientService.addQuestion(quizName,question);
+        if (editMode)
+            apiClientService.putQuestion(quizName, questionId, question);
+        else
+            apiClientService.addQuestion(quizName, question);
         ((Node) actionEvent.getSource()).getScene().setRoot(Utilities.getFXMLLoader("HomePage.fxml").load());
 
     }
