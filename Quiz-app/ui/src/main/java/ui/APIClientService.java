@@ -54,6 +54,10 @@ public class APIClientService{
         sendRequest("DELETE","/quizzes/" + quizName + "/" + questionID, "");
     }
 
+    public void addQuestion(String quizName, Question newQuestion) throws IOException, InterruptedException {
+        sendRequest("POST","/quizzes/"+ quizName,objectMapper.writeValueAsString(newQuestion));
+    }
+
 
     private HttpResponse<String> sendRequest(String method, String relativePath, String body) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder().method(method, HttpRequest.BodyPublishers.ofString(body)).uri(URI.create(API_URL+relativePath)).build();
