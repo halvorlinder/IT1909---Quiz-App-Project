@@ -18,7 +18,7 @@ import io.QuizPersistence;
 
 public class APIClientService{
 
-    private static final String API_URL = "localhost:8080/api";
+    private static final String API_URL = "http://localhost:8080/api";
     private final HttpClient client = HttpClient.newHttpClient();
     private ObjectMapper objectMapper;
 
@@ -66,8 +66,4 @@ public class APIClientService{
         return response;
     }
 
-    public static void main(String[] args) throws IOException, InterruptedException {
-        APIClientService apiClientService = new APIClientService();
-        apiClientService.getListOfQuizNames();
-    }
 }
