@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import ui.APIClientService;
 import ui.App;
 import ui.Utilities;
 
@@ -24,7 +25,7 @@ public class EditPageController {
 
     private final String quizName;
     private Quiz quiz;
-
+    private APIClientService apiClientService;
     /**
      * @param quizName the name of the quiz to be edited
      */
@@ -38,9 +39,10 @@ public class EditPageController {
      * @throws IOException
      */
     @FXML
-    private void initialize() throws IOException {
-        QuizPersistence quizPersistence = new QuizPersistence();
-        quiz = quizPersistence.loadQuiz(quizName);
+    private void initialize() throws IOException, InterruptedException {
+
+        apiClientService = new APIClientService();
+        quiz = apiClientService.getQuiz(quizName);
         titleText.setText("Endre " + quizName);
         for (int i = 0; i < quiz.getQuizLength(); i++) {
             addQuestionElement(i);
