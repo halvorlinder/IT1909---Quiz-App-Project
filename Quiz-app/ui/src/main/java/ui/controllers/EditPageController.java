@@ -2,7 +2,6 @@ package ui.controllers;
 
 import core.Question;
 import core.Quiz;
-import io.QuizPersistence;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -41,7 +40,6 @@ public class EditPageController {
      */
     @FXML
     private void initialize() throws IOException, InterruptedException {
-
         apiClientService = new APIClientService();
         display();
     }
@@ -77,17 +75,39 @@ public class EditPageController {
         editButton.setText("Endre");
         editButton.getStyleClass().add("green-button");
         editButton.setOnAction((ActionEvent ae) -> {
-        }); //TODO implement this
+            showEditQuestion(questionId, question);
+        });
         gridPane.add(editButton, 1, 0, 1, 1);
 
         Button deleteButton = new Button();
         deleteButton.setText("Slett");
         deleteButton.getStyleClass().add("red-button");
         deleteButton.setOnAction((ActionEvent ae) -> {
-        }); //TODO implement this
+            deleteQuestion(questionId);
+        });
         gridPane.add(deleteButton, 2, 0, 1, 1);
 
         questionList.getChildren().add(gridPane);
+    }
+
+    private void deleteQuestion(int questionId) {
+        try {
+            apiClientService.deleteQuestion(quizName, questionId);
+            display();
+        } catch (Exception e) {
+            Utilities.alertUser();
+        }
+    }
+
+    private void showEditQuestion(int questionId, Question question) {
+        try {
+            FXMLLoader loader = App.getFXMLLoader("NewQuestion.fxml");
+            loader.setController(new NewQuestionController(quizName, questionId, question));
+            titleText.getScene().setRoot(loader.load());
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+            Utilities.alertUser();
+        }
     }
 
 
@@ -104,6 +124,16 @@ public class EditPageController {
             ioException.printStackTrace();
             Utilities.alertUser();
         }
+    }
+
+    @FXML
+    private void deleteQuiz() throws IOException {
+        try {
+            apiClientService.deleteQuiz(quizName);
+        } catch (Exception e) {
+            Utilities.alertUser();
+        }
+        questionList.getScene().setRoot(Utilities.getFXMLLoader("HomePage.fxml").load());
     }
 
 }
