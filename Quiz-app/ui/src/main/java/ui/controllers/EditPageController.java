@@ -26,6 +26,7 @@ public class EditPageController {
     private final String quizName;
     private Quiz quiz;
     private APIClientService apiClientService;
+
     /**
      * @param quizName the name of the quiz to be edited
      */
