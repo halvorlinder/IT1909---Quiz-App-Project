@@ -31,9 +31,9 @@ public class EditPageTest extends ApplicationTest {
     }
 
     private void initQuiz(){
-        clickOn("#quizNameField").write("testQuiz");
+        clickOn("#quizNameField").write("x");
         clickOn("#addNewQuizButton");
-        Quiz quiz = new Quiz("testQuiz", List.of(new Question("a", List.of("a", "a", "a", "a"), 0), new Question("b", List.of("a", "a", "a", "a"), 0)));
+        Quiz quiz = new Quiz("x", List.of(new Question("a", List.of("a", "a", "a", "a"), 0), new Question("b", List.of("a", "a", "a", "a"), 0)));
         try {
             QuizPersistence quizPersistence = new QuizPersistence();
             quizPersistence.saveQuiz(quiz);
@@ -53,8 +53,8 @@ public class EditPageTest extends ApplicationTest {
             from(vBox).lookup((Label label) -> label.getText().equals("b")).query();
         });
         Label label = lookup("#titleText").query();
-        Assertions.assertEquals("Endre testQuiz", label.getText());
-        deleteQuiz("testQuiz");
+        Assertions.assertEquals("Endre x", label.getText());
+        deleteQuiz("x");
     }
 
     @Test
@@ -64,6 +64,6 @@ public class EditPageTest extends ApplicationTest {
         Assertions.assertDoesNotThrow(() -> {
             lookup("#headline").query();
         });
-        deleteQuiz("testQuiz");
+        deleteQuiz("x");
     }
 }
