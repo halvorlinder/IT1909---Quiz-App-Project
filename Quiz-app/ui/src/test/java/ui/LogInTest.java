@@ -1,5 +1,8 @@
 package ui;
 
+import com.github.tomakehurst.wiremock.WireMockServer;
+import com.github.tomakehurst.wiremock.client.WireMock;
+import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
 import core.UserData;
 import io.UserPersistence;
 import javafx.fxml.FXMLLoader;
@@ -9,10 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.testfx.framework.junit5.ApplicationTest;
 import ui.controllers.LogInController;
 
@@ -21,17 +21,21 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LogInTest extends ApplicationTest {
 
     private UserPersistence userPersistence;
 
+    private WireMockConfiguration config;
+    private WireMockServer wireMockServer;
+
     @Override
     public void start(final Stage stage) throws Exception {
         File file = new File(System.getProperty("user.home") + "/QuizApp/testUsers.json");
         userPersistence = new UserPersistence("testUsers.json");
-        if(!file.exists())
+        if (!file.exists())
             file.createNewFile();
         UserData userData = new UserData();
         userData.attemptRegister("h", "p");
@@ -45,7 +49,7 @@ public class LogInTest extends ApplicationTest {
     }
 
     @AfterAll
-    public static void deleteFile(){
+    public static void deleteFile() {
         String fileName = System.getProperty("user.home") + "/QuizApp/testUsers.json";
         try {
             Files.delete(Paths.get(fileName));
@@ -59,6 +63,14 @@ public class LogInTest extends ApplicationTest {
         UserData userData = new UserData();
         userData.attemptRegister("h", "p");
         userPersistence.saveUserData(userData);
+
+        config = WireMockConfiguration.wireMockConfig().port(8080);
+        wireMockServer = new WireMockServer(config.portNumber());
+        wireMockServer.start();
+        WireMock.configureFor("localhost", config.portNumber());
+        stubFor(get(urlEqualTo("/api/quizzes"))
+                .willReturn(aResponse()
+                        .withBody("[]")));
     }
 
     @Test
@@ -102,5 +114,10 @@ public class LogInTest extends ApplicationTest {
         Assertions.assertDoesNotThrow(() -> {
             from(dialogPane).lookup((Text t) -> t.getText().startsWith("Brukernavn er tatt")).query();
         });
+    }
+
+    @AfterEach
+    public void stopServer() {
+        wireMockServer.stop();
     }
 }

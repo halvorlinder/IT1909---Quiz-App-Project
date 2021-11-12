@@ -3,7 +3,6 @@ package ui.controllers;
 import core.Question;
 import core.Quiz;
 import core.User;
-import io.QuizPersistence;
 import io.SavePaths;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,10 +15,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import ui.APIClientService;
 import ui.App;
 import ui.Utilities;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,31 +42,28 @@ public final class HomePageController {
 
     private List<String> quizzes = new ArrayList<>();
 
+    private APIClientService apiClientService;
 
     /**
      * sets the text to display username
      */
     @FXML
-    public void initialize() {
+    public void initialize() throws IOException, InterruptedException {
         nameDisplay.setText("Logget inn som " + User.getUserName());
+        apiClientService = new APIClientService();
         updateInitialQuizzes();
     }
 
     /**
      * adds all quiz names to a list so that they can be rendered
      */
-    private void updateInitialQuizzes() {
-        File[] files = new File(BASE_PATH).listFiles();
-        if (files == null) {
-            return;
+    private void updateInitialQuizzes() throws IOException, InterruptedException {
+        quizList.getChildren().clear();
+        quizzes = apiClientService.getListOfQuizNames();
+        for (String quizName : quizzes) {
+            addQuizElement(quizName);
         }
-        for (File file : files) {
-            if (file.isFile()) {
-                String quizName = file.getName().replaceFirst("[.][^.]+$", "");
-                quizzes.add(quizName);
-                addQuizElement(quizName);
-            }
-        }
+        System.out.println(quizzes);
     }
 
     /**
@@ -131,10 +127,8 @@ public final class HomePageController {
      */
     @FXML
     public void startQuiz(String quizName) { // Switch scene to StartQuiz
-        QuizPersistence quizPersistence = null;
         try {
-            quizPersistence = new QuizPersistence();
-            Quiz quiz = quizPersistence.loadQuiz(quizName);
+            Quiz quiz = apiClientService.getQuiz(quizName);
             if (quiz.getQuizLength() == 0) {
                 Utilities.alertUser("Denne quizen har ingen spørsmål");
                 return;
@@ -143,29 +137,10 @@ public final class HomePageController {
             QuizController controller = new QuizController(quiz);
             loader.setController(controller);
             quizList.getScene().setRoot(loader.load());
-        } catch (IOException ioException) {
+        } catch (IOException | InterruptedException ioException) {
             Utilities.alertUser();
         }
     }
-
-//    /**
-//     * Sets the current root to be the new question page
-//     *
-//     * @param actionEvent
-//     * @throws IOException
-//     */
-//    @FXML
-//    public void showNewQuestion(ActionEvent actionEvent) throws IOException { // Switch scene to StartQuiz
-//        String currentQuiz = "oskar-spesial";
-//        System.out.println(currentQuiz);
-//        if (currentQuiz == null) {
-//            throw new IllegalStateException("No quiz selected");
-//        }
-//        FXMLLoader loader = App.getFXMLLoader("NewQuestion.fxml");
-//        NewQuestionController controller = new NewQuestionController(currentQuiz);
-//        loader.setController(controller);
-//        ((Node) actionEvent.getSource()).getScene().setRoot(loader.load());
-//    }
 
     /**
      * Sets the current root to be the leaderboard page
@@ -183,17 +158,15 @@ public final class HomePageController {
      * @throws IOException
      */
     @FXML
-    public void addNewQuizFile() throws IOException {
+    public void addNewQuizFile() throws IOException, InterruptedException {
         String newQuizName = quizNameField.getText();
         if (newQuizName.isEmpty()) {
             throw new IllegalArgumentException("You can't create a quiz with an empty name");
         }
         List<Question> noQuestions = new ArrayList<>();
         Quiz newQuiz = new Quiz(newQuizName, noQuestions);
-        QuizPersistence quizPersistence = new QuizPersistence();
-        quizPersistence.saveQuiz(newQuiz);
-        addQuizElement(newQuizName);
-        quizzes.add(newQuizName);
+        apiClientService.postQuiz(newQuiz);
+        updateInitialQuizzes();
     }
 
     /**

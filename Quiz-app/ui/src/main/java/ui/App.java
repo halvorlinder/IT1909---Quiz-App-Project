@@ -15,7 +15,7 @@ import java.io.IOException;
 public final class App extends Application {
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws IOException, InterruptedException {
         final FXMLLoader loader = Utilities.getFXMLLoader("LogInPage.fxml");
         LogInController controller = new LogInController();
         loader.setController(controller);

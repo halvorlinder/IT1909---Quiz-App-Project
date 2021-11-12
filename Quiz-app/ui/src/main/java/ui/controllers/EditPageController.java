@@ -2,7 +2,6 @@ package ui.controllers;
 
 import core.Question;
 import core.Quiz;
-import io.QuizPersistence;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import ui.APIClientService;
 import ui.App;
 import ui.Utilities;
 
@@ -24,6 +24,7 @@ public class EditPageController {
 
     private final String quizName;
     private Quiz quiz;
+    private APIClientService apiClientService;
 
     /**
      * @param quizName the name of the quiz to be edited
@@ -38,9 +39,14 @@ public class EditPageController {
      * @throws IOException
      */
     @FXML
-    private void initialize() throws IOException {
-        QuizPersistence quizPersistence = new QuizPersistence();
-        quiz = quizPersistence.loadQuiz(quizName);
+    private void initialize() throws IOException, InterruptedException {
+        apiClientService = new APIClientService();
+        display();
+    }
+
+    private void display() throws IOException, InterruptedException {
+        questionList.getChildren().clear();
+        quiz = apiClientService.getQuiz(quizName);
         titleText.setText("Endre " + quizName);
         for (int i = 0; i < quiz.getQuizLength(); i++) {
             addQuestionElement(i);
@@ -69,17 +75,39 @@ public class EditPageController {
         editButton.setText("Endre");
         editButton.getStyleClass().add("green-button");
         editButton.setOnAction((ActionEvent ae) -> {
-        }); //TODO implement this
+            showEditQuestion(questionId, question);
+        });
         gridPane.add(editButton, 1, 0, 1, 1);
 
         Button deleteButton = new Button();
         deleteButton.setText("Slett");
         deleteButton.getStyleClass().add("red-button");
         deleteButton.setOnAction((ActionEvent ae) -> {
-        }); //TODO implement this
+            deleteQuestion(questionId);
+        });
         gridPane.add(deleteButton, 2, 0, 1, 1);
 
         questionList.getChildren().add(gridPane);
+    }
+
+    private void deleteQuestion(int questionId) {
+        try {
+            apiClientService.deleteQuestion(quizName, questionId);
+            display();
+        } catch (Exception e) {
+            Utilities.alertUser();
+        }
+    }
+
+    private void showEditQuestion(int questionId, Question question) {
+        try {
+            FXMLLoader loader = App.getFXMLLoader("NewQuestion.fxml");
+            loader.setController(new NewQuestionController(quizName, questionId, question));
+            titleText.getScene().setRoot(loader.load());
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+            Utilities.alertUser();
+        }
     }
 
 
@@ -96,6 +124,16 @@ public class EditPageController {
             ioException.printStackTrace();
             Utilities.alertUser();
         }
+    }
+
+    @FXML
+    private void deleteQuiz() throws IOException {
+        try {
+            apiClientService.deleteQuiz(quizName);
+        } catch (Exception e) {
+            Utilities.alertUser();
+        }
+        questionList.getScene().setRoot(Utilities.getFXMLLoader("HomePage.fxml").load());
     }
 
 }
