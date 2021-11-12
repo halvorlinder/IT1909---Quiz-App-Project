@@ -4,7 +4,12 @@ This is the documentation for the third release
 The gitlab sprint can be found [here](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/milestones/3)
 
 ## Functionality
+This release was split into two main parts: revamping the UI and adding new functionality, and the developemnt of a REST API and a way to interact with it.
 
+### New functionality
+We added the ability to view and play multiple quizzes. You can now edit existing questions in a quiz, delete questions or create new ones. You can also create and delete entire quizzes. With this change, we decided to change our UI to better fit our new functionality. This release also saw the implementation of the leaderboard feature discussed in [release 2](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/docs/release2)
+
+### REST API
 
 
 ## User Stories
