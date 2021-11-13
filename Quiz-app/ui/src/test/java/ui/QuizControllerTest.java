@@ -4,11 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
 
@@ -45,17 +41,17 @@ public class QuizControllerTest extends ApplicationTest {
     }
 
     @Test
-    public void answerQuizCorrect(){
+    public void answerQuizCorrect() {
         rightAnswer = quiz.getQuestions().get(0).getAnswer();
-        clickOn("#option"+(rightAnswer+1));
+        clickOn("#option" + (rightAnswer + 1));
         clickOn("#submitAnswer");
         assertEquals(1, quiz.getCorrect());
     }
 
     @Test
-    public void answerQuizWrong(){
+    public void answerQuizWrong() {
         rightAnswer = quiz.getQuestions().get(0).getAnswer();
-        clickOn("#option"+(rightAnswer));
+        clickOn("#option" + (rightAnswer));
         clickOn("#submitAnswer");
         assertEquals(0, quiz.getCorrect());
     }
