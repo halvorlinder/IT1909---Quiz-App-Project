@@ -1,5 +1,6 @@
 package ui.controllers;
 
+import core.Leaderboard;
 import core.Question;
 import core.Quiz;
 import core.User;
@@ -97,6 +98,7 @@ public final class HomePageController {
         Button leaderboardButton = new Button();
         leaderboardButton.setText("Ledertavle");
         leaderboardButton.getStyleClass().add("blue-button");
+        leaderboardButton.setOnAction((ActionEvent ae) -> showLeaderboardPage(quizName));
         gridPane.add(leaderboardButton, 3, 0, 1, 1);
 
         quizList.getChildren().add(gridPane);
@@ -111,6 +113,23 @@ public final class HomePageController {
         try {
             FXMLLoader loader = App.getFXMLLoader("EditPage.fxml");
             EditPageController controller = new EditPageController(quizName);
+            loader.setController(controller);
+            quizList.getScene().setRoot(loader.load());
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+            Utilities.alertUser();
+        }
+    }
+
+    /**
+     * displays the leaderboard page for a given quiz
+     *
+     * @param quizName the name of the quiz
+     */
+    private void showLeaderboardPage(String quizName) {
+        try {
+            FXMLLoader loader = App.getFXMLLoader("Leaderboard.fxml");
+            LeaderboardController controller = new LeaderboardController(quizName);
             loader.setController(controller);
             quizList.getScene().setRoot(loader.load());
         } catch (IOException ioException) {
