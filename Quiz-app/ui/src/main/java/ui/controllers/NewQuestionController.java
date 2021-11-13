@@ -3,7 +3,6 @@ package ui.controllers;
 import core.Question;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import ui.APIClientService;
 import ui.Utilities;
@@ -12,7 +11,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public final class NewQuestionController extends GoBackController implements InitializableController{
+public final class NewQuestionController extends GoBackController implements InitializableController {
 
     @FXML
     private Label headline;
@@ -73,6 +72,7 @@ public final class NewQuestionController extends GoBackController implements Ini
 
     /**
      * initializes the page with pre-filled information and in edit mode
+     *
      * @param quizName
      * @param questionId
      * @param question
@@ -96,7 +96,7 @@ public final class NewQuestionController extends GoBackController implements Ini
      */
     @Override
     @FXML
-    public void initialize(){
+    public void initialize() {
         setBackButton(backButton);
         apiClientService = new APIClientService();
         headline.setText(quizName);
@@ -164,11 +164,5 @@ public final class NewQuestionController extends GoBackController implements Ini
         return questionText.getText();
     }
 
-    /**
-     * Sets the current root to be the home page
-     *
-     * @param actionEvent
-     * @throws IOException
-     */
 
 }

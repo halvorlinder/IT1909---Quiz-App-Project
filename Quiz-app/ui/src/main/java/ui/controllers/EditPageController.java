@@ -17,7 +17,7 @@ import ui.Utilities;
 
 import java.io.IOException;
 
-public class EditPageController extends GoBackController implements InitializableController{
+public class EditPageController extends GoBackController implements InitializableController {
     @FXML
     private Label titleText;
     @FXML
