@@ -142,7 +142,6 @@ public final class HomePageController {
      * Sets the current root to be the question page
      *
      * @param quizName the name of the quiz to be played
-     * @throws IOException
      */
     @FXML
     public void startQuiz(String quizName) { // Switch scene to StartQuiz
@@ -176,6 +175,7 @@ public final class HomePageController {
         List<Question> noQuestions = new ArrayList<>();
         Quiz newQuiz = new Quiz(newQuizName, noQuestions);
         apiClientService.postQuiz(newQuiz);
+        apiClientService.postLeaderboard(new Leaderboard(newQuizName, newQuiz.getQuizLength()));
         updateInitialQuizzes();
     }
 
