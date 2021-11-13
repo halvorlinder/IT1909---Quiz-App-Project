@@ -2,7 +2,9 @@ package rest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import core.Leaderboard;
 import core.Question;
+import core.Score;
 import core.Quiz;
 import io.LeaderboardPersistence;
 import io.QuizPersistence;
@@ -116,4 +118,52 @@ public class QuizController {
         response.setStatus(404);
         return null;
     }
+
+    @GetMapping("/leaderboards/{name}")
+    public String getLeaderboard(@PathVariable("name") String name, HttpServletResponse response) {
+        try {
+            return objectMapper.writeValueAsString(leaderboardPersistence.loadLeaderboard(name));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        response.setStatus(404);
+        return null;
+    }
+
+
+    @PostMapping("/leaderboards")
+    public String postLeaderboard(@RequestBody String leaderboardJSON, HttpServletResponse response) {
+        try {
+            Leaderboard leaderboard = objectMapper.readValue(leaderboardJSON, Leaderboard.class);
+            leaderboardPersistence.saveLeaderboard(objectMapper.readValue(leaderboardJSON, Leaderboard.class));
+            return leaderboardJSON;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        response.setStatus(500);
+        return null;
+    }
+
+    @DeleteMapping("leaderboards/{name}")
+    public void deleteLeaderboard(@PathVariable("name") String quizName, HttpServletResponse response) {
+        if (leaderboardPersistence.deleteLeaderboard(quizName))
+            response.setStatus(200);
+        else
+            response.setStatus(404);
+    }
+
+    @PostMapping("leaderboards/{name}")
+    public String addScore(@RequestBody String score, @PathVariable("name") String quizName, HttpServletResponse response) {
+        try {
+            Leaderboard leaderboard = leaderboardPersistence.loadLeaderboard(quizName);
+            leaderboard.addScore(objectMapper.readValue(score, Score.class));
+            leaderboardPersistence.saveLeaderboard(leaderboard);
+            return objectMapper.writeValueAsString(leaderboard);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        response.setStatus(404);
+        return null;
+    }
+
 }
