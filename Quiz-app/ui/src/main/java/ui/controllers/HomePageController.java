@@ -63,7 +63,6 @@ public final class HomePageController {
         for (String quizName : quizzes) {
             addQuizElement(quizName);
         }
-        System.out.println(quizzes);
     }
 
     /**
@@ -99,6 +98,7 @@ public final class HomePageController {
         leaderboardButton.setText("Ledertavle");
         leaderboardButton.getStyleClass().add("blue-button");
         gridPane.add(leaderboardButton, 3, 0, 1, 1);
+
         quizList.getChildren().add(gridPane);
     }
 
@@ -142,15 +142,6 @@ public final class HomePageController {
         }
     }
 
-    /**
-     * Sets the current root to be the leaderboard page
-     *
-     * @throws IOException
-     */
-    @FXML
-    public void showLeaderboard() throws IOException { // Switch scene to StartQuiz
-        //newQuestionButton.getScene().setRoot(Utilities.getFXMLLoader(".fxml").load());
-    }
 
     /**
      * Creates a new quiz file with a given name and displays it in the app
