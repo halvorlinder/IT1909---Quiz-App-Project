@@ -1,5 +1,6 @@
 package ui.controllers;
 
+import core.Leaderboard;
 import core.Question;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -73,6 +74,7 @@ public final class NewQuestionController {
 
     /**
      * initializes the page with pre-filled information and in edit mode
+     *
      * @param quizName
      * @param questionId
      * @param question
@@ -140,6 +142,8 @@ public final class NewQuestionController {
         else
             apiClientService.addQuestion(quizName, question);
         ((Node) actionEvent.getSource()).getScene().setRoot(Utilities.getFXMLLoader("HomePage.fxml").load());
+        apiClientService.deleteLeaderboard(quizName);
+        apiClientService.postLeaderboard(new Leaderboard(quizName, apiClientService.getQuiz(quizName).getQuizLength()));
 
     }
 
