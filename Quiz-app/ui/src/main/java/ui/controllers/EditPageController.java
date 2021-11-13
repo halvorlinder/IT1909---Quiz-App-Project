@@ -115,8 +115,10 @@ public class EditPageController extends GoBackController implements Initializabl
     private void showEditQuestion(int questionId, Question question) {
         try {
             FXMLLoader loader = App.getFXMLLoader("NewQuestion.fxml");
-            loader.setController(new NewQuestionController(quizName, questionId, question));
-            titleText.getScene().setRoot(loader.load());
+            NewQuestionController controller = new NewQuestionController(quizName, questionId, question);
+            loader.setController(controller);
+            controller.setPreviousPageInfo(this, getScene().getRoot());
+            getScene().setRoot(loader.load());
         } catch (IOException ioException) {
             ioException.printStackTrace();
             Utilities.alertUser();
@@ -131,8 +133,10 @@ public class EditPageController extends GoBackController implements Initializabl
     private void showNewQuestion() {
         try {
             FXMLLoader loader = App.getFXMLLoader("NewQuestion.fxml");
-            loader.setController(new NewQuestionController(quizName));
-            titleText.getScene().setRoot(loader.load());
+            NewQuestionController controller = new NewQuestionController(quizName);
+            loader.setController(controller);
+            controller.setPreviousPageInfo(this, getScene().getRoot());
+            getScene().setRoot(loader.load());
         } catch (IOException ioException) {
             ioException.printStackTrace();
             Utilities.alertUser();
