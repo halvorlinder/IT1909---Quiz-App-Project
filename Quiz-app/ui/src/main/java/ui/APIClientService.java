@@ -106,6 +106,54 @@ public class APIClientService {
     }
 
     /**
+     * fetches a leaderboard for a quiz from the server
+     *
+     * @param quizName the name of the quiz mapping to the leaderboard to be fetched
+     * @return the leaderboard
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    public Leaderboard getLeaderboard(String quizName) throws IOException, InterruptedException {
+        HttpResponse<String> response = sendRequest("GET", "/leaderboards/" + quizName, "");
+        return objectMapper.readValue(response.body(), Leaderboard.class);
+    }
+
+    /**
+     * posts a leaderbord to the server
+     *
+     * @param leaderboard the leaderboard to be posted
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    public void postLeaderboard(Leaderboard leaderboard) throws IOException, InterruptedException {
+        sendRequest("POST", "/leaderboards", objectMapper.writeValueAsString(leaderboard));
+    }
+
+    /**
+     * deletes a leaderboard for a quiz from the server given its name
+     *
+     * @param quizName the name of the quiz
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    public void deleteLeaderboard(String quizName) throws IOException, InterruptedException {
+        sendRequest("DELETE", "/leaderboards/" + quizName, "");
+    }
+
+    /**
+     * adds a given score on the server
+     *
+     * @param quizName the name of the quiz
+     * @param newScore the new question object
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    public void postScore(String quizName, Score newScore) throws IOException, InterruptedException {
+        sendRequest("POST", "/leaderboards/" + quizName, objectMapper.writeValueAsString(newScore));
+    }
+
+
+    /**
      * sends a request to the server
      * @param method the http method
      * @param relativePath the path relative to /api
