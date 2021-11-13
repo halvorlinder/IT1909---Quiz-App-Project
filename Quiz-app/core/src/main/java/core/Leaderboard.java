@@ -21,6 +21,11 @@ public class Leaderboard {
         this.maxScore = maxScore;
     }
 
+    /**
+     *
+     * @param quizName the name of the quiz relating to this Leaderboard
+     * @param maxScore the highest score you can get on the quiz
+     */
     public Leaderboard(String quizName, int maxScore) {
         this(quizName, new ArrayList<>(), maxScore);
     }
@@ -29,20 +34,32 @@ public class Leaderboard {
      * @return list of scores
      */
     public List<Score> getScores() {
-        List<Score> copy_scores = new ArrayList<>(scores);
-        return copy_scores;
+        List<Score> copyScores = new ArrayList<>(scores);
+        return copyScores;
     }
 
+    /**
+     * function that sorts the score objects by their points
+     * @return a list of the scores sorted
+     */
     public List<Score> getSortedScores() {
-        List<Score> copy_scores = new ArrayList<>(scores);
-        Collections.sort(copy_scores);
-        return copy_scores;
+        List<Score> copyScores = new ArrayList<>(scores);
+        Collections.sort(copyScores);
+        return copyScores;
     }
 
+    /**
+     *
+     * @return the name of the quiz
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @param score the score object to be added
+     */
     public void addScore(Score score) {
         scores.add(score);
     }
