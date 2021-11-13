@@ -28,7 +28,7 @@ public class GoBackController {
         this.previousController = previousController;
     }
 
-    private void goBack(){
+    protected void goBack(){
         previousController.initialize();
         button.getScene().setRoot(previousRoot);
     }
