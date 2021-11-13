@@ -129,6 +129,7 @@ public class EditPageController {
     private void deleteQuiz() throws IOException {
         try {
             apiClientService.deleteQuiz(quizName);
+            apiClientService.deleteLeaderboard(quizName);
         } catch (Exception e) {
             Utilities.alertUser();
         }
