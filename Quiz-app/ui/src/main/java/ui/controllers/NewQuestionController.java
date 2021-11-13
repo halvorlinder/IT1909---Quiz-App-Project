@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public final class NewQuestionController {
+public final class NewQuestionController extends GoBackController implements InitializableController{
 
     @FXML
     private Label headline;
@@ -94,7 +94,10 @@ public final class NewQuestionController {
     /**
      * initializes the controller
      */
-    public void initialize() throws IOException, InterruptedException {
+    @Override
+    @FXML
+    public void initialize(){
+        setBackButton(backButton);
         apiClientService = new APIClientService();
         headline.setText(quizName);
         listOfTextFields = List.of(choice1, choice2, choice3, choice4);
@@ -139,7 +142,7 @@ public final class NewQuestionController {
             apiClientService.putQuestion(quizName, questionId, question);
         else
             apiClientService.addQuestion(quizName, question);
-        ((Node) actionEvent.getSource()).getScene().setRoot(Utilities.getFXMLLoader("HomePage.fxml").load());
+        goBack();
 
     }
 
@@ -167,10 +170,5 @@ public final class NewQuestionController {
      * @param actionEvent
      * @throws IOException
      */
-    @FXML
-    public void showHomePage(ActionEvent actionEvent) throws IOException { // Switch scene to HomePage
-
-        ((Node) actionEvent.getSource()).getScene().setRoot(Utilities.getFXMLLoader("HomePage.fxml").load());
-    }
 
 }
