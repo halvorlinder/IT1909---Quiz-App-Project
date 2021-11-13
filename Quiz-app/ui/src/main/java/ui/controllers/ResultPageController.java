@@ -1,9 +1,12 @@
 package ui.controllers;
 
+import core.Score;
+import core.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import ui.APIClientService;
 import ui.Utilities;
 
 import java.io.IOException;
@@ -33,7 +36,9 @@ public class ResultPageController {
     /**
      * Displays the scores to the GUI
      */
-    public void initialize() {
+    public void initialize() throws IOException, InterruptedException {
+        apiClientService = new APIClientService();
+        apiClientService.postScore(name, new Score(User.getUserName(), score));
         result.setText("Du fikk %s/%s poeng!".formatted(score, maxScore));
     }
 
