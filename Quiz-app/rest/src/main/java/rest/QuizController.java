@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import core.Question;
 import core.Quiz;
+import io.LeaderboardPersistence;
 import io.QuizPersistence;
 import io.UserPersistence;
 import org.springframework.web.bind.annotation.*;
@@ -16,11 +17,13 @@ import java.io.IOException;
 public class QuizController {
 
     private final QuizPersistence quizPersistence;
+    private final LeaderboardPersistence leaderboardPersistence;
     private final ObjectMapper objectMapper;
 
     public QuizController() throws IOException {
         this.objectMapper = UserPersistence.createObjectMapper();
         this.quizPersistence = new QuizPersistence();
+        this.leaderboardPersistence = new LeaderboardPersistence();
     }
 
 
