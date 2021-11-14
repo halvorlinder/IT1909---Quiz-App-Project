@@ -2,6 +2,7 @@ package ui.controllers;
 
 import core.User;
 import core.UserData;
+import core.UserRecord;
 import io.UserPersistence;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import ui.APIClientService;
 import ui.Utilities;
 
 import java.io.IOException;
@@ -27,18 +29,13 @@ public final class LogInController {
     private UserPersistence userPersistence;
     private UserData userData;
     private final String fileName;
-
+    private APIClientService apiClientService;
     /**
      * fetches userData
      */
     @FXML
     public void initialize() {
-        try {
-            userPersistence = new UserPersistence(fileName);
-            userData = userPersistence.loadUserData();
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-        }
+        apiClientService = new APIClientService();
     }
 
     /**
@@ -63,11 +60,14 @@ public final class LogInController {
     @FXML
     public void attemptLogIn(ActionEvent actionEvent) {
         try {
-            if (userData.attemptLogIn(logInUserName.getText(), logInPassword.getText()))
+            UserRecord userRecord = new UserRecord(logInUserName.getText(),logInPassword.getText());
+            if (userData.attemptLogIn(userRecord)){
+                apiClientService.loginUser(userRecord);
                 logIn(actionEvent, logInUserName.getText());
+            }
             else
                 Utilities.alertUser("Brukernavn eller passord er feil");
-        } catch (IOException ioException) {
+        } catch (IOException | InterruptedException ioException) {
             ioException.printStackTrace();
         }
 
@@ -82,13 +82,14 @@ public final class LogInController {
     public void attemptRegister(ActionEvent actionEvent) {
         //TODO create logic for registering and checking username and password
         try {
-            if (userData.attemptRegister(registerUserName.getText(), registerPassword.getText())) {
-                userPersistence.saveUserData(userData);
+            UserRecord userRecord = new UserRecord(registerUserName.getText(),registerPassword.getText());
+            if (userData.attemptRegister(userRecord)){
+                apiClientService.registerUser(userRecord);
                 logIn(actionEvent, registerUserName.getText());
             } else {
                 Utilities.alertUser("Brukernavn er tatt");
             }
-        } catch (IOException ioException) {
+        } catch (IOException | InterruptedException ioException) {
             Utilities.alertUser("Noe gikk galt");
         }
     }
