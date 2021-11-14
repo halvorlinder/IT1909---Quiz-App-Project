@@ -1,8 +1,10 @@
 package ui;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import core.Question;
 import core.Quiz;
+import core.UserRecord;
 import io.QuizPersistence;
 import org.springframework.http.HttpStatus;
 
@@ -101,8 +103,17 @@ public class APIClientService {
      * @throws IOException
      * @throws InterruptedException
      */
+
     public void addQuestion(String quizName, Question newQuestion) throws IOException, InterruptedException {
         sendRequest("POST", "/quizzes/" + quizName, objectMapper.writeValueAsString(newQuestion));
+    }
+
+    public void loginUser(UserRecord userRecord) throws IOException, InterruptedException {
+        sendRequest("POST", "/users/login", objectMapper.writeValueAsString(userRecord));
+    }
+
+    public void registerUser(UserRecord userRecord) throws IOException, InterruptedException {
+        sendRequest("POST","/users/register", objectMapper.writeValueAsString(userRecord));
     }
 
     /**
