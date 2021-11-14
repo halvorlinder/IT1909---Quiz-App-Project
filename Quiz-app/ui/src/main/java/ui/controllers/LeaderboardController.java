@@ -59,7 +59,6 @@ public class LeaderboardController {
      */
     private void addScoreElement(int scoreId) {
         Score score = leaderboard.getSortedScores().get(scoreId);
-        System.out.println(score.getPoints());
         GridPane gridPane = new GridPane();
         ColumnConstraints column1 = new ColumnConstraints(100);
         ColumnConstraints column2 = new ColumnConstraints(250);

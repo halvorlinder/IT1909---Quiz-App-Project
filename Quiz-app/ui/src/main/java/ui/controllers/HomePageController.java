@@ -174,8 +174,9 @@ public final class HomePageController {
         }
         List<Question> noQuestions = new ArrayList<>();
         Quiz newQuiz = new Quiz(newQuizName, noQuestions);
+        Leaderboard newLeaderboard = new Leaderboard(newQuizName, newQuiz.getQuizLength());
         apiClientService.postQuiz(newQuiz);
-        apiClientService.postLeaderboard(new Leaderboard(newQuizName, newQuiz.getQuizLength()));
+        apiClientService.postLeaderboard(newLeaderboard);
         updateInitialQuizzes();
     }
 

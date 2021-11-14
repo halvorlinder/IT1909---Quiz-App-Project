@@ -59,6 +59,15 @@ public class HomePageTest extends ApplicationTest {
                 .willReturn(aResponse()
                         .withBody("[\"x\"]")
                         .withStatus(200)));
+        stubFor(post(urlEqualTo("/api/leaderboards"))
+                .withRequestBody(equalToJson("{\"name\":\"x\",\"maxScore\":0,\"scores\":[]}"))
+                .willReturn(aResponse()
+                        .withBody("[\"x\"]")
+                        .withStatus(200)));
+        stubFor(get(urlEqualTo("/api/leaderboards"))
+                .willReturn(aResponse()
+                        .withBody("[\"x\"]")
+                        .withStatus(200)));
         clickOn("#quizNameField").write("x");
         clickOn("#addNewQuizButton");
     }
