@@ -42,11 +42,6 @@ public class UserDataTest {
         System.out.println(userData.hash("pWord"));
     }
 
-    @Test
-    public void testReAddUser() {
-        userData.reAddUser("user2", 197);
-        assertEquals(197, userData.getPasswordHash("user2"));
-    }
 
 
 }
