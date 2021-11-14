@@ -116,6 +116,22 @@ public class HomePageTest extends ApplicationTest {
         });
     }
 
+    @Test
+    public void testTraversal() {
+        initQuiz();
+        stubFor(get(urlEqualTo("/api/quizzes/x"))
+                .willReturn(aResponse()
+                        .withBody("{\"name\":\"x\",\"questions\":[]}")
+                        .withStatus(200)));
+        VBox vBox = lookup("#quizList").query();
+        clickOn(from(vBox).lookup((Button b) -> b.getText().equals("Endre")).queryButton());
+        Assertions.assertDoesNotThrow(()->lookup("#newQuestionButton").query());
+        clickOn(lookup("#newQuestionButton").queryButton());
+        clickOn(lookup("#backButton").queryButton());
+        clickOn(lookup("#backButton").queryButton());
+        Assertions.assertDoesNotThrow(()->lookup("#nameDisplay").query());
+    }
+
     @AfterEach
     public void stopServer() {
         wireMockServer.stop();
