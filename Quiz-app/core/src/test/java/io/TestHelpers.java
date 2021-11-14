@@ -1,9 +1,6 @@
 package io;
 
-import core.Question;
-import core.Quiz;
-import core.User;
-import core.UserData;
+import core.*;
 
 import java.util.List;
 
@@ -43,8 +40,10 @@ public class TestHelpers {
 
     static UserData createUserDataWithTwoEntries(){
         UserData userData = new UserData();
-        userData.attemptRegister("user1", "password");
-        userData.attemptRegister("user2", "pWord");
+        UserRecord userRecord1 = new UserRecord("user1", "password");
+        UserRecord userRecord2 = new UserRecord("user2", "pWord");
+        userData.attemptRegister(userRecord1);
+        userData.attemptRegister(userRecord2);
         return userData;
     }
 }

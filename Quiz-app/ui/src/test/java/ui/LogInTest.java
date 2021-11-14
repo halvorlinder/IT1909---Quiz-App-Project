@@ -4,6 +4,7 @@ import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
 import core.UserData;
+import core.UserRecord;
 import io.UserPersistence;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -38,7 +39,8 @@ public class LogInTest extends ApplicationTest {
         if (!file.exists())
             file.createNewFile();
         UserData userData = new UserData();
-        userData.attemptRegister("h", "p");
+        UserRecord userRecord = new UserRecord("h","p");
+        userData.attemptRegister(userRecord);
         userPersistence.saveUserData(userData);
         LogInController logInController = new LogInController("testUsers.json");
         final FXMLLoader loader = new FXMLLoader(getClass().getResource("LogInPage.fxml"));
@@ -61,7 +63,8 @@ public class LogInTest extends ApplicationTest {
     @BeforeEach
     public void setupItems() throws IOException {
         UserData userData = new UserData();
-        userData.attemptRegister("h", "p");
+        UserRecord userRecord = new UserRecord("h","p");
+        userData.attemptRegister(userRecord);
         userPersistence.saveUserData(userData);
 
         config = WireMockConfiguration.wireMockConfig().port(8080);
