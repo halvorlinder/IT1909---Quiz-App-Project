@@ -9,9 +9,11 @@ test:
     - cd Quiz-app
     - mvn verify -DskipUiTests=true
     - cat core/target/site/jacoco/index.html | grep -o '<tfoot>.*</tfoot>'
+    - cat rest/target/site/jacoco/index.html | grep -o '<tfoot>.*</tfoot>'
   artifacts:
     when: always
     paths:
+      - Quiz-app/core/target/site/jacoco/jacoco.xml
       - Quiz-app/core/target/site/jacoco/jacoco.xml
 #    reports:
 #      junit: Quiz-app/core/target/test/**/Test-*.xml
