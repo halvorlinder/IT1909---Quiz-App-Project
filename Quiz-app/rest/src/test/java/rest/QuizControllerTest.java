@@ -81,7 +81,6 @@ public class QuizControllerTest {
                 .getResponse().getStatus());
 
         String exampleQuiz = objectMapper.writeValueAsString(getExampleQuiz());
-
         MvcResult mvcResult = request("POST", uri, exampleQuiz);
         assertEquals(200, mvcResult.getResponse().getStatus());
         assertEquals(exampleQuiz, mvcResult.getResponse().getContentAsString());
@@ -146,8 +145,8 @@ public class QuizControllerTest {
 
     private MvcResult request(String httpMethod, String uri, String body) throws Exception {
         return mvc.perform(MockMvcRequestBuilders.request(httpMethod, URI.create(uri))
-                .content(body)
-                .accept(MediaType.APPLICATION_JSON_VALUE))
+                        .content(body)
+                        .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andReturn();
     }
 

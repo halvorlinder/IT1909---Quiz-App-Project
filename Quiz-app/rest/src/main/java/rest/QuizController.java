@@ -142,27 +142,6 @@ public class QuizController {
         return null;
     }
 
-
-//    @PostMapping("/leaderboards")
-//    public String postLeaderboard(@RequestBody String leaderboardJSON, HttpServletResponse response) {
-//        try {
-//            leaderboardPersistence.saveLeaderboard(objectMapper.readValue(leaderboardJSON, Leaderboard.class));
-//            return leaderboardJSON;
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        response.setStatus(500);
-//        return null;
-//    }
-//
-//    @DeleteMapping("leaderboards/{name}")
-//    public void deleteLeaderboard(@PathVariable("name") String quizName, HttpServletResponse response) {
-//        if (leaderboardPersistence.deleteLeaderboard(quizName))
-//            response.setStatus(200);
-//        else
-//            response.setStatus(404);
-//    }
-
     @PostMapping("leaderboards/{name}")
     public String addScore(@RequestBody String score, @PathVariable("name") String quizName, HttpServletResponse response) {
         try {

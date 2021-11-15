@@ -174,7 +174,6 @@ public final class HomePageController {
         List<Question> noQuestions = new ArrayList<>();
         Quiz newQuiz = new Quiz(newQuizName, noQuestions);
         apiClientService.postQuiz(newQuiz);
-        // apiClientService.postLeaderboard(newLeaderboard);
         updateInitialQuizzes();
     }
 
@@ -190,9 +189,7 @@ public final class HomePageController {
             LogInController controller = new LogInController();
             loader.setController(controller);
             final Parent root = loader.load();
-            // Scene scene = new Scene(root);
             ((Node) actionEvent.getSource()).getScene().setRoot(root);
-            // ((Node) actionEvent.getSource()).getScene().setRoot(Utilities.getFXMLLoader("LogInPage.fxml").load());
             User.setUserName(null);
         } catch (IOException ioException) {
             ioException.printStackTrace();
