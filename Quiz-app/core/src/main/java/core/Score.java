@@ -8,17 +8,18 @@ public class Score implements Comparable<Score> {
     private final int points;
 
     /**
-     *
-     * @param name of person who got score
+     * @param name   of person who got score
      * @param points amount of correct answers
      */
     public Score(String name, int points) {
+        if (points < 0) {
+            throw new IllegalArgumentException("Cannot have a negative score");
+        }
         this.name = name;
         this.points = points;
     }
 
     /**
-     *
      * @return points (correct answers)
      */
     public int getPoints() {
@@ -26,7 +27,6 @@ public class Score implements Comparable<Score> {
     }
 
     /**
-     *
      * @return name of user
      */
     public String getName() {
@@ -34,7 +34,6 @@ public class Score implements Comparable<Score> {
     }
 
     /**
-     *
      * @param s the score to be comared
      * @return whether or not this score is larger,
      * equal to or smaller than another score object
@@ -45,7 +44,6 @@ public class Score implements Comparable<Score> {
     }
 
     /**
-     *
      * @param o an object
      * @return if o is equal to this object
      */
@@ -59,6 +57,7 @@ public class Score implements Comparable<Score> {
 
     /**
      * hashes this object based on its points value
+     *
      * @return the object hash
      */
     @Override
