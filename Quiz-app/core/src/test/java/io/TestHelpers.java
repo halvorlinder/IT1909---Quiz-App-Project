@@ -1,9 +1,6 @@
 package io;
 
-import core.Question;
-import core.Quiz;
-import core.User;
-import core.UserData;
+import core.*;
 
 import java.util.List;
 
@@ -46,5 +43,23 @@ public class TestHelpers {
         userData.attemptRegister("user1", "password");
         userData.attemptRegister("user2", "pWord");
         return userData;
+    }
+
+    public static Leaderboard createLeaderboardWithTwoScore() {
+        return new Leaderboard("test", List.of(new Score("oskar", 2),
+                new Score("halvor", 0)), 2);
+    }
+
+    static void checkLeaderboard(Leaderboard leaderboard1, Leaderboard leaderboard2) {
+        assertEquals(leaderboard1.getName(), leaderboard2.getName());
+        assertEquals(leaderboard1.getScoreLength(), leaderboard2.getScoreLength());
+        for (int i = 0; i < leaderboard1.getScoreLength(); i++) {
+            checkScore(leaderboard1.getScores().get(i), leaderboard2.getScores().get(i));
+        }
+    }
+
+    static void checkScore(Score score1, Score score2) {
+        assertEquals(score1.getName(), score2.getName());
+        assertEquals(score1.getPoints(), score2.getPoints());
     }
 }
