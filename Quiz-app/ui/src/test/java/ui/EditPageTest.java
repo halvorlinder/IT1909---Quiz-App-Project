@@ -19,6 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import ui.controllers.EditPageController;
 
 import java.io.IOException;
 import java.util.List;
@@ -40,11 +41,12 @@ public class EditPageTest extends ApplicationTest {
         wireMockServer = new WireMockServer(config.portNumber());
         wireMockServer.start();
         WireMock.configureFor("localhost", config.portNumber());
-        stubFor(get(urlEqualTo("/api/quizzes"))
+        stubFor(get(urlEqualTo("/api/quizzes/x"))
                 .willReturn(aResponse()
-                        .withBody("[\"x\"]")));
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("HomePage.fxml"));
+                        .withBody("{\"name\":\"x\",\"questions\":[{\"question\":\"?\",\"answer\":0,\"choices\":[\"a\",\"b\",\"c\",\"d\"]}]}")));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("EditPage.fxml"));
+        EditPageController editPageController = new EditPageController("x");
+        loader.setController(editPageController);
         final Parent root = loader.load();
         wireMockServer.stop();
         stage.setScene(new Scene(root));
@@ -59,11 +61,11 @@ public class EditPageTest extends ApplicationTest {
         WireMock.configureFor("localhost", config.portNumber());
         stubFor(get(urlEqualTo("/api/quizzes/x"))
                 .willReturn(aResponse()
-                        .withBody("{\"name\":\"x\",\"questions\":[{\"question\":\"?\",\"answer\":0,\"choices\":[\"a\",\"b \",\"c \",\"d \"]}]}")
+                        .withBody("{\"name\":\"x\",\"questions\":[{\"question\":\"?\",\"answer\":0,\"choices\":[\"a\",\"b\",\"c\",\"d\"]}]}")
                         .withStatus(200)));
 
-        VBox vBox = lookup("#quizList").query();
-        clickOn(from(vBox).lookup((Button b) -> b.getText().equals("Endre")).queryButton());
+//        VBox vBox = lookup("#quizList").query();
+//        clickOn(from(vBox).lookup((Button b) -> b.getText().equals("Endre")).queryButton());
     }
 
     @Test
@@ -84,6 +86,48 @@ public class EditPageTest extends ApplicationTest {
         });
     }
 
+    @Test
+    public void testDeleteQuestion() {
+        stubFor(delete(urlEqualTo("/api/quizzes/x/0"))
+                .willReturn(aResponse()
+                        .withStatus(200)));
+        stubFor(get(urlEqualTo("/api/quizzes/x"))
+                .willReturn(aResponse()
+                        .withBody("{\"name\":\"x\",\"questions\":[]}")
+                        .withStatus(200)));
+        VBox vBox = lookup("#questionList").query();
+        clickOn(from(vBox).lookup((Button b) -> b.getText().equals("Slett")).queryButton());
+        Assertions.assertEquals(0, vBox.getChildren().size());
+    }
+
+    @Test
+    public void testDeleteQuiz(){
+        stubFor(delete(urlEqualTo("/api/quizzes/x"))
+                .willReturn(aResponse()
+                        .withStatus(200)));
+        stubFor(get(urlEqualTo("/api/quizzes"))
+                .willReturn(aResponse()
+                        .withBody("[]")));
+        clickOn(lookup("#deleteQuizButton").queryButton());
+        Assertions.assertDoesNotThrow(()->lookup("#quizList").query());
+        Assertions.assertEquals(0, ((VBox)lookup("#quizList").query()).getChildren().size());
+    }
+
+    @Test
+    public void testEditQuestion() throws InterruptedException {
+        stubFor(put(urlEqualTo("/api/quizzes/x/0"))
+                .withRequestBody(equalToJson("{\"question\":\"??\",\"answer\":0,\"choices\":[\"a\",\"b\",\"c\",\"d\"]}"))
+                .willReturn(aResponse()
+                        .withStatus(200)));
+        stubFor(get(urlEqualTo("/api/quizzes"))
+                .willReturn(aResponse()
+                        .withBody("[\"x\"]")));
+        VBox vBox = lookup("#questionList").query();
+        clickOn(from(vBox).lookup((Button b) -> b.getText().equals("Endre")).queryButton());
+        clickOn("#questionText").write("?");
+        clickOn("#submitButton");
+//        Assertions.assertDoesNotThrow(()->from(vBox).lookup((Label label) -> label.getText().equals("??")).query());
+    }
     @AfterEach
     public void stopServer(){
         wireMockServer.stop();
