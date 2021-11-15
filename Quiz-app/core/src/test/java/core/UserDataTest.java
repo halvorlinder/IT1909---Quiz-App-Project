@@ -25,9 +25,9 @@ public class UserDataTest {
 
     @Test
     public void testAttemptLogIn() {
-        assertFalse(userData.attemptLogIn(userRecord1));
-        assertFalse(userData.attemptLogIn(userRecord2));
         assertTrue(userData.attemptLogIn(userRecord1));
+        assertFalse(userData.attemptLogIn(userRecord2));
+        assertFalse(userData.attemptRegister(userRecord1));
     }
 
     @Test
