@@ -1,6 +1,5 @@
 package ui.controllers;
 
-import core.Leaderboard;
 import core.Question;
 import core.Quiz;
 import core.User;
@@ -174,9 +173,8 @@ public final class HomePageController {
         }
         List<Question> noQuestions = new ArrayList<>();
         Quiz newQuiz = new Quiz(newQuizName, noQuestions);
-        Leaderboard newLeaderboard = new Leaderboard(newQuizName, newQuiz.getQuizLength());
         apiClientService.postQuiz(newQuiz);
-        apiClientService.postLeaderboard(newLeaderboard);
+        // apiClientService.postLeaderboard(newLeaderboard);
         updateInitialQuizzes();
     }
 

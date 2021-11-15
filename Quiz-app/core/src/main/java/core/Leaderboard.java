@@ -22,7 +22,6 @@ public class Leaderboard {
     }
 
     /**
-     *
      * @param quizName the name of the quiz relating to this Leaderboard
      * @param maxScore the highest score you can get on the quiz
      */
@@ -40,6 +39,7 @@ public class Leaderboard {
 
     /**
      * function that sorts the score objects by their points
+     *
      * @return a list of the scores sorted
      */
     public List<Score> getSortedScores() {
@@ -49,7 +49,6 @@ public class Leaderboard {
     }
 
     /**
-     *
      * @return the name of the quiz
      */
     public String getName() {
@@ -57,7 +56,6 @@ public class Leaderboard {
     }
 
     /**
-     *
      * @param score the score object to be added
      */
     public void addScore(Score score) {
@@ -77,4 +75,5 @@ public class Leaderboard {
     public int getMaxScore() {
         return maxScore;
     }
+
 }

@@ -128,27 +128,27 @@ public class APIClientService {
         return objectMapper.readValue(response.body(), Leaderboard.class);
     }
 
-    /**
-     * posts a leaderbord to the server
-     *
-     * @param leaderboard the leaderboard to be posted
-     * @throws IOException
-     * @throws InterruptedException
-     */
-    public void postLeaderboard(Leaderboard leaderboard) throws IOException, InterruptedException {
-        sendRequest("POST", "/leaderboards", objectMapper.writeValueAsString(leaderboard));
-    }
-
-    /**
-     * deletes a leaderboard for a quiz from the server given its name
-     *
-     * @param quizName the name of the quiz
-     * @throws IOException
-     * @throws InterruptedException
-     */
-    public void deleteLeaderboard(String quizName) throws IOException, InterruptedException {
-        sendRequest("DELETE", "/leaderboards/" + quizName, "");
-    }
+//    /**
+//     * posts a leaderbord to the server
+//     *
+//     * @param leaderboard the leaderboard to be posted
+//     * @throws IOException
+//     * @throws InterruptedException
+//     */
+//    public void postLeaderboard(Leaderboard leaderboard) throws IOException, InterruptedException {
+//        sendRequest("POST", "/leaderboards", objectMapper.writeValueAsString(leaderboard));
+//    }
+//
+//    /**
+//     * deletes a leaderboard for a quiz from the server given its name
+//     *
+//     * @param quizName the name of the quiz
+//     * @throws IOException
+//     * @throws InterruptedException
+//     */
+//    public void deleteLeaderboard(String quizName) throws IOException, InterruptedException {
+//        sendRequest("DELETE", "/leaderboards/" + quizName, "");
+//    }
 
     /**
      * adds a given score on the server
