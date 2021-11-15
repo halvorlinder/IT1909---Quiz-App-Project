@@ -182,6 +182,12 @@ public class QuizController {
         return null;
     }
 
+    /**
+     *
+     * @param name the name of the quiz
+     * @param response
+     * @return a leaderboard for a quiz given its name
+     */
     @GetMapping("/leaderboards/{name}")
     public String getLeaderboard(@PathVariable("name") String name, HttpServletResponse response) {
         try {
@@ -193,8 +199,16 @@ public class QuizController {
         return null;
     }
 
+    /**
+     * posts a score to a given scoreboard
+     * @param score the user with score
+     * @param quizName the name of the quiz
+     * @param response
+     * @return the updated scoreboard
+     */
     @PostMapping("leaderboards/{name}")
-    public String addScore(@RequestBody String score, @PathVariable("name") String quizName, HttpServletResponse response) {
+    public String addScore(@RequestBody String score,
+                           @PathVariable("name") String quizName, HttpServletResponse response) {
         try {
             Leaderboard leaderboard = leaderboardPersistence.loadLeaderboard(quizName);
             leaderboard.addScore(objectMapper.readValue(score, Score.class));
