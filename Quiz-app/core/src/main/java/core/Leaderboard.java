@@ -16,6 +16,9 @@ public class Leaderboard {
      * @param maxScore the highest score you can get on the quiz
      */
     public Leaderboard(String quizName, List<Score> scores, int maxScore) {
+        if (maxScore < 0) {
+            throw new IllegalArgumentException("Cannot have a negative max score");
+        }
         this.name = quizName;
         this.scores = new ArrayList<>(scores);
         this.maxScore = maxScore;
@@ -40,7 +43,7 @@ public class Leaderboard {
     /**
      * function that sorts the score objects by their points
      *
-     * @return a list of the scores sorted
+     * @return a list of the scores sorted (in descending order)
      */
     public List<Score> getSortedScores() {
         List<Score> copyScores = new ArrayList<>(scores);
