@@ -24,7 +24,7 @@ public final class UserDataDeserializer extends JsonDeserializer<UserData> {
             for (Iterator<String> it = objectNode.fieldNames(); it.hasNext(); ) {
                 String username = it.next();
                 int passwordHash = objectNode.get(username).asInt();
-                userData.addUser(new UserRecord(username,passwordHash));
+                userData.addUser(new UserRecord(username, passwordHash));
             }
             return userData;
 

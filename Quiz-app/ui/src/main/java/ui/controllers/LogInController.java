@@ -30,6 +30,7 @@ public final class LogInController {
     private UserData userData;
     private final String fileName;
     private APIClientService apiClientService;
+
     /**
      * fetches userData
      */
@@ -60,12 +61,11 @@ public final class LogInController {
     @FXML
     public void attemptLogIn(ActionEvent actionEvent) {
         try {
-            UserRecord userRecord = new UserRecord(logInUserName.getText(),logInPassword.getText());
-            if (userData.attemptLogIn(userRecord)){
+            UserRecord userRecord = new UserRecord(logInUserName.getText(), logInPassword.getText());
+            if (userData.attemptLogIn(userRecord)) {
                 apiClientService.loginUser(userRecord);
                 logIn(actionEvent, logInUserName.getText());
-            }
-            else
+            } else
                 Utilities.alertUser("Brukernavn eller passord er feil");
         } catch (IOException | InterruptedException ioException) {
             ioException.printStackTrace();
@@ -82,8 +82,8 @@ public final class LogInController {
     public void attemptRegister(ActionEvent actionEvent) {
         //TODO create logic for registering and checking username and password
         try {
-            UserRecord userRecord = new UserRecord(registerUserName.getText(),registerPassword.getText());
-            if (userData.attemptRegister(userRecord)){
+            UserRecord userRecord = new UserRecord(registerUserName.getText(), registerPassword.getText());
+            if (userData.attemptRegister(userRecord)) {
                 apiClientService.registerUser(userRecord);
                 logIn(actionEvent, registerUserName.getText());
             } else {

@@ -1,6 +1,5 @@
 package ui;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import core.Question;
 import core.Quiz;
@@ -30,6 +29,7 @@ public class APIClientService {
 
     /**
      * fetches a quiz from the server
+     *
      * @param quizName the name of the quiz to be fetched
      * @return the quiz
      * @throws IOException
@@ -42,6 +42,7 @@ public class APIClientService {
 
     /**
      * fetches all quiz names from the server
+     *
      * @return a list of quiz names
      * @throws IOException
      * @throws InterruptedException
@@ -53,6 +54,7 @@ public class APIClientService {
 
     /**
      * posts a quiz to the server
+     *
      * @param quiz the quiz to be posted
      * @throws IOException
      * @throws InterruptedException
@@ -63,8 +65,9 @@ public class APIClientService {
 
     /**
      * updates a given question on the server
-     * @param quizName the name of the quiz
-     * @param questionID the id of the question
+     *
+     * @param quizName    the name of the quiz
+     * @param questionID  the id of the question
      * @param newQuestion the new question object
      * @throws IOException
      * @throws InterruptedException
@@ -77,6 +80,7 @@ public class APIClientService {
 
     /**
      * deletes a quiz from the server given its name
+     *
      * @param quizName the name of the quiz
      * @throws IOException
      * @throws InterruptedException
@@ -87,7 +91,8 @@ public class APIClientService {
 
     /**
      * deletes a given question from a given quiz on the server
-     * @param quizName the name of the quiz
+     *
+     * @param quizName   the name of the quiz
      * @param questionID the id of the question
      * @throws IOException
      * @throws InterruptedException
@@ -98,29 +103,42 @@ public class APIClientService {
 
     /**
      * adds a question to a given quiz
-     * @param quizName the name of the quiz
+     *
+     * @param quizName    the name of the quiz
      * @param newQuestion the name of the question
      * @throws IOException
      * @throws InterruptedException
      */
-
     public void addQuestion(String quizName, Question newQuestion) throws IOException, InterruptedException {
         sendRequest("POST", "/quizzes/" + quizName, objectMapper.writeValueAsString(newQuestion));
     }
 
+    /**
+     * attempts to log the user in
+     * @param userRecord the user data
+     * @throws IOException
+     * @throws InterruptedException
+     */
     public void loginUser(UserRecord userRecord) throws IOException, InterruptedException {
         sendRequest("POST", "/users/login", objectMapper.writeValueAsString(userRecord));
     }
 
+    /**
+     * attempts to register the user
+     * @param userRecord
+     * @throws IOException
+     * @throws InterruptedException
+     */
     public void registerUser(UserRecord userRecord) throws IOException, InterruptedException {
-        sendRequest("POST","/users/register", objectMapper.writeValueAsString(userRecord));
+        sendRequest("POST", "/users/register", objectMapper.writeValueAsString(userRecord));
     }
 
     /**
      * sends a request to the server
-     * @param method the http method
+     *
+     * @param method       the http method
      * @param relativePath the path relative to /api
-     * @param body the body of the request
+     * @param body         the body of the request
      * @return the response of the request
      * @throws IOException
      * @throws InterruptedException
