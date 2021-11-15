@@ -2,8 +2,11 @@ package rest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import core.Leaderboard;
 import core.Question;
 import core.Quiz;
+import core.Score;
+import io.LeaderboardPersistence;
 import io.QuizPersistence;
 import io.UserPersistence;
 import org.springframework.web.bind.annotation.*;
@@ -16,11 +19,13 @@ import java.io.IOException;
 public class QuizController {
 
     private final QuizPersistence quizPersistence;
+    private final LeaderboardPersistence leaderboardPersistence;
     private final ObjectMapper objectMapper;
 
     public QuizController() throws IOException {
         this.objectMapper = UserPersistence.createObjectMapper();
         this.quizPersistence = new QuizPersistence();
+        this.leaderboardPersistence = new LeaderboardPersistence();
     }
 
 
@@ -54,7 +59,9 @@ public class QuizController {
                 response.setStatus(403);
                 return null;
             }
-            quizPersistence.saveQuiz(objectMapper.readValue(quizJSON, Quiz.class));
+            quizPersistence.saveQuiz(quiz);
+            Leaderboard leaderboard = new Leaderboard(quiz.getName(), quiz.getQuizLength());
+            leaderboardPersistence.saveLeaderboard(leaderboard);
             return quizJSON;
         } catch (IOException e) {
             e.printStackTrace();
@@ -69,6 +76,9 @@ public class QuizController {
             Quiz quiz = quizPersistence.loadQuiz(quizName);
             quiz.addQuestion(objectMapper.readValue(question, Question.class));
             quizPersistence.saveQuiz(quiz);
+            leaderboardPersistence.deleteLeaderboard(quizName);
+            Leaderboard leaderboard = new Leaderboard(quiz.getName(), quiz.getQuizLength());
+            leaderboardPersistence.saveLeaderboard(leaderboard);
             return objectMapper.writeValueAsString(quiz);
         } catch (IOException e) {
             e.printStackTrace();
@@ -83,6 +93,9 @@ public class QuizController {
             Quiz quiz = quizPersistence.loadQuiz(quizName);
             quiz.setQuestion(questionId, objectMapper.readValue(question, Question.class));
             quizPersistence.saveQuiz(quiz);
+            leaderboardPersistence.deleteLeaderboard(quizName);
+            Leaderboard leaderboard = new Leaderboard(quiz.getName(), quiz.getQuizLength());
+            leaderboardPersistence.saveLeaderboard(leaderboard);
             return objectMapper.writeValueAsString(quiz);
         } catch (Exception e) {
             e.printStackTrace();
@@ -93,9 +106,10 @@ public class QuizController {
 
     @DeleteMapping("quizzes/{name}")
     public void deleteQuiz(@PathVariable("name") String quizName, HttpServletResponse response) {
-        if (quizPersistence.deleteQuiz(quizName))
+        if (quizPersistence.deleteQuiz(quizName)) {
+            leaderboardPersistence.deleteLeaderboard(quizName);
             response.setStatus(200);
-        else
+        } else
             response.setStatus(404);
     }
 
@@ -106,6 +120,9 @@ public class QuizController {
             Quiz quiz = quizPersistence.loadQuiz(quizName);
             quiz.deleteQuestion(questionId);
             quizPersistence.saveQuiz(quiz);
+            leaderboardPersistence.deleteLeaderboard(quizName);
+            Leaderboard leaderboard = new Leaderboard(quiz.getName(), quiz.getQuizLength());
+            leaderboardPersistence.saveLeaderboard(leaderboard);
             return objectMapper.writeValueAsString(quiz);
         } catch (Exception e) {
             e.printStackTrace();
@@ -113,4 +130,30 @@ public class QuizController {
         response.setStatus(404);
         return null;
     }
+
+    @GetMapping("/leaderboards/{name}")
+    public String getLeaderboard(@PathVariable("name") String name, HttpServletResponse response) {
+        try {
+            return objectMapper.writeValueAsString(leaderboardPersistence.loadLeaderboard(name));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        response.setStatus(404);
+        return null;
+    }
+
+    @PostMapping("leaderboards/{name}")
+    public String addScore(@RequestBody String score, @PathVariable("name") String quizName, HttpServletResponse response) {
+        try {
+            Leaderboard leaderboard = leaderboardPersistence.loadLeaderboard(quizName);
+            leaderboard.addScore(objectMapper.readValue(score, Score.class));
+            leaderboardPersistence.saveLeaderboard(leaderboard);
+            return objectMapper.writeValueAsString(leaderboard);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        response.setStatus(404);
+        return null;
+    }
+
 }

@@ -2,9 +2,7 @@ package io.internal;
 
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import core.Question;
-import core.Quiz;
-import core.UserData;
+import core.*;
 
 /**
  * A Jackson module for configuring JSON serialization of QuizAppModule instances.
@@ -23,6 +21,12 @@ public class QuizAppModule extends SimpleModule {
 
         addSerializer(Quiz.class, new QuizSerializer());
         addDeserializer(Quiz.class, new QuizDeserializer());
+
+        addSerializer(Leaderboard.class, new LeaderboardSerializer());
+        addDeserializer(Leaderboard.class, new LeaderboardDeserializer());
+
+        addSerializer(Score.class, new ScoreSerializer());
+        addDeserializer(Score.class, new ScoreDeserializer());
 
         addSerializer(UserData.class, new UserDataSerializer());
         addDeserializer(UserData.class, new UserDataDeserializer());

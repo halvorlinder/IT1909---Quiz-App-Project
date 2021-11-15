@@ -67,9 +67,25 @@ public class NewQuestionControllerTest extends ApplicationTest {
                 .willReturn(aResponse()
                         .withBody("[]")
                         .withStatus(200)));
+        stubFor(get(urlEqualTo("/api/quizzes/a"))
+                .willReturn(aResponse()
+                        .withBody("{\"name\":\"a\",\"questions\":[{\"question\":\"?\",\"answer\":0,\"choices\":[\"a\",\"b\",\"c\",\"d\"]}]}")
+                        .withStatus(200)));
         stubFor(get(urlEqualTo("/api/quizzes"))
                 .willReturn(aResponse()
                         .withBody("[]")));
+        stubFor(delete(urlEqualTo("/api/leaderboards/a"))
+                .willReturn(aResponse()
+                        .withStatus(200)));
+        stubFor(get(urlEqualTo("/api/leaderboards"))
+                .willReturn(aResponse()
+                        .withBody("[]")
+                        .withStatus(200)));
+        stubFor(post(urlEqualTo("/api/leaderboards"))
+                .withRequestBody(equalToJson("{\"name\":\"a\",\"maxScore\":1,\"scores\":[]}"))
+                .willReturn(aResponse()
+                        .withBody("[\"a\"]")
+                        .withStatus(200)));
         writeQuestion("?", "a", "b", "c", "d", 0);
     }
 
