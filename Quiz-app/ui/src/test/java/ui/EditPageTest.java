@@ -3,13 +3,7 @@ package ui;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.testfx.framework.junit5.ApplicationTest;
-import core.Question;
-import core.Quiz;
 import io.SavePaths;
-import io.QuizPersistence;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,16 +11,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.testfx.framework.junit5.ApplicationTest;
 import ui.controllers.EditPageController;
 
-import java.io.IOException;
-import java.util.List;
-
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
-import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
-import static ui.TestHelpers.deleteQuiz;
 
 public class EditPageTest extends ApplicationTest {
 
@@ -54,7 +46,7 @@ public class EditPageTest extends ApplicationTest {
     }
 
     @BeforeEach
-    public void startWireMockServerAndSetup(){
+    public void startWireMockServerAndSetup() {
         config = WireMockConfiguration.wireMockConfig().port(8080);
         wireMockServer = new WireMockServer(config.portNumber());
         wireMockServer.start();
@@ -63,13 +55,10 @@ public class EditPageTest extends ApplicationTest {
                 .willReturn(aResponse()
                         .withBody("{\"name\":\"x\",\"questions\":[{\"question\":\"?\",\"answer\":0,\"choices\":[\"a\",\"b\",\"c\",\"d\"]}]}")
                         .withStatus(200)));
-
-//        VBox vBox = lookup("#quizList").query();
-//        clickOn(from(vBox).lookup((Button b) -> b.getText().equals("Endre")).queryButton());
     }
 
     @Test
-    public void testDataDisplay(){
+    public void testDataDisplay() {
         VBox vBox = lookup("#questionList").query();
         Assertions.assertDoesNotThrow(() -> {
             from(vBox).lookup((Label label) -> label.getText().equals("?")).query();
@@ -79,7 +68,7 @@ public class EditPageTest extends ApplicationTest {
     }
 
     @Test
-    public void testAddQuestion(){
+    public void testAddQuestion() {
         clickOn("#newQuestionButton");
         Assertions.assertDoesNotThrow(() -> {
             lookup("#headline").query();
@@ -101,7 +90,7 @@ public class EditPageTest extends ApplicationTest {
     }
 
     @Test
-    public void testDeleteQuiz(){
+    public void testDeleteQuiz() {
         stubFor(delete(urlEqualTo("/api/quizzes/x"))
                 .willReturn(aResponse()
                         .withStatus(200)));
@@ -109,12 +98,12 @@ public class EditPageTest extends ApplicationTest {
                 .willReturn(aResponse()
                         .withBody("[]")));
         clickOn(lookup("#deleteQuizButton").queryButton());
-        Assertions.assertDoesNotThrow(()->lookup("#quizList").query());
-        Assertions.assertEquals(0, ((VBox)lookup("#quizList").query()).getChildren().size());
+        Assertions.assertDoesNotThrow(() -> lookup("#quizList").query());
+        Assertions.assertEquals(0, ((VBox) lookup("#quizList").query()).getChildren().size());
     }
 
     @Test
-    public void testEditQuestion() throws InterruptedException {
+    public void testEditQuestion() {
         stubFor(put(urlEqualTo("/api/quizzes/x/0"))
                 .withRequestBody(equalToJson("{\"question\":\"??\",\"answer\":0,\"choices\":[\"a\",\"b\",\"c\",\"d\"]}"))
                 .willReturn(aResponse()
@@ -126,10 +115,10 @@ public class EditPageTest extends ApplicationTest {
         clickOn(from(vBox).lookup((Button b) -> b.getText().equals("Endre")).queryButton());
         clickOn("#questionText").write("?");
         clickOn("#submitButton");
-//        Assertions.assertDoesNotThrow(()->from(vBox).lookup((Label label) -> label.getText().equals("??")).query());
     }
+
     @AfterEach
-    public void stopServer(){
+    public void stopServer() {
         wireMockServer.stop();
     }
 }
