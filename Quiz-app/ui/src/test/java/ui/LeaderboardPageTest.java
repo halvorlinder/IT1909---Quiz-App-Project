@@ -30,10 +30,10 @@ public class LeaderboardPageTest extends ApplicationTest {
         wireMockServer = new WireMockServer(config.portNumber());
         wireMockServer.start();
         WireMock.configureFor("localhost", config.portNumber());
-        stubFor(get(urlEqualTo("/api/leaderboards"))
+        stubFor(get(urlEqualTo("/api/quizzes"))
                 .willReturn(aResponse()
                         .withBody("[]")));
-        loader = new FXMLLoader(getClass().getResource("Leaderboard.fxml"));
+        loader = new FXMLLoader(getClass().getResource("HomePage.fxml"));
         final Parent root = loader.load();
         wireMockServer.stop();
         stage.setScene(new Scene(root));
