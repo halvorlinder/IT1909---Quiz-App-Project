@@ -125,7 +125,7 @@ public class APIClientService {
 
     /**
      * attempts to register the user
-     * @param userRecord
+     * @param userRecord the information about the user
      * @throws IOException
      * @throws InterruptedException
      */
