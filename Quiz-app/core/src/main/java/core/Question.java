@@ -70,6 +70,14 @@ public class Question {
         return answer;
     }
 
+    /**
+     *
+     * @return the number of choices in the question
+     */
+    public int getChoiceCount(){
+        return NUMBER_OF_CHOICES;
+    }
+
     @Override
     public String toString() {
         return "Question{" +
