@@ -10,8 +10,12 @@ import io.SavePaths;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
 import ui.controllers.QuizController;
@@ -20,68 +24,63 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class QuizControllerTest extends ApplicationTest {
-
-    private QuizPersistence quizPersistence;
-    private Quiz quiz;
-    private QuizController controller;
-    private int rightAnswer;
 
     private WireMockConfiguration config;
     private WireMockServer wireMockServer;
 
     @Override
     public void start(final Stage stage) throws Exception {
-        SavePaths.enableTestMode();
-        quizPersistence = new QuizPersistence();
-        User.setUserName("test");
-        try {
-            this.quiz = quizPersistence.readQuiz(new InputStreamReader(getClass().getResourceAsStream("test-newQuestion.json")));
-        } catch (IOException e) {
-            fail("Couldn't load test-newQuestion.json");
-        }
-        final FXMLLoader loader = new FXMLLoader(getClass().getResource("QuestionPage.fxml"));
-        this.controller = new QuizController("test-newQuestion");
-        loader.setController(this.controller);
-        final Parent root = loader.load();
-        stage.setScene(new Scene(root));
-        stage.show();
-    }
-
-    @Test
-    public void answerQuizCorrect() {
         config = WireMockConfiguration.wireMockConfig().port(8080);
         wireMockServer = new WireMockServer(config.portNumber());
         wireMockServer.start();
         WireMock.configureFor("localhost", config.portNumber());
-        stubFor(post(urlEqualTo("/api/leaderboards/quiz_test"))
-                .withRequestBody(equalToJson("{\"name\":\"" + User.getUserName() + "\",\"points\":1}"))
+        stubFor(get(urlEqualTo("/api/quizzes/x"))
                 .willReturn(aResponse()
-                        .withBody("[\"quiz_test\"]")
+                        .withBody("{\"name\":\"x\",\"questions\":[{\"question\":\"?\",\"answer\":0,\"choices\":[\"a\",\"b\",\"c\",\"d\"]}]}")
                         .withStatus(200)));
-        rightAnswer = quiz.getQuestions().get(0).getAnswer();
-        clickOn("#option" + (rightAnswer + 1));
-        clickOn("#submitAnswer");
-        assertEquals(1, quiz.getCorrect());
+
+        User.setUserName("test");
+        final FXMLLoader loader = new FXMLLoader(getClass().getResource("QuestionPage.fxml"));
+        QuizController controller = new QuizController("x");
+        loader.setController(controller);
+        final Parent root = loader.load();
+        wireMockServer.stop();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
-    @Test
-    public void answerQuizWrong() {
+    @BeforeEach
+    public void startServer(){
         config = WireMockConfiguration.wireMockConfig().port(8080);
         wireMockServer = new WireMockServer(config.portNumber());
         wireMockServer.start();
-        stubFor(post(urlEqualTo("/api/leaderboards/quiz_test"))
+        WireMock.configureFor("localhost", config.portNumber());
+        stubFor(post(urlEqualTo("/api/leaderboards/x"))
+                .withRequestBody(equalToJson("{\"name\":\"" + User.getUserName() + "\",\"points\":1}"))
+                .willReturn(aResponse()
+                        .withStatus(200)));
+        stubFor(post(urlEqualTo("/api/leaderboards/x"))
                 .withRequestBody(equalToJson("{\"name\":\"" + User.getUserName() + "\",\"points\":0}"))
                 .willReturn(aResponse()
-                        .withBody("[\"quiz_test\"]")
                         .withStatus(200)));
-        rightAnswer = quiz.getQuestions().get(0).getAnswer();
-        clickOn("#option" + (rightAnswer));
+    }
+
+    @Test
+    public void answerQuizCorrect() {
+        clickOn("#option" + 1);
         clickOn("#submitAnswer");
-        assertEquals(0, quiz.getCorrect());
+        assertDoesNotThrow(()->lookup((Label t) -> t.getText().startsWith("Du fikk 1/1 poeng!")).query());
+    }
+
+    @Test
+    public void answerQuizWrong() throws InterruptedException {
+        clickOn("#option" + 2);
+        clickOn("#submitAnswer");
+        Thread.sleep(2000);
+        assertDoesNotThrow(()->lookup((Label t) -> t.getText().startsWith("Du fikk 0/1 poeng!")).query());
     }
 
     @AfterEach
