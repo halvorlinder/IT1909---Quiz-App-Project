@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class UserControllerTest {
     private MockMvc mvc;
     @Autowired
-    WebApplicationContext webApplicationContext;
+    private WebApplicationContext webApplicationContext;
 
     private final ObjectMapper objectMapper = UserPersistence.createObjectMapper();
 
