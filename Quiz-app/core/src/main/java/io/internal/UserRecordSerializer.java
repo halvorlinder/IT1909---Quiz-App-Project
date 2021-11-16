@@ -7,7 +7,7 @@ import core.UserRecord;
 
 import java.io.IOException;
 
-public class UserSerializer extends JsonSerializer<UserRecord> {
+public class UserRecordSerializer extends JsonSerializer<UserRecord> {
     /**
      * serializes a UserRecord
      * @param userRecord the UserRecord
