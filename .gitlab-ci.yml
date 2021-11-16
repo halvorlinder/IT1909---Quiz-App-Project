@@ -8,11 +8,11 @@ test:
   script:
     - cd Quiz-app
     - mvn verify -DskipUiTests=true
-    - cat ReportAggregator/target/site/total-test-coverage/index.html | grep -o '<tfoot>.*</tfoot>'
+    - cat ReportAggregator/target/site/jacoco-aggregate/index.html | grep -o '<tfoot>.*</tfoot>'
   artifacts:
     when: always
     paths:
-      - Quiz-app/ReportAggregator/target/site/total-test-coverage/jacoco.xml
+      - Quiz-app/ReportAggregator/target/site/jacoco-aggregate/jacoco.xml
 #    reports:
 #      junit: Quiz-app/core/target/test/**/Test-*.xml
 
