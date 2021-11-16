@@ -23,25 +23,16 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static com.github.tomakehurst.wiremock.client.WireMock.equalToJson;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LogInTest extends ApplicationTest {
 
-    private UserPersistence userPersistence;
 
-    private WireMockConfiguration config;
     private WireMockServer wireMockServer;
 
     @Override
     public void start(final Stage stage) throws Exception {
-        File file = new File(System.getProperty("user.home") + "/QuizApp/testUsers.json");
-        userPersistence = new UserPersistence("testUsers.json");
-        if (!file.exists())
-            file.createNewFile();
-        UserData userData = new UserData();
-        UserRecord userRecord = new UserRecord("h","p");
-        userData.attemptRegister(userRecord);
-        userPersistence.saveUserData(userData);
         LogInController logInController = new LogInController();
         final FXMLLoader loader = new FXMLLoader(getClass().getResource("LogInPage.fxml"));
         loader.setController(logInController);
@@ -50,34 +41,36 @@ public class LogInTest extends ApplicationTest {
         stage.show();
     }
 
-    @AfterAll
-    public static void deleteFile() {
-        String fileName = System.getProperty("user.home") + "/QuizApp/testUsers.json";
-        try {
-            Files.delete(Paths.get(fileName));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     @BeforeEach
-    public void setupItems() throws IOException {
-        UserData userData = new UserData();
-        UserRecord userRecord = new UserRecord("h","p");
-        userData.attemptRegister(userRecord);
-        userPersistence.saveUserData(userData);
-
-        config = WireMockConfiguration.wireMockConfig().port(8080);
+    public void setupItems() {
+        WireMockConfiguration config = WireMockConfiguration.wireMockConfig().port(8080);
         wireMockServer = new WireMockServer(config.portNumber());
         wireMockServer.start();
         WireMock.configureFor("localhost", config.portNumber());
+        stubFor(post(urlEqualTo("/api/users/register"))
+                .withRequestBody(equalToJson("{\"username\":\"h\", \"password\":"+UserData.hash("p")+"}"))
+                .willReturn(aResponse()
+                        .withStatus(403)));
+        stubFor(post(urlEqualTo("/api/users/login"))
+                .withRequestBody(equalToJson("{\"username\":\"h\", \"password\":"+UserData.hash("p")+"}"))
+                .willReturn(aResponse()
+                        .withStatus(200)));
+        stubFor(post(urlEqualTo("/api/users/register"))
+                .withRequestBody(equalToJson("{\"username\":\"i\", \"password\":"+UserData.hash("p")+"}"))
+                .willReturn(aResponse()
+                        .withStatus(200)));
+        stubFor(post(urlEqualTo("/api/users/login"))
+                .withRequestBody(equalToJson("{\"username\":\"h\", \"password\":"+UserData.hash("q")+"}"))
+                .willReturn(aResponse()
+                        .withStatus(403)));
         stubFor(get(urlEqualTo("/api/quizzes"))
                 .willReturn(aResponse()
-                        .withBody("[]")));
+                        .withBody("[\"x\"]")
+                        .withStatus(200)));
     }
 
     @Test
-    public void testLogInOut() throws InterruptedException {
+    public void testLogInOut() {
         clickOn("#logInUserName").write("h");
         clickOn("#logInPassword").write("p");
         clickOn("#logIn");
@@ -89,7 +82,7 @@ public class LogInTest extends ApplicationTest {
     }
 
     @Test
-    public void testFailedLogIn() throws InterruptedException {
+    public void testFailedLogIn() {
         clickOn("#logInUserName").write("h");
         clickOn("#logInPassword").write("q");
         clickOn("#logIn");
