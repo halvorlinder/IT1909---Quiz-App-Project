@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * This class represents a Quiz session in the application
  */
-public final class Quiz {
+public class Quiz {
 
     private final String name;
     private int correct;
