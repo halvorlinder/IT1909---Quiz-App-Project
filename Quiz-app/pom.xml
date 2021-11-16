@@ -120,7 +120,6 @@
                 <version>4.4.1</version>
                 <configuration>
                     <xmlOutput>false</xmlOutput>
-                    <!--                    <htmlOutput>true</htmlOutput>-->
                     <excludeFilterFile>excludeFilterFile.xml</excludeFilterFile>
                 </configuration>
                 <executions>
