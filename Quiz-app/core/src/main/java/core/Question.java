@@ -60,8 +60,7 @@ public class Question {
      * @return a List of the choices
      */
     public List<String> getChoices() {
-        List<String> copy = new ArrayList<>(choices);
-        return copy;
+        return new ArrayList<>(choices);
     }
 
     /**
