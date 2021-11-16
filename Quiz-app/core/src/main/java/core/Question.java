@@ -3,7 +3,7 @@ package core;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class Question {
+public class Question {
     private final String question;
     private final List<String> choices;
     private final int answer;
