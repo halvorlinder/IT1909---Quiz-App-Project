@@ -66,13 +66,6 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>3.0.0-M5</version>
-                    <configuration>
-                        <argLine>
-                            @{jaCoCoArgLine} --add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
-                            --add-exports javafx.controls/com.sun.javafx.scene.control=ui
-                            --add-exports java.base/java.lang=ALL-UNNAMED
-                        </argLine>
-                    </configuration>
                 </plugin>
 
             </plugins>
@@ -135,7 +128,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- Configure jacoco code coverage -->
+<!--             Configure jacoco code coverage -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -167,5 +160,6 @@
         <module>core</module>
         <module>ui</module>
         <module>rest</module>
+        <module>ReportAggregator</module>
     </modules>
 </project>
