@@ -26,7 +26,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button minWidth="90.0" mnemonicParsing="false" text="Tilbake" styleClass="blue-button"/>
+                  <Button minWidth="90.0" mnemonicParsing="false" text="Tilbake" styleClass="blue-button" fx:id="backButton"/>
                   <Label text="Endre &lt;quiznavn&gt;" GridPane.columnIndex="1" fx:id="titleText" styleClass="h2">
                   </Label>
                   <Button mnemonicParsing="false" text="Nytt spørsmål" GridPane.columnIndex="2" fx:id="newQuestionButton" onAction="#showNewQuestion" styleClass="blue-button">

@@ -23,13 +23,6 @@ public final class Quiz {
     }
 
     /**
-     *
-     */
-    public Quiz() {
-        this("", List.of(new Question()));
-    }
-
-    /**
      * @return the current question of the quiz, if no such question exists, null is returned
      */
     public Question getCurrentQuestion() {

@@ -1,3 +1,19 @@
 <FindBugsFilter>
+    <Match>
+        <And>
+            <Class name="ui.controllers.GoBackController"/>
+            <Or>
+                <Bug pattern="EI_EXPOSE_REP2"/>
+            </Or>
+        </And>
+    </Match>
+    <Match>
+        <And>
+            <Class name="ui.controllers.HomePageController"/>
+            <Or>
+                <Bug pattern="REC_CATCH_EXCEPTION"/>
+            </Or>
+        </And>
+    </Match>
 
 </FindBugsFilter>
