@@ -1,8 +1,7 @@
 package ui.controllers;
 
 import core.User;
-import core.UserData;
-import io.UserPersistence;
+import core.UserRecord;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import ui.APIClientService;
 import ui.Utilities;
 
 import java.io.IOException;
@@ -24,36 +24,16 @@ public final class LogInController {
     @FXML
     private TextField registerUserName;
 
-    private UserPersistence userPersistence;
-    private UserData userData;
-    private final String fileName;
+    private APIClientService apiClientService;
 
     /**
      * fetches userData
      */
     @FXML
     public void initialize() {
-        try {
-            userPersistence = new UserPersistence(fileName);
-            userData = userPersistence.loadUserData();
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-        }
+        apiClientService = new APIClientService();
     }
 
-    /**
-     *
-     */
-    public LogInController() {
-        fileName = "users.json";
-    }
-
-    /**
-     * @param fileName the file where users are saved
-     */
-    public LogInController(String fileName) {
-        this.fileName = fileName;
-    }
 
     /**
      * attempts to log a user into the application
@@ -63,12 +43,11 @@ public final class LogInController {
     @FXML
     public void attemptLogIn(ActionEvent actionEvent) {
         try {
-            if (userData.attemptLogIn(logInUserName.getText(), logInPassword.getText()))
-                logIn(actionEvent, logInUserName.getText());
-            else
-                Utilities.alertUser("Brukernavn eller passord er feil");
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
+            UserRecord userRecord = new UserRecord(logInUserName.getText(), logInPassword.getText());
+            apiClientService.loginUser(userRecord);
+            logIn(actionEvent, logInUserName.getText());
+        } catch (IOException | InterruptedException ioException) {
+            Utilities.alertUser("Brukernavn eller passord er feil");
         }
 
     }
@@ -80,16 +59,12 @@ public final class LogInController {
      */
     @FXML
     public void attemptRegister(ActionEvent actionEvent) {
-        //TODO create logic for registering and checking username and password
         try {
-            if (userData.attemptRegister(registerUserName.getText(), registerPassword.getText())) {
-                userPersistence.saveUserData(userData);
-                logIn(actionEvent, registerUserName.getText());
-            } else {
-                Utilities.alertUser("Brukernavn er tatt");
-            }
-        } catch (IOException ioException) {
-            Utilities.alertUser("Noe gikk galt");
+            UserRecord userRecord = new UserRecord(registerUserName.getText(), registerPassword.getText());
+            apiClientService.registerUser(userRecord);
+            logIn(actionEvent, registerUserName.getText());
+        } catch (IOException | InterruptedException ioException) {
+            Utilities.alertUser("Brukernavn er tatt");
         }
     }
 

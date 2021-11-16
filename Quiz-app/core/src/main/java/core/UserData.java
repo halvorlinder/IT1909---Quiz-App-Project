@@ -40,52 +40,38 @@ public final class UserData {
     }
 
     /**
-     * @param username the username to be checked
-     * @param password the password to be checked
+     * @param userRecord the username and password to be checked
      * @return true if the combination of username and password exists, false otherwise
      */
-    public boolean attemptLogIn(String username, String password) {
-        return userExists(username) && users.get(username) == hash(password);
+    public boolean attemptLogIn(UserRecord userRecord) {
+        return userExists(userRecord.getUsername()) && users.get(userRecord.getUsername()) == userRecord.getPassword();
     }
 
     /**
-     * @param username the username to be registered
-     * @param password the password to be registered
+     * @param userRecord the username and password to be registered
      * @return true if the registration was successful, false otherwise
      */
-    public boolean attemptRegister(String username, String password) {
-        if (userExists(username))
+    public boolean attemptRegister(UserRecord userRecord) {
+        if (userExists(userRecord.getUsername()))
             return false;
-        addUser(username, password);
+        addUser(userRecord);
         return true;
     }
 
     /**
      * adds a user to the object
      *
-     * @param username the username of the user
-     * @param password the password of the user
+     * @param userRecord the username and password of the user
      */
-    private void addUser(String username, String password) {
-        users.put(username, hash(password));
+    public void addUser(UserRecord userRecord) {
+        users.put(userRecord.getUsername(), userRecord.getPassword());
     }
-
-    /**
-     * adds a user given a password and a username
-     *
-     * @param username the username of the user
-     * @param password the password of the user
-     */
-    public void reAddUser(String username, int password) {
-        users.put(username, password);
-    }
-
 
     /**
      * @param password the password to be hashed
      * @return the hash of the password
      */
-    public int hash(String password) {
+    public static int hash(String password) {
         OptionalInt optionalInt = password.chars().reduce((x, y) -> (x * y) % 16384);
         return optionalInt.isPresent() ? optionalInt.getAsInt() : 0;
     }

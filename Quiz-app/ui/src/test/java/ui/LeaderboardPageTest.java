@@ -3,7 +3,6 @@ package ui;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
-import core.User;
 import io.SavePaths;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import core.Leaderboard;
 import core.Question;
 import core.Quiz;
+import core.UserRecord;
 import core.Score;
 import io.QuizPersistence;
 import org.springframework.http.HttpStatus;
@@ -30,7 +31,6 @@ public class APIClientService {
 
     /**
      * fetches a quiz from the server
-     *
      * @param quizName the name of the quiz to be fetched
      * @return the quiz
      * @throws IOException
@@ -41,10 +41,8 @@ public class APIClientService {
         return objectMapper.readValue(response.body(), Quiz.class);
     }
 
-
     /**
      * fetches all quiz names from the server
-     *
      * @return a list of quiz names
      * @throws IOException
      * @throws InterruptedException
@@ -56,7 +54,6 @@ public class APIClientService {
 
     /**
      * posts a quiz to the server
-     *
      * @param quiz the quiz to be posted
      * @throws IOException
      * @throws InterruptedException
@@ -82,7 +79,6 @@ public class APIClientService {
 
     /**
      * deletes a quiz from the server given its name
-     *
      * @param quizName the name of the quiz
      * @throws IOException
      * @throws InterruptedException
@@ -113,6 +109,26 @@ public class APIClientService {
      */
     public void addQuestion(String quizName, Question newQuestion) throws IOException, InterruptedException {
         sendRequest("POST", "/quizzes/" + quizName, objectMapper.writeValueAsString(newQuestion));
+    }
+
+    /**
+     * attempts to log the user in
+     * @param userRecord the user data
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    public void loginUser(UserRecord userRecord) throws IOException, InterruptedException {
+        sendRequest("POST", "/users/login", objectMapper.writeValueAsString(userRecord));
+    }
+
+    /**
+     * attempts to register the user
+     * @param userRecord the information about the user
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    public void registerUser(UserRecord userRecord) throws IOException, InterruptedException {
+        sendRequest("POST", "/users/register", objectMapper.writeValueAsString(userRecord));
     }
 
     /**

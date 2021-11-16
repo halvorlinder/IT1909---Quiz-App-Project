@@ -30,5 +30,8 @@ public class QuizAppModule extends SimpleModule {
 
         addSerializer(UserData.class, new UserDataSerializer());
         addDeserializer(UserData.class, new UserDataDeserializer());
+
+        addSerializer(UserRecord.class, new UserRecordSerializer());
+        addDeserializer(UserRecord.class, new UserRecordDeserializer());
     }
 }

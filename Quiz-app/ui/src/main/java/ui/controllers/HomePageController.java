@@ -151,7 +151,7 @@ public final class HomePageController {
                 return;
             }
             FXMLLoader loader = App.getFXMLLoader("QuestionPage.fxml");
-            QuizController controller = new QuizController(quiz);
+            QuizController controller = new QuizController(quizName);
             loader.setController(controller);
             quizList.getScene().setRoot(loader.load());
         } catch (IOException | InterruptedException ioException) {
