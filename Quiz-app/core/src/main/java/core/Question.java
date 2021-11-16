@@ -16,7 +16,7 @@ public class Question {
      */
     public Question(String question, List<String> choices, int answer) {
         if (answer >= choices.size() || answer < 0 || choices.size() != NUMBER_OF_CHOICES)
-            throw new IllegalArgumentException("The answer must map to a choice");
+            throw new IllegalArgumentException("The answer is greater than the permitted number of choices");
         this.question = question;
         this.choices = new ArrayList<>(choices);
         this.answer = answer;
