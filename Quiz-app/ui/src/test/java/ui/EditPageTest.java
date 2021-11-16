@@ -94,6 +94,9 @@ public class EditPageTest extends ApplicationTest {
         stubFor(delete(urlEqualTo("/api/quizzes/x"))
                 .willReturn(aResponse()
                         .withStatus(200)));
+        stubFor(delete(urlEqualTo("/api/leaderboards/x"))
+                .willReturn(aResponse()
+                        .withStatus(200)));
         stubFor(get(urlEqualTo("/api/quizzes"))
                 .willReturn(aResponse()
                         .withBody("[]")));
@@ -108,9 +111,17 @@ public class EditPageTest extends ApplicationTest {
                 .withRequestBody(equalToJson("{\"question\":\"??\",\"answer\":0,\"choices\":[\"a\",\"b\",\"c\",\"d\"]}"))
                 .willReturn(aResponse()
                         .withStatus(200)));
+        stubFor(delete(urlEqualTo("/api/leaderboards/x"))
+                .willReturn(aResponse()
+                        .withStatus(200)));
         stubFor(get(urlEqualTo("/api/quizzes"))
                 .willReturn(aResponse()
                         .withBody("[\"x\"]")));
+        stubFor(post(urlEqualTo("/api/leaderboards"))
+                .withRequestBody(equalToJson("{\"name\":\"x\",\"maxScore\":1,\"scores\":[]}"))
+                .willReturn(aResponse()
+                        .withBody("[\"x\"]")
+                        .withStatus(200)));
         VBox vBox = lookup("#questionList").query();
         clickOn(from(vBox).lookup((Button b) -> b.getText().equals("Endre")).queryButton());
         clickOn("#questionText").write("?");

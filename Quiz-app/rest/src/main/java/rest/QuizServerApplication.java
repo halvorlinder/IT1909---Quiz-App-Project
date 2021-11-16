@@ -1,3 +1,4 @@
+// CHECKSTYLE:OFF
 package rest;
 
 
@@ -8,6 +9,10 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
 public class QuizServerApplication {
+    /**
+     * Starts the server
+     * @param args
+     */
     public static void main(String[] args) {
         SpringApplication.run(QuizServerApplication.class, args);
     }

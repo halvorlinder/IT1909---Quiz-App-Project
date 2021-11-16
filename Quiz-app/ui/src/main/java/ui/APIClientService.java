@@ -1,9 +1,11 @@
 package ui;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import core.Leaderboard;
 import core.Question;
 import core.Quiz;
 import core.UserRecord;
+import core.Score;
 import io.QuizPersistence;
 import org.springframework.http.HttpStatus;
 
@@ -29,7 +31,6 @@ public class APIClientService {
 
     /**
      * fetches a quiz from the server
-     *
      * @param quizName the name of the quiz to be fetched
      * @return the quiz
      * @throws IOException
@@ -42,7 +43,6 @@ public class APIClientService {
 
     /**
      * fetches all quiz names from the server
-     *
      * @return a list of quiz names
      * @throws IOException
      * @throws InterruptedException
@@ -54,7 +54,6 @@ public class APIClientService {
 
     /**
      * posts a quiz to the server
-     *
      * @param quiz the quiz to be posted
      * @throws IOException
      * @throws InterruptedException
@@ -80,7 +79,6 @@ public class APIClientService {
 
     /**
      * deletes a quiz from the server given its name
-     *
      * @param quizName the name of the quiz
      * @throws IOException
      * @throws InterruptedException
@@ -134,6 +132,33 @@ public class APIClientService {
     }
 
     /**
+     * fetches a leaderboard for a quiz from the server
+     *
+     * @param quizName the name of the quiz mapping to the leaderboard to be fetched
+     * @return the leaderboard
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    public Leaderboard getLeaderboard(String quizName) throws IOException, InterruptedException {
+        HttpResponse<String> response = sendRequest("GET", "/leaderboards/" + quizName, "");
+        return objectMapper.readValue(response.body(), Leaderboard.class);
+    }
+
+
+    /**
+     * adds a given score on the server
+     *
+     * @param quizName the name of the quiz
+     * @param newScore the new question object
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    public void postScore(String quizName, Score newScore) throws IOException, InterruptedException {
+        sendRequest("POST", "/leaderboards/" + quizName, objectMapper.writeValueAsString(newScore));
+    }
+
+
+    /**
      * sends a request to the server
      *
      * @param method       the http method
@@ -151,7 +176,7 @@ public class APIClientService {
         int statusCode = response.statusCode();
         if (statusCode > 299) {
             System.out.println("Fail: " + HttpStatus.valueOf(statusCode).getReasonPhrase());
-            throw new IOException("Response from server is not valid. The status code is" + statusCode);
+            throw new IOException("Response from server is not valid. The status code is " + statusCode);
         }
         return response;
     }

@@ -59,7 +59,6 @@ public class EditPageController {
      * @param questionId the id of the question
      */
     private void addQuestionElement(int questionId) {
-        //TODO this should be changed after new changes are in main
         Question question = quiz.getQuestions().get(questionId);
         GridPane gridPane = new GridPane();
         ColumnConstraints column1 = new ColumnConstraints(300);

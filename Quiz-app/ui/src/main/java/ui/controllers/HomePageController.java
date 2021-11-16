@@ -63,7 +63,6 @@ public final class HomePageController {
         for (String quizName : quizzes) {
             addQuizElement(quizName);
         }
-        System.out.println(quizzes);
     }
 
     /**
@@ -98,7 +97,9 @@ public final class HomePageController {
         Button leaderboardButton = new Button();
         leaderboardButton.setText("Ledertavle");
         leaderboardButton.getStyleClass().add("blue-button");
+        leaderboardButton.setOnAction((ActionEvent ae) -> showLeaderboardPage(quizName));
         gridPane.add(leaderboardButton, 3, 0, 1, 1);
+
         quizList.getChildren().add(gridPane);
     }
 
@@ -120,10 +121,26 @@ public final class HomePageController {
     }
 
     /**
+     * displays the leaderboard page for a given quiz
+     *
+     * @param quizName the name of the quiz
+     */
+    private void showLeaderboardPage(String quizName) {
+        try {
+            FXMLLoader loader = App.getFXMLLoader("Leaderboard.fxml");
+            LeaderboardController controller = new LeaderboardController(quizName);
+            loader.setController(controller);
+            quizList.getScene().setRoot(loader.load());
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+            Utilities.alertUser();
+        }
+    }
+
+    /**
      * Sets the current root to be the question page
      *
      * @param quizName the name of the quiz to be played
-     * @throws IOException
      */
     @FXML
     public void startQuiz(String quizName) { // Switch scene to StartQuiz
@@ -142,15 +159,6 @@ public final class HomePageController {
         }
     }
 
-    /**
-     * Sets the current root to be the leaderboard page
-     *
-     * @throws IOException
-     */
-    @FXML
-    public void showLeaderboard() throws IOException { // Switch scene to StartQuiz
-        //newQuestionButton.getScene().setRoot(Utilities.getFXMLLoader(".fxml").load());
-    }
 
     /**
      * Creates a new quiz file with a given name and displays it in the app
@@ -181,9 +189,7 @@ public final class HomePageController {
             LogInController controller = new LogInController();
             loader.setController(controller);
             final Parent root = loader.load();
-            // Scene scene = new Scene(root);
             ((Node) actionEvent.getSource()).getScene().setRoot(root);
-            // ((Node) actionEvent.getSource()).getScene().setRoot(Utilities.getFXMLLoader("LogInPage.fxml").load());
             User.setUserName(null);
         } catch (IOException ioException) {
             ioException.printStackTrace();

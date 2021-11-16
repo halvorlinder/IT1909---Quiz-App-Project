@@ -91,7 +91,8 @@ public class QuizController {
      */
     private void endQuiz() throws IOException {
         FXMLLoader loader = App.getFXMLLoader("ResultPage.fxml");
-        ResultPageController controller = new ResultPageController(quiz.getCorrect(), quiz.getQuizLength());
+        ResultPageController controller = new ResultPageController(quiz.getCorrect(),
+                quiz.getQuizLength(), quiz.getName());
         loader.setController(controller);
         submitAnswer.getScene().setRoot(loader.load());
     }
