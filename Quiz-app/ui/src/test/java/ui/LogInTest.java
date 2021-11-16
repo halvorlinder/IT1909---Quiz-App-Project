@@ -42,7 +42,7 @@ public class LogInTest extends ApplicationTest {
         UserRecord userRecord = new UserRecord("h","p");
         userData.attemptRegister(userRecord);
         userPersistence.saveUserData(userData);
-        LogInController logInController = new LogInController("testUsers.json");
+        LogInController logInController = new LogInController();
         final FXMLLoader loader = new FXMLLoader(getClass().getResource("LogInPage.fxml"));
         loader.setController(logInController);
         final Parent root = loader.load();

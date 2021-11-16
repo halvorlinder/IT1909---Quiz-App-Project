@@ -37,7 +37,7 @@ public class QuizControllerTest extends ApplicationTest {
             fail("Couldn't load test-newQuestion.json");
         }
         final FXMLLoader loader = new FXMLLoader(getClass().getResource("QuestionPage.fxml"));
-        this.controller = new QuizController(quiz);
+        this.controller = new QuizController("test-newQuestion");
         loader.setController(this.controller);
         final Parent root = loader.load();
         stage.setScene(new Scene(root));
