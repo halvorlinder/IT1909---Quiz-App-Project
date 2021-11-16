@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import ui.APIClientService;
 import ui.App;
 
 import java.io.IOException;
@@ -32,7 +33,7 @@ public class QuizController {
 
     private final Quiz quiz;
     private List<RadioButton> radios;
-    private int selected;
+    private APIClientService apiClientService = new APIClientService();
 
     /**
      * Initializes a new quiz
@@ -46,10 +47,10 @@ public class QuizController {
     }
 
     /**
-     * @param quiz the quiz presented to the user
+     * @param quizName the name of the quiz
      */
-    public QuizController(Quiz quiz) {
-        this.quiz = quiz;
+    public QuizController(String quizName) throws IOException, InterruptedException {
+        quiz = apiClientService.getQuiz(quizName);
     }
 
     /**
