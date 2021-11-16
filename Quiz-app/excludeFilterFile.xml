@@ -1,3 +1,11 @@
 <FindBugsFilter>
+    <Match>
+        <And>
+            <Class name="ui.controllers.GoBackController"/>
+            <Or>
+                <Bug pattern="EI_EXPOSE_REP2"/>
+            </Or>
+        </And>
+    </Match>
 
 </FindBugsFilter>
