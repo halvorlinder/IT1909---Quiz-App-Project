@@ -1,9 +1,7 @@
 package ui.controllers;
 
 import core.User;
-import core.UserData;
 import core.UserRecord;
-import io.UserPersistence;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,9 +24,6 @@ public final class LogInController {
     @FXML
     private TextField registerUserName;
 
-    private UserPersistence userPersistence;
-    private UserData userData;
-    private final String fileName;
     private APIClientService apiClientService;
 
     /**
@@ -39,19 +34,6 @@ public final class LogInController {
         apiClientService = new APIClientService();
     }
 
-    /**
-     *
-     */
-    public LogInController() {
-        fileName = "users.json";
-    }
-
-    /**
-     * @param fileName the file where users are saved
-     */
-    public LogInController(String fileName) {
-        this.fileName = fileName;
-    }
 
     /**
      * attempts to log a user into the application
@@ -62,13 +44,10 @@ public final class LogInController {
     public void attemptLogIn(ActionEvent actionEvent) {
         try {
             UserRecord userRecord = new UserRecord(logInUserName.getText(), logInPassword.getText());
-            if (userData.attemptLogIn(userRecord)) {
-                apiClientService.loginUser(userRecord);
-                logIn(actionEvent, logInUserName.getText());
-            } else
-                Utilities.alertUser("Brukernavn eller passord er feil");
+            apiClientService.loginUser(userRecord);
+            logIn(actionEvent, logInUserName.getText());
         } catch (IOException | InterruptedException ioException) {
-            ioException.printStackTrace();
+            Utilities.alertUser("Brukernavn eller passord er feil");
         }
 
     }
@@ -80,17 +59,12 @@ public final class LogInController {
      */
     @FXML
     public void attemptRegister(ActionEvent actionEvent) {
-        //TODO create logic for registering and checking username and password
         try {
             UserRecord userRecord = new UserRecord(registerUserName.getText(), registerPassword.getText());
-            if (userData.attemptRegister(userRecord)) {
-                apiClientService.registerUser(userRecord);
-                logIn(actionEvent, registerUserName.getText());
-            } else {
-                Utilities.alertUser("Brukernavn er tatt");
-            }
+            apiClientService.registerUser(userRecord);
+            logIn(actionEvent, registerUserName.getText());
         } catch (IOException | InterruptedException ioException) {
-            Utilities.alertUser("Noe gikk galt");
+            Utilities.alertUser("Brukernavn er tatt");
         }
     }
 
