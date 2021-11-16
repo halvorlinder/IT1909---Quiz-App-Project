@@ -4,8 +4,6 @@ import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
 import core.UserData;
-import core.UserRecord;
-import io.UserPersistence;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -13,17 +11,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
 import ui.controllers.LogInController;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
-import static com.github.tomakehurst.wiremock.client.WireMock.equalToJson;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LogInTest extends ApplicationTest {
@@ -48,19 +43,19 @@ public class LogInTest extends ApplicationTest {
         wireMockServer.start();
         WireMock.configureFor("localhost", config.portNumber());
         stubFor(post(urlEqualTo("/api/users/register"))
-                .withRequestBody(equalToJson("{\"username\":\"h\", \"password\":"+UserData.hash("p")+"}"))
+                .withRequestBody(equalToJson("{\"username\":\"h\", \"password\":" + UserData.hash("p") + "}"))
                 .willReturn(aResponse()
                         .withStatus(403)));
         stubFor(post(urlEqualTo("/api/users/login"))
-                .withRequestBody(equalToJson("{\"username\":\"h\", \"password\":"+UserData.hash("p")+"}"))
+                .withRequestBody(equalToJson("{\"username\":\"h\", \"password\":" + UserData.hash("p") + "}"))
                 .willReturn(aResponse()
                         .withStatus(200)));
         stubFor(post(urlEqualTo("/api/users/register"))
-                .withRequestBody(equalToJson("{\"username\":\"i\", \"password\":"+UserData.hash("p")+"}"))
+                .withRequestBody(equalToJson("{\"username\":\"i\", \"password\":" + UserData.hash("p") + "}"))
                 .willReturn(aResponse()
                         .withStatus(200)));
         stubFor(post(urlEqualTo("/api/users/login"))
-                .withRequestBody(equalToJson("{\"username\":\"h\", \"password\":"+UserData.hash("q")+"}"))
+                .withRequestBody(equalToJson("{\"username\":\"h\", \"password\":" + UserData.hash("q") + "}"))
                 .willReturn(aResponse()
                         .withStatus(403)));
         stubFor(get(urlEqualTo("/api/quizzes"))

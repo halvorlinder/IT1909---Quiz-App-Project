@@ -3,28 +3,20 @@ package ui;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
-import core.Quiz;
 import core.User;
-import io.QuizPersistence;
-import io.SavePaths;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
 import ui.controllers.QuizController;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 public class QuizControllerTest extends ApplicationTest {
 
@@ -53,7 +45,7 @@ public class QuizControllerTest extends ApplicationTest {
     }
 
     @BeforeEach
-    public void startServer(){
+    public void startServer() {
         config = WireMockConfiguration.wireMockConfig().port(8080);
         wireMockServer = new WireMockServer(config.portNumber());
         wireMockServer.start();
@@ -72,7 +64,7 @@ public class QuizControllerTest extends ApplicationTest {
     public void answerQuizCorrect() {
         clickOn("#option" + 1);
         clickOn("#submitAnswer");
-        assertDoesNotThrow(()->lookup((Label t) -> t.getText().startsWith("Du fikk 1/1 poeng!")).query());
+        assertDoesNotThrow(() -> lookup((Label t) -> t.getText().startsWith("Du fikk 1/1 poeng!")).query());
     }
 
     @Test
@@ -80,7 +72,7 @@ public class QuizControllerTest extends ApplicationTest {
         clickOn("#option" + 2);
         clickOn("#submitAnswer");
         Thread.sleep(2000);
-        assertDoesNotThrow(()->lookup((Label t) -> t.getText().startsWith("Du fikk 0/1 poeng!")).query());
+        assertDoesNotThrow(() -> lookup((Label t) -> t.getText().startsWith("Du fikk 0/1 poeng!")).query());
     }
 
     @AfterEach
