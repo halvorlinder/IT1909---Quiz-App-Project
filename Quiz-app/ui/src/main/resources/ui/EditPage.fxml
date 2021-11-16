@@ -45,7 +45,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button mnemonicParsing="false" text="Slett quiz" styleClass="red-button" onAction="#deleteQuiz"/>
+                  <Button mnemonicParsing="false" text="Slett quiz" styleClass="red-button" onAction="#deleteQuiz" fx:id="deleteQuizButton"/>
                </children>
             </GridPane>
          </children>

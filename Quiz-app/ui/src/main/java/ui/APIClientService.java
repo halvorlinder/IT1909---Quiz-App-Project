@@ -1,8 +1,11 @@
 package ui;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import core.Leaderboard;
 import core.Question;
 import core.Quiz;
+import core.UserRecord;
+import core.Score;
 import io.QuizPersistence;
 import org.springframework.http.HttpStatus;
 
@@ -61,8 +64,9 @@ public class APIClientService {
 
     /**
      * updates a given question on the server
-     * @param quizName the name of the quiz
-     * @param questionID the id of the question
+     *
+     * @param quizName    the name of the quiz
+     * @param questionID  the id of the question
      * @param newQuestion the new question object
      * @throws IOException
      * @throws InterruptedException
@@ -85,7 +89,8 @@ public class APIClientService {
 
     /**
      * deletes a given question from a given quiz on the server
-     * @param quizName the name of the quiz
+     *
+     * @param quizName   the name of the quiz
      * @param questionID the id of the question
      * @throws IOException
      * @throws InterruptedException
@@ -96,7 +101,8 @@ public class APIClientService {
 
     /**
      * adds a question to a given quiz
-     * @param quizName the name of the quiz
+     *
+     * @param quizName    the name of the quiz
      * @param newQuestion the name of the question
      * @throws IOException
      * @throws InterruptedException
@@ -106,10 +112,58 @@ public class APIClientService {
     }
 
     /**
+     * attempts to log the user in
+     * @param userRecord the user data
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    public void loginUser(UserRecord userRecord) throws IOException, InterruptedException {
+        sendRequest("POST", "/users/login", objectMapper.writeValueAsString(userRecord));
+    }
+
+    /**
+     * attempts to register the user
+     * @param userRecord the information about the user
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    public void registerUser(UserRecord userRecord) throws IOException, InterruptedException {
+        sendRequest("POST", "/users/register", objectMapper.writeValueAsString(userRecord));
+    }
+
+    /**
+     * fetches a leaderboard for a quiz from the server
+     *
+     * @param quizName the name of the quiz mapping to the leaderboard to be fetched
+     * @return the leaderboard
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    public Leaderboard getLeaderboard(String quizName) throws IOException, InterruptedException {
+        HttpResponse<String> response = sendRequest("GET", "/leaderboards/" + quizName, "");
+        return objectMapper.readValue(response.body(), Leaderboard.class);
+    }
+
+
+    /**
+     * adds a given score on the server
+     *
+     * @param quizName the name of the quiz
+     * @param newScore the new question object
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    public void postScore(String quizName, Score newScore) throws IOException, InterruptedException {
+        sendRequest("POST", "/leaderboards/" + quizName, objectMapper.writeValueAsString(newScore));
+    }
+
+
+    /**
      * sends a request to the server
-     * @param method the http method
+     *
+     * @param method       the http method
      * @param relativePath the path relative to /api
-     * @param body the body of the request
+     * @param body         the body of the request
      * @return the response of the request
      * @throws IOException
      * @throws InterruptedException
@@ -122,7 +176,7 @@ public class APIClientService {
         int statusCode = response.statusCode();
         if (statusCode > 299) {
             System.out.println("Fail: " + HttpStatus.valueOf(statusCode).getReasonPhrase());
-            throw new IOException("Response from server is not valid. The status code is" + statusCode);
+            throw new IOException("Response from server is not valid. The status code is " + statusCode);
         }
         return response;
     }

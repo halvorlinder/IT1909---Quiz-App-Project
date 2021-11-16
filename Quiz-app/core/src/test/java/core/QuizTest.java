@@ -86,4 +86,19 @@ public class QuizTest {
         Assertions.assertTrue(test.contains("currentQuestionNumber=" + quiz.getCurrentQuestionNumber()));
         Assertions.assertTrue(test.contains("questions=" + quiz.getQuestions()));
     }
+
+    @Test
+    public void testDeleteQuestion(){
+        quiz.deleteQuestion(0);
+        Assertions.assertEquals(9, quiz.getQuizLength());
+        Assertions.assertTrue(quiz.submitAnswer(1));
+    }
+
+    @Test
+    public void testSetQuestion(){
+        quiz.setQuestion(0, new Question("?", List.of("x","y","z","w"), 3));
+        Assertions.assertEquals("?", quiz.getCurrentQuestion().getQuestion());
+        Assertions.assertEquals(10, quiz.getQuizLength());
+        Assertions.assertTrue(quiz.submitAnswer(3));
+    }
 }

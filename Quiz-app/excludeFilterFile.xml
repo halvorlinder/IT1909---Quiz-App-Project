@@ -1,25 +1,3 @@
 <FindBugsFilter>
-    <Match>
-        <And>
-            <Class name="ui.controllers.QuizController"/>
-            <Or>
-                <Bug pattern="UUF_UNUSED_FIELD"/>
-                <Bug pattern="EI_EXPOSE_REP2"/>
-            </Or>
-        </And>
-    </Match>
-    <Match>
-        <And>
-            <Class name="ui.App"/>
-            <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD"/>
-        </And>
-    </Match>
-    <Match>
-        <And>
-            <Class name="ui.controllers.GoBackController"/>
-            <Or>
-                <Bug pattern="EI_EXPOSE_REP2"/>
-            </Or>
-        </And>
-    </Match>
+
 </FindBugsFilter>
