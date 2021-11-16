@@ -1,11 +1,13 @@
 package rest;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import core.UserData;
 import core.UserRecord;
 import io.UserPersistence;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -28,11 +30,14 @@ public class UserController {
     public void loginUser(HttpServletResponse response, @RequestBody String userDataJson){
         try {
             UserData userData = userPersistence.loadUserData();
-            userData.attemptLogIn(objectMapper.readValue(userDataJson, UserRecord.class));
-            response.setStatus(200);
+            System.out.println(userData);
+            if(userData.attemptLogIn(objectMapper.readValue(userDataJson, UserRecord.class)))
+                response.setStatus(200);
+            else
+                response.setStatus(403);
         } catch (IOException e) {
             e.printStackTrace();
-            response.setStatus(403);
+            response.setStatus(500);
         }
     }
 
@@ -40,15 +45,18 @@ public class UserController {
     public void registerUser(HttpServletResponse response, @RequestBody String userDataJson){
         try {
             UserData userData = userPersistence.loadUserData();
+            System.out.println(userData);
             UserRecord userRecord = objectMapper.readValue(userDataJson, UserRecord.class);
-            userData.attemptRegister(userRecord);
-            objectMapper.writeValueAsString(userData);
-            userPersistence.saveUserData(userData);
-            response.setStatus(200);
+            if(userData.attemptRegister(userRecord)){
+                userPersistence.saveUserData(userData);
+                response.setStatus(200);
+            }
+            else
+                response.setStatus(403);
         } catch (IOException e) {
+            response.setStatus(500);
             e.printStackTrace();
         }
-        response.setStatus(403);
     }
 
 }
