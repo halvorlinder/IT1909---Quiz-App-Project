@@ -1,6 +1,5 @@
 package ui.controllers;
 
-import core.User;
 import core.UserRecord;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,11 +9,12 @@ import javafx.scene.Parent;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import ui.APIClientService;
+import ui.User;
 import ui.Utilities;
 
 import java.io.IOException;
 
-public final class LogInController {
+public final class LoginPageController {
     @FXML
     private PasswordField logInPassword;
     @FXML
@@ -76,10 +76,9 @@ public final class LogInController {
      * @throws IOException
      */
     private void logIn(ActionEvent actionEvent, String username) throws IOException {
-        User.setUserName(username);
         final FXMLLoader loader = Utilities.getFXMLLoader("HomePage.fxml");
-        // HomePageController controller = new HomePageController();
-        // loader.setController(controller);
+        HomePageController controller = new HomePageController(new User(username));
+        loader.setController(controller);
         final Parent root = loader.load();
         ((Node) actionEvent.getSource()).getScene().setRoot(root);
     }

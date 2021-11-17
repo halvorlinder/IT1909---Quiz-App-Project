@@ -20,7 +20,7 @@ public class LeaderboardTest {
     }
 
     @Test
-    public void testUnvalidConstructor() {
+    public void testInvalidConstructor() {
         assertThrows(IllegalArgumentException.class, () -> new Leaderboard("test", -1));
     }
 

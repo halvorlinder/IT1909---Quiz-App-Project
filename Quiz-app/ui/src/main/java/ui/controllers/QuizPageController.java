@@ -1,7 +1,7 @@
 package ui.controllers;
 
 import core.Question;
-import core.Quiz;
+import core.QuizSession;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -10,12 +10,13 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import ui.APIClientService;
 import ui.App;
+import ui.User;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-public class QuizController {
+public class QuizPageController extends BaseController {
     @FXML
     private ToggleGroup option;
     @FXML
@@ -31,7 +32,7 @@ public class QuizController {
     @FXML
     private Button submitAnswer;
 
-    private final Quiz quiz;
+    private final QuizSession quizSession;
     private List<RadioButton> radios;
     private APIClientService apiClientService = new APIClientService();
 
@@ -48,27 +49,27 @@ public class QuizController {
 
     /**
      * @param quizName the name of the quiz
+     * @param user     the current user
      */
-    public QuizController(String quizName) throws IOException, InterruptedException {
-        quiz = apiClientService.getQuiz(quizName);
+    public QuizPageController(String quizName, User user) throws IOException, InterruptedException {
+        super(user);
+        quizSession = new QuizSession(apiClientService.getQuiz(quizName));
     }
 
     /**
      * Displays the current question to the GUI
-     *
-     * @throws IOException
      */
     @FXML
     public void displayQuestion() throws IOException {
-        Question q = quiz.getCurrentQuestion();
-        submitAnswer.setDisable(true);
-        if (q == null)
+        if (quizSession.isFinished()) {
             endQuiz();
-        else {
-            questionLabel.setText(q.getQuestion());
-            for (int i = 0; i < radios.size(); i++) {
-                radios.get(i).setText(q.getChoice(i));
-            }
+            return;
+        }
+        Question q = quizSession.getCurrentQuestion();
+        submitAnswer.setDisable(true);
+        questionLabel.setText(q.getQuestion());
+        for (int i = 0; i < radios.size(); i++) {
+            radios.get(i).setText(q.getChoice(i));
         }
     }
 
@@ -79,7 +80,7 @@ public class QuizController {
      */
     @FXML
     public void submitQuestion() throws IOException {
-        quiz.submitAnswer(option.getToggles().indexOf(option.getSelectedToggle()));
+        quizSession.submitAnswer(option.getToggles().indexOf(option.getSelectedToggle()));
         radios.forEach(radioButton -> radioButton.setSelected(false));
         displayQuestion();
     }
@@ -91,8 +92,8 @@ public class QuizController {
      */
     private void endQuiz() throws IOException {
         FXMLLoader loader = App.getFXMLLoader("ResultPage.fxml");
-        ResultPageController controller = new ResultPageController(quiz.getCorrect(),
-                quiz.getQuizLength(), quiz.getName());
+        ResultPageController controller = new ResultPageController(quizSession.getNumberOfCorrect(),
+                quizSession.getQuizLength(), quizSession.getQuizName(), getUser());
         loader.setController(controller);
         submitAnswer.getScene().setRoot(loader.load());
     }

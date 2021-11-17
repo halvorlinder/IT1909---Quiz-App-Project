@@ -36,8 +36,7 @@ public class Leaderboard {
      * @return list of scores
      */
     public List<Score> getScores() {
-        List<Score> copyScores = new ArrayList<>(scores);
-        return copyScores;
+        return new ArrayList<>(scores);
     }
 
     /**
