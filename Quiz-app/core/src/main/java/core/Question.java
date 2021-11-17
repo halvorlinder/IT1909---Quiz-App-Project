@@ -64,13 +64,16 @@ public class Question {
     }
 
     /**
-     *
      * @return the number of choices in the question
      */
-    public int getChoiceCount(){
+    public int getChoiceCount() {
         return NUMBER_OF_CHOICES;
     }
 
+    /**
+     *
+     * @return string representation
+     */
     @Override
     public String toString() {
         return "Question{" +
