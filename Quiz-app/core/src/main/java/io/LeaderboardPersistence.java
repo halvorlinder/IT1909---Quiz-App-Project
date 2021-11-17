@@ -102,7 +102,7 @@ public class LeaderboardPersistence {
      */
     public void deleteLeaderboard(String quizName) {
         File file = new File(basePath + quizName + ".json");
-        if(file.exists()){
+        if (file.exists()) {
             boolean junk = file.delete();
         }
     }
