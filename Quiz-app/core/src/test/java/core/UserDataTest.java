@@ -38,8 +38,6 @@ public class UserDataTest {
         assertEquals(UserData.hash("password"), userData.getPasswordHash("user2"));
         assertThrows(IllegalStateException.class, () ->
                 userData.getPasswordHash("user3"));
-        System.out.println(UserData.hash("password"));
-        System.out.println(UserData.hash("pWord"));
     }
 
 
