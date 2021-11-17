@@ -89,13 +89,6 @@ public final class NewQuestionController extends GoBackController implements Ini
     }
 
     /**
-     * Sets paramet to default quiz
-     */
-    public NewQuestionController() {
-        this.quizName = "quiz101";
-    }
-
-    /**
      * initializes the controller
      */
     @Override
