@@ -64,4 +64,9 @@ public class TestHelpers {
         assertEquals(score1.getName(), score2.getName());
         assertEquals(score1.getPoints(), score2.getPoints());
     }
+
+    static void checkUserRecord(UserRecord UR1, UserRecord UR2) {
+        assertEquals(UR1.getUsername(), UR2.getUsername());
+        assertEquals(UR1.getPassword(), UR1.getPassword());
+    }
 }
