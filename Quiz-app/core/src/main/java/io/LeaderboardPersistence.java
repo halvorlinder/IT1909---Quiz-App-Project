@@ -103,7 +103,7 @@ public class LeaderboardPersistence {
      */
     public void deleteLeaderboard(String quizName) {
         File file = new File(basePath + quizName + ".json");
-        file.delete();
+        boolean junk = file.delete();
     }
 
 }
