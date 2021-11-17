@@ -73,8 +73,9 @@ public final class UserData {
      * @return the hash of the password
      */
     public static int hash(String password) {
-        OptionalInt optionalInt = password.chars().reduce((x, y) -> (x * y) % 16384);
-        return optionalInt.isPresent() ? optionalInt.getAsInt() : 0;
+        if (password.length()==0)
+            return 0;
+        return password.chars().reduce(1,(x, y) -> (x * y) % 16384);
     }
 
 }
