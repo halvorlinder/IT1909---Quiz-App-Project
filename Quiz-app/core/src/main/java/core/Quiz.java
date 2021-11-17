@@ -12,6 +12,7 @@ public final class Quiz {
     private int correct;
     private int currentQuestionNumber;
     private final List<Question> questions;
+    private String creator;
 
     /**
      * @param name
@@ -94,6 +95,10 @@ public final class Quiz {
      */
     public int getQuizLength() {
         return questions.size();
+    }
+
+    public String getCreator(){
+        return creator;
     }
 
     @Override
