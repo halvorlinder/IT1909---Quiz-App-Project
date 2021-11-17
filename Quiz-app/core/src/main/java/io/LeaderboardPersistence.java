@@ -88,7 +88,8 @@ public class LeaderboardPersistence {
         String quizName = leaderboard.getName();
         File file = new File(basePath + quizName + ".json");
         if (!file.exists()) {
-            boolean junk = file.createNewFile();
+            if(file.createNewFile())
+                throw new IOException("Failed to create file");
         }
         try (Writer writer = new FileWriter(basePath + quizName + ".json", StandardCharsets.UTF_8)) {
             writeLeaderboard(leaderboard, writer);
@@ -100,11 +101,10 @@ public class LeaderboardPersistence {
      *
      * @param quizName the name of the quiz
      */
-    public void deleteLeaderboard(String quizName) {
+    public void deleteLeaderboard(String quizName) throws IOException {
         File file = new File(basePath + quizName + ".json");
-        if (file.exists()) {
-            boolean junk = file.delete();
-        }
+        if (file.delete())
+            throw new IOException("Failed to delete file");
     }
 
 }
