@@ -2,7 +2,6 @@ package core;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.OptionalInt;
 import java.util.Set;
 
 public final class UserData {
@@ -73,9 +72,9 @@ public final class UserData {
      * @return the hash of the password
      */
     public static int hash(String password) {
-        if (password.length()==0)
+        if (password.length() == 0)
             return 0;
-        return password.chars().reduce(1,(x, y) -> (x * y) % 16384);
+        return password.chars().reduce(1, (x, y) -> (x * y) % 16384);
     }
 
 }
