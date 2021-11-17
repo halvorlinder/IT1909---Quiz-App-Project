@@ -44,7 +44,8 @@ public class QuizSession {
      * @param answer the integer corresponding to the index of the answer
      */
     public void submitAnswer(int answer) {
-
+        if(!hasCurrent())
+            throw new IllegalStateException("All questions have already been answered");
         boolean isCorrect = getCurrentQuestion().isCorrect(answer);
         if (isCorrect)
             correct++;
