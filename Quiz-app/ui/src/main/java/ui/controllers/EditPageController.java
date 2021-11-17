@@ -152,7 +152,7 @@ public class EditPageController extends GoBackController implements Initializabl
         } catch (Exception e) {
             Utilities.alertUser();
         }
-        questionList.getScene().setRoot(Utilities.getFXMLLoader("HomePage.fxml").load());
+        goBack();
     }
 
 }
