@@ -38,8 +38,6 @@ public final class HomePageController extends BaseController implements Initiali
     @FXML
     private TextField quizNameField;
 
-    private List<String> quizzes = new ArrayList<>();
-
     private APIClientService apiClientService;
 
     /**
@@ -68,7 +66,7 @@ public final class HomePageController extends BaseController implements Initiali
      */
     private void updateInitialQuizzes() throws IOException, InterruptedException {
         quizList.getChildren().clear();
-        quizzes = apiClientService.getListOfQuizNames();
+        List<String> quizzes = apiClientService.getListOfQuizNames();
         for (String quizName : quizzes) {
             addQuizElement(quizName);
         }

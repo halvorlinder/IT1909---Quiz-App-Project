@@ -53,13 +53,11 @@ public final class NewQuestionPageController extends GoBackController implements
     @FXML
     private ToggleGroup radioButton;
 
-    private Question question;
     private Question preFilledQuestion;
     private int questionId;
     private boolean editMode;
     private List<TextField> listOfTextFields;
-    private List<RadioButton> listOfRadioButtons;
-    private String quizName;
+    private final String quizName;
     private APIClientService apiClientService;
 
     /**
@@ -96,7 +94,7 @@ public final class NewQuestionPageController extends GoBackController implements
         apiClientService = new APIClientService();
         headline.setText(quizName);
         listOfTextFields = List.of(choice1, choice2, choice3, choice4);
-        listOfRadioButtons = List.of(radioButton1, radioButton2, radioButton3, radioButton4);
+        List<RadioButton> listOfRadioButtons = List.of(radioButton1, radioButton2, radioButton3, radioButton4);
         if (!editMode) {
             listOfRadioButtons.forEach(radio -> radio.setOnAction(ae -> submitButton.setDisable(false)));
             submitButton.setDisable(true);
@@ -128,7 +126,7 @@ public final class NewQuestionPageController extends GoBackController implements
                 return;
             }
         }
-        question = new Question(questionText.getText()
+        Question question = new Question(questionText.getText()
                 .replaceAll("\n", " ")
                 .replaceAll("\\$", " "), getListOfAnswers(), getCheckedId());
         if (editMode)
