@@ -31,8 +31,8 @@ public class QuizSession {
     /**
      * @return true if there are more questions left in the quiz
      */
-    public boolean hasCurrent() {
-        return currentQuestionNumber < quiz.getQuizLength();
+    public boolean isFinished() {
+        return currentQuestionNumber >= quiz.getQuizLength();
     }
 
     /**
@@ -42,7 +42,7 @@ public class QuizSession {
      * @param answer the integer corresponding to the index of the answer
      */
     public void submitAnswer(int answer) {
-        if (!hasCurrent())
+        if (!isFinished())
             throw new IllegalStateException("All questions have already been answered");
         boolean isCorrect = getCurrentQuestion().isCorrect(answer);
         if (isCorrect)

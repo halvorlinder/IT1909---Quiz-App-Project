@@ -61,7 +61,7 @@ public class QuizPageController extends BaseController {
      */
     @FXML
     public void displayQuestion() throws IOException {
-        if (!quizSession.hasCurrent()) {
+        if (!quizSession.isFinished()) {
             endQuiz();
             return;
         }
