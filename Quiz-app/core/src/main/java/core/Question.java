@@ -23,13 +23,6 @@ public class Question {
     }
 
     /**
-     *
-     */
-    public Question() {
-        this("", List.of("", "", "", ""), 0);
-    }
-
-    /**
      * @param answer the index of the answer to be checked for correctness
      * @return true if the answer is correct, false otherwise
      */
