@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -24,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public final class HomePageController {
+public final class HomePageController implements InitializableController {
 
     private static final String BASE_PATH = SavePaths.getBasePath() + "Quizzes/";
 
@@ -48,10 +49,14 @@ public final class HomePageController {
      * sets the text to display username
      */
     @FXML
-    public void initialize() throws IOException, InterruptedException {
+    public void initialize() {
         nameDisplay.setText("Logget inn som " + User.getUserName());
         apiClientService = new APIClientService();
-        updateInitialQuizzes();
+        try {
+            updateInitialQuizzes();
+        } catch (Exception e) {
+            Utilities.alertUser();
+        }
     }
 
     /**
@@ -113,7 +118,8 @@ public final class HomePageController {
             FXMLLoader loader = App.getFXMLLoader("EditPage.fxml");
             EditPageController controller = new EditPageController(quizName);
             loader.setController(controller);
-            quizList.getScene().setRoot(loader.load());
+            controller.setPreviousPageInfo(this, getScene().getRoot());
+            getScene().setRoot(loader.load());
         } catch (IOException ioException) {
             ioException.printStackTrace();
             Utilities.alertUser();
@@ -153,8 +159,8 @@ public final class HomePageController {
             FXMLLoader loader = App.getFXMLLoader("QuestionPage.fxml");
             QuizController controller = new QuizController(quizName);
             loader.setController(controller);
-            quizList.getScene().setRoot(loader.load());
-        } catch (IOException | InterruptedException ioException) {
+            getScene().setRoot(loader.load());
+        } catch (Exception e) {
             Utilities.alertUser();
         }
     }
@@ -194,5 +200,9 @@ public final class HomePageController {
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
+    }
+
+    private Scene getScene() {
+        return quizList.getScene();
     }
 }

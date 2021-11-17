@@ -3,7 +3,6 @@ package ui.controllers;
 import core.Question;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import ui.APIClientService;
 import ui.Utilities;
@@ -12,7 +11,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public final class NewQuestionController {
+public final class NewQuestionController extends GoBackController implements InitializableController {
 
     @FXML
     private Label headline;
@@ -95,7 +94,10 @@ public final class NewQuestionController {
     /**
      * initializes the controller
      */
-    public void initialize() throws IOException, InterruptedException {
+    @Override
+    @FXML
+    public void initialize() {
+        setBackButton(backButton);
         apiClientService = new APIClientService();
         headline.setText(quizName);
         listOfTextFields = List.of(choice1, choice2, choice3, choice4);
@@ -140,7 +142,8 @@ public final class NewQuestionController {
             apiClientService.putQuestion(quizName, questionId, question);
         else
             apiClientService.addQuestion(quizName, question);
-        ((Node) actionEvent.getSource()).getScene().setRoot(Utilities.getFXMLLoader("HomePage.fxml").load());
+        goBack();
+
     }
 
     /**
@@ -161,16 +164,5 @@ public final class NewQuestionController {
         return questionText.getText();
     }
 
-    /**
-     * Sets the current root to be the home page
-     *
-     * @param actionEvent
-     * @throws IOException
-     */
-    @FXML
-    public void showHomePage(ActionEvent actionEvent) throws IOException { // Switch scene to HomePage
-
-        ((Node) actionEvent.getSource()).getScene().setRoot(Utilities.getFXMLLoader("HomePage.fxml").load());
-    }
 
 }

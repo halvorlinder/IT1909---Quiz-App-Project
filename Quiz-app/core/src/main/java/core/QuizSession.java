@@ -13,7 +13,6 @@ public class QuizSession {
 
 
     /**
-     *
      * @param quiz the quiz to be played
      */
     public QuizSession(Quiz quiz) {
@@ -30,7 +29,6 @@ public class QuizSession {
     }
 
     /**
-     *
      * @return true if there are more questions left in the quiz
      */
     public boolean hasCurrent() {
@@ -44,7 +42,7 @@ public class QuizSession {
      * @param answer the integer corresponding to the index of the answer
      */
     public void submitAnswer(int answer) {
-        if(!hasCurrent())
+        if (!hasCurrent())
             throw new IllegalStateException("All questions have already been answered");
         boolean isCorrect = getCurrentQuestion().isCorrect(answer);
         if (isCorrect)
@@ -60,7 +58,6 @@ public class QuizSession {
     }
 
     /**
-     *
      * @return the name of the quiz
      */
     public String getQuizName() {
@@ -75,7 +72,6 @@ public class QuizSession {
     }
 
     /**
-     *
      * @return the index of the current question
      */
     public int getCurrentQuestionNumber() {
@@ -83,7 +79,6 @@ public class QuizSession {
     }
 
     /**
-     *
      * @return the number of correctly submitted answers
      */
     public int getCorrect() {

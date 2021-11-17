@@ -9,12 +9,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
+import ui.controllers.EditPageController;
+import ui.controllers.InitializableController;
 import ui.controllers.NewQuestionController;
 
 import java.io.IOException;
@@ -32,8 +35,24 @@ public class NewQuestionControllerTest extends ApplicationTest {
         SavePaths.enableTestMode();
         final FXMLLoader loader = new FXMLLoader(getClass().getResource("NewQuestion.fxml"));
         NewQuestionController controller = new NewQuestionController("a");
+
+        config = WireMockConfiguration.wireMockConfig().port(8080);
+        wireMockServer = new WireMockServer(config.portNumber());
+        wireMockServer.start();
+        WireMock.configureFor("localhost", config.portNumber());
+        stubFor(get(urlEqualTo("/api/quizzes/a"))
+                .willReturn(aResponse()
+                        .withBody("{\"name\":\"a\",\"questions\":[{\"question\":\"?\",\"answer\":0,\"choices\":[\"a\",\"b \",\"c \",\"d \"]}]}")
+                        .withStatus(200)));
+
+        EditPageController editPageController = new EditPageController("a");
+        FXMLLoader loader2 = new FXMLLoader(getClass().getResource("EditPage.fxml"));
+        loader2.setController(editPageController);
+        controller.setPreviousPageInfo(editPageController, loader2.load());
+
         loader.setController(controller);
         final Parent root = loader.load();
+        wireMockServer.stop();
         stage.setScene(new Scene(root));
         stage.show();
     }
@@ -57,7 +76,7 @@ public class NewQuestionControllerTest extends ApplicationTest {
     }
 
     @Test
-    public void testSubmitQuestion() throws IOException {
+    public void testSubmitQuestion() {
         config = WireMockConfiguration.wireMockConfig().port(8080);
         wireMockServer = new WireMockServer(config.portNumber());
         wireMockServer.start();
