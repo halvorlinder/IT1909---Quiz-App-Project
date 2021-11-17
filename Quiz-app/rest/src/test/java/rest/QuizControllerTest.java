@@ -62,7 +62,7 @@ public class QuizControllerTest {
     }
 
     @Test
-    public void getQuizNamesTest() throws Exception {
+    public void testGetQuizNames() throws Exception {
         String uri = "/api/quizzes";
         MvcResult mvcResult = request("GET", uri, "");
         assertEquals(200, mvcResult.getResponse().getStatus());
@@ -72,7 +72,7 @@ public class QuizControllerTest {
     }
 
     @Test
-    public void getQuizTest() throws Exception {
+    public void testGetQuiz() throws Exception {
         String uri = "/api/quizzes/testQuiz";
         MvcResult mvcResult = request("GET", uri, "");
         String content = mvcResult.getResponse().getContentAsString();
@@ -82,7 +82,7 @@ public class QuizControllerTest {
     }
 
     @Test
-    public void postQuizTest() throws Exception {
+    public void testPostQuiz() throws Exception {
         String uri = "/api/quizzes";
         String uri2 = "/api/leaderboards/exampleQuiz";
 
@@ -99,7 +99,7 @@ public class QuizControllerTest {
     }
 
     @Test
-    public void addQuestionTest() throws Exception {
+    public void testAddQuestion() throws Exception {
         String uri = "/api/quizzes/testQuiz";
         String question = objectMapper.writeValueAsString(new Question("z", List.of("a", "b", "c", "d"), 3));
         MvcResult mvcResult = request("POST", uri, question);
@@ -113,7 +113,7 @@ public class QuizControllerTest {
     }
 
     @Test
-    public void editQuestionTest() throws Exception {
+    public void testEditQuestion() throws Exception {
         String uri = "/api/quizzes/testQuiz/0";
         String question = objectMapper.writeValueAsString(new Question("z", List.of("a", "b", "c", "d"), 3));
         MvcResult mvcResult = request("PUT", uri, question);
@@ -127,7 +127,7 @@ public class QuizControllerTest {
     }
 
     @Test
-    public void deleteQuizTest() throws Exception {
+    public void testDeleteQuiz() throws Exception {
         String uri = "/api/quizzes/testQuiz";
         String uri2 = "/api/leaderboards/testQuiz";
         assertEquals(200, request("DELETE", uri, "").getResponse().getStatus());
@@ -136,7 +136,7 @@ public class QuizControllerTest {
     }
 
     @Test
-    public void deleteQuestionTest() throws Exception {
+    public void testDeleteQuestion() throws Exception {
         String uri = "/api/quizzes/testQuiz/0";
         MvcResult mvcResult = request("DELETE", uri, "");
         assertEquals(200, mvcResult.getResponse().getStatus());
@@ -149,7 +149,7 @@ public class QuizControllerTest {
     }
 
     @Test
-    public void postScore() throws Exception {
+    public void testPostScore() throws Exception {
         String uri = "/api/leaderboards/testQuiz";
         assertEquals(200, request("POST", uri, objectMapper.writeValueAsString(score3))
                 .getResponse().getStatus());

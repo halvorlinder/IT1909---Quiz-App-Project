@@ -48,14 +48,14 @@ public class UserControllerTest {
     }
 
     @Test
-    public void successfulRegisterTest() throws Exception {
+    public void testSuccessfulRegister() throws Exception {
         String uri = "/api/users/register";
         MvcResult mvcResult = request("POST", uri, objectMapper.writeValueAsString(new UserRecord("a", "password")));
         assertEquals(200, mvcResult.getResponse().getStatus());
     }
 
     @Test
-    public void failedRegisterTest() throws Exception {
+    public void testFailedRegister() throws Exception {
         String uri = "/api/users/register";
         MvcResult mvcResult = request("POST", uri, objectMapper.writeValueAsString(new UserRecord("a", "password")));
         MvcResult mvcResult2 = request("POST", uri, objectMapper.writeValueAsString(new UserRecord("a", "password")));
@@ -63,7 +63,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void successfulLoginTest() throws Exception {
+    public void testSuccessfulLogin() throws Exception {
         String uri = "/api/users/register";
         String uri2 = "/api/users/login";
         MvcResult mvcResult = request("POST", uri, objectMapper.writeValueAsString(new UserRecord("a", "password")));
@@ -72,7 +72,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void failedLoginTest() throws Exception {
+    public void testFailedLogin() throws Exception {
         String uri = "/api/users/register";
         String uri2 = "/api/users/login";
         MvcResult mvcResult = request("POST", uri, objectMapper.writeValueAsString(new UserRecord("a", "password")));

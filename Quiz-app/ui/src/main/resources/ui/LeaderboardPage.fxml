@@ -23,7 +23,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
                     </rowConstraints>
                     <children>
-                        <Button minWidth="90.0" mnemonicParsing="false" onAction="#returnToHomePage"
+                        <Button minWidth="90.0" mnemonicParsing="false" fx:id="backButton"
                                 styleClass="blue-button" text="Tilbake"/>
                         <Label fx:id="titleText" styleClass="h2" text="Endre &lt;quiznavn&gt;" GridPane.columnIndex="1">
                         </Label>

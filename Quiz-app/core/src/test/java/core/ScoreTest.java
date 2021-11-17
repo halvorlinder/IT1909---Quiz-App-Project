@@ -21,7 +21,7 @@ public class ScoreTest {
     }
 
     @Test
-    public void compareScores() {
+    public void testCompareScores() {
         Score largeScore = new Score("test", 5);
         Score smallScore = new Score("test", 1);
         Score smallScore2 = new Score("notTest", 1);

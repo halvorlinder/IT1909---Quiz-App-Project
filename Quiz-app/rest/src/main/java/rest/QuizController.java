@@ -150,8 +150,13 @@ public class QuizController {
     @DeleteMapping("quizzes/{name}")
     public void deleteQuiz(@PathVariable("name") String quizName, HttpServletResponse response) {
         if (quizPersistence.deleteQuiz(quizName)) {
-            leaderboardPersistence.deleteLeaderboard(quizName);
-            response.setStatus(200);
+            try {
+                leaderboardPersistence.deleteLeaderboard(quizName);
+                response.setStatus(200);
+            } catch (IOException ioException) {
+                response.setStatus(500);
+                ioException.printStackTrace();
+            }
         } else
             response.setStatus(404);
     }
