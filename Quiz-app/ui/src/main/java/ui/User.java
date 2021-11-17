@@ -1,7 +1,7 @@
 package ui;
 
 public class User {
-    private String username;
+    private final String username;
 
     /**
      * @param username the username
