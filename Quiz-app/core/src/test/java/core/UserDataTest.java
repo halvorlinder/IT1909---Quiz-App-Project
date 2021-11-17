@@ -32,14 +32,14 @@ public class UserDataTest {
 
     @Test
     public void testHash() {
-        assertEquals(userData.hash(""), 0);
+        assertEquals(UserData.hash(""), 0);
         UserRecord userRecord3 = new UserRecord("user2", "password");
         userData.attemptRegister(userRecord3);
-        assertEquals(userData.hash("password"), userData.getPasswordHash("user2"));
+        assertEquals(UserData.hash("password"), userData.getPasswordHash("user2"));
         assertThrows(IllegalStateException.class, () ->
                 userData.getPasswordHash("user3"));
-        System.out.println(userData.hash("password"));
-        System.out.println(userData.hash("pWord"));
+        System.out.println(UserData.hash("password"));
+        System.out.println(UserData.hash("pWord"));
     }
 
 

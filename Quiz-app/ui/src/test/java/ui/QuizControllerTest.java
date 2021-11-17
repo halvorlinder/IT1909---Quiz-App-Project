@@ -60,14 +60,14 @@ public class QuizControllerTest extends ApplicationTest {
     }
 
     @Test
-    public void answerQuizCorrect() {
+    public void testAnswerQuizCorrect() {
         clickOn("#option" + 1);
         clickOn("#submitAnswer");
         assertDoesNotThrow(() -> lookup((Label t) -> t.getText().startsWith("Du fikk 1/1 poeng!")).query());
     }
 
     @Test
-    public void answerQuizWrong() {
+    public void testAnswerQuizWrong() {
         clickOn("#option" + 2);
         clickOn("#submitAnswer");
         assertDoesNotThrow(() -> lookup((Label t) -> t.getText().startsWith("Du fikk 0/1 poeng!")).query());

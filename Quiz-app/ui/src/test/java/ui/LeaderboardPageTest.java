@@ -80,7 +80,7 @@ public class LeaderboardPageTest extends ApplicationTest {
     }
 
     @Test
-    public void initEmptyLeaderboard() {
+    public void testInitEmptyLeaderboard() {
         initQuiz();
         stubFor(get(urlEqualTo("/api/leaderboards/x"))
                 .willReturn(aResponse()
@@ -91,7 +91,7 @@ public class LeaderboardPageTest extends ApplicationTest {
     }
 
     @Test
-    public void initLeaderboard() {
+    public void testInitLeaderboard() {
         initQuiz();
         stubFor(get(urlEqualTo("/api/leaderboards/x"))
                 .willReturn(aResponse()
