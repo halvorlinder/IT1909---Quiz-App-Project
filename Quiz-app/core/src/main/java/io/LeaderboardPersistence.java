@@ -88,7 +88,7 @@ public class LeaderboardPersistence {
         String quizName = leaderboard.getName();
         File file = new File(basePath + quizName + ".json");
         if (!file.exists()) {
-            if(file.createNewFile())
+            if (file.createNewFile())
                 throw new IOException("Failed to create file");
         }
         try (Writer writer = new FileWriter(basePath + quizName + ".json", StandardCharsets.UTF_8)) {
