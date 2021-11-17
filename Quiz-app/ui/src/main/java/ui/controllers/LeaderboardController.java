@@ -2,9 +2,8 @@ package ui.controllers;
 
 import core.Leaderboard;
 import core.Score;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -20,6 +19,8 @@ public class LeaderboardController extends GoBackController {
     private Label titleText;
     @FXML
     private VBox leaderboardList;
+    @FXML
+    private Button backButton;
 
     private final String quizName;
     private Leaderboard leaderboard;
@@ -41,6 +42,7 @@ public class LeaderboardController extends GoBackController {
      */
     @FXML
     private void initialize() throws IOException, InterruptedException {
+        setBackButton(backButton);
         apiClientService = new APIClientService();
         display();
     }
@@ -83,13 +85,4 @@ public class LeaderboardController extends GoBackController {
         leaderboardList.getChildren().add(gridPane);
     }
 
-    /**
-     * Sets the current root to be the homepage
-     *
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void returnToHomePage(ActionEvent actionEvent) throws IOException {
-        ((Node) actionEvent.getSource()).getScene().setRoot(Utilities.getFXMLLoader("HomePage.fxml").load());
-    }
 }
