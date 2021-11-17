@@ -3,7 +3,6 @@ package ui;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
-import core.User;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -22,6 +21,7 @@ public class QuizControllerTest extends ApplicationTest {
 
     private WireMockConfiguration config;
     private WireMockServer wireMockServer;
+    private final String username = "test";
 
     @Override
     public void start(final Stage stage) throws Exception {
@@ -34,9 +34,8 @@ public class QuizControllerTest extends ApplicationTest {
                         .withBody("{\"name\":\"x\",\"questions\":[{\"question\":\"?\",\"answer\":0,\"choices\":[\"a\",\"b\",\"c\",\"d\"]}]}")
                         .withStatus(200)));
 
-        User.setUserName("test");
         final FXMLLoader loader = new FXMLLoader(getClass().getResource("QuestionPage.fxml"));
-        QuizController controller = new QuizController("x");
+        QuizController controller = new QuizController("x", new User(username));
         loader.setController(controller);
         final Parent root = loader.load();
         wireMockServer.stop();
@@ -51,11 +50,11 @@ public class QuizControllerTest extends ApplicationTest {
         wireMockServer.start();
         WireMock.configureFor("localhost", config.portNumber());
         stubFor(post(urlEqualTo("/api/leaderboards/x"))
-                .withRequestBody(equalToJson("{\"name\":\"" + User.getUserName() + "\",\"points\":1}"))
+                .withRequestBody(equalToJson("{\"name\":\"" + username + "\",\"points\":1}"))
                 .willReturn(aResponse()
                         .withStatus(200)));
         stubFor(post(urlEqualTo("/api/leaderboards/x"))
-                .withRequestBody(equalToJson("{\"name\":\"" + User.getUserName() + "\",\"points\":0}"))
+                .withRequestBody(equalToJson("{\"name\":\"" + username + "\",\"points\":0}"))
                 .willReturn(aResponse()
                         .withStatus(200)));
     }
@@ -68,10 +67,9 @@ public class QuizControllerTest extends ApplicationTest {
     }
 
     @Test
-    public void answerQuizWrong() throws InterruptedException {
+    public void answerQuizWrong() {
         clickOn("#option" + 2);
         clickOn("#submitAnswer");
-        Thread.sleep(2000);
         assertDoesNotThrow(() -> lookup((Label t) -> t.getText().startsWith("Du fikk 0/1 poeng!")).query());
     }
 

@@ -17,6 +17,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
 import ui.controllers.EditPageController;
+import ui.controllers.HomePageController;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 
@@ -37,7 +38,16 @@ public class EditPageTest extends ApplicationTest {
                 .willReturn(aResponse()
                         .withBody("{\"name\":\"x\",\"questions\":[{\"question\":\"?\",\"answer\":0,\"choices\":[\"a\",\"b\",\"c\",\"d\"]}]}")));
         FXMLLoader loader = new FXMLLoader(getClass().getResource("EditPage.fxml"));
-        EditPageController editPageController = new EditPageController("x");
+        EditPageController editPageController = new EditPageController("x", new User(""));
+
+        stubFor(get(urlEqualTo("/api/quizzes"))
+                .willReturn(aResponse()
+                        .withBody("[\"x\"]")));
+        HomePageController homePageController = new HomePageController(new User(""));
+        FXMLLoader loader2 = new FXMLLoader(getClass().getResource("HomePage.fxml"));
+        loader2.setController(homePageController);
+        editPageController.setPreviousPageInfo(homePageController, loader2.load());
+
         loader.setController(editPageController);
         final Parent root = loader.load();
         wireMockServer.stop();

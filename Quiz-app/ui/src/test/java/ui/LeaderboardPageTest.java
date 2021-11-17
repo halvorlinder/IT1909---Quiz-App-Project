@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
+import ui.controllers.HomePageController;
 
 import java.io.IOException;
 
@@ -39,6 +40,8 @@ public class LeaderboardPageTest extends ApplicationTest {
                 .willReturn(aResponse()
                         .withBody("[]")));
         loader = new FXMLLoader(getClass().getResource("HomePage.fxml"));
+        HomePageController homePageController = new HomePageController(new User(""));
+        loader.setController(homePageController);
         final Parent root = loader.load();
         wireMockServer.stop();
         stage.setScene(new Scene(root));
