@@ -5,13 +5,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import ui.APIClientService;
+import ui.User;
 import ui.Utilities;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public final class NewQuestionController extends GoBackController implements InitializableController {
+public final class NewQuestionPageController extends GoBackController implements InitializableController {
 
     @FXML
     private Label headline;
@@ -52,43 +53,35 @@ public final class NewQuestionController extends GoBackController implements Ini
     @FXML
     private ToggleGroup radioButton;
 
-    private Question question;
     private Question preFilledQuestion;
     private int questionId;
     private boolean editMode;
     private List<TextField> listOfTextFields;
-    private List<RadioButton> listOfRadioButtons;
-    private String quizName;
+    private final String quizName;
     private APIClientService apiClientService;
-    // App.setRoot needs to be completed
-    // All FXML files need to be created and named accordingly
 
     /**
-     * @param quizName
+     * @param quizName the name of the quiz
+     * @param user     the current user
      */
-    public NewQuestionController(String quizName) {
+    public NewQuestionPageController(String quizName, User user) {
+        super(user);
         this.quizName = quizName;
     }
 
     /**
      * initializes the page with pre-filled information and in edit mode
      *
-     * @param quizName
-     * @param questionId
-     * @param question
+     * @param quizName   the name of the quiz
+     * @param questionId the index of the question
+     * @param question   the new question
+     * @param user       the current user
      */
-    public NewQuestionController(String quizName, int questionId, Question question) {
-        this(quizName);
+    public NewQuestionPageController(String quizName, int questionId, Question question, User user) {
+        this(quizName, user);
         editMode = true;
         preFilledQuestion = question;
         this.questionId = questionId;
-    }
-
-    /**
-     * Sets paramet to default quiz
-     */
-    public NewQuestionController() {
-        this.quizName = "quiz101";
     }
 
     /**
@@ -101,7 +94,7 @@ public final class NewQuestionController extends GoBackController implements Ini
         apiClientService = new APIClientService();
         headline.setText(quizName);
         listOfTextFields = List.of(choice1, choice2, choice3, choice4);
-        listOfRadioButtons = List.of(radioButton1, radioButton2, radioButton3, radioButton4);
+        List<RadioButton> listOfRadioButtons = List.of(radioButton1, radioButton2, radioButton3, radioButton4);
         if (!editMode) {
             listOfRadioButtons.forEach(radio -> radio.setOnAction(ae -> submitButton.setDisable(false)));
             submitButton.setDisable(true);
@@ -123,8 +116,6 @@ public final class NewQuestionController extends GoBackController implements Ini
      */
     @FXML
     public void submitQuestion(ActionEvent actionEvent) throws IOException, InterruptedException {
-        //Takes you back to the home page
-
         if (questionText.getText().isEmpty()) {
             Utilities.alertUser("Du må skrive inn et spørsmål");
             return;
@@ -135,7 +126,7 @@ public final class NewQuestionController extends GoBackController implements Ini
                 return;
             }
         }
-        question = new Question(questionText.getText()
+        Question question = new Question(questionText.getText()
                 .replaceAll("\n", " ")
                 .replaceAll("\\$", " "), getListOfAnswers(), getCheckedId());
         if (editMode)
@@ -143,7 +134,6 @@ public final class NewQuestionController extends GoBackController implements Ini
         else
             apiClientService.addQuestion(quizName, question);
         goBack();
-
     }
 
     /**

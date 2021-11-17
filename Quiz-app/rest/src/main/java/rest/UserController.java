@@ -38,7 +38,6 @@ public class UserController {
     public void loginUser(HttpServletResponse response, @RequestBody String userDataJson) {
         try {
             UserData userData = userPersistence.loadUserData();
-            System.out.println(userData);
             if (userData.attemptLogIn(objectMapper.readValue(userDataJson, UserRecord.class)))
                 response.setStatus(200);
             else
@@ -58,7 +57,6 @@ public class UserController {
     public void registerUser(HttpServletResponse response, @RequestBody String userDataJson) {
         try {
             UserData userData = userPersistence.loadUserData();
-            System.out.println(userData);
             UserRecord userRecord = objectMapper.readValue(userDataJson, UserRecord.class);
             if (userData.attemptRegister(userRecord)) {
                 userPersistence.saveUserData(userData);

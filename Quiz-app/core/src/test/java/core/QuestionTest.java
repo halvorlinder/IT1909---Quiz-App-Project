@@ -23,7 +23,7 @@ public class QuestionTest {
     }
 
     @Test
-    public void constructorTest() {
+    public void testConstructor() {
         setUp();
         answer = -1;
         assertConstructorThrows();
@@ -47,7 +47,7 @@ public class QuestionTest {
     }
 
     @Test
-    public void isCorrect() {
+    public void testIsCorrect() {
         setUp();
         answer = -1;
         assertChoicesThrows();
@@ -59,7 +59,7 @@ public class QuestionTest {
 
 
     @Test
-    public void getChoice() {
+    public void testGetChoice() {
         setUp();
         assertGetChoiceThrows(-1);
         assertGetChoiceThrows(5);
@@ -67,7 +67,7 @@ public class QuestionTest {
     }
 
     @Test
-    public void getAnswer() {
+    public void testGetAnswer() {
         setUp();
         Assertions.assertEquals(answer, realQ.getAnswer());
         for (int i = 0; i < 4; i++) {

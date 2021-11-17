@@ -41,6 +41,8 @@ public class HomePageTest extends ApplicationTest {
                 .willReturn(aResponse()
                         .withBody("[]")));
         loader = new FXMLLoader(getClass().getResource("HomePage.fxml"));
+        HomePageController homePageController = new HomePageController(new User(""));
+        loader.setController(homePageController);
         final Parent root = loader.load();
         wireMockServer.stop();
         stage.setScene(new Scene(root));
@@ -132,11 +134,11 @@ public class HomePageTest extends ApplicationTest {
                         .withStatus(200)));
         VBox vBox = lookup("#quizList").query();
         clickOn(from(vBox).lookup((Button b) -> b.getText().equals("Endre")).queryButton());
-        Assertions.assertDoesNotThrow(()->lookup("#newQuestionButton").query());
+        Assertions.assertDoesNotThrow(() -> lookup("#newQuestionButton").query());
         clickOn(lookup("#newQuestionButton").queryButton());
         clickOn(lookup("#backButton").queryButton());
         clickOn(lookup("#backButton").queryButton());
-        Assertions.assertDoesNotThrow(()->lookup("#nameDisplay").query());
+        Assertions.assertDoesNotThrow(() -> lookup("#nameDisplay").query());
     }
 
     @AfterEach
