@@ -58,7 +58,7 @@ public class QuizController {
      */
     @FXML
     public void displayQuestion() throws IOException {
-        if (!quizSession.hasNext()) {
+        if (!quizSession.hasCurrent()) {
             endQuiz();
             return;
         }

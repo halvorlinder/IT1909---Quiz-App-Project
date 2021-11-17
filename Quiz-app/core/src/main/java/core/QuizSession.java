@@ -33,7 +33,7 @@ public class QuizSession {
      *
      * @return true if there are more questions left in the quiz
      */
-    public boolean hasNext() {
+    public boolean hasCurrent() {
         return currentQuestionNumber < quiz.getQuizLength();
     }
 
@@ -45,6 +45,7 @@ public class QuizSession {
      * @return true if the answer is correct, else otherwise
      */
     public boolean submitAnswer(int answer) {
+
         boolean isCorrect = getCurrentQuestion().isCorrect(answer);
         if (isCorrect)
             correct++;

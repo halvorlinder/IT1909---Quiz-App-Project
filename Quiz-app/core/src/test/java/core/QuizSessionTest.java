@@ -33,11 +33,11 @@ public class QuizSessionTest {
     @Test
     public void testGetCurrentQuestion() {
         for (int i = 0; i < num_questions; i++) {
-            Assertions.assertTrue(quizSession.hasNext());
+            Assertions.assertTrue(quizSession.hasCurrent());
             Assertions.assertTrue(quizSession.getCurrentQuestion().getQuestion().matches("Question number " + i));
             quizSession.submitAnswer(0);
         }
-        Assertions.assertFalse(quizSession.hasNext());
+        Assertions.assertFalse(quizSession.hasCurrent());
     }
 
     @Test
