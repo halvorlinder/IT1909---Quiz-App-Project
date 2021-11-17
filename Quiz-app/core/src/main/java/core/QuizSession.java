@@ -42,15 +42,13 @@ public class QuizSession {
      * question counter
      *
      * @param answer the integer corresponding to the index of the answer
-     * @return true if the answer is correct, else otherwise
      */
-    public boolean submitAnswer(int answer) {
+    public void submitAnswer(int answer) {
 
         boolean isCorrect = getCurrentQuestion().isCorrect(answer);
         if (isCorrect)
             correct++;
         currentQuestionNumber++;
-        return isCorrect;
     }
 
     /**
