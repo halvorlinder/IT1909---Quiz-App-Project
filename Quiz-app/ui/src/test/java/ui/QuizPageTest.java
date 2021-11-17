@@ -17,7 +17,7 @@ import ui.controllers.QuizPageController;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
-public class QuizPageControllerTest extends ApplicationTest {
+public class QuizPageTest extends ApplicationTest {
 
     private WireMockConfiguration config;
     private WireMockServer wireMockServer;

@@ -20,7 +20,7 @@ import ui.controllers.NewQuestionPageController;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 
-public class NewQuestionPageControllerTest extends ApplicationTest {
+public class NewQuestionPageTest extends ApplicationTest {
 
 
     private WireMockConfiguration config;

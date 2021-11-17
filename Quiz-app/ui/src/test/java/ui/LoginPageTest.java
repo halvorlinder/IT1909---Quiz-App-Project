@@ -21,7 +21,7 @@ import ui.controllers.LoginPageController;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class LogInTest extends ApplicationTest {
+public class LoginPageTest extends ApplicationTest {
 
 
     private WireMockServer wireMockServer;
