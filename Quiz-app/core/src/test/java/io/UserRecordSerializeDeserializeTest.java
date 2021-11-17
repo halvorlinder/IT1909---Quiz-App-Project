@@ -2,8 +2,7 @@ package io;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import core.Quiz;
-import core.UserData;
+import core.UserRecord;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +10,7 @@ import static io.TestHelpers.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class UserSerializeDeserializeTest {
+public class UserRecordSerializeDeserializeTest {
     private static ObjectMapper mapper;
 
     @BeforeAll
@@ -19,19 +18,20 @@ public class UserSerializeDeserializeTest {
         mapper = QuizPersistence.createObjectMapper();
     }
 
-    final static String usersWithTwoEntries =
+    final static String userWithPasswordHash =
             """
                     {
-                       "user1": 2944 ,
-                       "user2": 16256
+                       "username": "user1",
+                       "password": 1234
                      }
                      """;
 
     @Test
     public void testSerializers() {
-        UserData userData = createUserDataWithTwoEntries();
+        UserRecord userRecord = new UserRecord("user1", 1234);
         try {
-            assertEquals(usersWithTwoEntries.replaceAll("\\s+", ""), mapper.writeValueAsString(userData));
+            assertEquals(userWithPasswordHash.replaceAll("\\s+", ""),
+                    mapper.writeValueAsString(userRecord));
         } catch (JsonProcessingException e) {
             fail(e.getMessage());
         }
@@ -39,10 +39,10 @@ public class UserSerializeDeserializeTest {
 
     @Test
     public void testDeserializers() {
-        UserData userData = createUserDataWithTwoEntries();
+        UserRecord userRecord = new UserRecord("user1", 1234);
         try {
-            UserData userData1 = mapper.readValue(usersWithTwoEntries, UserData.class);
-            checkUserData(userData, userData1);
+            UserRecord userRecord1 = mapper.readValue(userWithPasswordHash, UserRecord.class);
+            checkUserRecord(userRecord, userRecord1);
         } catch (JsonProcessingException e) {
             fail(e.getMessage());
         }
