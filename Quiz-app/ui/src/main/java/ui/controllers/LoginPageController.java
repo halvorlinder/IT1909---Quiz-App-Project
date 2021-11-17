@@ -14,7 +14,7 @@ import ui.Utilities;
 
 import java.io.IOException;
 
-public final class LogInController {
+public final class LoginPageController {
     @FXML
     private PasswordField logInPassword;
     @FXML

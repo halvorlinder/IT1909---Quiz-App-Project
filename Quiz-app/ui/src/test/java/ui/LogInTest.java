@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
-import ui.controllers.LogInController;
+import ui.controllers.LoginPageController;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -28,9 +28,9 @@ public class LogInTest extends ApplicationTest {
 
     @Override
     public void start(final Stage stage) throws Exception {
-        LogInController logInController = new LogInController();
-        final FXMLLoader loader = new FXMLLoader(getClass().getResource("LogInPage.fxml"));
-        loader.setController(logInController);
+        LoginPageController logInPageController = new LoginPageController();
+        final FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginPage.fxml"));
+        loader.setController(logInPageController);
         final Parent root = loader.load();
         stage.setScene(new Scene(root));
         stage.show();

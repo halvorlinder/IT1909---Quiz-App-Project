@@ -11,7 +11,7 @@
     </parent>
 
     <properties>
-        <skipUiTests>false</skipUiTests>
+        <skipUiTests>true</skipUiTests>
     </properties>
 
     <dependencies>

@@ -13,7 +13,7 @@ import ui.User;
 
 import java.io.IOException;
 
-public class LeaderboardController extends GoBackController {
+public class LeaderboardPageController extends GoBackController {
 
     @FXML
     private Label titleText;
@@ -30,7 +30,7 @@ public class LeaderboardController extends GoBackController {
      * @param quizName the name of the quiz which leaderboard we are viewing
      * @param user     the current user
      */
-    public LeaderboardController(String quizName, User user) {
+    public LeaderboardPageController(String quizName, User user) {
         super(user);
         this.quizName = quizName;
     }

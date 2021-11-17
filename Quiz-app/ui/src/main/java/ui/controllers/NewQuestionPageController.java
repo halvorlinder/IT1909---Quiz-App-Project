@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public final class NewQuestionController extends GoBackController implements InitializableController {
+public final class NewQuestionPageController extends GoBackController implements InitializableController {
 
     @FXML
     private Label headline;
@@ -68,7 +68,7 @@ public final class NewQuestionController extends GoBackController implements Ini
      * @param quizName the name of the quiz
      * @param user     the current user
      */
-    public NewQuestionController(String quizName, User user) {
+    public NewQuestionPageController(String quizName, User user) {
         super(user);
         this.quizName = quizName;
     }
@@ -81,7 +81,7 @@ public final class NewQuestionController extends GoBackController implements Ini
      * @param question   the new question
      * @param user       the current user
      */
-    public NewQuestionController(String quizName, int questionId, Question question, User user) {
+    public NewQuestionPageController(String quizName, int questionId, Question question, User user) {
         this(quizName, user);
         editMode = true;
         preFilledQuestion = question;

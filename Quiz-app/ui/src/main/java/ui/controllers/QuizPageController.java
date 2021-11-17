@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-public class QuizController extends BaseController {
+public class QuizPageController extends BaseController {
     @FXML
     private ToggleGroup option;
     @FXML
@@ -51,7 +51,7 @@ public class QuizController extends BaseController {
      * @param quizName the name of the quiz
      * @param user     the current user
      */
-    public QuizController(String quizName, User user) throws IOException, InterruptedException {
+    public QuizPageController(String quizName, User user) throws IOException, InterruptedException {
         super(user);
         quizSession = new QuizSession(apiClientService.getQuiz(quizName));
     }

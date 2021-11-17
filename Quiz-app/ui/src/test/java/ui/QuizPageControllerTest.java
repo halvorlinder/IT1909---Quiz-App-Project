@@ -12,12 +12,12 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
-import ui.controllers.QuizController;
+import ui.controllers.QuizPageController;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
-public class QuizControllerTest extends ApplicationTest {
+public class QuizPageControllerTest extends ApplicationTest {
 
     private WireMockConfiguration config;
     private WireMockServer wireMockServer;
@@ -34,8 +34,8 @@ public class QuizControllerTest extends ApplicationTest {
                         .withBody("{\"name\":\"x\",\"questions\":[{\"question\":\"?\",\"answer\":0,\"choices\":[\"a\",\"b\",\"c\",\"d\"]}]}")
                         .withStatus(200)));
 
-        final FXMLLoader loader = new FXMLLoader(getClass().getResource("QuestionPage.fxml"));
-        QuizController controller = new QuizController("x", new User(username));
+        final FXMLLoader loader = new FXMLLoader(getClass().getResource("QuizPage.fxml"));
+        QuizPageController controller = new QuizPageController("x", new User(username));
         loader.setController(controller);
         final Parent root = loader.load();
         wireMockServer.stop();

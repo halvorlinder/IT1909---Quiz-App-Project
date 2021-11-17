@@ -116,8 +116,8 @@ public class EditPageController extends GoBackController implements Initializabl
 
     private void showEditQuestion(int questionId, Question question) {
         try {
-            FXMLLoader loader = App.getFXMLLoader("NewQuestion.fxml");
-            NewQuestionController controller = new NewQuestionController(quizName, questionId, question, getUser());
+            FXMLLoader loader = App.getFXMLLoader("NewQuestionPage.fxml");
+            NewQuestionPageController controller = new NewQuestionPageController(quizName, questionId, question, getUser());
             loader.setController(controller);
             controller.setPreviousPageInfo(this, getScene().getRoot());
             getScene().setRoot(loader.load());
@@ -134,8 +134,8 @@ public class EditPageController extends GoBackController implements Initializabl
     @FXML
     private void showNewQuestion() {
         try {
-            FXMLLoader loader = App.getFXMLLoader("NewQuestion.fxml");
-            NewQuestionController controller = new NewQuestionController(quizName, getUser());
+            FXMLLoader loader = App.getFXMLLoader("NewQuestionPage.fxml");
+            NewQuestionPageController controller = new NewQuestionPageController(quizName, getUser());
             loader.setController(controller);
             controller.setPreviousPageInfo(this, getScene().getRoot());
             getScene().setRoot(loader.load());

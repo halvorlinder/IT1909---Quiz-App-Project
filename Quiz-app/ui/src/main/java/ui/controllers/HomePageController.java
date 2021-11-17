@@ -137,8 +137,8 @@ public final class HomePageController extends BaseController implements Initiali
      */
     private void showLeaderboardPage(String quizName) {
         try {
-            FXMLLoader loader = App.getFXMLLoader("Leaderboard.fxml");
-            LeaderboardController controller = new LeaderboardController(quizName, getUser());
+            FXMLLoader loader = App.getFXMLLoader("LeaderboardPage.fxml");
+            LeaderboardPageController controller = new LeaderboardPageController(quizName, getUser());
             controller.setPreviousPageInfo(this, getScene().getRoot());
             loader.setController(controller);
             quizList.getScene().setRoot(loader.load());
@@ -161,8 +161,8 @@ public final class HomePageController extends BaseController implements Initiali
                 Utilities.alertUser("Denne quizen har ingen spørsmål");
                 return;
             }
-            FXMLLoader loader = App.getFXMLLoader("QuestionPage.fxml");
-            QuizController controller = new QuizController(quizName, getUser());
+            FXMLLoader loader = App.getFXMLLoader("QuizPage.fxml");
+            QuizPageController controller = new QuizPageController(quizName, getUser());
             loader.setController(controller);
             getScene().setRoot(loader.load());
         } catch (Exception e) {
@@ -196,8 +196,8 @@ public final class HomePageController extends BaseController implements Initiali
     @FXML
     public void signOut(ActionEvent actionEvent) {
         try {
-            final FXMLLoader loader = Utilities.getFXMLLoader("LogInPage.fxml");
-            LogInController controller = new LogInController();
+            final FXMLLoader loader = Utilities.getFXMLLoader("LoginPage.fxml");
+            LoginPageController controller = new LoginPageController();
             loader.setController(controller);
             final Parent root = loader.load();
             ((Node) actionEvent.getSource()).getScene().setRoot(root);

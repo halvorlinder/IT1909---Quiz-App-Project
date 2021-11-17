@@ -16,11 +16,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
 import ui.controllers.EditPageController;
-import ui.controllers.NewQuestionController;
+import ui.controllers.NewQuestionPageController;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 
-public class NewQuestionControllerTest extends ApplicationTest {
+public class NewQuestionPageControllerTest extends ApplicationTest {
 
 
     private WireMockConfiguration config;
@@ -29,8 +29,8 @@ public class NewQuestionControllerTest extends ApplicationTest {
     @Override
     public void start(final Stage stage) throws Exception {
         SavePaths.enableTestMode();
-        final FXMLLoader loader = new FXMLLoader(getClass().getResource("NewQuestion.fxml"));
-        NewQuestionController controller = new NewQuestionController("a", new User(""));
+        final FXMLLoader loader = new FXMLLoader(getClass().getResource("NewQuestionPage.fxml"));
+        NewQuestionPageController controller = new NewQuestionPageController("a", new User(""));
 
         config = WireMockConfiguration.wireMockConfig().port(8080);
         wireMockServer = new WireMockServer(config.portNumber());
