@@ -100,11 +100,10 @@ public class LeaderboardPersistence {
      * deletes a leaderboard given its name
      *
      * @param quizName the name of the quiz
-     * @return true if successful, false otherwise
      */
-    public boolean deleteLeaderboard(String quizName) {
+    public void deleteLeaderboard(String quizName) {
         File file = new File(basePath + quizName + ".json");
-        return file.delete();
+        file.delete();
     }
 
 }
