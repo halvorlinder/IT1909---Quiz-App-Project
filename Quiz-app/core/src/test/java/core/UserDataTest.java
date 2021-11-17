@@ -32,7 +32,7 @@ public class UserDataTest {
 
     @Test
     public void testHash() {
-        assertEquals(UserData.hash(""), 0);
+        assertEquals(0, UserData.hash(""));
         UserRecord userRecord3 = new UserRecord("user2", "password");
         userData.attemptRegister(userRecord3);
         assertEquals(UserData.hash("password"), userData.getPasswordHash("user2"));
