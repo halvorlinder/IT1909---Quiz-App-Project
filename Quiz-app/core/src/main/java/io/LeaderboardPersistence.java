@@ -88,7 +88,6 @@ public class LeaderboardPersistence {
         String quizName = leaderboard.getName();
         File file = new File(basePath + quizName + ".json");
         if (!file.exists()) {
-
             boolean junk = file.createNewFile();
         }
         try (Writer writer = new FileWriter(basePath + quizName + ".json", StandardCharsets.UTF_8)) {
@@ -103,7 +102,9 @@ public class LeaderboardPersistence {
      */
     public void deleteLeaderboard(String quizName) {
         File file = new File(basePath + quizName + ".json");
-        boolean junk = file.delete();
+        if(file.exists()){
+            boolean junk = file.delete();
+        }
     }
 
 }
