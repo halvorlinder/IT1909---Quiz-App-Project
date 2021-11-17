@@ -1,11 +1,12 @@
 package core;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.OptionalInt;
 import java.util.Set;
 
 public final class UserData {
-    private final HashMap<String, Integer> users = new HashMap<>();
+    private final Map<String, Integer> users = new HashMap<>();
 
     /**
      * creates an empty UserDataObject
