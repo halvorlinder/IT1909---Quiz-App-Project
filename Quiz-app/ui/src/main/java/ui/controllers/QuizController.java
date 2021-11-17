@@ -10,12 +10,13 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import ui.APIClientService;
 import ui.App;
+import ui.User;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-public class QuizController {
+public class QuizController extends BaseController {
     @FXML
     private ToggleGroup option;
     @FXML
@@ -48,8 +49,10 @@ public class QuizController {
 
     /**
      * @param quizName the name of the quiz
+     * @param user     the current user
      */
-    public QuizController(String quizName) throws IOException, InterruptedException {
+    public QuizController(String quizName, User user) throws IOException, InterruptedException {
+        super(user);
         quizSession = new QuizSession(apiClientService.getQuiz(quizName));
     }
 
@@ -90,7 +93,7 @@ public class QuizController {
     private void endQuiz() throws IOException {
         FXMLLoader loader = App.getFXMLLoader("ResultPage.fxml");
         ResultPageController controller = new ResultPageController(quizSession.getNumberOfCorrect(),
-                quizSession.getQuizLength(), quizSession.getQuizName());
+                quizSession.getQuizLength(), quizSession.getQuizName(), getUser());
         loader.setController(controller);
         submitAnswer.getScene().setRoot(loader.load());
     }

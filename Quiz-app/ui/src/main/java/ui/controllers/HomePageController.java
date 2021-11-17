@@ -2,8 +2,6 @@ package ui.controllers;
 
 import core.Question;
 import core.Quiz;
-import core.User;
-import io.SavePaths;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +16,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import ui.APIClientService;
 import ui.App;
+import ui.User;
 import ui.Utilities;
 
 import java.io.IOException;
@@ -25,9 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public final class HomePageController implements InitializableController {
-
-    private static final String BASE_PATH = SavePaths.getBasePath() + "Quizzes/";
+public final class HomePageController extends BaseController implements InitializableController {
 
     @FXML
     private Button addNewQuizButton;
@@ -46,11 +43,18 @@ public final class HomePageController implements InitializableController {
     private APIClientService apiClientService;
 
     /**
+     * @param user the current user
+     */
+    public HomePageController(User user) {
+        super(user);
+    }
+
+    /**
      * sets the text to display username
      */
     @FXML
     public void initialize() {
-        nameDisplay.setText("Logget inn som " + User.getUserName());
+        nameDisplay.setText("Logget inn som " + getUser().getUsername());
         apiClientService = new APIClientService();
         try {
             updateInitialQuizzes();
@@ -116,7 +120,7 @@ public final class HomePageController implements InitializableController {
     private void showEditPage(String quizName) {
         try {
             FXMLLoader loader = App.getFXMLLoader("EditPage.fxml");
-            EditPageController controller = new EditPageController(quizName);
+            EditPageController controller = new EditPageController(quizName, getUser());
             loader.setController(controller);
             controller.setPreviousPageInfo(this, getScene().getRoot());
             getScene().setRoot(loader.load());
@@ -134,7 +138,8 @@ public final class HomePageController implements InitializableController {
     private void showLeaderboardPage(String quizName) {
         try {
             FXMLLoader loader = App.getFXMLLoader("Leaderboard.fxml");
-            LeaderboardController controller = new LeaderboardController(quizName);
+            LeaderboardController controller = new LeaderboardController(quizName, getUser());
+            controller.setPreviousPageInfo(this, getScene().getRoot());
             loader.setController(controller);
             quizList.getScene().setRoot(loader.load());
         } catch (IOException ioException) {
@@ -157,7 +162,7 @@ public final class HomePageController implements InitializableController {
                 return;
             }
             FXMLLoader loader = App.getFXMLLoader("QuestionPage.fxml");
-            QuizController controller = new QuizController(quizName);
+            QuizController controller = new QuizController(quizName, getUser());
             loader.setController(controller);
             getScene().setRoot(loader.load());
         } catch (Exception e) {
@@ -196,7 +201,6 @@ public final class HomePageController implements InitializableController {
             loader.setController(controller);
             final Parent root = loader.load();
             ((Node) actionEvent.getSource()).getScene().setRoot(root);
-            User.setUserName(null);
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }

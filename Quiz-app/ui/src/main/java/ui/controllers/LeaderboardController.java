@@ -10,11 +10,11 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import ui.APIClientService;
-import ui.Utilities;
+import ui.User;
 
 import java.io.IOException;
 
-public class LeaderboardController {
+public class LeaderboardController extends GoBackController {
 
     @FXML
     private Label titleText;
@@ -27,8 +27,10 @@ public class LeaderboardController {
 
     /**
      * @param quizName the name of the quiz which leaderboard we are viewing
+     * @param user     the current user
      */
-    public LeaderboardController(String quizName) {
+    public LeaderboardController(String quizName, User user) {
+        super(user);
         this.quizName = quizName;
     }
 

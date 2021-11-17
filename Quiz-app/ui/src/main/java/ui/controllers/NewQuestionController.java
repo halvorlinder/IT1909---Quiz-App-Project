@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import ui.APIClientService;
+import ui.User;
 import ui.Utilities;
 
 import java.io.IOException;
@@ -64,21 +65,24 @@ public final class NewQuestionController extends GoBackController implements Ini
     // All FXML files need to be created and named accordingly
 
     /**
-     * @param quizName
+     * @param quizName the name of the quiz
+     * @param user     the current user
      */
-    public NewQuestionController(String quizName) {
+    public NewQuestionController(String quizName, User user) {
+        super(user);
         this.quizName = quizName;
     }
 
     /**
      * initializes the page with pre-filled information and in edit mode
      *
-     * @param quizName
-     * @param questionId
-     * @param question
+     * @param quizName   the name of the quiz
+     * @param questionId the index of the question
+     * @param question   the new question
+     * @param user       the current user
      */
-    public NewQuestionController(String quizName, int questionId, Question question) {
-        this(quizName);
+    public NewQuestionController(String quizName, int questionId, Question question, User user) {
+        this(quizName, user);
         editMode = true;
         preFilledQuestion = question;
         this.questionId = questionId;

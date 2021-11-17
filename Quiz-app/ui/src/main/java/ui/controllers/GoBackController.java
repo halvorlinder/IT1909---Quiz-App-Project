@@ -2,21 +2,22 @@ package ui.controllers;
 
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import ui.User;
 
-public class GoBackController {
+public class GoBackController extends BaseController {
     private InitializableController previousController;
     private Button button;
     private Parent previousRoot;
 
 
     /**
-     *
+     * @param user the current user
      */
-    public GoBackController() {
+    public GoBackController(User user) {
+        super(user);
     }
 
     /**
-     *
      * @param backButton the button that should take the user back to the previous page
      */
     public void setBackButton(Button backButton) {
@@ -26,8 +27,9 @@ public class GoBackController {
 
     /**
      * sets info for loading the current page from the next page
+     *
      * @param previousController the controller of the current page
-     * @param previousRoot the current root
+     * @param previousRoot       the current root
      */
     public void setPreviousPageInfo(InitializableController previousController, Parent previousRoot) {
         this.previousRoot = previousRoot;
