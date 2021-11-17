@@ -61,8 +61,6 @@ public final class NewQuestionPageController extends GoBackController implements
     private List<RadioButton> listOfRadioButtons;
     private String quizName;
     private APIClientService apiClientService;
-    // App.setRoot needs to be completed
-    // All FXML files need to be created and named accordingly
 
     /**
      * @param quizName the name of the quiz
@@ -120,8 +118,6 @@ public final class NewQuestionPageController extends GoBackController implements
      */
     @FXML
     public void submitQuestion(ActionEvent actionEvent) throws IOException, InterruptedException {
-        //Takes you back to the home page
-
         if (questionText.getText().isEmpty()) {
             Utilities.alertUser("Du må skrive inn et spørsmål");
             return;
@@ -140,7 +136,6 @@ public final class NewQuestionPageController extends GoBackController implements
         else
             apiClientService.addQuestion(quizName, question);
         goBack();
-
     }
 
     /**
