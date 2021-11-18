@@ -37,7 +37,7 @@ public class APIClientService {
      * @throws InterruptedException
      */
     public Quiz getQuiz(String quizName) throws IOException, InterruptedException {
-        HttpResponse<String> response = sendRequest("GET", "/quizzes/" + quizName, "");
+        HttpResponse<String> response = sendRequest("GET", "/quizzes/" + quizName, "", "");
         return objectMapper.readValue(response.body(), Quiz.class);
     }
 
@@ -48,7 +48,7 @@ public class APIClientService {
      * @throws InterruptedException
      */
     public List<String> getListOfQuizNames() throws IOException, InterruptedException {
-        HttpResponse<String> response = sendRequest("GET", "/quizzes", "");
+        HttpResponse<String> response = sendRequest("GET", "/quizzes", "", "");
         return objectMapper.readValue(response.body(), List.class);
     }
 
@@ -59,7 +59,7 @@ public class APIClientService {
      * @throws InterruptedException
      */
     public void postQuiz(Quiz quiz) throws IOException, InterruptedException {
-        sendRequest("POST", "/quizzes", objectMapper.writeValueAsString(quiz));
+        sendRequest("POST", "/quizzes", objectMapper.writeValueAsString(quiz), "");
     }
 
     /**
@@ -71,10 +71,10 @@ public class APIClientService {
      * @throws IOException
      * @throws InterruptedException
      */
-    public void putQuestion(String quizName, int questionID, Question newQuestion)
+    public void putQuestion(String quizName, int questionID, Question newQuestion, String accessToken)
             throws IOException, InterruptedException {
         sendRequest("PUT", "/quizzes/" + quizName + "/" + questionID,
-                objectMapper.writeValueAsString(newQuestion));
+                objectMapper.writeValueAsString(newQuestion), accessToken);
     }
 
     /**
@@ -83,8 +83,8 @@ public class APIClientService {
      * @throws IOException
      * @throws InterruptedException
      */
-    public void deleteQuiz(String quizName) throws IOException, InterruptedException {
-        sendRequest("DELETE", "/quizzes/" + quizName, "");
+    public void deleteQuiz(String quizName, String accessToken) throws IOException, InterruptedException {
+        sendRequest("DELETE", "/quizzes/" + quizName, "", accessToken);
     }
 
     /**
@@ -95,8 +95,8 @@ public class APIClientService {
      * @throws IOException
      * @throws InterruptedException
      */
-    public void deleteQuestion(String quizName, int questionID) throws IOException, InterruptedException {
-        sendRequest("DELETE", "/quizzes/" + quizName + "/" + questionID, "");
+    public void deleteQuestion(String quizName, int questionID, String accessToken) throws IOException, InterruptedException {
+        sendRequest("DELETE", "/quizzes/" + quizName + "/" + questionID, "", accessToken);
     }
 
     /**
@@ -107,8 +107,8 @@ public class APIClientService {
      * @throws IOException
      * @throws InterruptedException
      */
-    public void addQuestion(String quizName, Question newQuestion) throws IOException, InterruptedException {
-        sendRequest("POST", "/quizzes/" + quizName, objectMapper.writeValueAsString(newQuestion));
+    public void addQuestion(String quizName, Question newQuestion, String accessToken) throws IOException, InterruptedException {
+        sendRequest("POST", "/quizzes/" + quizName, objectMapper.writeValueAsString(newQuestion), accessToken);
     }
 
     /**
@@ -117,8 +117,8 @@ public class APIClientService {
      * @throws IOException
      * @throws InterruptedException
      */
-    public void loginUser(UserRecord userRecord) throws IOException, InterruptedException {
-        sendRequest("POST", "/users/login", objectMapper.writeValueAsString(userRecord));
+    public String loginUser(UserRecord userRecord) throws IOException, InterruptedException {
+        return sendRequest("POST", "/users/login", objectMapper.writeValueAsString(userRecord), "").body();
     }
 
     /**
@@ -127,8 +127,8 @@ public class APIClientService {
      * @throws IOException
      * @throws InterruptedException
      */
-    public void registerUser(UserRecord userRecord) throws IOException, InterruptedException {
-        sendRequest("POST", "/users/register", objectMapper.writeValueAsString(userRecord));
+    public String registerUser(UserRecord userRecord) throws IOException, InterruptedException {
+        return sendRequest("POST", "/users/register", objectMapper.writeValueAsString(userRecord), "").body();
     }
 
     /**
@@ -140,7 +140,7 @@ public class APIClientService {
      * @throws InterruptedException
      */
     public Leaderboard getLeaderboard(String quizName) throws IOException, InterruptedException {
-        HttpResponse<String> response = sendRequest("GET", "/leaderboards/" + quizName, "");
+        HttpResponse<String> response = sendRequest("GET", "/leaderboards/" + quizName, "", "");
         return objectMapper.readValue(response.body(), Leaderboard.class);
     }
 
@@ -154,7 +154,7 @@ public class APIClientService {
      * @throws InterruptedException
      */
     public void postScore(String quizName, Score newScore) throws IOException, InterruptedException {
-        sendRequest("POST", "/leaderboards/" + quizName, objectMapper.writeValueAsString(newScore));
+        sendRequest("POST", "/leaderboards/" + quizName, objectMapper.writeValueAsString(newScore), "");
     }
 
 
@@ -168,9 +168,9 @@ public class APIClientService {
      * @throws IOException
      * @throws InterruptedException
      */
-    private HttpResponse<String> sendRequest(String method, String relativePath, String body)
+    private HttpResponse<String> sendRequest(String method, String relativePath, String body, String header)
             throws IOException, InterruptedException {
-        HttpRequest request = HttpRequest.newBuilder().method(method, HttpRequest.BodyPublishers.ofString(body))
+        HttpRequest request = HttpRequest.newBuilder().method(method, HttpRequest.BodyPublishers.ofString(body)).header("Authorization", header)
                 .uri(URI.create(API_URL + relativePath)).build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         int statusCode = response.statusCode();

@@ -107,7 +107,7 @@ public class EditPageController extends GoBackController implements Initializabl
 
     private void deleteQuestion(int questionId) {
         try {
-            apiClientService.deleteQuestion(quizName, questionId);
+            apiClientService.deleteQuestion(quizName, questionId, getUser().getAccessToken());
             display();
         } catch (Exception e) {
             Utilities.alertUser();
@@ -149,7 +149,7 @@ public class EditPageController extends GoBackController implements Initializabl
     @FXML
     private void deleteQuiz() throws IOException {
         try {
-            apiClientService.deleteQuiz(quizName);
+            apiClientService.deleteQuiz(quizName, getUser().getAccessToken());
         } catch (Exception e) {
             Utilities.alertUser();
         }

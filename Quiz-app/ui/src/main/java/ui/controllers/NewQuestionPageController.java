@@ -130,9 +130,9 @@ public final class NewQuestionPageController extends GoBackController implements
                 .replaceAll("\n", " ")
                 .replaceAll("\\$", " "), getListOfAnswers(), getCheckedId());
         if (editMode)
-            apiClientService.putQuestion(quizName, questionId, question);
+            apiClientService.putQuestion(quizName, questionId, question, getUser().getAccessToken());
         else
-            apiClientService.addQuestion(quizName, question);
+            apiClientService.addQuestion(quizName, question, getUser().getAccessToken());
         goBack();
     }
 
