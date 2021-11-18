@@ -3,6 +3,9 @@ package ui.controllers;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import ui.User;
+import ui.Utilities;
+
+import java.io.IOException;
 
 public class GoBackController extends BaseController {
     private InitializableController previousController;
@@ -40,7 +43,12 @@ public class GoBackController extends BaseController {
      * returns to the previous page
      */
     protected void goBack() {
-        previousController.initialize();
+        try {
+            previousController.initialize();
+        } catch (IOException ioException) {
+            Utilities.alertUser("Kunne ikke gå tilbake");
+            return;
+        }
         button.getScene().setRoot(previousRoot);
     }
 

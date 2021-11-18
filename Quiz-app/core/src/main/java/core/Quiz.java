@@ -10,14 +10,17 @@ public class Quiz {
 
     private final String name;
     private final List<Question> questions;
+    private final String creator;
 
     /**
-     * @param name
+     * @param name      the quiz name
      * @param questions a list of question objects
+     * @param creator   the creator of the quiz
      */
-    public Quiz(String name, List<Question> questions) {
+    public Quiz(String name, List<Question> questions, String creator) {
         this.name = name;
         this.questions = new ArrayList<>(questions);
+        this.creator = creator;
     }
 
     /**
@@ -73,9 +76,16 @@ public class Quiz {
     }
 
     /**
-     *
+     * @return the creator of the quiz
+     */
+    public String getCreator() {
+        return creator;
+    }
+
+    /**
      * @return string representation
      */
+
     @Override
     public String toString() {
         return "Quiz{" +

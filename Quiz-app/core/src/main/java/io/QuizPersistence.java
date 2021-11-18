@@ -72,11 +72,9 @@ public class QuizPersistence {
      */
     public Quiz loadQuiz(String quizName) throws IOException {
         if (!Files.exists(Path.of(basePath + quizName + ".json")))
-            throw new IOException();
+            throw new FileNotFoundException();
         try (Reader reader = new FileReader(basePath + quizName + ".json", StandardCharsets.UTF_8)) {
             return readQuiz(reader);
-        } catch (IOException e) {
-            return new Quiz(quizName, List.of());
         }
     }
 
@@ -89,8 +87,8 @@ public class QuizPersistence {
         String quizName = quiz.getName();
         File file = new File(basePath + quizName + ".json");
         if (!file.exists()) {
-
-            boolean junk = file.createNewFile();
+            if (!file.createNewFile())
+                throw new IOException("Failed to create file");
         }
         try (Writer writer = new FileWriter(basePath + quizName + ".json", StandardCharsets.UTF_8)) {
             writeQuiz(quiz, writer);
@@ -100,11 +98,12 @@ public class QuizPersistence {
     /**
      * @return a list containing all available quiz names
      */
-    public List<String> getListOfQuizNames() {
-
+    public List<String> getListOfQuizNames() throws IOException {
         List<String> listOfFileNames = new ArrayList<>();
-        File[] files = new File(basePath).listFiles();
-
+        File directory = new File(basePath);
+        if (!directory.exists())
+            Files.createDirectories(Path.of(basePath));
+        File[] files = directory.listFiles();
         assert files != null;
         for (File file : files)
             if (file.isFile())
@@ -117,11 +116,13 @@ public class QuizPersistence {
      * deletes a quiz given its name
      *
      * @param quizName the name of the quiz
-     * @return true if successful, false otherwise
      */
-    public boolean deleteQuiz(String quizName) {
+    public void deleteQuiz(String quizName) throws IOException {
         File file = new File(basePath + quizName + ".json");
-        return file.delete();
+        if (!file.exists())
+            throw new FileNotFoundException();
+        if (!file.delete())
+            throw new IOException("Failed to delete file");
     }
 
 }
