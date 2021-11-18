@@ -45,14 +45,14 @@ public class QuizTest {
     }
 
     @Test
-    public void testDeleteQuestion(){
+    public void testDeleteQuestion() {
         quiz.deleteQuestion(0);
         Assertions.assertEquals(9, quiz.getQuizLength());
     }
 
     @Test
-    public void testSetQuestion(){
-        quiz.setQuestion(0, new Question("?", List.of("x","y","z","w"), 3));
+    public void testSetQuestion() {
+        quiz.setQuestion(0, new Question("?", List.of("x", "y", "z", "w"), 3));
         Assertions.assertEquals("?", quiz.getQuestion(0).getQuestion());
         Assertions.assertEquals(10, quiz.getQuizLength());
     }

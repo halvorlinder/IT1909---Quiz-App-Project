@@ -59,9 +59,9 @@ public final class LoginPageController {
      */
     @FXML
     public void attemptRegister(ActionEvent actionEvent) {
-        if(registerUserName.getText().isEmpty())
+        if (registerUserName.getText().isEmpty())
             Utilities.alertUser("Brukernavn kan ikke være tomt");
-        else if(registerPassword.getText().isEmpty())
+        else if (registerPassword.getText().isEmpty())
             Utilities.alertUser("Passord kan ikke være tomt");
         try {
             UserRecord userRecord = new UserRecord(registerUserName.getText(), registerPassword.getText());
