@@ -104,7 +104,7 @@ public class Quiz {
      * strips and replaces spaces with $ in the quiz name in
      * order for it to be sent over http
      */
-    public void legalizeName(){
+    public void legalizeName() {
         name = name.strip().replaceAll(" ", "$");
     }
 }
