@@ -34,7 +34,7 @@ public class AuthHandler {
      * @param username the username of the user
      * @return the token associated with the user
      */
-    private String getToken(String username) {
+    public String getToken(String username) {
         return userToTokenMapping.get(username);
     }
 
@@ -54,6 +54,6 @@ public class AuthHandler {
      */
     public boolean hasAccess(String token, Quiz quiz) {
         return userToTokenMapping.containsKey(quiz.getCreator()) &&
-                token.equals(userToTokenMapping.get(quiz.getCreator()));
+                token.equals(getToken(quiz.getCreator()));
     }
 }
