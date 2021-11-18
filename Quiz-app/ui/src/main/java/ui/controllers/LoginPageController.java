@@ -46,8 +46,8 @@ public final class LoginPageController {
             UserRecord userRecord = new UserRecord(logInUserName.getText(), logInPassword.getText());
             String accessToken = apiClientService.loginUser(userRecord);
             logIn(actionEvent, logInUserName.getText(), accessToken);
-        } catch (IOException | InterruptedException ioException) {
-            Utilities.alertUser("Brukernavn eller passord er feil");
+        } catch (IOException ignored) {
+
         }
 
     }
@@ -63,8 +63,7 @@ public final class LoginPageController {
             UserRecord userRecord = new UserRecord(registerUserName.getText(), registerPassword.getText());
             String accessToken = apiClientService.registerUser(userRecord);
             logIn(actionEvent, registerUserName.getText(), accessToken);
-        } catch (IOException | InterruptedException ioException) {
-            Utilities.alertUser("Brukernavn er tatt");
+        } catch (IOException ignored) {
         }
     }
 
