@@ -81,6 +81,7 @@ public class QuizController {
     public String postQuiz(@RequestBody String quizJSON, HttpServletResponse response) {
         try {
             Quiz quiz = objectMapper.readValue(quizJSON, Quiz.class);
+            quiz.legalizeName();
             if (quizPersistence.getListOfQuizNames().stream().anyMatch(name -> name.equals(quiz.getName()))) {
                 response.setStatus(403);
                 return null;

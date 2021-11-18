@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class Quiz {
 
-    private final String name;
+    private String name;
     private final List<Question> questions;
     private final String creator;
 
@@ -103,5 +103,13 @@ public class Quiz {
      */
     public String getName() {
         return name;
+    }
+
+    /**
+     * strips and replaces spaces with $ in the quiz name in
+     * order for it to be sent over http
+     */
+    public void legalizeName() {
+        name = name.strip().replaceAll(" ", "$");
     }
 }
