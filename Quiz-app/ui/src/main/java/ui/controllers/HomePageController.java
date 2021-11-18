@@ -181,7 +181,7 @@ public final class HomePageController extends BaseController implements Initiali
             throw new IllegalArgumentException("You can't create a quiz with an empty name");
         }
         List<Question> noQuestions = new ArrayList<>();
-        Quiz newQuiz = new Quiz(newQuizName, noQuestions);
+        Quiz newQuiz = new Quiz(newQuizName, noQuestions, getUser().getUsername());
         apiClientService.postQuiz(newQuiz);
         updateInitialQuizzes();
     }
