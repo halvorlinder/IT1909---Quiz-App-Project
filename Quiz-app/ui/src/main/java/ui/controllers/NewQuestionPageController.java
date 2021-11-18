@@ -154,9 +154,4 @@ public final class NewQuestionPageController extends GoBackController implements
         return listOfTextFields.stream().map(field -> field.getText().replace('\n', ' ')).collect(Collectors.toList());
     }
 
-    public String getQuestion() {
-        return questionText.getText();
-    }
-
-
 }
