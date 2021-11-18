@@ -115,6 +115,8 @@ public class QuizControllerTest {
 
         assertEquals(404, request("POST", uri + 1, question, token)
                 .getResponse().getStatus());
+        assertEquals(403, request("POST", uri, question, "")
+                .getResponse().getStatus());
     }
 
     @Test
@@ -129,12 +131,15 @@ public class QuizControllerTest {
 
         assertEquals(404, request("PUT", "/api/quizzes/testQuiz/4", question, token)
                 .getResponse().getStatus());
+        assertEquals(403, request("PUT", uri, question, "")
+                .getResponse().getStatus());
     }
 
     @Test
     public void testDeleteQuiz() throws Exception {
         String uri = "/api/quizzes/testQuiz";
         String uri2 = "/api/leaderboards/testQuiz";
+        assertEquals(403, request("DELETE", uri, "", "").getResponse().getStatus());
         assertEquals(200, request("DELETE", uri, "", token).getResponse().getStatus());
         assertEquals(404, request("DELETE", uri, "", token).getResponse().getStatus());
         assertEquals(404, request("GET", uri2, "", token).getResponse().getStatus());
@@ -143,6 +148,8 @@ public class QuizControllerTest {
     @Test
     public void testDeleteQuestion() throws Exception {
         String uri = "/api/quizzes/testQuiz/0";
+        assertEquals(403, request("DELETE", uri, "", "")
+                .getResponse().getStatus());
         MvcResult mvcResult = request("DELETE", uri, "", token);
         assertEquals(200, mvcResult.getResponse().getStatus());
 
@@ -157,6 +164,8 @@ public class QuizControllerTest {
     public void testPostScore() throws Exception {
         String uri = "/api/leaderboards/testQuiz";
         assertEquals(200, request("POST", uri, objectMapper.writeValueAsString(score3), token)
+                .getResponse().getStatus());
+        assertEquals(404, request("POST", uri+1, objectMapper.writeValueAsString(score3), token)
                 .getResponse().getStatus());
     }
 
