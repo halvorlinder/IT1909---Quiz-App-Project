@@ -56,4 +56,39 @@ public class QuizTest {
         Assertions.assertEquals("?", quiz.getQuestion(0).getQuestion());
         Assertions.assertEquals(10, quiz.getQuizLength());
     }
+
+    @Test
+    public void emptyNameQuiz() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new Quiz("", List.of(), "per"));
+    }
+
+    @Test
+    public void getNonExistingQuestion() {
+        Assertions.assertThrows(ArrayIndexOutOfBoundsException.class, () -> quiz.getQuestion(-1));
+        Assertions.assertThrows(ArrayIndexOutOfBoundsException.class, () -> quiz.getQuestion(quiz.getQuizLength()));
+    }
+
+    @Test
+    public void deleteNonExistingQuestion() {
+        Assertions.assertThrows(ArrayIndexOutOfBoundsException.class, () -> quiz.deleteQuestion(-1));
+        Assertions.assertThrows(ArrayIndexOutOfBoundsException.class, () -> quiz.deleteQuestion(quiz.getQuizLength()));
+    }
+
+    @Test
+    public void setNonExistingQuestion() {
+        Question q = new Question("?", List.of("1", "2", "3", "4"), 0);
+        Assertions.assertThrows(ArrayIndexOutOfBoundsException.class, () -> quiz.setQuestion(-1, q));
+        Assertions.assertThrows(ArrayIndexOutOfBoundsException.class, () -> quiz.setQuestion(quiz.getQuizLength(), q));
+    }
+
+    @Test
+    public void putQuestion() {
+        Question q = new Question("?", List.of("a", "b", "c", "d"), 3);
+        quiz.setQuestion(0, q);
+        Assertions.assertEquals(quiz.getQuestion(0).getQuestion(), q.getQuestion());
+        Assertions.assertEquals(quiz.getQuestion(0).getAnswer(), q.getAnswer());
+        for (int i = 0; i < 4; i++) {
+            Assertions.assertEquals(quiz.getQuestion(0).getChoice(i), q.getChoice(i));
+        }
+    }
 }
