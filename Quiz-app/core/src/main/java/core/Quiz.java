@@ -12,7 +12,7 @@ public class Quiz {
     private final List<Question> questions;
 
     /**
-     * @param name
+     * @param name      the name of the quiz
      * @param questions a list of question objects
      */
     public Quiz(String name, List<Question> questions) {
@@ -25,7 +25,7 @@ public class Quiz {
      * @return the question at a given index
      */
     public Question getQuestion(int n) {
-        if (n >= getQuizLength())
+        if (n >= getQuizLength() || n < 0)
             throw new ArrayIndexOutOfBoundsException();
         return questions.get(n);
     }
@@ -49,9 +49,11 @@ public class Quiz {
     /**
      * delete a question from the quiz
      *
-     * @param questionId
+     * @param questionId the index of the question to be removed
      */
     public void deleteQuestion(int questionId) {
+        if (questionId >= getQuizLength() || questionId < 0)
+            throw new ArrayIndexOutOfBoundsException();
         questions.remove(questionId);
     }
 
@@ -62,6 +64,8 @@ public class Quiz {
      * @param question   the new question
      */
     public void setQuestion(int questionId, Question question) {
+        if (questionId >= getQuizLength() || questionId < 0)
+            throw new ArrayIndexOutOfBoundsException();
         questions.set(questionId, question);
     }
 
@@ -73,7 +77,6 @@ public class Quiz {
     }
 
     /**
-     *
      * @return string representation
      */
     @Override
