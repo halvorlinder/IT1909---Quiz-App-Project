@@ -2,24 +2,25 @@ package ui.controllers;
 
 import core.Leaderboard;
 import core.Score;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import ui.APIClientService;
-import ui.Utilities;
+import ui.User;
 
 import java.io.IOException;
 
-public class LeaderboardController {
+public class LeaderboardPageController extends GoBackController {
 
     @FXML
     private Label titleText;
     @FXML
     private VBox leaderboardList;
+    @FXML
+    private Button backButton;
 
     private final String quizName;
     private Leaderboard leaderboard;
@@ -27,8 +28,10 @@ public class LeaderboardController {
 
     /**
      * @param quizName the name of the quiz which leaderboard we are viewing
+     * @param user     the current user
      */
-    public LeaderboardController(String quizName) {
+    public LeaderboardPageController(String quizName, User user) {
+        super(user);
         this.quizName = quizName;
     }
 
@@ -38,12 +41,13 @@ public class LeaderboardController {
      * @throws IOException
      */
     @FXML
-    private void initialize() throws IOException, InterruptedException {
+    private void initialize() throws IOException {
+        setBackButton(backButton);
         apiClientService = new APIClientService();
         display();
     }
 
-    private void display() throws IOException, InterruptedException {
+    private void display() throws IOException {
         leaderboardList.getChildren().clear();
         leaderboard = apiClientService.getLeaderboard(quizName);
         titleText.setText(quizName);
@@ -81,13 +85,4 @@ public class LeaderboardController {
         leaderboardList.getChildren().add(gridPane);
     }
 
-    /**
-     * Sets the current root to be the homepage
-     *
-     * @param actionEvent
-     * @throws IOException
-     */
-    public void returnToHomePage(ActionEvent actionEvent) throws IOException {
-        ((Node) actionEvent.getSource()).getScene().setRoot(Utilities.getFXMLLoader("HomePage.fxml").load());
-    }
 }

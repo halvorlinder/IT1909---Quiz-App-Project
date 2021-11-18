@@ -3,7 +3,7 @@ package core;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class Question {
+public class Question {
     private final String question;
     private final List<String> choices;
     private final int answer;
@@ -16,17 +16,10 @@ public final class Question {
      */
     public Question(String question, List<String> choices, int answer) {
         if (answer >= choices.size() || answer < 0 || choices.size() != NUMBER_OF_CHOICES)
-            throw new IllegalArgumentException("The answer must map to a choice");
+            throw new IllegalArgumentException("The answer is greater than the permitted number of choices");
         this.question = question;
         this.choices = new ArrayList<>(choices);
         this.answer = answer;
-    }
-
-    /**
-     *
-     */
-    public Question() {
-        this("", List.of("", "", "", ""), 0);
     }
 
     /**
@@ -60,8 +53,7 @@ public final class Question {
      * @return a List of the choices
      */
     public List<String> getChoices() {
-        List<String> copy = new ArrayList<>(choices);
-        return copy;
+        return new ArrayList<>(choices);
     }
 
     /**
@@ -71,6 +63,16 @@ public final class Question {
         return answer;
     }
 
+    /**
+     * @return the number of choices in the question
+     */
+    public int getChoiceCount() {
+        return NUMBER_OF_CHOICES;
+    }
+
+    /**
+     * @return string representation
+     */
     @Override
     public String toString() {
         return "Question{" +

@@ -10,7 +10,7 @@ public class TestHelpers {
     public static Quiz createQuizWithTwoQuestions() {
         return new Quiz("quiz101", List.of(
                 new Question("What?", List.of("a", "b", "c", "d"), 2),
-                new Question("Where", List.of("1", "2", "3", "4"), 3)));
+                new Question("Where", List.of("1", "2", "3", "4"), 3)), "per");
     }
 
     static void checkQuestion(Question question1, Question question2) {
@@ -40,8 +40,10 @@ public class TestHelpers {
 
     static UserData createUserDataWithTwoEntries(){
         UserData userData = new UserData();
-        userData.attemptRegister("user1", "password");
-        userData.attemptRegister("user2", "pWord");
+        UserRecord userRecord1 = new UserRecord("user1", "password");
+        UserRecord userRecord2 = new UserRecord("user2", "pWord");
+        userData.attemptRegister(userRecord1);
+        userData.attemptRegister(userRecord2);
         return userData;
     }
 
@@ -61,5 +63,10 @@ public class TestHelpers {
     static void checkScore(Score score1, Score score2) {
         assertEquals(score1.getName(), score2.getName());
         assertEquals(score1.getPoints(), score2.getPoints());
+    }
+
+    static void checkUserRecord(UserRecord UR1, UserRecord UR2) {
+        assertEquals(UR1.getUsername(), UR2.getUsername());
+        assertEquals(UR1.getPassword(), UR1.getPassword());
     }
 }

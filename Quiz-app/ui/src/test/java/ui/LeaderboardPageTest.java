@@ -3,7 +3,6 @@ package ui;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
-import core.User;
 import io.SavePaths;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,6 +16,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
+import ui.controllers.HomePageController;
 
 import java.io.IOException;
 
@@ -40,6 +40,8 @@ public class LeaderboardPageTest extends ApplicationTest {
                 .willReturn(aResponse()
                         .withBody("[]")));
         loader = new FXMLLoader(getClass().getResource("HomePage.fxml"));
+        HomePageController homePageController = new HomePageController(new User("user", ""));
+        loader.setController(homePageController);
         final Parent root = loader.load();
         wireMockServer.stop();
         stage.setScene(new Scene(root));
@@ -48,7 +50,7 @@ public class LeaderboardPageTest extends ApplicationTest {
 
     private void initQuiz() {
         stubFor(post(urlEqualTo("/api/quizzes"))
-                .withRequestBody(equalToJson("{\"name\":\"x\",\"questions\":[]}"))
+                .withRequestBody(equalToJson("{\"name\":\"x\",\"creator\":\"user\",\"questions\":[]}"))
                 .willReturn(aResponse()
                         .withBody("[\"x\"]")
                         .withStatus(200)));
@@ -78,7 +80,7 @@ public class LeaderboardPageTest extends ApplicationTest {
     }
 
     @Test
-    public void initEmptyLeaderboard() {
+    public void testInitEmptyLeaderboard() {
         initQuiz();
         stubFor(get(urlEqualTo("/api/leaderboards/x"))
                 .willReturn(aResponse()
@@ -89,7 +91,7 @@ public class LeaderboardPageTest extends ApplicationTest {
     }
 
     @Test
-    public void initLeaderboard() {
+    public void testInitLeaderboard() {
         initQuiz();
         stubFor(get(urlEqualTo("/api/leaderboards/x"))
                 .willReturn(aResponse()

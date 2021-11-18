@@ -15,13 +15,12 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
-import ui.controllers.NewQuestionController;
-
-import java.io.IOException;
+import ui.controllers.EditPageController;
+import ui.controllers.NewQuestionPageController;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 
-public class NewQuestionControllerTest extends ApplicationTest {
+public class NewQuestionPageTest extends ApplicationTest {
 
 
     private WireMockConfiguration config;
@@ -30,10 +29,26 @@ public class NewQuestionControllerTest extends ApplicationTest {
     @Override
     public void start(final Stage stage) throws Exception {
         SavePaths.enableTestMode();
-        final FXMLLoader loader = new FXMLLoader(getClass().getResource("NewQuestion.fxml"));
-        NewQuestionController controller = new NewQuestionController("a");
+        final FXMLLoader loader = new FXMLLoader(getClass().getResource("NewQuestionPage.fxml"));
+        NewQuestionPageController controller = new NewQuestionPageController("a", new User("user", ""));
+
+        config = WireMockConfiguration.wireMockConfig().port(8080);
+        wireMockServer = new WireMockServer(config.portNumber());
+        wireMockServer.start();
+        WireMock.configureFor("localhost", config.portNumber());
+        stubFor(get(urlEqualTo("/api/quizzes/a"))
+                .willReturn(aResponse()
+                        .withBody("{\"name\":\"a\",\"creator\":\"user\",\"questions\":[{\"question\":\"?\",\"answer\":0,\"choices\":[\"a\",\"b \",\"c \",\"d \"]}]}")
+                        .withStatus(200)));
+
+        EditPageController editPageController = new EditPageController("a", new User("", ""));
+        FXMLLoader loader2 = new FXMLLoader(getClass().getResource("EditPage.fxml"));
+        loader2.setController(editPageController);
+        controller.setPreviousPageInfo(editPageController, loader2.load());
+
         loader.setController(controller);
         final Parent root = loader.load();
+        wireMockServer.stop();
         stage.setScene(new Scene(root));
         stage.show();
     }
@@ -57,7 +72,7 @@ public class NewQuestionControllerTest extends ApplicationTest {
     }
 
     @Test
-    public void testSubmitQuestion() throws IOException {
+    public void testSubmitQuestion() {
         config = WireMockConfiguration.wireMockConfig().port(8080);
         wireMockServer = new WireMockServer(config.portNumber());
         wireMockServer.start();
@@ -69,7 +84,7 @@ public class NewQuestionControllerTest extends ApplicationTest {
                         .withStatus(200)));
         stubFor(get(urlEqualTo("/api/quizzes/a"))
                 .willReturn(aResponse()
-                        .withBody("{\"name\":\"a\",\"questions\":[{\"question\":\"?\",\"answer\":0,\"choices\":[\"a\",\"b\",\"c\",\"d\"]}]}")
+                        .withBody("{\"name\":\"a\",\"creator\":\"user\",\"questions\":[{\"question\":\"?\",\"answer\":0,\"choices\":[\"a\",\"b\",\"c\",\"d\"]}]}")
                         .withStatus(200)));
         stubFor(get(urlEqualTo("/api/quizzes"))
                 .willReturn(aResponse()

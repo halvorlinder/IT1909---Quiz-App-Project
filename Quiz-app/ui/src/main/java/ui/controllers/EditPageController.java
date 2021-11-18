@@ -5,6 +5,8 @@ import core.Quiz;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
@@ -12,15 +14,18 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import ui.APIClientService;
 import ui.App;
+import ui.User;
 import ui.Utilities;
 
 import java.io.IOException;
 
-public class EditPageController {
+public class EditPageController extends GoBackController implements InitializableController {
     @FXML
     private Label titleText;
     @FXML
     private VBox questionList;
+    @FXML
+    private Button backButton;
 
     private final String quizName;
     private Quiz quiz;
@@ -28,8 +33,10 @@ public class EditPageController {
 
     /**
      * @param quizName the name of the quiz to be edited
+     * @param user     the current user
      */
-    public EditPageController(String quizName) {
+    public EditPageController(String quizName, User user) {
+        super(user);
         this.quizName = quizName;
     }
 
@@ -38,19 +45,25 @@ public class EditPageController {
      *
      * @throws IOException
      */
+    @Override
     @FXML
-    private void initialize() throws IOException, InterruptedException {
+    public void initialize() throws IOException {
         apiClientService = new APIClientService();
+        setBackButton(backButton);
         display();
     }
 
-    private void display() throws IOException, InterruptedException {
+    private void display() throws IOException {
         questionList.getChildren().clear();
         quiz = apiClientService.getQuiz(quizName);
         titleText.setText("Endre " + quizName);
         for (int i = 0; i < quiz.getQuizLength(); i++) {
             addQuestionElement(i);
         }
+    }
+
+    private Scene getScene() {
+        return titleText.getScene();
     }
 
     /**
@@ -91,21 +104,28 @@ public class EditPageController {
 
     private void deleteQuestion(int questionId) {
         try {
-            apiClientService.deleteQuestion(quizName, questionId);
+            apiClientService.deleteQuestion(quizName, questionId, getUser().getAccessToken());
             display();
-        } catch (Exception e) {
-            Utilities.alertUser();
+        } catch (Exception ignored) {
         }
     }
 
     private void showEditQuestion(int questionId, Question question) {
+        FXMLLoader loader = null;
         try {
-            FXMLLoader loader = App.getFXMLLoader("NewQuestion.fxml");
-            loader.setController(new NewQuestionController(quizName, questionId, question));
-            titleText.getScene().setRoot(loader.load());
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-            Utilities.alertUser();
+            loader = App.getFXMLLoader("NewQuestionPage.fxml");
+            NewQuestionPageController controller =
+                    new NewQuestionPageController(quizName, questionId, question, getUser());
+            loader.setController(controller);
+            controller.setPreviousPageInfo(this, getScene().getRoot());
+        } catch (IOException ignored) {
+            Utilities.alertUser("Klarte ikke å laste inn side");
+            return;
+        }
+        try {
+            Parent root = loader.load();
+            getScene().setRoot(root);
+        } catch (IOException ignored) {
         }
     }
 
@@ -115,24 +135,32 @@ public class EditPageController {
      */
     @FXML
     private void showNewQuestion() {
+        FXMLLoader loader = null;
         try {
-            FXMLLoader loader = App.getFXMLLoader("NewQuestion.fxml");
-            loader.setController(new NewQuestionController(quizName));
-            titleText.getScene().setRoot(loader.load());
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-            Utilities.alertUser();
+            loader = App.getFXMLLoader("NewQuestionPage.fxml");
+            NewQuestionPageController controller =
+                    new NewQuestionPageController(quizName, getUser());
+            loader.setController(controller);
+            controller.setPreviousPageInfo(this, getScene().getRoot());
+        } catch (IOException ignored) {
+            Utilities.alertUser("Klarte ikke å laste inn side");
+            return;
+        }
+        try {
+            Parent root = loader.load();
+            getScene().setRoot(root);
+        } catch (IOException ignored) {
         }
     }
 
     @FXML
     private void deleteQuiz() throws IOException {
         try {
-            apiClientService.deleteQuiz(quizName);
-        } catch (Exception e) {
-            Utilities.alertUser();
+            apiClientService.deleteQuiz(quizName, getUser().getAccessToken());
+        } catch (Exception ignored) {
+            return;
         }
-        questionList.getScene().setRoot(Utilities.getFXMLLoader("HomePage.fxml").load());
+        goBack();
     }
 
 }

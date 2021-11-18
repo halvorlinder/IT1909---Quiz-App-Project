@@ -9,7 +9,6 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
 
 public class LeaderboardPersistence {
     private final ObjectMapper mapper;
@@ -71,11 +70,9 @@ public class LeaderboardPersistence {
      */
     public Leaderboard loadLeaderboard(String quizName) throws IOException {
         if (!Files.exists(Path.of(basePath + quizName + ".json")))
-            throw new IOException();
+            throw new FileNotFoundException();
         try (Reader reader = new FileReader(basePath + quizName + ".json", StandardCharsets.UTF_8)) {
             return readLeaderboard(reader);
-        } catch (IOException e) {
-            return new Leaderboard(quizName, List.of(), 0);
         }
     }
 
@@ -88,8 +85,8 @@ public class LeaderboardPersistence {
         String quizName = leaderboard.getName();
         File file = new File(basePath + quizName + ".json");
         if (!file.exists()) {
-
-            boolean junk = file.createNewFile();
+            if (!file.createNewFile())
+                throw new IOException("Failed to create file");
         }
         try (Writer writer = new FileWriter(basePath + quizName + ".json", StandardCharsets.UTF_8)) {
             writeLeaderboard(leaderboard, writer);
@@ -100,11 +97,13 @@ public class LeaderboardPersistence {
      * deletes a leaderboard given its name
      *
      * @param quizName the name of the quiz
-     * @return true if successful, false otherwise
      */
-    public boolean deleteLeaderboard(String quizName) {
+    public void deleteLeaderboard(String quizName) throws IOException {
         File file = new File(basePath + quizName + ".json");
-        return file.delete();
+        if (!file.exists())
+            throw new FileNotFoundException();
+        if (!file.delete())
+            throw new IOException("Failed to delete file");
     }
 
 }

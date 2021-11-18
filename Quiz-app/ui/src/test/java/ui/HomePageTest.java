@@ -3,7 +3,6 @@ package ui;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
-import io.SavePaths;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -34,7 +33,6 @@ public class HomePageTest extends ApplicationTest {
 
     @Override
     public void start(final Stage stage) throws Exception {
-        SavePaths.enableTestMode();
         config = WireMockConfiguration.wireMockConfig().port(8080);
         wireMockServer = new WireMockServer(config.portNumber());
         wireMockServer.start();
@@ -43,6 +41,8 @@ public class HomePageTest extends ApplicationTest {
                 .willReturn(aResponse()
                         .withBody("[]")));
         loader = new FXMLLoader(getClass().getResource("HomePage.fxml"));
+        HomePageController homePageController = new HomePageController(new User("user", ""));
+        loader.setController(homePageController);
         final Parent root = loader.load();
         wireMockServer.stop();
         stage.setScene(new Scene(root));
@@ -51,7 +51,7 @@ public class HomePageTest extends ApplicationTest {
 
     private void initQuiz() {
         stubFor(post(urlEqualTo("/api/quizzes"))
-                .withRequestBody(equalToJson("{\"name\":\"x\",\"questions\":[]}"))
+                .withRequestBody(equalToJson("{\"name\":\"x\",\"creator\":\"user\",\"questions\":[]}"))
                 .willReturn(aResponse()
                         .withBody("[\"x\"]")
                         .withStatus(200)));
@@ -83,8 +83,11 @@ public class HomePageTest extends ApplicationTest {
 
     @Test
     public void testCreateEmptyNameQuiz() {
-        HomePageController controller = loader.getController();
-        Assertions.assertThrows(IllegalArgumentException.class, controller::addNewQuizFile);
+        clickOn("#addNewQuizButton");
+        Node dialogPane = lookup(".dialog-pane").query();
+        Assertions.assertDoesNotThrow(() -> {
+            from(dialogPane).lookup((Text t) -> t.getText().startsWith("Vennligst fyll inn et navn")).query();
+        });
     }
 
     @Test
@@ -101,7 +104,7 @@ public class HomePageTest extends ApplicationTest {
         initQuiz();
         stubFor(get(urlEqualTo("/api/quizzes/x"))
                 .willReturn(aResponse()
-                        .withBody("{\"name\":\"x\",\"questions\":[]}")
+                        .withBody("{\"name\":\"x\",\"creator\":\"user\",\"questions\":[]}")
                         .withStatus(200)));
         VBox vBox = lookup("#quizList").query();
         clickOn(from(vBox).lookup((Button b) -> b.getText().equals("Spill")).queryButton());
@@ -116,13 +119,29 @@ public class HomePageTest extends ApplicationTest {
         initQuiz();
         stubFor(get(urlEqualTo("/api/quizzes/x"))
                 .willReturn(aResponse()
-                        .withBody("{\"name\":\"x\",\"questions\":[{\"question\":\"?\",\"answer\":0,\"choices\":[\"a\",\"b \",\"c \",\"d \"]}]}")
+                        .withBody("{\"name\":\"x\",\"creator\":\"user\",\"questions\":[{\"question\":\"?\",\"answer\":0,\"choices\":[\"a\",\"b \",\"c \",\"d \"]}]}")
                         .withStatus(200)));
         VBox vBox = lookup("#quizList").query();
         clickOn(from(vBox).lookup((Button b) -> b.getText().equals("Spill")).queryButton());
         Assertions.assertDoesNotThrow(() -> {
             lookup("#questionLabel").query();
         });
+    }
+
+    @Test
+    public void testTraversal() {
+        initQuiz();
+        stubFor(get(urlEqualTo("/api/quizzes/x"))
+                .willReturn(aResponse()
+                        .withBody("{\"name\":\"x\",\"creator\":\"user\",\"questions\":[]}")
+                        .withStatus(200)));
+        VBox vBox = lookup("#quizList").query();
+        clickOn(from(vBox).lookup((Button b) -> b.getText().equals("Endre")).queryButton());
+        Assertions.assertDoesNotThrow(() -> lookup("#newQuestionButton").query());
+        clickOn(lookup("#newQuestionButton").queryButton());
+        clickOn(lookup("#backButton").queryButton());
+        clickOn(lookup("#backButton").queryButton());
+        Assertions.assertDoesNotThrow(() -> lookup("#nameDisplay").query());
     }
 
     @AfterEach

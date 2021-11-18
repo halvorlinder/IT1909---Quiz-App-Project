@@ -6,36 +6,31 @@ import java.util.List;
 /**
  * This class represents a Quiz session in the application
  */
-public final class Quiz {
+public class Quiz {
 
-    private final String name;
-    private int correct;
-    private int currentQuestionNumber;
+    private String name;
     private final List<Question> questions;
+    private final String creator;
 
     /**
-     * @param name
+     * @param name      the quiz name
      * @param questions a list of question objects
+     * @param creator   the creator of the quiz
      */
-    public Quiz(String name, List<Question> questions) {
+    public Quiz(String name, List<Question> questions, String creator) {
         this.name = name;
         this.questions = new ArrayList<>(questions);
+        this.creator = creator;
     }
 
     /**
-     *
+     * @param n the index
+     * @return the question at a given index
      */
-    public Quiz() {
-        this("", List.of(new Question()));
-    }
-
-    /**
-     * @return the current question of the quiz, if no such question exists, null is returned
-     */
-    public Question getCurrentQuestion() {
-        if (currentQuestionNumber >= questions.size())
-            return null;
-        return questions.get(currentQuestionNumber);
+    public Question getQuestion(int n) {
+        if (n >= getQuizLength())
+            throw new ArrayIndexOutOfBoundsException();
+        return questions.get(n);
     }
 
     /**
@@ -43,21 +38,6 @@ public final class Quiz {
      */
     public List<Question> getQuestions() {
         return new ArrayList<>(questions);
-    }
-
-    /**
-     * submits a question by checking its correctness, updating the correct counter as well as the
-     * question counter
-     *
-     * @param answer the integer corresponding to the index of the answer
-     * @return true if the answer is correct, else otherwise
-     */
-    public boolean submitAnswer(int answer) {
-        boolean isCorrect = getCurrentQuestion().isCorrect(answer);
-        if (isCorrect)
-            correct++;
-        currentQuestionNumber++;
-        return isCorrect;
     }
 
     /**
@@ -78,22 +58,14 @@ public final class Quiz {
         questions.remove(questionId);
     }
 
+    /**
+     * sets a new question at a given index
+     *
+     * @param questionId the index of the question
+     * @param question   the new question
+     */
     public void setQuestion(int questionId, Question question) {
         questions.set(questionId, question);
-    }
-
-    /**
-     * @return the index of the current question
-     */
-    public int getCurrentQuestionNumber() {
-        return currentQuestionNumber;
-    }
-
-    /**
-     * @return the number of correct submitted answers
-     */
-    public int getCorrect() {
-        return correct;
     }
 
     /**
@@ -103,16 +75,36 @@ public final class Quiz {
         return questions.size();
     }
 
+    /**
+     * @return the creator of the quiz
+     */
+    public String getCreator() {
+        return creator;
+    }
+
+    /**
+     * @return string representation
+     */
+
     @Override
     public String toString() {
         return "Quiz{" +
-                "correct=" + correct +
-                ", currentQuestionNumber=" + currentQuestionNumber +
                 ", questions=" + questions +
                 '}';
     }
 
+    /**
+     * @return the name of the quiz
+     */
     public String getName() {
         return name;
+    }
+
+    /**
+     * strips and replaces spaces with $ in the quiz name in
+     * order for it to be sent over http
+     */
+    public void legalizeName() {
+        name = name.strip().replaceAll(" ", "$");
     }
 }

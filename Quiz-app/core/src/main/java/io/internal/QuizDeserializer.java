@@ -30,6 +30,8 @@ class QuizDeserializer extends JsonDeserializer<Quiz> {
         if (jsonNode instanceof ObjectNode objectNode) {
             JsonNode textNode = objectNode.get("name");
             String name = textNode.asText();
+            JsonNode creatorNode = objectNode.get("creator");
+            String creator = creatorNode.asText();
             List<Question> questionList = new ArrayList<>();
             JsonNode questionsNode = objectNode.get("questions");
             boolean hasQuestions = questionsNode instanceof ArrayNode;
@@ -41,7 +43,7 @@ class QuizDeserializer extends JsonDeserializer<Quiz> {
                     }
                 }
             }
-            return new Quiz(name, questionList);
+            return new Quiz(name, questionList, creator);
 
         }
         return null;

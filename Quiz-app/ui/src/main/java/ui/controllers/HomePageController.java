@@ -2,13 +2,12 @@ package ui.controllers;
 
 import core.Question;
 import core.Quiz;
-import core.User;
-import io.SavePaths;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -17,6 +16,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import ui.APIClientService;
 import ui.App;
+import ui.User;
 import ui.Utilities;
 
 import java.io.IOException;
@@ -24,9 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public final class HomePageController {
-
-    private static final String BASE_PATH = SavePaths.getBasePath() + "Quizzes/";
+public final class HomePageController extends BaseController implements InitializableController {
 
     @FXML
     private Button addNewQuizButton;
@@ -40,16 +38,21 @@ public final class HomePageController {
     @FXML
     private TextField quizNameField;
 
-    private List<String> quizzes = new ArrayList<>();
-
     private APIClientService apiClientService;
+
+    /**
+     * @param user the current user
+     */
+    public HomePageController(User user) {
+        super(user);
+    }
 
     /**
      * sets the text to display username
      */
     @FXML
-    public void initialize() throws IOException, InterruptedException {
-        nameDisplay.setText("Logget inn som " + User.getUserName());
+    public void initialize() {
+        nameDisplay.setText("Logget inn som " + getUser().getUsername());
         apiClientService = new APIClientService();
         updateInitialQuizzes();
     }
@@ -57,9 +60,14 @@ public final class HomePageController {
     /**
      * adds all quiz names to a list so that they can be rendered
      */
-    private void updateInitialQuizzes() throws IOException, InterruptedException {
+    private void updateInitialQuizzes() {
         quizList.getChildren().clear();
-        quizzes = apiClientService.getListOfQuizNames();
+        List<String> quizzes = null;
+        try {
+            quizzes = apiClientService.getListOfQuizNames();
+        } catch (IOException ignored) {
+            return;
+        }
         for (String quizName : quizzes) {
             addQuizElement(quizName);
         }
@@ -109,13 +117,21 @@ public final class HomePageController {
      * @param quizName the name of the quiz
      */
     private void showEditPage(String quizName) {
+
+        FXMLLoader loader = null;
         try {
-            FXMLLoader loader = App.getFXMLLoader("EditPage.fxml");
-            EditPageController controller = new EditPageController(quizName);
+            loader = App.getFXMLLoader("EditPage.fxml");
+            EditPageController controller = new EditPageController(quizName, getUser());
             loader.setController(controller);
-            quizList.getScene().setRoot(loader.load());
+            controller.setPreviousPageInfo(this, getScene().getRoot());
         } catch (IOException ioException) {
-            ioException.printStackTrace();
+            Utilities.alertUser("Klarte ikke å laste inn side");
+            return;
+        }
+        try {
+            Parent root = loader.load();
+            getScene().setRoot(root);
+        } catch (IOException ignored) {
             Utilities.alertUser();
         }
     }
@@ -126,14 +142,20 @@ public final class HomePageController {
      * @param quizName the name of the quiz
      */
     private void showLeaderboardPage(String quizName) {
+        FXMLLoader loader = null;
         try {
-            FXMLLoader loader = App.getFXMLLoader("Leaderboard.fxml");
-            LeaderboardController controller = new LeaderboardController(quizName);
+            loader = App.getFXMLLoader("LeaderboardPage.fxml");
+            LeaderboardPageController controller = new LeaderboardPageController(quizName, getUser());
             loader.setController(controller);
-            quizList.getScene().setRoot(loader.load());
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-            Utilities.alertUser();
+            controller.setPreviousPageInfo(this, getScene().getRoot());
+        } catch (IOException ignored) {
+            Utilities.alertUser("Klarte ikke å laste inn side");
+            return;
+        }
+        try {
+            Parent root = loader.load();
+            getScene().setRoot(root);
+        } catch (IOException ignored) {
         }
     }
 
@@ -144,18 +166,24 @@ public final class HomePageController {
      */
     @FXML
     public void startQuiz(String quizName) { // Switch scene to StartQuiz
+        FXMLLoader loader = null;
         try {
             Quiz quiz = apiClientService.getQuiz(quizName);
             if (quiz.getQuizLength() == 0) {
                 Utilities.alertUser("Denne quizen har ingen spørsmål");
                 return;
             }
-            FXMLLoader loader = App.getFXMLLoader("QuestionPage.fxml");
-            QuizController controller = new QuizController(quiz);
+            loader = App.getFXMLLoader("QuizPage.fxml");
+            QuizPageController controller = new QuizPageController(quizName, getUser());
             loader.setController(controller);
-            quizList.getScene().setRoot(loader.load());
-        } catch (IOException | InterruptedException ioException) {
-            Utilities.alertUser();
+        } catch (Exception e) {
+            Utilities.alertUser("Klarte ikke å laste inn side");
+            return;
+        }
+        try {
+            Parent root = loader.load();
+            getScene().setRoot(root);
+        } catch (IOException ignored) {
         }
     }
 
@@ -166,14 +194,20 @@ public final class HomePageController {
      * @throws IOException
      */
     @FXML
-    public void addNewQuizFile() throws IOException, InterruptedException {
-        String newQuizName = quizNameField.getText();
+    public void addNewQuizFile() {
+        String newQuizName = quizNameField.getText().strip().replaceAll(" ", "\\$");
         if (newQuizName.isEmpty()) {
-            throw new IllegalArgumentException("You can't create a quiz with an empty name");
+            Utilities.alertUser("Vennligst fyll inn et navn");
+            return;
         }
         List<Question> noQuestions = new ArrayList<>();
-        Quiz newQuiz = new Quiz(newQuizName, noQuestions);
-        apiClientService.postQuiz(newQuiz);
+        Quiz newQuiz = new Quiz(newQuizName, noQuestions, getUser().getUsername());
+
+        try {
+            apiClientService.postQuiz(newQuiz);
+        } catch (IOException ioException) {
+            return;
+        }
         updateInitialQuizzes();
     }
 
@@ -185,14 +219,17 @@ public final class HomePageController {
     @FXML
     public void signOut(ActionEvent actionEvent) {
         try {
-            final FXMLLoader loader = Utilities.getFXMLLoader("LogInPage.fxml");
-            LogInController controller = new LogInController();
+            final FXMLLoader loader = Utilities.getFXMLLoader("LoginPage.fxml");
+            LoginPageController controller = new LoginPageController();
             loader.setController(controller);
             final Parent root = loader.load();
             ((Node) actionEvent.getSource()).getScene().setRoot(root);
-            User.setUserName(null);
         } catch (IOException ioException) {
-            ioException.printStackTrace();
+            Utilities.alertUser("Noe gikk galt, kunne ikke logge ut");
         }
+    }
+
+    private Scene getScene() {
+        return quizList.getScene();
     }
 }

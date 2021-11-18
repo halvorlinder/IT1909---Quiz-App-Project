@@ -1,17 +1,18 @@
 package ui.controllers;
 
 import core.Score;
-import core.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import ui.APIClientService;
+import ui.User;
 import ui.Utilities;
 
 import java.io.IOException;
 
-public class ResultPageController {
+public class ResultPageController extends BaseController {
     @FXML
     private Label result;
 
@@ -26,8 +27,10 @@ public class ResultPageController {
      * @param score    the achieved score
      * @param maxScore the highest possible score
      * @param quizName the name of the quiz
+     * @param user     the current user
      */
-    public ResultPageController(int score, int maxScore, String quizName) {
+    public ResultPageController(int score, int maxScore, String quizName, User user) {
+        super(user);
         this.score = score;
         this.maxScore = maxScore;
         this.name = quizName;
@@ -36,9 +39,9 @@ public class ResultPageController {
     /**
      * Displays the scores to the GUI
      */
-    public void initialize() throws IOException, InterruptedException {
+    public void initialize() throws IOException {
         apiClientService = new APIClientService();
-        apiClientService.postScore(name, new Score(User.getUserName(), score));
+        apiClientService.postScore(name, new Score(getUser().getUsername(), score));
         result.setText("Du fikk %s/%s poeng!".formatted(score, maxScore));
     }
 
@@ -49,6 +52,8 @@ public class ResultPageController {
      * @throws IOException
      */
     public void returnToHomePage(ActionEvent actionEvent) throws IOException {
-        ((Node) actionEvent.getSource()).getScene().setRoot(Utilities.getFXMLLoader("HomePage.fxml").load());
+        FXMLLoader loader = Utilities.getFXMLLoader("HomePage.fxml");
+        loader.setController(new HomePageController(getUser()));
+        ((Node) actionEvent.getSource()).getScene().setRoot(loader.load());
     }
 }
