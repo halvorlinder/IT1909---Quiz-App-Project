@@ -12,7 +12,7 @@ import java.nio.file.Path;
 
 public final class UserPersistence {
     private final ObjectMapper mapper;
-    private final static String fileName = "users.json";
+    private static final String fileName = "users.json";
     private final String basePath = SavePaths.getBasePath();
 
     /**
