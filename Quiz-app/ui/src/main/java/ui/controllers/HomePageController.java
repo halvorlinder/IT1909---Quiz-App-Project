@@ -54,19 +54,20 @@ public final class HomePageController extends BaseController implements Initiali
     public void initialize() {
         nameDisplay.setText("Logget inn som " + getUser().getUsername());
         apiClientService = new APIClientService();
-        try {
-            updateInitialQuizzes();
-        } catch (Exception e) {
-            Utilities.alertUser();
-        }
+        updateInitialQuizzes();
     }
 
     /**
      * adds all quiz names to a list so that they can be rendered
      */
-    private void updateInitialQuizzes() throws IOException, InterruptedException {
+    private void updateInitialQuizzes() {
         quizList.getChildren().clear();
-        List<String> quizzes = apiClientService.getListOfQuizNames();
+        List<String> quizzes = null;
+        try {
+            quizzes = apiClientService.getListOfQuizNames();
+        } catch (IOException ignored) {
+            return;
+        }
         for (String quizName : quizzes) {
             addQuizElement(quizName);
         }
@@ -116,14 +117,21 @@ public final class HomePageController extends BaseController implements Initiali
      * @param quizName the name of the quiz
      */
     private void showEditPage(String quizName) {
+
+        FXMLLoader loader = null;
         try {
-            FXMLLoader loader = App.getFXMLLoader("EditPage.fxml");
+            loader = App.getFXMLLoader("EditPage.fxml");
             EditPageController controller = new EditPageController(quizName, getUser());
             loader.setController(controller);
             controller.setPreviousPageInfo(this, getScene().getRoot());
-            getScene().setRoot(loader.load());
         } catch (IOException ioException) {
-            ioException.printStackTrace();
+            Utilities.alertUser("Klarte ikke å laste inn side");
+            return;
+        }
+        try{
+            Parent root = loader.load();
+            getScene().setRoot(root);
+        } catch (IOException ignored) {
             Utilities.alertUser();
         }
     }
@@ -134,15 +142,20 @@ public final class HomePageController extends BaseController implements Initiali
      * @param quizName the name of the quiz
      */
     private void showLeaderboardPage(String quizName) {
+        FXMLLoader loader = null;
         try {
-            FXMLLoader loader = App.getFXMLLoader("LeaderboardPage.fxml");
+            loader = App.getFXMLLoader("LeaderboardPage.fxml");
             LeaderboardPageController controller = new LeaderboardPageController(quizName, getUser());
-            controller.setPreviousPageInfo(this, getScene().getRoot());
             loader.setController(controller);
-            quizList.getScene().setRoot(loader.load());
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-            Utilities.alertUser();
+            controller.setPreviousPageInfo(this, getScene().getRoot());
+        } catch (IOException ignored) {
+            Utilities.alertUser("Klarte ikke å laste inn side");
+            return;
+        }
+        try{
+            Parent root = loader.load();
+            getScene().setRoot(root);;
+        } catch (IOException ignored) {
         }
     }
 
@@ -153,18 +166,24 @@ public final class HomePageController extends BaseController implements Initiali
      */
     @FXML
     public void startQuiz(String quizName) { // Switch scene to StartQuiz
+        FXMLLoader loader = null;
         try {
             Quiz quiz = apiClientService.getQuiz(quizName);
             if (quiz.getQuizLength() == 0) {
                 Utilities.alertUser("Denne quizen har ingen spørsmål");
                 return;
             }
-            FXMLLoader loader = App.getFXMLLoader("QuizPage.fxml");
+            loader = App.getFXMLLoader("QuizPage.fxml");
             QuizPageController controller = new QuizPageController(quizName, getUser());
             loader.setController(controller);
-            getScene().setRoot(loader.load());
         } catch (Exception e) {
-            Utilities.alertUser();
+            Utilities.alertUser("Klarte ikke å laste inn side");
+            return;
+        }
+        try{
+            Parent root = loader.load();
+            getScene().setRoot(root);
+        } catch (IOException ignored) {
         }
     }
 
@@ -175,14 +194,20 @@ public final class HomePageController extends BaseController implements Initiali
      * @throws IOException
      */
     @FXML
-    public void addNewQuizFile() throws IOException, InterruptedException {
+    public void addNewQuizFile(){
         String newQuizName = quizNameField.getText();
         if (newQuizName.isEmpty()) {
-            throw new IllegalArgumentException("You can't create a quiz with an empty name");
+            Utilities.alertUser("Vennligst fyll inn et navn");
+            return;
         }
         List<Question> noQuestions = new ArrayList<>();
         Quiz newQuiz = new Quiz(newQuizName, noQuestions, getUser().getUsername());
-        apiClientService.postQuiz(newQuiz);
+
+        try {
+            apiClientService.postQuiz(newQuiz);
+        } catch (IOException ioException) {
+            return;
+        }
         updateInitialQuizzes();
     }
 
@@ -200,7 +225,7 @@ public final class HomePageController extends BaseController implements Initiali
             final Parent root = loader.load();
             ((Node) actionEvent.getSource()).getScene().setRoot(root);
         } catch (IOException ioException) {
-            ioException.printStackTrace();
+            Utilities.alertUser("Noe gikk galt, kunne ikke logge ut");
         }
     }
 
