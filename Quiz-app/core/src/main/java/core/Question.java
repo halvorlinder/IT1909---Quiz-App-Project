@@ -32,7 +32,7 @@ public class Question {
      */
     public boolean isCorrect(int answer) {
         if (answer < 0 || answer >= choices.size())
-            throw new IllegalArgumentException("The choice does not exist");
+            throw new ArrayIndexOutOfBoundsException("The choice does not exist");
         return answer == this.answer;
     }
 
@@ -49,7 +49,7 @@ public class Question {
      */
     public String getChoice(int n) {
         if (n < 0 || n >= choices.size())
-            throw new IllegalArgumentException("The choice does not exist");
+            throw new ArrayIndexOutOfBoundsException("The choice does not exist");
         return choices.get(n);
     }
 
