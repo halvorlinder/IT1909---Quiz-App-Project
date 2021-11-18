@@ -13,7 +13,7 @@ import java.nio.file.Path;
 public final class UserPersistence {
     private final ObjectMapper mapper;
     private final String fileName = "users.json";
-    private static final String BASE_PATH = SavePaths.getBasePath();
+    private final String BASE_PATH = SavePaths.getBasePath();
 
     /**
      * Inits a new QuizPersistence Object
