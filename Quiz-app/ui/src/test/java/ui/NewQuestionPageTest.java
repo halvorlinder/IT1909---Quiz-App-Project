@@ -30,7 +30,7 @@ public class NewQuestionPageTest extends ApplicationTest {
     public void start(final Stage stage) throws Exception {
         SavePaths.enableTestMode();
         final FXMLLoader loader = new FXMLLoader(getClass().getResource("NewQuestionPage.fxml"));
-        NewQuestionPageController controller = new NewQuestionPageController("a", new User(""));
+        NewQuestionPageController controller = new NewQuestionPageController("a", new User("", ""));
 
         config = WireMockConfiguration.wireMockConfig().port(8080);
         wireMockServer = new WireMockServer(config.portNumber());
@@ -41,7 +41,7 @@ public class NewQuestionPageTest extends ApplicationTest {
                         .withBody("{\"name\":\"a\",\"questions\":[{\"question\":\"?\",\"answer\":0,\"choices\":[\"a\",\"b \",\"c \",\"d \"]}]}")
                         .withStatus(200)));
 
-        EditPageController editPageController = new EditPageController("a", new User(""));
+        EditPageController editPageController = new EditPageController("a", new User("", ""));
         FXMLLoader loader2 = new FXMLLoader(getClass().getResource("EditPage.fxml"));
         loader2.setController(editPageController);
         controller.setPreviousPageInfo(editPageController, loader2.load());
