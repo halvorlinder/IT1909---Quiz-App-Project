@@ -128,7 +128,7 @@ public final class HomePageController extends BaseController implements Initiali
             Utilities.alertUser("Klarte ikke å laste inn side");
             return;
         }
-        try{
+        try {
             Parent root = loader.load();
             getScene().setRoot(root);
         } catch (IOException ignored) {
@@ -152,9 +152,9 @@ public final class HomePageController extends BaseController implements Initiali
             Utilities.alertUser("Klarte ikke å laste inn side");
             return;
         }
-        try{
+        try {
             Parent root = loader.load();
-            getScene().setRoot(root);;
+            getScene().setRoot(root);
         } catch (IOException ignored) {
         }
     }
@@ -180,7 +180,7 @@ public final class HomePageController extends BaseController implements Initiali
             Utilities.alertUser("Klarte ikke å laste inn side");
             return;
         }
-        try{
+        try {
             Parent root = loader.load();
             getScene().setRoot(root);
         } catch (IOException ignored) {
@@ -194,7 +194,7 @@ public final class HomePageController extends BaseController implements Initiali
      * @throws IOException
      */
     @FXML
-    public void addNewQuizFile(){
+    public void addNewQuizFile() {
         String newQuizName = quizNameField.getText();
         if (newQuizName.isEmpty()) {
             Utilities.alertUser("Vennligst fyll inn et navn");
