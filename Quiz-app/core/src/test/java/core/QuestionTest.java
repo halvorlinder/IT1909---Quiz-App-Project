@@ -38,9 +38,9 @@ public class QuestionTest {
 
     @Test
     public void testIsCorrect() {
-        Assertions.assertThrows(ArrayIndexOutOfBoundsException.class, () ->
+        Assertions.assertThrows(IllegalArgumentException.class, () ->
                 correctQuestion.isCorrect(-1));
-        Assertions.assertThrows(ArrayIndexOutOfBoundsException.class, () ->
+        Assertions.assertThrows(IllegalArgumentException.class, () ->
                 correctQuestion.isCorrect(5));
         Assertions.assertFalse(correctQuestion.isCorrect(2));
         Assertions.assertTrue(correctQuestion.isCorrect(correctAnswer));
@@ -49,9 +49,9 @@ public class QuestionTest {
 
     @Test
     public void testGetChoice() {
-        Assertions.assertThrows(ArrayIndexOutOfBoundsException.class, () ->
+        Assertions.assertThrows(IllegalArgumentException.class, () ->
                 correctQuestion.getChoice(-1));
-        Assertions.assertThrows(ArrayIndexOutOfBoundsException.class, () ->
+        Assertions.assertThrows(IllegalArgumentException.class, () ->
                 correctQuestion.getChoice(4));
         Assertions.assertEquals("1", correctQuestion.getChoice(0));
     }
