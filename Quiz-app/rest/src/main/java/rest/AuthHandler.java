@@ -12,25 +12,46 @@ public class AuthHandler {
     private final SecureRandom secureRandom = new SecureRandom();
     private final Base64.Encoder base64Encoder = Base64.getUrlEncoder();
 
-    public AuthHandler(){
+    /**
+     *
+     */
+    public AuthHandler() {
         userToTokenMapping = new HashMap<>();
     }
 
-    public void addNewToken(String username){
+    /**
+     * stores a token on a given username
+     *
+     * @param username the username of the user
+     */
+    public String registerAndGetToken(String username) {
         userToTokenMapping.put(username, getRandomToken());
-    }
-
-    private String getToken(String username){
         return userToTokenMapping.get(username);
     }
 
+    /**
+     * @param username the username of the user
+     * @return the token associated with the user
+     */
+    private String getToken(String username) {
+        return userToTokenMapping.get(username);
+    }
+
+    /**
+     * @return a random auth token
+     */
     private String getRandomToken() {
         byte[] randomBytes = new byte[24];
         secureRandom.nextBytes(randomBytes);
         return base64Encoder.encodeToString(randomBytes);
     }
 
-    public boolean hasAccess(String token, Quiz quiz){
+    /**
+     * @param token the access token
+     * @param quiz  the quiz in question
+     * @return checks if the requester has write access to the quiz in question
+     */
+    public boolean hasAccess(String token, Quiz quiz) {
         return userToTokenMapping.containsKey(quiz.getCreator()) &&
                 token.equals(userToTokenMapping.get(quiz.getCreator()));
     }
