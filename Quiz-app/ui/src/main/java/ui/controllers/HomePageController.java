@@ -195,7 +195,7 @@ public final class HomePageController extends BaseController implements Initiali
      */
     @FXML
     public void addNewQuizFile() {
-        String newQuizName = quizNameField.getText();
+        String newQuizName = quizNameField.getText().strip().replaceAll(" ", "\\$");
         if (newQuizName.isEmpty()) {
             Utilities.alertUser("Vennligst fyll inn et navn");
             return;

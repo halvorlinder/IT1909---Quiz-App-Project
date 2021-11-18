@@ -12,6 +12,7 @@ import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class APIClientService {
 
@@ -39,7 +40,7 @@ public class APIClientService {
      */
     public Quiz getQuiz(String quizName) throws IOException {
         errorMessageMap.put(404, "Beklager, quizen finnes ikke lenger");
-        HttpResponse<String> response = sendRequest("GET", "/quizzes/" + quizName,
+        HttpResponse<String> response = sendRequest("GET", "/quizzes/" + quizName.replaceAll(" ", "\\$"),
                 "", "");
         return objectMapper.readValue(response.body(), Quiz.class);
     }
@@ -53,7 +54,8 @@ public class APIClientService {
      */
     public List<String> getListOfQuizNames() throws IOException {
         HttpResponse<String> response = sendRequest("GET", "/quizzes", "", "");
-        return objectMapper.readValue(response.body(), List.class);
+        List<String> names = objectMapper.readValue(response.body(), List.class);
+        return names.stream().map(str-> str.replaceAll("\\$", " ")).collect(Collectors.toList());
     }
 
     /**
@@ -82,7 +84,7 @@ public class APIClientService {
             throws IOException {
         errorMessageMap.put(403, "Du eier ikke denne quizen og du kan derfor ikke endre spørsmålet");
         errorMessageMap.put(404, "Beklager, dette spørsmålet finnes ikke lenger");
-        sendRequest("PUT", "/quizzes/" + quizName + "/" + questionID,
+        sendRequest("PUT", "/quizzes/" + quizName.replaceAll(" ", "\\$") + "/" + questionID,
                 objectMapper.writeValueAsString(newQuestion), accessToken);
     }
 
@@ -97,7 +99,7 @@ public class APIClientService {
     public void deleteQuiz(String quizName, String accessToken) throws IOException {
         errorMessageMap.put(403, "Du eier ikke denne quizen og du kan derfor ikke slette den");
         errorMessageMap.put(404, "Beklager, denne quizen finnes ikke lenger");
-        sendRequest("DELETE", "/quizzes/" + quizName, "", accessToken);
+        sendRequest("DELETE", "/quizzes/" + quizName.replaceAll(" ", "\\$"), "", accessToken);
     }
 
     /**
@@ -113,7 +115,7 @@ public class APIClientService {
             throws IOException {
         errorMessageMap.put(403, "Du eier ikke denne quizen og du kan derfor ikke slette spørsmålet");
         errorMessageMap.put(404, "Beklager, dette spørsmålet finnes ikke lenger");
-        sendRequest("DELETE", "/quizzes/" + quizName + "/" + questionID, "", accessToken);
+        sendRequest("DELETE", "/quizzes/" + quizName.replaceAll(" ", "\\$") + "/" + questionID, "", accessToken);
     }
 
     /**
@@ -129,7 +131,7 @@ public class APIClientService {
             throws IOException {
         errorMessageMap.put(403, "Du eier ikke denne quizen og du kan derfor ikke legge til et spørsmål");
         errorMessageMap.put(404, "Beklager, denne quizen finnes ikke lenger");
-        sendRequest("POST", "/quizzes/" + quizName, objectMapper.writeValueAsString(newQuestion), accessToken);
+        sendRequest("POST", "/quizzes/" + quizName.replaceAll(" ", "\\$"), objectMapper.writeValueAsString(newQuestion), accessToken);
     }
 
     /**
@@ -168,7 +170,7 @@ public class APIClientService {
      */
     public Leaderboard getLeaderboard(String quizName) throws IOException {
         errorMessageMap.put(404, "Beklager, denne ledertavlen finnes ikke lenger");
-        HttpResponse<String> response = sendRequest("GET", "/leaderboards/" + quizName, "", "");
+        HttpResponse<String> response = sendRequest("GET", "/leaderboards/" + quizName.replaceAll(" ", "\\$"), "", "");
         return objectMapper.readValue(response.body(), Leaderboard.class);
     }
 
@@ -183,7 +185,7 @@ public class APIClientService {
      */
     public void postScore(String quizName, Score newScore) throws IOException {
         errorMessageMap.put(404, "Beklager, kunne ikke registrere poengsum fordi quizen ikke finnes lenger");
-        sendRequest("POST", "/leaderboards/" + quizName, objectMapper.writeValueAsString(newScore), "");
+        sendRequest("POST", "/leaderboards/" + quizName.replaceAll(" ", "\\$"), objectMapper.writeValueAsString(newScore), "");
     }
 
 
