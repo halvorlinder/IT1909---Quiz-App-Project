@@ -36,7 +36,8 @@ public class QuizController {
 
     /**
      * returns a response containing a quiz
-     * @param name the name of the quiz
+     *
+     * @param name     the name of the quiz
      * @param response
      * @return the quiz
      */
@@ -44,15 +45,17 @@ public class QuizController {
     public String getQuiz(@PathVariable("name") String name, HttpServletResponse response) {
         try {
             return objectMapper.writeValueAsString(quizPersistence.loadQuiz(name));
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (FileNotFoundException fileNotFoundException) {
+            response.setStatus(404);
+            System.out.println(fileNotFoundException);
+        } catch (IOException ioException) {
+            response.setStatus(500);
+            System.out.println(ioException);
         }
-        response.setStatus(404);
         return null;
     }
 
     /**
-     *
      * @param response
      * @return a list of all quizzes
      */
@@ -60,15 +63,16 @@ public class QuizController {
     public String getQuizzes(HttpServletResponse response) {
         try {
             return objectMapper.writeValueAsString(quizPersistence.getListOfQuizNames());
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
+        } catch (IOException ioException) {
+            System.out.println(ioException);
+            response.setStatus(500);
         }
-        response.setStatus(500);
         return null;
     }
 
     /**
      * posts a new quiz
+     *
      * @param quizJSON the new quiz
      * @param response
      * @return the new quiz
@@ -85,15 +89,15 @@ public class QuizController {
             Leaderboard leaderboard = new Leaderboard(quiz.getName(), quiz.getQuizLength());
             leaderboardPersistence.saveLeaderboard(leaderboard);
             return quizJSON;
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ioException) {
+            System.out.println(ioException);
+            response.setStatus(500);
         }
-        response.setStatus(500);
         return null;
     }
 
     /**
-     *
+     * @param token    authorization token
      * @param question the new question
      * @param quizName the name of the quiz
      * @param response
@@ -146,8 +150,8 @@ public class QuizController {
                 return objectMapper.writeValueAsString(quiz);
             }
             response.setStatus(403);
-        } catch (FileNotFoundException fileNotFoundException) {
-            System.out.println(fileNotFoundException);
+        } catch (FileNotFoundException | IndexOutOfBoundsException notFoundException) {
+            System.out.println(notFoundException);
             response.setStatus(404);
         } catch (IOException ioException) {
             System.out.println(ioException);
@@ -205,9 +209,9 @@ public class QuizController {
                 return objectMapper.writeValueAsString(quiz);
             } else
                 response.setStatus(403);
-        } catch (FileNotFoundException fileNotFoundException) {
+        } catch (FileNotFoundException | IndexOutOfBoundsException notFoundException) {
             response.setStatus(404);
-            System.out.println(fileNotFoundException);
+            System.out.println(notFoundException);
         } catch (IOException ioException) {
             response.setStatus(500);
             System.out.println(ioException);
@@ -224,16 +228,20 @@ public class QuizController {
     public String getLeaderboard(@PathVariable("name") String name, HttpServletResponse response) {
         try {
             return objectMapper.writeValueAsString(leaderboardPersistence.loadLeaderboard(name));
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (FileNotFoundException fileNotFoundException) {
+            response.setStatus(404);
+            System.out.println(fileNotFoundException);
+        } catch (IOException ioException) {
+            response.setStatus(500);
+            System.out.println(ioException);
         }
-        response.setStatus(404);
         return null;
     }
 
     /**
      * posts a score to a given scoreboard
-     * @param score the user with score
+     *
+     * @param score    the user with score
      * @param quizName the name of the quiz
      * @param response
      * @return the updated scoreboard
@@ -246,17 +254,22 @@ public class QuizController {
             leaderboard.addScore(objectMapper.readValue(score, Score.class));
             leaderboardPersistence.saveLeaderboard(leaderboard);
             return objectMapper.writeValueAsString(leaderboard);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (FileNotFoundException fileNotFoundException) {
+            response.setStatus(404);
+            System.out.println(fileNotFoundException);
+        } catch (IOException ioException) {
+            response.setStatus(500);
+            System.out.println(ioException);
         }
-        response.setStatus(404);
         return null;
     }
 
     /**
      * attempts to login in a user
+     *
      * @param response
      * @param userDataJson the login information
+     * @return the user's access token
      */
     @PostMapping("/users/login")
     public String loginUser(HttpServletResponse response, @RequestBody String userDataJson) {
@@ -276,8 +289,10 @@ public class QuizController {
 
     /**
      * attempts to register a user
+     *
      * @param response
      * @param userDataJson the registration information
+     * @return the user's access token
      */
     @PostMapping("/users/register")
     public String registerUser(HttpServletResponse response, @RequestBody String userDataJson) {
