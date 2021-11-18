@@ -39,7 +39,7 @@ public class ResultPageController extends BaseController {
     /**
      * Displays the scores to the GUI
      */
-    public void initialize() throws IOException, InterruptedException {
+    public void initialize() throws IOException {
         apiClientService = new APIClientService();
         apiClientService.postScore(name, new Score(getUser().getUsername(), score));
         result.setText("Du fikk %s/%s poeng!".formatted(score, maxScore));

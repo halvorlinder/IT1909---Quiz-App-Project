@@ -41,13 +41,13 @@ public class LeaderboardPageController extends GoBackController {
      * @throws IOException
      */
     @FXML
-    private void initialize() throws IOException, InterruptedException {
+    private void initialize() throws IOException {
         setBackButton(backButton);
         apiClientService = new APIClientService();
         display();
     }
 
-    private void display() throws IOException, InterruptedException {
+    private void display() throws IOException {
         leaderboardList.getChildren().clear();
         leaderboard = apiClientService.getLeaderboard(quizName);
         titleText.setText(quizName);

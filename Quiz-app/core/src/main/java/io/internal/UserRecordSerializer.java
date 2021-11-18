@@ -10,7 +10,8 @@ import java.io.IOException;
 public class UserRecordSerializer extends JsonSerializer<UserRecord> {
     /**
      * serializes a UserRecord
-     * @param userRecord the UserRecord
+     *
+     * @param userRecord         the UserRecord
      * @param jsonGenerator
      * @param serializerProvider
      * @throws IOException

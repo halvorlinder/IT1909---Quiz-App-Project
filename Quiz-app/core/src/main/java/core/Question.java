@@ -75,7 +75,6 @@ public class Question {
     }
 
     /**
-     *
      * @return string representation
      */
     @Override

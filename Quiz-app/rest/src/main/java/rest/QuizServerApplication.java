@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 public class QuizServerApplication {
     /**
      * Starts the server
+     *
      * @param args
      */
     public static void main(String[] args) {
