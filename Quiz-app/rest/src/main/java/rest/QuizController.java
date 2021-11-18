@@ -226,4 +226,48 @@ public class QuizController {
         return null;
     }
 
+    /**
+     * attempts to login in a user
+     * @param response
+     * @param userDataJson the login information
+     */
+    @PostMapping("/users/login")
+    public String loginUser(HttpServletResponse response, @RequestBody String userDataJson) {
+        try {
+            UserData userData = userPersistence.loadUserData();
+            UserRecord userRecord = objectMapper.readValue(userDataJson, UserRecord.class);
+            if (userData.attemptLogIn(userRecord)){
+                return authHandler.registerAndGetToken(userRecord.getUsername());
+            }
+            response.setStatus(403);
+        } catch (IOException ioException) {
+            response.setStatus(500);
+            System.out.println(ioException);
+        }
+        return null;
+    }
+
+    /**
+     * attempts to register a user
+     * @param response
+     * @param userDataJson the registration information
+     */
+    @PostMapping("/users/register")
+    public String registerUser(HttpServletResponse response, @RequestBody String userDataJson) {
+        try {
+            UserData userData = userPersistence.loadUserData();
+            UserRecord userRecord = objectMapper.readValue(userDataJson, UserRecord.class);
+            if (userData.attemptRegister(userRecord)) {
+                userPersistence.saveUserData(userData);
+                return authHandler.registerAndGetToken(userRecord.getUsername());
+            }
+            response.setStatus(403);
+        } catch (IOException ioException) {
+            response.setStatus(500);
+            System.out.println(ioException);
+        }
+        return null;
+    }
+
+
 }
