@@ -30,7 +30,7 @@ public class NewQuestionPageTest extends ApplicationTest {
     public void start(final Stage stage) throws Exception {
         SavePaths.enableTestMode();
         final FXMLLoader loader = new FXMLLoader(getClass().getResource("NewQuestionPage.fxml"));
-        NewQuestionPageController controller = new NewQuestionPageController("a", new User("", ""));
+        NewQuestionPageController controller = new NewQuestionPageController("a", new User("user", ""));
 
         config = WireMockConfiguration.wireMockConfig().port(8080);
         wireMockServer = new WireMockServer(config.portNumber());
@@ -38,7 +38,7 @@ public class NewQuestionPageTest extends ApplicationTest {
         WireMock.configureFor("localhost", config.portNumber());
         stubFor(get(urlEqualTo("/api/quizzes/a"))
                 .willReturn(aResponse()
-                        .withBody("{\"name\":\"a\",\"questions\":[{\"question\":\"?\",\"answer\":0,\"choices\":[\"a\",\"b \",\"c \",\"d \"]}]}")
+                        .withBody("{\"name\":\"a\",\"creator\":\"user\",\"questions\":[{\"question\":\"?\",\"answer\":0,\"choices\":[\"a\",\"b \",\"c \",\"d \"]}]}")
                         .withStatus(200)));
 
         EditPageController editPageController = new EditPageController("a", new User("", ""));
@@ -84,7 +84,7 @@ public class NewQuestionPageTest extends ApplicationTest {
                         .withStatus(200)));
         stubFor(get(urlEqualTo("/api/quizzes/a"))
                 .willReturn(aResponse()
-                        .withBody("{\"name\":\"a\",\"questions\":[{\"question\":\"?\",\"answer\":0,\"choices\":[\"a\",\"b\",\"c\",\"d\"]}]}")
+                        .withBody("{\"name\":\"a\",\"creator\":\"user\",\"questions\":[{\"question\":\"?\",\"answer\":0,\"choices\":[\"a\",\"b\",\"c\",\"d\"]}]}")
                         .withStatus(200)));
         stubFor(get(urlEqualTo("/api/quizzes"))
                 .willReturn(aResponse()

@@ -36,9 +36,9 @@ public class EditPageTest extends ApplicationTest {
         WireMock.configureFor("localhost", config.portNumber());
         stubFor(get(urlEqualTo("/api/quizzes/x"))
                 .willReturn(aResponse()
-                        .withBody("{\"name\":\"x\",\"questions\":[{\"question\":\"?\",\"answer\":0,\"choices\":[\"a\",\"b\",\"c\",\"d\"]}]}")));
+                        .withBody("{\"name\":\"x\",\"creator\":\"user\",\"questions\":[{\"question\":\"?\",\"answer\":0,\"choices\":[\"a\",\"b\",\"c\",\"d\"]}]}")));
         FXMLLoader loader = new FXMLLoader(getClass().getResource("EditPage.fxml"));
-        EditPageController editPageController = new EditPageController("x", new User("", ""));
+        EditPageController editPageController = new EditPageController("x", new User("user", ""));
 
         stubFor(get(urlEqualTo("/api/quizzes"))
                 .willReturn(aResponse()
@@ -63,7 +63,7 @@ public class EditPageTest extends ApplicationTest {
         WireMock.configureFor("localhost", config.portNumber());
         stubFor(get(urlEqualTo("/api/quizzes/x"))
                 .willReturn(aResponse()
-                        .withBody("{\"name\":\"x\",\"questions\":[{\"question\":\"?\",\"answer\":0,\"choices\":[\"a\",\"b\",\"c\",\"d\"]}]}")
+                        .withBody("{\"name\":\"x\",\"creator\":\"user\",\"questions\":[{\"question\":\"?\",\"answer\":0,\"choices\":[\"a\",\"b\",\"c\",\"d\"]}]}")
                         .withStatus(200)));
     }
 
@@ -92,7 +92,7 @@ public class EditPageTest extends ApplicationTest {
                         .withStatus(200)));
         stubFor(get(urlEqualTo("/api/quizzes/x"))
                 .willReturn(aResponse()
-                        .withBody("{\"name\":\"x\",\"questions\":[]}")
+                        .withBody("{\"name\":\"x\",\"creator\":\"user\",\"questions\":[]}")
                         .withStatus(200)));
         VBox vBox = lookup("#questionList").query();
         clickOn(from(vBox).lookup((Button b) -> b.getText().equals("Slett")).queryButton());

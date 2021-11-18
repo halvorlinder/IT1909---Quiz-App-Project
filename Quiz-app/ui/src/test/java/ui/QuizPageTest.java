@@ -31,7 +31,7 @@ public class QuizPageTest extends ApplicationTest {
         WireMock.configureFor("localhost", config.portNumber());
         stubFor(get(urlEqualTo("/api/quizzes/x"))
                 .willReturn(aResponse()
-                        .withBody("{\"name\":\"x\",\"questions\":[{\"question\":\"?\",\"answer\":0,\"choices\":[\"a\",\"b\",\"c\",\"d\"]}]}")
+                        .withBody("{\"name\":\"x\",\"creator\":\"test\",\"questions\":[{\"question\":\"?\",\"answer\":0,\"choices\":[\"a\",\"b\",\"c\",\"d\"]}]}")
                         .withStatus(200)));
 
         final FXMLLoader loader = new FXMLLoader(getClass().getResource("QuizPage.fxml"));
