@@ -38,12 +38,12 @@ public class EditPageTest extends ApplicationTest {
                 .willReturn(aResponse()
                         .withBody("{\"name\":\"x\",\"questions\":[{\"question\":\"?\",\"answer\":0,\"choices\":[\"a\",\"b\",\"c\",\"d\"]}]}")));
         FXMLLoader loader = new FXMLLoader(getClass().getResource("EditPage.fxml"));
-        EditPageController editPageController = new EditPageController("x", new User(""));
+        EditPageController editPageController = new EditPageController("x", new User("", ""));
 
         stubFor(get(urlEqualTo("/api/quizzes"))
                 .willReturn(aResponse()
                         .withBody("[\"x\"]")));
-        HomePageController homePageController = new HomePageController(new User(""));
+        HomePageController homePageController = new HomePageController(new User("", ""));
         FXMLLoader loader2 = new FXMLLoader(getClass().getResource("HomePage.fxml"));
         loader2.setController(homePageController);
         editPageController.setPreviousPageInfo(homePageController, loader2.load());

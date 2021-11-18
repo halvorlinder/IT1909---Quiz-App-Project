@@ -40,7 +40,7 @@ public class QuizControllerTest {
     private WebApplicationContext webApplicationContext;
 
     private final ObjectMapper objectMapper = QuizPersistence.createObjectMapper();
-    private final Quiz defaultQuiz = new Quiz("testQuiz", List.of(new Question("a", List.of("1", "2", "3", "4"), 0)));
+    private final Quiz defaultQuiz = new Quiz("testQuiz", List.of(new Question("a", List.of("1", "2", "3", "4"), 0)), "");
     private final Score score1 = new Score("test1", 1);
     private final Score score2 = new Score("test2", 0);
     private final Score score3 = new Score("test3", 1);
@@ -162,7 +162,7 @@ public class QuizControllerTest {
     }
 
     private Quiz getExampleQuiz() {
-        return new Quiz("exampleQuiz", List.of(new Question("b", List.of("11", "21", "31", "41"), 1)));
+        return new Quiz("exampleQuiz", List.of(new Question("b", List.of("11", "21", "31", "41"), 1)), "");
     }
 
     private Leaderboard getExampleLeaderboard() {

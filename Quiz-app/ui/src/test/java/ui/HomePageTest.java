@@ -41,7 +41,7 @@ public class HomePageTest extends ApplicationTest {
                 .willReturn(aResponse()
                         .withBody("[]")));
         loader = new FXMLLoader(getClass().getResource("HomePage.fxml"));
-        HomePageController homePageController = new HomePageController(new User(""));
+        HomePageController homePageController = new HomePageController(new User("", ""));
         loader.setController(homePageController);
         final Parent root = loader.load();
         wireMockServer.stop();

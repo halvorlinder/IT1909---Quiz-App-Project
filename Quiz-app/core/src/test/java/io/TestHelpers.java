@@ -10,7 +10,7 @@ public class TestHelpers {
     public static Quiz createQuizWithTwoQuestions() {
         return new Quiz("quiz101", List.of(
                 new Question("What?", List.of("a", "b", "c", "d"), 2),
-                new Question("Where", List.of("1", "2", "3", "4"), 3)));
+                new Question("Where", List.of("1", "2", "3", "4"), 3)), "");
     }
 
     static void checkQuestion(Question question1, Question question2) {
