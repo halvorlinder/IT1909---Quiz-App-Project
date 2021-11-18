@@ -7,7 +7,7 @@ import core.Quiz;
 import core.UserRecord;
 import core.Score;
 import io.QuizPersistence;
-import org.springframework.http.HttpStatus;
+
 
 import java.io.IOException;
 import java.net.URI;
@@ -175,7 +175,6 @@ public class APIClientService {
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         int statusCode = response.statusCode();
         if (statusCode > 299) {
-            System.out.println("Fail: " + HttpStatus.valueOf(statusCode).getReasonPhrase());
             throw new IOException("Response from server is not valid. The status code is " + statusCode);
         }
         return response;
