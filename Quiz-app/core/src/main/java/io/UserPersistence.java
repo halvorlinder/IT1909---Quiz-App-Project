@@ -12,7 +12,7 @@ import java.nio.file.Path;
 
 public final class UserPersistence {
     private final ObjectMapper mapper;
-    private String fileName = "users.json";
+    private final String fileName = "users.json";
     private static final String BASE_PATH = SavePaths.getBasePath();
 
     /**
@@ -25,17 +25,6 @@ public final class UserPersistence {
         if (!Files.exists(Path.of(BASE_PATH))) {
             Files.createDirectory(Path.of(BASE_PATH));
         }
-    }
-
-    /**
-     * creates a new UserPersistence object
-     *
-     * @param fileName the location of read/write
-     * @throws IOException
-     */
-    public UserPersistence(String fileName) throws IOException {
-        this();
-        this.fileName = fileName;
     }
 
     /**
