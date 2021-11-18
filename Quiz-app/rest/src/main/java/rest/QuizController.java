@@ -1,17 +1,14 @@
 package rest;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import core.Leaderboard;
-import core.Question;
-import core.Quiz;
-import core.Score;
+import core.*;
 import io.LeaderboardPersistence;
 import io.QuizPersistence;
 import io.UserPersistence;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 @RestController
@@ -19,17 +16,22 @@ import java.io.IOException;
 public class QuizController {
 
     private final QuizPersistence quizPersistence;
+    private final UserPersistence userPersistence;
     private final LeaderboardPersistence leaderboardPersistence;
     private final ObjectMapper objectMapper;
+    private final AuthHandler authHandler;
 
     /**
      * inits the controller
+     *
      * @throws IOException
      */
     public QuizController() throws IOException {
         this.objectMapper = UserPersistence.createObjectMapper();
         this.quizPersistence = new QuizPersistence();
+        this.userPersistence = new UserPersistence();
         this.leaderboardPersistence = new LeaderboardPersistence();
+        this.authHandler = new AuthHandler();
     }
 
     /**
@@ -98,98 +100,123 @@ public class QuizController {
      * @return the quiz
      */
     @PostMapping("quizzes/{name}")
-    public String addQuestion(@RequestBody String question,
+    public String addQuestion(@RequestHeader("Authorization") String token, @RequestBody String question,
                               @PathVariable("name") String quizName, HttpServletResponse response) {
         try {
             Quiz quiz = quizPersistence.loadQuiz(quizName);
-            quiz.addQuestion(objectMapper.readValue(question, Question.class));
-            quizPersistence.saveQuiz(quiz);
-            leaderboardPersistence.deleteLeaderboard(quizName);
-            Leaderboard leaderboard = new Leaderboard(quiz.getName(), quiz.getQuizLength());
-            leaderboardPersistence.saveLeaderboard(leaderboard);
-            return objectMapper.writeValueAsString(quiz);
-        } catch (IOException e) {
-            e.printStackTrace();
+            if (authHandler.hasAccess(token, quiz)) {
+                quiz.addQuestion(objectMapper.readValue(question, Question.class));
+                quizPersistence.saveQuiz(quiz);
+                leaderboardPersistence.deleteLeaderboard(quizName);
+                Leaderboard leaderboard = new Leaderboard(quiz.getName(), quiz.getQuizLength());
+                leaderboardPersistence.saveLeaderboard(leaderboard);
+                return objectMapper.writeValueAsString(quiz);
+            }
+            response.setStatus(403);
+        } catch (FileNotFoundException fileNotFoundException) {
+            System.out.println(fileNotFoundException);
+            response.setStatus(404);
+        } catch (IOException ioException) {
+            System.out.println(ioException);
+            response.setStatus(500);
         }
-        response.setStatus(404);
         return null;
     }
 
     /**
-     *
-     * @param question a new question
-     * @param quizName the name of the quiz
+     * @param token      authorization token
+     * @param question   a new question
+     * @param quizName   the name of the quiz
      * @param questionId the id of the question
      * @param response
      * @return edits a question on a given index in a given quiz
      */
     @PutMapping("quizzes/{name}/{id}")
-    public String editQuestion(@RequestBody String question,
+    public String editQuestion(@RequestHeader("Authorization") String token, @RequestBody String question,
                                @PathVariable("name") String quizName,
                                @PathVariable("id") int questionId, HttpServletResponse response) {
         try {
             Quiz quiz = quizPersistence.loadQuiz(quizName);
-            quiz.setQuestion(questionId, objectMapper.readValue(question, Question.class));
-            quizPersistence.saveQuiz(quiz);
-            leaderboardPersistence.deleteLeaderboard(quizName);
-            Leaderboard leaderboard = new Leaderboard(quiz.getName(), quiz.getQuizLength());
-            leaderboardPersistence.saveLeaderboard(leaderboard);
-            return objectMapper.writeValueAsString(quiz);
-        } catch (Exception e) {
-            e.printStackTrace();
+            if (authHandler.hasAccess(token, quiz)) {
+                quiz.setQuestion(questionId, objectMapper.readValue(question, Question.class));
+                quizPersistence.saveQuiz(quiz);
+                leaderboardPersistence.deleteLeaderboard(quizName);
+                Leaderboard leaderboard = new Leaderboard(quiz.getName(), quiz.getQuizLength());
+                leaderboardPersistence.saveLeaderboard(leaderboard);
+                return objectMapper.writeValueAsString(quiz);
+            }
+            response.setStatus(403);
+        } catch (FileNotFoundException fileNotFoundException) {
+            System.out.println(fileNotFoundException);
+            response.setStatus(404);
+        } catch (IOException ioException) {
+            System.out.println(ioException);
+            response.setStatus(500);
         }
-        response.setStatus(404);
         return null;
     }
 
     /**
      * deletes a quiz
+     *
      * @param quizName the name of the quiz
+     * @param token    authorization token
      * @param response
      */
     @DeleteMapping("quizzes/{name}")
-    public void deleteQuiz(@PathVariable("name") String quizName, HttpServletResponse response) {
-        if (quizPersistence.deleteQuiz(quizName)) {
-            try {
+    public void deleteQuiz(@RequestHeader("Authorization") String token, @PathVariable("name") String quizName,
+                           HttpServletResponse response) {
+        try {
+            if (authHandler.hasAccess(token, quizPersistence.loadQuiz(quizName))) {
+                quizPersistence.deleteQuiz(quizName);
                 leaderboardPersistence.deleteLeaderboard(quizName);
-                response.setStatus(200);
-            } catch (IOException ioException) {
-                response.setStatus(500);
-                ioException.printStackTrace();
-            }
-        } else
+            } else
+                response.setStatus(403);
+        } catch (FileNotFoundException fileNotFoundException) {
             response.setStatus(404);
+            System.out.println(fileNotFoundException);
+        } catch (IOException ioException) {
+            response.setStatus(500);
+            System.out.println(ioException);
+        }
     }
 
     /**
      * deletes a question in a given position from a given quiz
-     * @param quizName the name of the quiz
+     *
+     * @param token      authorization token
+     * @param quizName   the name of the quiz
      * @param questionId the index of the question
      * @param response
      * @return the updated quiz
      */
     @DeleteMapping("quizzes/{name}/{id}")
     @ResponseBody
-    public String deleteQuestion(@PathVariable("name") String quizName,
+    public String deleteQuestion(@RequestHeader("Authorization") String token,
+                                 @PathVariable("name") String quizName,
                                  @PathVariable("id") int questionId, HttpServletResponse response) {
         try {
             Quiz quiz = quizPersistence.loadQuiz(quizName);
-            quiz.deleteQuestion(questionId);
-            quizPersistence.saveQuiz(quiz);
-            leaderboardPersistence.deleteLeaderboard(quizName);
-            Leaderboard leaderboard = new Leaderboard(quiz.getName(), quiz.getQuizLength());
-            leaderboardPersistence.saveLeaderboard(leaderboard);
-            return objectMapper.writeValueAsString(quiz);
-        } catch (Exception e) {
-            e.printStackTrace();
+            if (authHandler.hasAccess(token, quiz)) {
+                quiz.deleteQuestion(questionId);
+                quizPersistence.saveQuiz(quiz);
+                Leaderboard leaderboard = new Leaderboard(quiz.getName(), quiz.getQuizLength());
+                leaderboardPersistence.saveLeaderboard(leaderboard);
+                return objectMapper.writeValueAsString(quiz);
+            } else
+                response.setStatus(403);
+        } catch (FileNotFoundException fileNotFoundException) {
+            response.setStatus(404);
+            System.out.println(fileNotFoundException);
+        } catch (IOException ioException) {
+            response.setStatus(500);
+            System.out.println(ioException);
         }
-        response.setStatus(404);
         return null;
     }
 
     /**
-     *
-     * @param name the name of the quiz
+     * @param name     the name of the quiz
      * @param response
      * @return a leaderboard for a quiz given its name
      */
@@ -236,7 +263,7 @@ public class QuizController {
         try {
             UserData userData = userPersistence.loadUserData();
             UserRecord userRecord = objectMapper.readValue(userDataJson, UserRecord.class);
-            if (userData.attemptLogIn(userRecord)){
+            if (userData.attemptLogIn(userRecord)) {
                 return authHandler.registerAndGetToken(userRecord.getUsername());
             }
             response.setStatus(403);
