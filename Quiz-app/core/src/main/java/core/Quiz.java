@@ -16,6 +16,8 @@ public class Quiz {
      * @param questions a list of question objects
      */
     public Quiz(String name, List<Question> questions) {
+        if (name.isEmpty())
+            throw new IllegalArgumentException("The quiz must have a name");
         this.name = name;
         this.questions = new ArrayList<>(questions);
     }

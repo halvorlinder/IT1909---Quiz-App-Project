@@ -19,6 +19,8 @@ public class Question {
             throw new IllegalArgumentException("A question must have exactly four choices");
         if (correctAnswer >= choices.size() || correctAnswer < 0)
             throw new ArrayIndexOutOfBoundsException();
+        if (question.isEmpty())
+            throw new IllegalArgumentException("The question can't be empty");
         this.question = question;
         this.choices = new ArrayList<>(choices);
         this.answer = correctAnswer;
