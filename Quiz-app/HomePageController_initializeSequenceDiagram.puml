@@ -1,0 +1,150 @@
+@startuml
+participant Actor
+Actor -> HomePageController : initialize
+activate HomePageController
+HomePageController -> APIClientService : new
+activate APIClientService
+APIClientService -> QuizPersistence : createObjectMapper
+activate QuizPersistence
+QuizPersistence -> QuizPersistence : createJacksonModule
+activate QuizPersistence
+QuizPersistence -> QuizAppModule : new
+activate QuizAppModule
+QuizAppModule --> QuizPersistence
+deactivate QuizAppModule
+QuizPersistence --> QuizPersistence
+deactivate QuizPersistence
+QuizPersistence --> APIClientService
+deactivate QuizPersistence
+APIClientService --> HomePageController
+deactivate APIClientService
+HomePageController -> HomePageController : updateInitialQuizzes
+activate HomePageController
+HomePageController -> HomePageController : addQuizElement
+activate HomePageController
+HomePageController -> HomePageController : λ→
+activate HomePageController
+HomePageController -> HomePageController : startQuiz
+activate HomePageController
+HomePageController -> APIClientService : getQuiz
+activate APIClientService
+APIClientService -> APIClientService : sendRequest
+activate APIClientService
+APIClientService --> APIClientService
+deactivate APIClientService
+APIClientService --> HomePageController
+deactivate APIClientService
+HomePageController -> Utilities : alertUser
+activate Utilities
+Utilities --> HomePageController
+deactivate Utilities
+HomePageController -> App : getFXMLLoader
+activate App
+App --> HomePageController
+deactivate App
+HomePageController -> QuizPageController : new
+activate QuizPageController
+QuizPageController -> BaseController : new
+activate BaseController
+BaseController --> QuizPageController
+deactivate BaseController
+QuizPageController -> APIClientService : getQuiz
+activate APIClientService
+APIClientService -> APIClientService : sendRequest
+activate APIClientService
+APIClientService --> APIClientService
+deactivate APIClientService
+APIClientService --> QuizPageController
+deactivate APIClientService
+QuizPageController -> QuizSession : new
+activate QuizSession
+QuizSession -> Quiz : new
+activate Quiz
+Quiz --> QuizSession
+deactivate Quiz
+QuizSession --> QuizPageController
+deactivate QuizSession
+QuizPageController --> HomePageController
+deactivate QuizPageController
+HomePageController -> Utilities : alertUser
+activate Utilities
+Utilities --> HomePageController
+deactivate Utilities
+HomePageController --> HomePageController
+deactivate HomePageController
+HomePageController --> HomePageController
+deactivate HomePageController
+HomePageController -> HomePageController : λ→
+activate HomePageController
+HomePageController -> HomePageController : showEditPage
+activate HomePageController
+HomePageController -> App : getFXMLLoader
+activate App
+App --> HomePageController
+deactivate App
+HomePageController -> EditPageController : new
+activate EditPageController
+EditPageController -> GoBackController : new
+activate GoBackController
+GoBackController -> BaseController : new
+activate BaseController
+BaseController --> GoBackController
+deactivate BaseController
+GoBackController --> EditPageController
+deactivate GoBackController
+EditPageController --> HomePageController
+deactivate EditPageController
+HomePageController -> GoBackController : setPreviousPageInfo
+activate GoBackController
+GoBackController --> HomePageController
+deactivate GoBackController
+HomePageController -> Utilities : alertUser
+activate Utilities
+Utilities --> HomePageController
+deactivate Utilities
+HomePageController --> HomePageController
+deactivate HomePageController
+HomePageController --> HomePageController
+deactivate HomePageController
+HomePageController -> HomePageController : λ→
+activate HomePageController
+HomePageController -> HomePageController : showLeaderboardPage
+activate HomePageController
+HomePageController -> App : getFXMLLoader
+activate App
+App --> HomePageController
+deactivate App
+HomePageController -> LeaderboardPageController : new
+activate LeaderboardPageController
+LeaderboardPageController -> GoBackController : new
+activate GoBackController
+GoBackController -> BaseController : new
+activate BaseController
+BaseController --> GoBackController
+deactivate BaseController
+GoBackController --> LeaderboardPageController
+deactivate GoBackController
+LeaderboardPageController --> HomePageController
+deactivate LeaderboardPageController
+HomePageController -> GoBackController : setPreviousPageInfo
+activate GoBackController
+GoBackController --> HomePageController
+deactivate GoBackController
+HomePageController -> Utilities : alertUser
+activate Utilities
+Utilities --> HomePageController
+deactivate Utilities
+HomePageController --> HomePageController
+deactivate HomePageController
+HomePageController --> HomePageController
+deactivate HomePageController
+HomePageController --> HomePageController
+deactivate HomePageController
+HomePageController --> HomePageController
+deactivate HomePageController
+HomePageController -> Utilities : alertUser
+activate Utilities
+Utilities --> HomePageController
+deactivate Utilities
+return
+@enduml
