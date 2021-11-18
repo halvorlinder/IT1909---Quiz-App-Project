@@ -15,9 +15,9 @@ public class QuestionTest {
 
     @Test
     public void testConstructor() {
-        Assertions.assertThrows(ArrayIndexOutOfBoundsException.class,
+        Assertions.assertThrows(IllegalArgumentException.class,
                 () -> new Question(correctQuestionText, correctChoices, -1));
-        Assertions.assertThrows(ArrayIndexOutOfBoundsException.class,
+        Assertions.assertThrows(IllegalArgumentException.class,
                 () -> new Question(correctQuestionText, correctChoices, 4));
         List<String> wrongChoices = new ArrayList<>();
         wrongChoices.add("2");

@@ -20,7 +20,7 @@ public class QuizTest {
         for (int i = 0; i < num_questions; i++) {
             questions.add(new Question("Question number " + i, List.of("1", "2", "3", "4"), i % 4));
         }
-        quiz = new Quiz("quiz101", questions, "");
+        quiz = new Quiz("quiz101", questions, "hallvard");
     }
 
     @Test
@@ -90,5 +90,10 @@ public class QuizTest {
         for (int i = 0; i < 4; i++) {
             Assertions.assertEquals(quiz.getQuestion(0).getChoice(i), q.getChoice(i));
         }
+    }
+
+    @Test
+    public void testEmptyCreator() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new Quiz("test", questions, ""));
     }
 }
