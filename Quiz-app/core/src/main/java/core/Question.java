@@ -18,7 +18,7 @@ public class Question {
         if (choices.size() != NUMBER_OF_CHOICES)
             throw new IllegalArgumentException("A question must have exactly four choices");
         if (correctAnswer >= choices.size() || correctAnswer < 0)
-            throw new IllegalArgumentException("The correct answer must be between zero and " + NUMBER_OF_CHOICES);
+            throw new ArrayIndexOutOfBoundsException();
         this.question = question;
         this.choices = new ArrayList<>(choices);
         this.answer = correctAnswer;
