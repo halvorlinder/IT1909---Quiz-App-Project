@@ -131,7 +131,8 @@ public class APIClientService {
             throws IOException {
         errorMessageMap.put(403, "Du eier ikke denne quizen og du kan derfor ikke legge til et spørsmål");
         errorMessageMap.put(404, "Beklager, denne quizen finnes ikke lenger");
-        sendRequest("POST", "/quizzes/" + quizName.replaceAll(" ", "\\$"), objectMapper.writeValueAsString(newQuestion), accessToken);
+        sendRequest("POST", "/quizzes/" + quizName.replaceAll(" ", "\\$"),
+                objectMapper.writeValueAsString(newQuestion), accessToken);
     }
 
     /**
@@ -185,7 +186,8 @@ public class APIClientService {
      */
     public void postScore(String quizName, Score newScore) throws IOException {
         errorMessageMap.put(404, "Beklager, kunne ikke registrere poengsum fordi quizen ikke finnes lenger");
-        sendRequest("POST", "/leaderboards/" + quizName.replaceAll(" ", "\\$"), objectMapper.writeValueAsString(newScore), "");
+        sendRequest("POST", "/leaderboards/" + quizName.replaceAll(" ", "\\$"),
+                objectMapper.writeValueAsString(newScore), "");
     }
 
 
