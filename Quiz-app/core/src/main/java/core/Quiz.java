@@ -19,7 +19,9 @@ public class Quiz {
      */
     public Quiz(String name, List<Question> questions, String creator) {
         if (name.isEmpty())
-            throw new IllegalArgumentException("The quiz must have a name");
+            throw new IllegalArgumentException("The quiz must have a non-empty name");
+        if (creator.isEmpty())
+            throw new IllegalArgumentException("The creator of the quiz must have a non-empty name");
         this.name = name;
         this.questions = new ArrayList<>(questions);
         this.creator = creator;
