@@ -12,14 +12,16 @@ public class Question {
     /**
      * @param question a string representing the question text
      * @param choices  a list a strings representing the choices for the question
-     * @param answer   an int corresponding to the index of the correct answer
+     * @param correctAnswer   an int corresponding to the index of the correct answer
      */
-    public Question(String question, List<String> choices, int answer) {
-        if (answer >= choices.size() || answer < 0 || choices.size() != NUMBER_OF_CHOICES)
-            throw new IllegalArgumentException("The answer is greater than the permitted number of choices");
+    public Question(String question, List<String> choices, int correctAnswer) {
+        if (choices.size() != NUMBER_OF_CHOICES)
+            throw new IllegalArgumentException("A question must have exactly four choices");
+        if (correctAnswer >= choices.size() || correctAnswer < 0)
+            throw new IllegalArgumentException("The correct answer must be between zero and " + NUMBER_OF_CHOICES);
         this.question = question;
         this.choices = new ArrayList<>(choices);
-        this.answer = answer;
+        this.answer = correctAnswer;
     }
 
     /**
