@@ -5,7 +5,8 @@ public class User {
     private final String accessToken;
 
     /**
-     * @param username the username
+     * @param username    the username
+     * @param accessToken the access token
      */
     public User(String username, String accessToken) {
         this.username = username;

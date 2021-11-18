@@ -1,11 +1,7 @@
 package ui;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import core.Leaderboard;
-import core.Question;
-import core.Quiz;
-import core.UserRecord;
-import core.Score;
+import core.*;
 import io.QuizPersistence;
 import org.springframework.http.HttpStatus;
 
@@ -31,6 +27,7 @@ public class APIClientService {
 
     /**
      * fetches a quiz from the server
+     *
      * @param quizName the name of the quiz to be fetched
      * @return the quiz
      * @throws IOException
@@ -43,6 +40,7 @@ public class APIClientService {
 
     /**
      * fetches all quiz names from the server
+     *
      * @return a list of quiz names
      * @throws IOException
      * @throws InterruptedException
@@ -54,6 +52,7 @@ public class APIClientService {
 
     /**
      * posts a quiz to the server
+     *
      * @param quiz the quiz to be posted
      * @throws IOException
      * @throws InterruptedException
@@ -68,6 +67,7 @@ public class APIClientService {
      * @param quizName    the name of the quiz
      * @param questionID  the id of the question
      * @param newQuestion the new question object
+     * @param accessToken token for authorization
      * @throws IOException
      * @throws InterruptedException
      */
@@ -79,7 +79,9 @@ public class APIClientService {
 
     /**
      * deletes a quiz from the server given its name
-     * @param quizName the name of the quiz
+     *
+     * @param quizName    the name of the quiz
+     * @param accessToken token for authorization
      * @throws IOException
      * @throws InterruptedException
      */
@@ -90,12 +92,14 @@ public class APIClientService {
     /**
      * deletes a given question from a given quiz on the server
      *
-     * @param quizName   the name of the quiz
-     * @param questionID the id of the question
+     * @param quizName    the name of the quiz
+     * @param questionID  the id of the question
+     * @param accessToken token for authorization
      * @throws IOException
      * @throws InterruptedException
      */
-    public void deleteQuestion(String quizName, int questionID, String accessToken) throws IOException, InterruptedException {
+    public void deleteQuestion(String quizName, int questionID, String accessToken)
+            throws IOException, InterruptedException {
         sendRequest("DELETE", "/quizzes/" + quizName + "/" + questionID, "", accessToken);
     }
 
@@ -104,16 +108,20 @@ public class APIClientService {
      *
      * @param quizName    the name of the quiz
      * @param newQuestion the name of the question
+     * @param accessToken token for authorization
      * @throws IOException
      * @throws InterruptedException
      */
-    public void addQuestion(String quizName, Question newQuestion, String accessToken) throws IOException, InterruptedException {
+    public void addQuestion(String quizName, Question newQuestion, String accessToken)
+            throws IOException, InterruptedException {
         sendRequest("POST", "/quizzes/" + quizName, objectMapper.writeValueAsString(newQuestion), accessToken);
     }
 
     /**
      * attempts to log the user in
+     *
      * @param userRecord the user data
+     * @return the active auth token
      * @throws IOException
      * @throws InterruptedException
      */
@@ -123,7 +131,9 @@ public class APIClientService {
 
     /**
      * attempts to register the user
+     *
      * @param userRecord the information about the user
+     * @return the active auth token
      * @throws IOException
      * @throws InterruptedException
      */
@@ -164,13 +174,16 @@ public class APIClientService {
      * @param method       the http method
      * @param relativePath the path relative to /api
      * @param body         the body of the request
+     * @param header       the header
      * @return the response of the request
      * @throws IOException
      * @throws InterruptedException
      */
-    private HttpResponse<String> sendRequest(String method, String relativePath, String body, String header)
+    private HttpResponse<String> sendRequest(String method, String relativePath,
+                                             String body, String header)
             throws IOException, InterruptedException {
-        HttpRequest request = HttpRequest.newBuilder().method(method, HttpRequest.BodyPublishers.ofString(body)).header("Authorization", header)
+        HttpRequest request = HttpRequest.newBuilder().method(method, HttpRequest.BodyPublishers.ofString(body))
+                .header("Authorization", header)
                 .uri(URI.create(API_URL + relativePath)).build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
         int statusCode = response.statusCode();

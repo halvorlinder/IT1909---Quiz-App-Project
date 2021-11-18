@@ -76,7 +76,7 @@ public class QuizPersistence {
         try (Reader reader = new FileReader(basePath + quizName + ".json", StandardCharsets.UTF_8)) {
             return readQuiz(reader);
         } catch (IOException e) {
-            return new Quiz(quizName, List.of());
+            return new Quiz(quizName, List.of(), "");
         }
     }
 

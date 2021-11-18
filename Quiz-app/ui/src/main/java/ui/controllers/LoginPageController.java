@@ -73,6 +73,7 @@ public final class LoginPageController {
      *
      * @param actionEvent
      * @param username
+     * @param token       the auth token
      * @throws IOException
      */
     private void logIn(ActionEvent actionEvent, String username, String token) throws IOException {
