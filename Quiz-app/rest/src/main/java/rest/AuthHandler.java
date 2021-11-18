@@ -23,6 +23,7 @@ public class AuthHandler {
      * stores a token on a given username
      *
      * @param username the username of the user
+     * @return the token
      */
     public String registerAndGetToken(String username) {
         userToTokenMapping.put(username, getRandomToken());
