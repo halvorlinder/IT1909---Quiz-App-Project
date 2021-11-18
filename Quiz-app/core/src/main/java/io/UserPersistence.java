@@ -78,10 +78,16 @@ public final class UserPersistence {
      * @return the loaded QuizAppModule
      */
     public UserData loadUserData() throws IOException {
+        File file = new File(BASE_PATH + fileName);
+        if (!file.exists()) {
+            if (!file.createNewFile())
+                throw new IOException();
+            UserData userData = new UserData();
+            saveUserData(userData);
+            return userData;
+        }
         try (Reader reader = new FileReader(BASE_PATH + fileName, StandardCharsets.UTF_8)) {
             return readUserData(reader);
-        } catch (IOException ioException) {
-            return new UserData();
         }
     }
 
@@ -93,7 +99,8 @@ public final class UserPersistence {
     public void saveUserData(UserData userData) throws IOException {
         File file = new File(BASE_PATH + fileName);
         if (!file.exists()) {
-            boolean junk = file.createNewFile();
+            if (!file.createNewFile())
+                throw new IOException();
         }
         try (Writer writer = new FileWriter(BASE_PATH + fileName, StandardCharsets.UTF_8)) {
             writeUserData(userData, writer);
