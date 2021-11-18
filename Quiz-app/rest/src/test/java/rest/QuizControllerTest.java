@@ -24,6 +24,8 @@ import org.springframework.web.context.WebApplicationContext;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -37,7 +39,7 @@ public class QuizControllerTest {
     private WebApplicationContext webApplicationContext;
 
     private final ObjectMapper objectMapper = QuizPersistence.createObjectMapper();
-    private final Quiz defaultQuiz = new Quiz("testQuiz", List.of(new Question("a", List.of("1", "2", "3", "4"), 0)), "");
+    private final Quiz defaultQuiz = new Quiz("testQuiz", List.of(new Question("a", List.of("1", "2", "3", "4"), 0)), "username");
     private final Score score1 = new Score("test1", 1);
     private final Score score2 = new Score("test2", 0);
     private final Score score3 = new Score("test3", 1);
@@ -45,7 +47,6 @@ public class QuizControllerTest {
             List.of(score1, score2), defaultQuiz.getQuizLength());
     private final UserRecord defaultUser = new UserRecord("username", "password");
     private String token;
-    private boolean isRegistered;
 
 
     @BeforeAll
@@ -56,14 +57,12 @@ public class QuizControllerTest {
     @BeforeEach
     public void setUp() throws Exception {
         mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-        token = request("POST", "/api/users/"+(isRegistered?"login":"register"),
+        token = request("POST", "/api/users/register",
                 objectMapper.writeValueAsString(defaultUser), "")
                 .getResponse().getContentAsString();
-        isRegistered = true;
-        System.out.println(token.equals("")?"null":token);
+        System.out.println(token.equals("") ? "null" : token);
         System.out.println(49539);
         request("POST", "/api/quizzes", objectMapper.writeValueAsString(defaultQuiz), "");
-//        request("POST", "/api/leaderboards", objectMapper.writeValueAsString(defaultLeaderboard), "");
     }
 
     @Test
@@ -78,6 +77,7 @@ public class QuizControllerTest {
 
     @Test
     public void testGetQuiz() throws Exception {
+        System.out.println(SavePaths.getBasePath());
         String uri = "/api/quizzes/testQuiz";
         MvcResult mvcResult = request("GET", uri, "", token);
         String content = mvcResult.getResponse().getContentAsString();
@@ -164,6 +164,8 @@ public class QuizControllerTest {
     public void deleteFiles() throws IOException {
         FileUtils.cleanDirectory(new File(SavePaths.getBasePath() + "/Quizzes"));
         FileUtils.cleanDirectory(new File(SavePaths.getBasePath() + "/leaderboards"));
+        Files.delete(Path.of(SavePaths.getBasePath() + "users.json"));
+
     }
 
     private Quiz getExampleQuiz() {
@@ -177,9 +179,9 @@ public class QuizControllerTest {
 
     private MvcResult request(String httpMethod, String uri, String body, String header) throws Exception {
         return mvc.perform(MockMvcRequestBuilders.request(httpMethod, URI.create(uri))
-                        .header("Authorization", header)
-                        .content(body)
-                        .accept(MediaType.APPLICATION_JSON_VALUE))
+                .header("Authorization", header)
+                .content(body)
+                .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andReturn();
     }
 
