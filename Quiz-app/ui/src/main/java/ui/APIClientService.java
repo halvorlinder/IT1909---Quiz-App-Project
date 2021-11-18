@@ -55,7 +55,7 @@ public class APIClientService {
     public List<String> getListOfQuizNames() throws IOException {
         HttpResponse<String> response = sendRequest("GET", "/quizzes", "", "");
         List<String> names = objectMapper.readValue(response.body(), List.class);
-        return names.stream().map(str-> str.replaceAll("\\$", " ")).collect(Collectors.toList());
+        return names.stream().map(str -> str.replaceAll("\\$", " ")).collect(Collectors.toList());
     }
 
     /**
