@@ -1,10 +1,7 @@
 package rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import core.Leaderboard;
-import core.Question;
-import core.Quiz;
-import core.Score;
+import core.*;
 import io.QuizPersistence;
 import io.SavePaths;
 import org.apache.commons.io.FileUtils;
@@ -46,25 +43,33 @@ public class QuizControllerTest {
     private final Score score3 = new Score("test3", 1);
     private final Leaderboard defaultLeaderboard = new Leaderboard(defaultQuiz.getName(),
             List.of(score1, score2), defaultQuiz.getQuizLength());
+    private final UserRecord defaultUser = new UserRecord("username", "password");
+    private String token;
+    private boolean isRegistered;
 
 
     @BeforeAll
     public static void start() {
         SavePaths.enableTestMode();
-
     }
 
     @BeforeEach
     public void setUp() throws Exception {
         mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-        request("POST", "/api/quizzes", objectMapper.writeValueAsString(defaultQuiz));
-        request("POST", "/api/leaderboards", objectMapper.writeValueAsString(defaultLeaderboard));
+        token = request("POST", "/api/users/"+(isRegistered?"login":"register"),
+                objectMapper.writeValueAsString(defaultUser), "")
+                .getResponse().getContentAsString();
+        isRegistered = true;
+        System.out.println(token.equals("")?"null":token);
+        System.out.println(49539);
+        request("POST", "/api/quizzes", objectMapper.writeValueAsString(defaultQuiz), "");
+//        request("POST", "/api/leaderboards", objectMapper.writeValueAsString(defaultLeaderboard), "");
     }
 
     @Test
     public void testGetQuizNames() throws Exception {
         String uri = "/api/quizzes";
-        MvcResult mvcResult = request("GET", uri, "");
+        MvcResult mvcResult = request("GET", uri, "", token);
         assertEquals(200, mvcResult.getResponse().getStatus());
         List names = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), List.class);
         assertEquals(1, names.size());
@@ -74,11 +79,11 @@ public class QuizControllerTest {
     @Test
     public void testGetQuiz() throws Exception {
         String uri = "/api/quizzes/testQuiz";
-        MvcResult mvcResult = request("GET", uri, "");
+        MvcResult mvcResult = request("GET", uri, "", token);
         String content = mvcResult.getResponse().getContentAsString();
         assertEquals(objectMapper.writeValueAsString(defaultQuiz), content);
 
-        assertEquals(404, request("GET", uri + 1, "").getResponse().getStatus());
+        assertEquals(404, request("GET", uri + 1, "", token).getResponse().getStatus());
     }
 
     @Test
@@ -86,15 +91,15 @@ public class QuizControllerTest {
         String uri = "/api/quizzes";
         String uri2 = "/api/leaderboards/exampleQuiz";
 
-        assertEquals(403, request("POST", uri, objectMapper.writeValueAsString(defaultQuiz))
+        assertEquals(403, request("POST", uri, objectMapper.writeValueAsString(defaultQuiz), token)
                 .getResponse().getStatus());
 
-        assertEquals(404, request("GET", uri2, "").getResponse().getStatus());
+        assertEquals(404, request("GET", uri2, "", token).getResponse().getStatus());
 
         String exampleQuiz = objectMapper.writeValueAsString(getExampleQuiz());
-        MvcResult mvcResult = request("POST", uri, exampleQuiz);
+        MvcResult mvcResult = request("POST", uri, exampleQuiz, token);
         assertEquals(200, mvcResult.getResponse().getStatus());
-        assertEquals(200, request("GET", uri2, "").getResponse().getStatus());
+        assertEquals(200, request("GET", uri2, "", token).getResponse().getStatus());
         assertEquals(exampleQuiz, mvcResult.getResponse().getContentAsString());
     }
 
@@ -102,13 +107,13 @@ public class QuizControllerTest {
     public void testAddQuestion() throws Exception {
         String uri = "/api/quizzes/testQuiz";
         String question = objectMapper.writeValueAsString(new Question("z", List.of("a", "b", "c", "d"), 3));
-        MvcResult mvcResult = request("POST", uri, question);
+        MvcResult mvcResult = request("POST", uri, question, token);
         assertEquals(200, mvcResult.getResponse().getStatus());
         Quiz quiz = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), Quiz.class);
         assertEquals(question,
                 objectMapper.writeValueAsString(quiz.getQuestions().get(quiz.getQuizLength() - 1)));
 
-        assertEquals(404, request("POST", uri + 1, question)
+        assertEquals(404, request("POST", uri + 1, question, token)
                 .getResponse().getStatus());
     }
 
@@ -116,13 +121,13 @@ public class QuizControllerTest {
     public void testEditQuestion() throws Exception {
         String uri = "/api/quizzes/testQuiz/0";
         String question = objectMapper.writeValueAsString(new Question("z", List.of("a", "b", "c", "d"), 3));
-        MvcResult mvcResult = request("PUT", uri, question);
+        MvcResult mvcResult = request("PUT", uri, question, token);
         assertEquals(200, mvcResult.getResponse().getStatus());
         Quiz quiz = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), Quiz.class);
         String responseQuestion = objectMapper.writeValueAsString(quiz.getQuestions().get(quiz.getQuizLength() - 1));
         assertEquals(question, responseQuestion);
 
-        assertEquals(404, request("PUT", "/api/quizzes/testQuiz/4", question)
+        assertEquals(404, request("PUT", "/api/quizzes/testQuiz/4", question, token)
                 .getResponse().getStatus());
     }
 
@@ -130,28 +135,28 @@ public class QuizControllerTest {
     public void testDeleteQuiz() throws Exception {
         String uri = "/api/quizzes/testQuiz";
         String uri2 = "/api/leaderboards/testQuiz";
-        assertEquals(200, request("DELETE", uri, "").getResponse().getStatus());
-        assertEquals(404, request("DELETE", uri, "").getResponse().getStatus());
-        assertEquals(404, request("GET", uri2, "").getResponse().getStatus());
+        assertEquals(200, request("DELETE", uri, "", token).getResponse().getStatus());
+        assertEquals(404, request("DELETE", uri, "", token).getResponse().getStatus());
+        assertEquals(404, request("GET", uri2, "", token).getResponse().getStatus());
     }
 
     @Test
     public void testDeleteQuestion() throws Exception {
         String uri = "/api/quizzes/testQuiz/0";
-        MvcResult mvcResult = request("DELETE", uri, "");
+        MvcResult mvcResult = request("DELETE", uri, "", token);
         assertEquals(200, mvcResult.getResponse().getStatus());
 
         Quiz quiz = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), Quiz.class);
         assertEquals(0, quiz.getQuizLength());
 
-        assertEquals(404, request("DELETE", uri, "")
+        assertEquals(404, request("DELETE", uri, "", token)
                 .getResponse().getStatus());
     }
 
     @Test
     public void testPostScore() throws Exception {
         String uri = "/api/leaderboards/testQuiz";
-        assertEquals(200, request("POST", uri, objectMapper.writeValueAsString(score3))
+        assertEquals(200, request("POST", uri, objectMapper.writeValueAsString(score3), token)
                 .getResponse().getStatus());
     }
 
@@ -170,8 +175,9 @@ public class QuizControllerTest {
         return new Leaderboard(quiz.getName(), quiz.getQuizLength());
     }
 
-    private MvcResult request(String httpMethod, String uri, String body) throws Exception {
+    private MvcResult request(String httpMethod, String uri, String body, String header) throws Exception {
         return mvc.perform(MockMvcRequestBuilders.request(httpMethod, URI.create(uri))
+                        .header("Authorization", header)
                         .content(body)
                         .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andReturn();
