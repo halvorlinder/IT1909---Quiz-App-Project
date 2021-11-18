@@ -13,7 +13,7 @@ import java.nio.file.Path;
 public final class UserPersistence {
     private final ObjectMapper mapper;
     private final String fileName = "users.json";
-    private final String BASE_PATH = SavePaths.getBasePath();
+    private final String basePath = SavePaths.getBasePath();
 
     /**
      * Inits a new QuizPersistence Object
@@ -22,8 +22,8 @@ public final class UserPersistence {
      */
     public UserPersistence() throws IOException {
         mapper = createObjectMapper();
-        if (!Files.exists(Path.of(BASE_PATH))) {
-            Files.createDirectory(Path.of(BASE_PATH));
+        if (!Files.exists(Path.of(basePath))) {
+            Files.createDirectory(Path.of(basePath));
         }
     }
 
@@ -67,7 +67,7 @@ public final class UserPersistence {
      * @return the loaded QuizAppModule
      */
     public UserData loadUserData() throws IOException {
-        File file = new File(BASE_PATH + fileName);
+        File file = new File(basePath + fileName);
         if (!file.exists()) {
             if (!file.createNewFile())
                 throw new IOException();
@@ -75,7 +75,7 @@ public final class UserPersistence {
             saveUserData(userData);
             return userData;
         }
-        try (Reader reader = new FileReader(BASE_PATH + fileName, StandardCharsets.UTF_8)) {
+        try (Reader reader = new FileReader(basePath + fileName, StandardCharsets.UTF_8)) {
             return readUserData(reader);
         }
     }
@@ -86,12 +86,12 @@ public final class UserPersistence {
      * @param userData the quiz to save
      */
     public void saveUserData(UserData userData) throws IOException {
-        File file = new File(BASE_PATH + fileName);
+        File file = new File(basePath + fileName);
         if (!file.exists()) {
             if (!file.createNewFile())
                 throw new IOException();
         }
-        try (Writer writer = new FileWriter(BASE_PATH + fileName, StandardCharsets.UTF_8)) {
+        try (Writer writer = new FileWriter(basePath + fileName, StandardCharsets.UTF_8)) {
             writeUserData(userData, writer);
         }
     }
