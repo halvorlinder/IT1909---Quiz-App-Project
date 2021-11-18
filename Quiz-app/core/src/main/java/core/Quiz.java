@@ -13,9 +13,9 @@ public class Quiz {
     private final String creator;
 
     /**
-     * @param name the quiz name
+     * @param name      the quiz name
      * @param questions a list of question objects
-     * @param creator the creator of the quiz
+     * @param creator   the creator of the quiz
      */
     public Quiz(String name, List<Question> questions, String creator) {
         this.name = name;

@@ -129,7 +129,7 @@ public final class NewQuestionPageController extends GoBackController implements
         Question question = new Question(questionText.getText()
                 .replaceAll("\n", " ")
                 .replaceAll("\\$", " "), getListOfAnswers(), getCheckedId());
-        try{
+        try {
             if (editMode)
                 apiClientService.putQuestion(quizName, questionId, question, getUser().getAccessToken());
             else

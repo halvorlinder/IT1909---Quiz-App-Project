@@ -122,7 +122,7 @@ public class EditPageController extends GoBackController implements Initializabl
             Utilities.alertUser("Klarte ikke å laste inn side");
             return;
         }
-        try{
+        try {
             Parent root = loader.load();
             getScene().setRoot(root);
         } catch (IOException ignored) {
@@ -146,7 +146,7 @@ public class EditPageController extends GoBackController implements Initializabl
             Utilities.alertUser("Klarte ikke å laste inn side");
             return;
         }
-        try{
+        try {
             Parent root = loader.load();
             getScene().setRoot(root);
         } catch (IOException ignored) {

@@ -3,7 +3,6 @@ package ui;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import core.*;
 import io.QuizPersistence;
-import org.springframework.http.HttpStatus;
 
 import java.io.IOException;
 import java.net.URI;
