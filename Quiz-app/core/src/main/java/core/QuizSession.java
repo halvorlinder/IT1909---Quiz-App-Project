@@ -16,7 +16,7 @@ public class QuizSession {
      * @param quiz the quiz to be played
      */
     public QuizSession(Quiz quiz) {
-        this.quiz = new Quiz(quiz.getName(), new ArrayList<>(quiz.getQuestions()));
+        this.quiz = new Quiz(quiz.getName(), new ArrayList<>(quiz.getQuestions()), quiz.getCreator());
     }
 
     /**

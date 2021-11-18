@@ -103,7 +103,7 @@ public class LoginPageTest extends ApplicationTest {
         clickOn("#register");
         Node dialogPane = lookup(".dialog-pane").query();
         Assertions.assertDoesNotThrow(() -> {
-            from(dialogPane).lookup((Text t) -> t.getText().startsWith("Brukernavn er tatt")).query();
+            from(dialogPane).lookup((Text t) -> t.getText().startsWith("Beklager, dette brukernavnet er tatt")).query();
         });
     }
 

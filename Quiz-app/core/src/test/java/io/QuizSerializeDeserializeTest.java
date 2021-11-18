@@ -23,6 +23,7 @@ public class QuizSerializeDeserializeTest {
             """
                     {
                        "name" : "quiz101",
+                       "creator" : "per",
                        "questions" : [ {
                          "question" : "What?",
                          "answer" : 2,

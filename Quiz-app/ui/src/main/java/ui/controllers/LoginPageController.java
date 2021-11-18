@@ -44,10 +44,10 @@ public final class LoginPageController {
     public void attemptLogIn(ActionEvent actionEvent) {
         try {
             UserRecord userRecord = new UserRecord(logInUserName.getText(), logInPassword.getText());
-            apiClientService.loginUser(userRecord);
-            logIn(actionEvent, logInUserName.getText());
-        } catch (IOException | InterruptedException ioException) {
-            Utilities.alertUser("Brukernavn eller passord er feil");
+            String accessToken = apiClientService.loginUser(userRecord);
+            logIn(actionEvent, logInUserName.getText(), accessToken);
+        } catch (IOException ignored) {
+
         }
 
     }
@@ -61,10 +61,9 @@ public final class LoginPageController {
     public void attemptRegister(ActionEvent actionEvent) {
         try {
             UserRecord userRecord = new UserRecord(registerUserName.getText(), registerPassword.getText());
-            apiClientService.registerUser(userRecord);
-            logIn(actionEvent, registerUserName.getText());
-        } catch (IOException | InterruptedException ioException) {
-            Utilities.alertUser("Brukernavn er tatt");
+            String accessToken = apiClientService.registerUser(userRecord);
+            logIn(actionEvent, registerUserName.getText(), accessToken);
+        } catch (IOException ignored) {
         }
     }
 
@@ -73,11 +72,12 @@ public final class LoginPageController {
      *
      * @param actionEvent
      * @param username
+     * @param token       the auth token
      * @throws IOException
      */
-    private void logIn(ActionEvent actionEvent, String username) throws IOException {
+    private void logIn(ActionEvent actionEvent, String username, String token) throws IOException {
         final FXMLLoader loader = Utilities.getFXMLLoader("HomePage.fxml");
-        HomePageController controller = new HomePageController(new User(username));
+        HomePageController controller = new HomePageController(new User(username, token));
         loader.setController(controller);
         final Parent root = loader.load();
         ((Node) actionEvent.getSource()).getScene().setRoot(root);
