@@ -115,7 +115,7 @@ public final class NewQuestionPageController extends GoBackController implements
      * @throws IOException
      */
     @FXML
-    public void submitQuestion(ActionEvent actionEvent) throws IOException, InterruptedException {
+    public void submitQuestion(ActionEvent actionEvent) {
         if (questionText.getText().isEmpty()) {
             Utilities.alertUser("Du må skrive inn et spørsmål");
             return;
@@ -129,10 +129,14 @@ public final class NewQuestionPageController extends GoBackController implements
         Question question = new Question(questionText.getText()
                 .replaceAll("\n", " ")
                 .replaceAll("\\$", " "), getListOfAnswers(), getCheckedId());
-        if (editMode)
-            apiClientService.putQuestion(quizName, questionId, question, getUser().getAccessToken());
-        else
-            apiClientService.addQuestion(quizName, question, getUser().getAccessToken());
+        try{
+            if (editMode)
+                apiClientService.putQuestion(quizName, questionId, question, getUser().getAccessToken());
+            else
+                apiClientService.addQuestion(quizName, question, getUser().getAccessToken());
+        } catch (IOException ioException) {
+            return;
+        }
         goBack();
     }
 
