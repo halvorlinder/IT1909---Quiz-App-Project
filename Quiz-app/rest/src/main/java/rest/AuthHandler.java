@@ -11,7 +11,7 @@ public class AuthHandler {
     private final Map<String, String> userToTokenMapping;
     private final SecureRandom secureRandom = new SecureRandom();
     private final Base64.Encoder base64Encoder = Base64.getUrlEncoder();
-    private final static int TOKEN_SIZE = 24;
+    private static final int TOKEN_SIZE = 24;
 
     /**
      *
