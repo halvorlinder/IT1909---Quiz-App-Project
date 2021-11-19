@@ -21,15 +21,53 @@ The implementation of the API was an important element of this sprint.,
 because it allowed us to completely separate the user interface from the persistence logic.
 The API handles saving, loading, editing, deletion and authorization. The API can be found [here](../API_Documentation.md).
 
-## User Stories
+### User Stories
 
-### user-story-name (us-x)
+### Create and edit quiz(us-3)
 
+As a user, I would like to create a new quiz, and be able to edit this by adding, removing and editing questions
 
 #### Important to see
 
+- A button to create a new quiz and specify quiz name
+- An edit button for the quizzes the user has created
+- List of questions with buttons for removing and editing for each question
+- Button to add question to quiz
 
 #### Important to do
+
+- Create new quiz with a custom name
+- Ability to edit this quiz, aka add questions and edit all its questions
+
+### Multiple quizzes (us-4)
+
+As a user, I would like to select between different quizzes to play.
+
+#### Important to see
+
+- A dropdown menu containing all quizzes
+    - Names of quizzes
+    - Total number of questions
+- Ability to view selected quiz
+
+#### Important to do
+
+- Select quiz among list of all quizzes
+
+### Username and leaderboard (us-5)
+
+As a user I would like to see my score on a leaderboard after I am done taking the quiz. It should be easy to see which score was mine.
+
+#### Important to see
+
+- Scoreboard with names and their respective scores
+    - Board should contain current and previous games
+
+#### Important to do
+
+- Exit from scoreboard to main page (or play quiz again)
+
+
 
 
 ## Workflow 
