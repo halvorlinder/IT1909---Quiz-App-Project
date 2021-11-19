@@ -30,6 +30,7 @@ public class EditPageTest extends ApplicationTest {
     public void start(final Stage stage) throws Exception {
         SavePaths.enableTestMode();
 
+        //Set up mock server to allow the initialization of the Editpage
         config = WireMockConfiguration.wireMockConfig().port(8080);
         wireMockServer = new WireMockServer(config.portNumber());
         wireMockServer.start();
@@ -40,6 +41,7 @@ public class EditPageTest extends ApplicationTest {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("EditPage.fxml"));
         EditPageController editPageController = new EditPageController("x", new User("user", ""));
 
+        //Set previous page to Homepage
         stubFor(get(urlEqualTo("/api/quizzes"))
                 .willReturn(aResponse()
                         .withBody("[\"x\"]")));
@@ -48,6 +50,7 @@ public class EditPageTest extends ApplicationTest {
         loader2.setController(homePageController);
         editPageController.setPreviousPageInfo(homePageController, loader2.load());
 
+        //Load the page and start the server
         loader.setController(editPageController);
         final Parent root = loader.load();
         wireMockServer.stop();
@@ -57,6 +60,7 @@ public class EditPageTest extends ApplicationTest {
 
     @BeforeEach
     public void startWireMockServerAndSetup() {
+        //start wiremock and mock fetching quiz 'x'
         config = WireMockConfiguration.wireMockConfig().port(8080);
         wireMockServer = new WireMockServer(config.portNumber());
         wireMockServer.start();
@@ -67,6 +71,7 @@ public class EditPageTest extends ApplicationTest {
                         .withStatus(200)));
     }
 
+    //Tests that the data from the quiz is displayed correctly
     @Test
     public void testDataDisplay() {
         VBox vBox = lookup("#questionList").query();
@@ -77,6 +82,7 @@ public class EditPageTest extends ApplicationTest {
         Assertions.assertEquals("Endre x", label.getText());
     }
 
+    //Tests that the add button loads the newQuestionPage successfully
     @Test
     public void testAddQuestion() {
         clickOn("#newQuestionButton");
@@ -85,8 +91,11 @@ public class EditPageTest extends ApplicationTest {
         });
     }
 
+    //Tests that the frontend sends the correct request to the api when a question
+    //is deleted and that the ui is updated correctly
     @Test
     public void testDeleteQuestion() {
+        //sets up mock responses for deletion and fetching
         stubFor(delete(urlEqualTo("/api/quizzes/x/0"))
                 .willReturn(aResponse()
                         .withStatus(200)));
@@ -94,13 +103,17 @@ public class EditPageTest extends ApplicationTest {
                 .willReturn(aResponse()
                         .withBody("{\"name\":\"x\",\"creator\":\"user\",\"questions\":[]}")
                         .withStatus(200)));
+        //deletes and checks ui
         VBox vBox = lookup("#questionList").query();
         clickOn(from(vBox).lookup((Button b) -> b.getText().equals("Slett")).queryButton());
         Assertions.assertEquals(0, vBox.getChildren().size());
     }
 
+    //Tests that the correct request is sent when deleting a quiz and that the homepage is
+    //loaded correctly
     @Test
     public void testDeleteQuiz() {
+        //sets up mocks for deleting and fetching quizzes
         stubFor(delete(urlEqualTo("/api/quizzes/x"))
                 .willReturn(aResponse()
                         .withStatus(200)));
@@ -110,13 +123,16 @@ public class EditPageTest extends ApplicationTest {
         stubFor(get(urlEqualTo("/api/quizzes"))
                 .willReturn(aResponse()
                         .withBody("[]")));
+        //Deletes and checks that the homepage is rendered correctly
         clickOn(lookup("#deleteQuizButton").queryButton());
         Assertions.assertDoesNotThrow(() -> lookup("#quizList").query());
         Assertions.assertEquals(0, ((VBox) lookup("#quizList").query()).getChildren().size());
     }
 
+    //Tests that submitting an edited question sends the correct request
     @Test
     public void testEditQuestion() {
+        //sets up mocks for editing a question and retrieving the new quiz
         stubFor(put(urlEqualTo("/api/quizzes/x/0"))
                 .withRequestBody(equalToJson("{\"question\":\"??\",\"answer\":0,\"choices\":[\"a\",\"b\",\"c\",\"d\"]}"))
                 .willReturn(aResponse()
@@ -132,12 +148,14 @@ public class EditPageTest extends ApplicationTest {
                 .willReturn(aResponse()
                         .withBody("[\"x\"]")
                         .withStatus(200)));
+        //edits the question
         VBox vBox = lookup("#questionList").query();
         clickOn(from(vBox).lookup((Button b) -> b.getText().equals("Endre")).queryButton());
         clickOn("#questionText").write("?");
         clickOn("#submitButton");
     }
 
+    //stops the mock server
     @AfterEach
     public void stopServer() {
         wireMockServer.stop();
