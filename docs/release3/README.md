@@ -1,7 +1,8 @@
 # Release 3
 This is the documentation for the third release
 
-The gitlab sprint can be found [here](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/milestones/3)
+The gitlab sprint can be found [here](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/milestones/3)  
+For a more detailed description of the project, please consult the project [README](../../README.md)
 
 ## Functionality
 This release was split into two main parts: revamping the UI and adding new functionality,
