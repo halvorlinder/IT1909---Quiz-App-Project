@@ -9,7 +9,7 @@ import java.util.List;
 
 public class QuizTest {
 
-    private final int num_questions = 10;
+    private final int questionCount = 10;
     private Quiz quiz;
     List<Question> questions;
 
@@ -17,7 +17,7 @@ public class QuizTest {
     @BeforeEach
     public void setUp() {
         questions = new ArrayList<>();
-        for (int i = 0; i < num_questions; i++) {
+        for (int i = 0; i < questionCount; i++) {
             questions.add(new Question("Question number " + i, List.of("1", "2", "3", "4"), i % 4));
         }
         quiz = new Quiz("quiz101", questions, "hallvard");
@@ -25,15 +25,15 @@ public class QuizTest {
 
     @Test
     public void testQuizLength() {
-        Assertions.assertEquals(num_questions, quiz.getQuizLength());
-        quiz.addQuestion(new Question("Question number 10", List.of("1", "2", "3", "4"), 10 % 4));
-        Assertions.assertEquals(num_questions + 1, quiz.getQuizLength());
+        Assertions.assertEquals(questionCount, quiz.getQuizLength());
+        quiz.addQuestion(new Question("Question number 10", List.of("1", "2", "3", "4"), questionCount % 4));
+        Assertions.assertEquals(questionCount + 1, quiz.getQuizLength());
     }
 
     @Test
     public void testGetQuestions() {
         List<Question> actual_questions = quiz.getQuestions();
-        for (int i = 0; i < num_questions; i++) {
+        for (int i = 0; i < questionCount; i++) {
             Assertions.assertEquals(questions.get(i), actual_questions.get(i));
         }
     }
@@ -47,14 +47,14 @@ public class QuizTest {
     @Test
     public void testDeleteQuestion() {
         quiz.deleteQuestion(0);
-        Assertions.assertEquals(9, quiz.getQuizLength());
+        Assertions.assertEquals(questionCount-1, quiz.getQuizLength());
     }
 
     @Test
     public void testSetQuestion() {
         quiz.setQuestion(0, new Question("?", List.of("x", "y", "z", "w"), 3));
         Assertions.assertEquals("?", quiz.getQuestion(0).getQuestion());
-        Assertions.assertEquals(10, quiz.getQuizLength());
+        Assertions.assertEquals(questionCount, quiz.getQuizLength());
     }
 
     @Test

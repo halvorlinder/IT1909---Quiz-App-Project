@@ -21,6 +21,10 @@ public class QuizController {
     private final ObjectMapper objectMapper;
     private final AuthHandler authHandler;
 
+    private static final int ISE = 500;
+    private static final int NF = 404;
+    private static final int FBN = 403;
+
     /**
      * inits the controller
      *
@@ -46,10 +50,10 @@ public class QuizController {
         try {
             return objectMapper.writeValueAsString(quizPersistence.loadQuiz(name));
         } catch (FileNotFoundException fileNotFoundException) {
-            response.setStatus(404);
+            response.setStatus(NF);
             System.out.println(fileNotFoundException);
         } catch (IOException ioException) {
-            response.setStatus(500);
+            response.setStatus(ISE);
             System.out.println(ioException);
         }
         return null;
@@ -67,7 +71,7 @@ public class QuizController {
             return objectMapper.writeValueAsString(quizPersistence.getListOfQuizNames());
         } catch (IOException ioException) {
             System.out.println(ioException);
-            response.setStatus(500);
+            response.setStatus(ISE);
         }
         return null;
     }
@@ -85,7 +89,7 @@ public class QuizController {
             Quiz quiz = objectMapper.readValue(quizJSON, Quiz.class);
             quiz.legalizeName();
             if (quizPersistence.getListOfQuizNames().stream().anyMatch(name -> name.equals(quiz.getName()))) {
-                response.setStatus(403);
+                response.setStatus(FBN);
                 return null;
             }
             quizPersistence.saveQuiz(quiz);
@@ -94,7 +98,7 @@ public class QuizController {
             return quizJSON;
         } catch (IOException ioException) {
             System.out.println(ioException);
-            response.setStatus(500);
+            response.setStatus(ISE);
         }
         return null;
     }
@@ -119,13 +123,13 @@ public class QuizController {
                 leaderboardPersistence.saveLeaderboard(leaderboard);
                 return objectMapper.writeValueAsString(quiz);
             }
-            response.setStatus(403);
+            response.setStatus(FBN);
         } catch (FileNotFoundException fileNotFoundException) {
             System.out.println(fileNotFoundException);
-            response.setStatus(404);
+            response.setStatus(NF);
         } catch (IOException ioException) {
             System.out.println(ioException);
-            response.setStatus(500);
+            response.setStatus(ISE);
         }
         return null;
     }
@@ -152,13 +156,13 @@ public class QuizController {
                 leaderboardPersistence.saveLeaderboard(leaderboard);
                 return objectMapper.writeValueAsString(quiz);
             }
-            response.setStatus(403);
+            response.setStatus(FBN);
         } catch (FileNotFoundException | IndexOutOfBoundsException notFoundException) {
             System.out.println(notFoundException);
-            response.setStatus(404);
+            response.setStatus(NF);
         } catch (IOException ioException) {
             System.out.println(ioException);
-            response.setStatus(500);
+            response.setStatus(ISE);
         }
         return null;
     }
@@ -178,12 +182,12 @@ public class QuizController {
                 quizPersistence.deleteQuiz(quizName);
                 leaderboardPersistence.deleteLeaderboard(quizName);
             } else
-                response.setStatus(403);
+                response.setStatus(FBN);
         } catch (FileNotFoundException fileNotFoundException) {
-            response.setStatus(404);
+            response.setStatus(NF);
             System.out.println(fileNotFoundException);
         } catch (IOException ioException) {
-            response.setStatus(500);
+            response.setStatus(ISE);
             System.out.println(ioException);
         }
     }
@@ -211,12 +215,12 @@ public class QuizController {
                 leaderboardPersistence.saveLeaderboard(leaderboard);
                 return objectMapper.writeValueAsString(quiz);
             } else
-                response.setStatus(403);
+                response.setStatus(FBN);
         } catch (FileNotFoundException | IndexOutOfBoundsException notFoundException) {
-            response.setStatus(404);
+            response.setStatus(NF);
             System.out.println(notFoundException);
         } catch (IOException ioException) {
-            response.setStatus(500);
+            response.setStatus(ISE);
             System.out.println(ioException);
         }
         return null;
@@ -234,10 +238,10 @@ public class QuizController {
         try {
             return objectMapper.writeValueAsString(leaderboardPersistence.loadLeaderboard(name));
         } catch (FileNotFoundException fileNotFoundException) {
-            response.setStatus(404);
+            response.setStatus(NF);
             System.out.println(fileNotFoundException);
         } catch (IOException ioException) {
-            response.setStatus(500);
+            response.setStatus(ISE);
             System.out.println(ioException);
         }
         return null;
@@ -260,10 +264,10 @@ public class QuizController {
             leaderboardPersistence.saveLeaderboard(leaderboard);
             return objectMapper.writeValueAsString(leaderboard);
         } catch (FileNotFoundException fileNotFoundException) {
-            response.setStatus(404);
+            response.setStatus(NF);
             System.out.println(fileNotFoundException);
         } catch (IOException ioException) {
-            response.setStatus(500);
+            response.setStatus(ISE);
             System.out.println(ioException);
         }
         return null;
@@ -284,9 +288,9 @@ public class QuizController {
             if (userData.attemptLogIn(userRecord)) {
                 return authHandler.registerAndGetToken(userRecord.getUsername());
             }
-            response.setStatus(403);
+            response.setStatus(FBN);
         } catch (IOException ioException) {
-            response.setStatus(500);
+            response.setStatus(ISE);
             System.out.println(ioException);
         }
         return null;
@@ -308,9 +312,9 @@ public class QuizController {
                 userPersistence.saveUserData(userData);
                 return authHandler.registerAndGetToken(userRecord.getUsername());
             }
-            response.setStatus(403);
+            response.setStatus(FBN);
         } catch (IOException ioException) {
-            response.setStatus(500);
+            response.setStatus(ISE);
             System.out.println(ioException);
         }
         return null;

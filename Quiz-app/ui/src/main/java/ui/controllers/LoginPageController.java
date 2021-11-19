@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import ui.APIClientService;
 import ui.User;
 import ui.Utilities;
+import ui.constants.FilePaths;
 
 import java.io.IOException;
 
@@ -80,7 +81,7 @@ public final class LoginPageController {
      * @throws IOException
      */
     private void logIn(ActionEvent actionEvent, String username, String token) throws IOException {
-        final FXMLLoader loader = Utilities.getFXMLLoader("HomePage.fxml");
+        final FXMLLoader loader = Utilities.getFXMLLoader(FilePaths.HOME_PAGE);
         HomePageController controller = new HomePageController(new User(username, token));
         loader.setController(controller);
         final Parent root = loader.load();

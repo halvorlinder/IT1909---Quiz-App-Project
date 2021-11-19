@@ -9,4 +9,5 @@ module ui {
 
     opens ui to javafx.graphics, javafx.fxml;
     opens ui.controllers to javafx.fxml, javafx.graphics;
+    opens ui.constants to javafx.fxml, javafx.graphics;
 }
