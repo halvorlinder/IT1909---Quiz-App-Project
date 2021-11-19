@@ -17,8 +17,8 @@ class ScoreSerializer extends JsonSerializer<Score> {
     public void serialize(Score score, JsonGenerator jsonGen, SerializerProvider serializerProvider)
             throws IOException {
         jsonGen.writeStartObject();
-        jsonGen.writeStringField(JsonKeys.POINT_NAME, score.getName());
-        jsonGen.writeNumberField(JsonKeys.POINT_POINTS, score.getPoints());
+        jsonGen.writeStringField(JsonKeys.SCORE_NAME, score.getName());
+        jsonGen.writeNumberField(JsonKeys.SCORE_POINTS, score.getPoints());
         jsonGen.writeEndObject();
     }
 

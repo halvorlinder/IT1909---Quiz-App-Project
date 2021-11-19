@@ -13,8 +13,8 @@ public abstract class JsonKeys {
     public static final String QUIZ_CREATOR = "creator";
     public static final String QUIZ_QUESTIONS = "questions";
 
-    public static final String POINT_NAME = "name";
-    public static final String POINT_POINTS = "points";
+    public static final String SCORE_NAME = "name";
+    public static final String SCORE_POINTS = "points";
 
     public static final String USER_NAME = "username";
     public static final String USER_PASSWORD = "password";
