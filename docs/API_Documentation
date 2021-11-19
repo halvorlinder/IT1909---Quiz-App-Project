@@ -1,0 +1,4 @@
+| Kommando | Path | Body | Header | Hva gjør denne? |
+| ------ | ------ | ------ | ------ | ------ | 
+| POST | localhost:8080/user/accessToken | {"username": "your_username", "password": "your_password"} | - | Genererer en accessToken for en bruker |
+| DELETE | localhost:8080/user/accessToken | - | Key er "Authorization" og Value er den genererte accessToken | Sletter brukerens accessToken (denne har også Query Params- Key: "userId" og Value: int. *Denne vil endres*) |
