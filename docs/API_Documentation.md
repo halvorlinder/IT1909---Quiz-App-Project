@@ -1,4 +1,4 @@
-| Method | Path | Header | Body | Description | Response |
+| Method | Path | Header | Body | Description | Response format |
 | ------ | ------ | ------ | ------ | ------ | ------ |
 | GET | localhost:8080/api/quizzes | - | - | Responds with a list containing the names of all quizzes | ["quizname1", "quizname2"] |
 | GET | localhost:8080/api/quizzes/{quizname} | - | - | Responds with a quiz given its name | {"name" : "quizname", "creator" : "creatorname", "questions" : [{"question" : "questiontext", "answer" : 0, "choices" : ["a","b","c","d"]}]} |
