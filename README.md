@@ -55,6 +55,9 @@
     <li>
         <a href="#architecture">Architecture</a>
         <ul>
+            <li><a href="#package-diagram">Package diagram</a></li>
+            <li><a href="#class-diagram">Class diagram</a></li>
+            <li><a href="#sequence-diagram">Sequence diagram</a></li>
             <li><a href="#storage-choices">Storage choices</a></li>
         </ul>
     </li>
@@ -294,6 +297,26 @@ This modules only purpose is to generate a testcoverage file that covers the ent
 
 The following diagrams represent the macro architecture of the app:
 
+### Package diagram
+ - The following diagrams represent the macro architecture of the app: [package/architecture diagram](Quiz-app/diagrams/architecture.png)
+
+
+### Class diagram
+
+A class diagram is a diagram that describes the structure of a system by showing the system's classes, their attributes, operations (or methods), and the relationships among objects
+
+ - The following diagram represents a class diagram of the core: [core class diagram](Quiz-app/diagrams/coreClassDiagram.png)
+
+ - The following diagram represents a class  of the rest: [rest class diagram](Quiz-app/diagrams/restClassDiagram.png)
+
+ - The following diagram represents a class diagram of the ui: [ui class diagram](Quiz-app/diagrams/uiClassDiagram.png)
+
+### Sequence diagram
+
+A sequence diagram is a type of interaction diagram because it describes how—and in what order—a group of objects works together.
+
+ - The following diagram represents a sequence diagram of submitting a question in the new question page: [diagram](Quiz-app/diagrams/NewQuestionPageController_submitQuestionSequenceDiagram.png)
+ - The following diagram represents a sequence diagram of going to the edit quiz page : [diagram](Quiz-app/diagrams/HomePageController_showEditPageSequenceDiagram.png)
 
 
 ### Storage choices
