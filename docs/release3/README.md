@@ -12,7 +12,8 @@ We added the ability to view and play multiple quizzes.
 You can now edit existing questions in a quiz, delete questions or create new ones. 
 You can also create and delete entire quizzes. With this change, we decided to change our UI to better fit our new functionality. 
 This release also saw the implementation of the leaderboard feature discussed in 
-[release 2](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/docs/release2).
+[release 2](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/docs/release2). Furthermore, we 
+have improved the error messages that are displayed to the user. They now cover more error cases. They are also more descriptive.
 
 ### REST API  
 
@@ -33,7 +34,14 @@ The API handles saving, loading, editing, deletion and authorization. The API ca
 
 ## Workflow 
 
-This release saw us continuing our commitment to an agile workflow. Our goal is small, short-lived branches that address one specific issue. This way we avoid unecessary merge conflicts that need to be resolved manually. We improved our work efficiency by shortening the time used to pass (or fail) a pipeline, by optimizing our tests.
+This release saw us continuing our commitment to an agile workflow.
+Our goal is small, short-lived branches that address one specific issue. 
+This way we avoid unnecessary merge conflicts that need to be resolved manually. 
+We improved our work efficiency by shortening the time used to pass (or fail) a pipeline, 
+by optimizing our tests.
+We have also created issue templates for more clear communication. 
+In addition to this we have started using a shared commit format that revolves around providing a short header and a 
+more expansive description.
 
 
 ## Design
@@ -51,6 +59,10 @@ The project is seperated in three modules; core, rest and ui.
  - The core module handles internal logic and computations
  - The rest module handles everything related to the REST API
  - The ui module handles the user interfaces, and user input
+
+The rest module is new and contains the rest-api and the backend server. In addition to this 
+there is also a module named ReportAggregator. The sole goal of this module is to combine test coverage files
+into a single file. 
 
 ## Frameworks
 
