@@ -12,10 +12,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import ui.APIClientService;
-import ui.App;
-import ui.User;
-import ui.Utilities;
+import ui.*;
+import ui.constants.Errors;
+import ui.constants.FilePaths;
 
 import java.io.IOException;
 
@@ -113,13 +112,13 @@ public class EditPageController extends GoBackController implements Initializabl
     private void showEditQuestion(int questionId, Question question) {
         FXMLLoader loader = null;
         try {
-            loader = App.getFXMLLoader("NewQuestionPage.fxml");
+            loader = App.getFXMLLoader(FilePaths.NEW_QUESTION_PAGE);
             NewQuestionPageController controller =
                     new NewQuestionPageController(quizName, questionId, question, getUser());
             loader.setController(controller);
             controller.setPreviousPageInfo(this, getScene().getRoot());
         } catch (IOException ignored) {
-            Utilities.alertUser("Klarte ikke å laste inn side");
+            Utilities.alertUser(Errors.LOAD_PAGE);
             return;
         }
         try {
@@ -137,13 +136,13 @@ public class EditPageController extends GoBackController implements Initializabl
     private void showNewQuestion() {
         FXMLLoader loader = null;
         try {
-            loader = App.getFXMLLoader("NewQuestionPage.fxml");
+            loader = App.getFXMLLoader(FilePaths.NEW_QUESTION_PAGE);
             NewQuestionPageController controller =
                     new NewQuestionPageController(quizName, getUser());
             loader.setController(controller);
             controller.setPreviousPageInfo(this, getScene().getRoot());
         } catch (IOException ignored) {
-            Utilities.alertUser("Klarte ikke å laste inn side");
+            Utilities.alertUser(Errors.LOAD_PAGE);
             return;
         }
         try {
