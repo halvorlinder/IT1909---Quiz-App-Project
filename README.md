@@ -131,17 +131,17 @@ To get a local copy up and running follow these simple steps.
 
 ### core
 
-- [Question](Quiz-app/core/src/main/java/core/Question.java) - Contains the information of a single question with choices and a correct answer.
+- [Question](Quiz-app/core/src/main/java/core/Question.java) - Contains the information of a single question with choices and a correct answer  
 
-- [Quiz](Quiz-app/core/src/main/java/core/Quiz.java) - Stores a list of questions aswell as a name for the quiz and a creator for the quiz. 
+- [Quiz](Quiz-app/core/src/main/java/core/Quiz.java) - Stores a list of questions aswell as a name for the quiz and a creator for the quiz  
 
-- [QuizSession](Quiz-app/core/src/main/java/core/QuizSession.java) - Handles a quiz session. It iterates over the questions in a quiz according to the input from the user.
+- [QuizSession](Quiz-app/core/src/main/java/core/QuizSession.java) - Handles a quiz session. It iterates over the questions in a quiz according to the input from the user
 
-- [UserData](Quiz-app/core/src/main/java/core/UserData.java) - Handles User-objects. Links usernames to hashed passwords. Handles actions like registration and logins from the user. 
+- [UserData](Quiz-app/core/src/main/java/core/UserData.java) - Handles User-objects. Links usernames to hashed passwords. Handles actions like registration and logins from the user
 
 - [UserRecord](Quiz-app/core/src/main/java/core/UserRecord.java) - Contains the username and hashed password. 
 
-- [Leaderboard](Quiz-app/core/src/main/java/core/Leaderboard.java) - Contains the name of the quiz related to this leaderboard, list of all the scores and the highest score you could get on this quiz. 
+- [Leaderboard](Quiz-app/core/src/main/java/core/Leaderboard.java) - Contains the name of the quiz related to this leaderboard, list of all the scores and the highest score you could get on this quiz
 
 - [Score](Quiz-app/core/src/main/java/core/Score.java) - Contains the name of a user and the number of points
 
@@ -212,25 +212,25 @@ JSON schemas detailing how classes are represented with JSON can be found here:
 
 **Controllers:**
 
-- [HomePageController](Quiz-app/ui/src/main/java/ui/controllers/HomePageController.java) - Controller for homepage
+[HomePageController](Quiz-app/ui/src/main/java/ui/controllers/HomePageController.java) - Controller for homepage
 
-- [NewQuestionPageController](Quiz-app/ui/src/main/java/ui/controllers/NewQuestionPageController.java) - Controller for new question page
+[NewQuestionPageController](Quiz-app/ui/src/main/java/ui/controllers/NewQuestionPageController.java) - Controller for new question page
 
-- [QuizPageController](Quiz-app/ui/src/main/java/ui/controllers/QuizPageController.java) - Controller for quiz page
+[QuizPageController](Quiz-app/ui/src/main/java/ui/controllers/QuizPageController.java) - Controller for quiz page
 
-- [ResultPageController](Quiz-app/ui/src/main/java/ui/controllers/ResultPageController.java) - Controller for final score after taking the quiz
+[ResultPageController](Quiz-app/ui/src/main/java/ui/controllers/ResultPageController.java) - Controller for final score after taking the quiz
 
-- [LogInController](Quiz-app/ui/src/main/java/ui/controllers/LogInController.java) - Controller for creating a profile and logging in
+[LogInController](Quiz-app/ui/src/main/java/ui/controllers/LogInController.java) - Controller for creating a profile and logging in
 
-- [BaseController](Quiz-app/ui/src/main/java/ui/controllers/BaseController.java) - Abstract controller extented by all controller classes
+[BaseController](Quiz-app/ui/src/main/java/ui/controllers/BaseController.java) - Abstract controller extented by all controller classes
 
-- [EditPageController](Quiz-app/ui/src/main/java/ui/controllers/EditPageController.java) - Controller for editing a quiz, where you can delete, change or add a question
+[EditPageController](Quiz-app/ui/src/main/java/ui/controllers/EditPageController.java) - Controller for editing a quiz, where you can delete, change or add a question
 
-- [InitilizableController](Quiz-app/ui/src/main/java/ui/controllers/InitilizableController.java) - Interfaced implemented by all controller-classes, initializes the controller
+[InitilizableController](Quiz-app/ui/src/main/java/ui/controllers/InitilizableController.java) - Interfaced implemented by all controller-classes, initializes the controller
 
-- [LeaderboardPageController](Quiz-app/ui/src/main/java/ui/controllers/LeaderboardPageController.java) - Controller for showing the leaderboard
+[LeaderboardPageController](Quiz-app/ui/src/main/java/ui/controllers/LeaderboardPageController.java) - Controller for showing the leaderboard
 
-- [GoBackController](Quiz-app/ui/src/main/java/ui/controllers/GoBackController.java) - Controller for going back to previous scene
+[GoBackController](Quiz-app/ui/src/main/java/ui/controllers/GoBackController.java) - Controller for going back to previous scene
 
 
 ## REST
