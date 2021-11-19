@@ -1,0 +1,42 @@
+@startuml
+participant Actor
+Actor -> NewQuestionPageController : submitQuestion
+activate NewQuestionPageController
+NewQuestionPageController -> Utilities : alertUser
+activate Utilities
+Utilities --> NewQuestionPageController
+deactivate Utilities
+NewQuestionPageController -> Utilities : alertUser
+activate Utilities
+Utilities --> NewQuestionPageController
+deactivate Utilities
+NewQuestionPageController -> Question : new
+activate Question
+Question --> NewQuestionPageController
+deactivate Question
+NewQuestionPageController -> APIClientService : putQuestion
+activate APIClientService
+APIClientService -> APIClientService : sendRequest
+activate APIClientService
+APIClientService --> APIClientService
+deactivate APIClientService
+APIClientService --> NewQuestionPageController
+deactivate APIClientService
+NewQuestionPageController -> APIClientService : addQuestion
+activate APIClientService
+APIClientService -> APIClientService : sendRequest
+activate APIClientService
+APIClientService --> APIClientService
+deactivate APIClientService
+APIClientService --> NewQuestionPageController
+deactivate APIClientService
+NewQuestionPageController -> GoBackController : goBack
+activate GoBackController
+GoBackController -> InitializableController : initialize
+activate InitializableController
+InitializableController --> GoBackController
+deactivate InitializableController
+GoBackController --> NewQuestionPageController
+deactivate GoBackController
+return
+@enduml

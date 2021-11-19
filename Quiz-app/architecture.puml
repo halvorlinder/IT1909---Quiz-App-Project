@@ -7,37 +7,51 @@ component core {
 	package core.io.internal
 }
 
-core.io ..> core.io.internal
-core.io ..> jackson
-core.io.internal ..> jackson
-
 component jackson {
 }
 
-
-
+component ReportAggregator{
+}
 
 component ui {
 	package ui.ui
 	package ui.ui.controllers
+	component APIClientService{
+	}
 }
-
-ui.ui ..> ui.ui.controllers
-ui.ui.controllers ..> core.core
-ui.ui.controllers ..> core.io
 
 component javafx {
     component fxml{
     }
 }
 
+component rest {
+    package rest.rest
+}
+
+component springboot{
+}
+
+ReportAggregator ..> rest
+ReportAggregator ..> core
+ReportAggregator ..> ui
+core.io ..> core.core
+core.io ..> core.io.internal
+core.io ..> jackson
+core.io.internal ..> jackson
+
+ui.ui ..> ui.ui.controllers
+ui.ui.controllers ..> core
 
 ui ..> javafx
-ui ..> fxml
+ui.ui ..> fxml
+ui.ui.controllers ..> fxml
+APIClientService ..> rest.rest
+APIClientService ..> core
+ui.ui.controllers ..> APIClientService
 
-
-
-
+rest.rest ..> core
+rest.rest ..> springboot
 
 
 @enduml
