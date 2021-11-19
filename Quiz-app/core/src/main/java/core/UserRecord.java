@@ -12,6 +12,10 @@ public class UserRecord {
      * @param password the password
      */
     public UserRecord(String username, String password) {
+        if (username.isEmpty())
+            throw new IllegalArgumentException("Username can't be empty");
+        if (password.isEmpty())
+            throw new IllegalArgumentException("Password can't be empty");
         this.username = username;
         this.passwordHash = UserData.hash(password);
     }
@@ -23,6 +27,8 @@ public class UserRecord {
      * @param passwordHash the password
      */
     public UserRecord(String username, int passwordHash) {
+        if (username.isEmpty())
+            throw new IllegalArgumentException("Username can't be empty");
         this.username = username;
         this.passwordHash = passwordHash;
     }

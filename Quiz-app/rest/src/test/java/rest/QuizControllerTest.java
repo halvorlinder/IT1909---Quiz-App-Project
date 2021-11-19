@@ -178,7 +178,8 @@ public class QuizControllerTest {
     }
 
     private Quiz getExampleQuiz() {
-        return new Quiz("exampleQuiz", List.of(new Question("b", List.of("11", "21", "31", "41"), 1)), "");
+        return new Quiz("exampleQuiz",
+                List.of(new Question("b", List.of("11", "21", "31", "41"), 1)), "hallvard");
     }
 
     private Leaderboard getExampleLeaderboard() {
