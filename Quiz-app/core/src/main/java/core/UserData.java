@@ -6,6 +6,7 @@ import java.util.Set;
 
 public final class UserData {
     private final Map<String, Integer> users = new HashMap<>();
+    private static final int HASH_MODULUS = 16384;
 
     /**
      * creates an empty UserDataObject
@@ -74,7 +75,7 @@ public final class UserData {
     public static int hash(String password) {
         if (password.length() == 0)
             return 0;
-        return password.chars().reduce(1, (x, y) -> (x * y) % 16384);
+        return password.chars().reduce(1, (x, y) -> (x * y) % HASH_MODULUS);
     }
 
 }
