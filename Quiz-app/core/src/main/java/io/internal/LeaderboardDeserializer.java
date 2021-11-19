@@ -14,7 +14,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * This class deserializes a JSON file to a Leaderboard object
+ */
 class LeaderboardDeserializer extends JsonDeserializer<Leaderboard> {
 
     private final ScoreDeserializer scoreDeserializer = new ScoreDeserializer();

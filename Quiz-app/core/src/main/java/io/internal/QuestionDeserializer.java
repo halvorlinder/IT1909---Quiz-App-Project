@@ -12,7 +12,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class QuestionDeserializer extends JsonDeserializer<Question> {
+/**
+ * This class deserializes a JSON file to a Question object
+ */
+class QuestionDeserializer extends JsonDeserializer<Question> {
+
     @Override
     public Question deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
             throws IOException {
