@@ -11,6 +11,9 @@ import core.UserRecord;
 import java.io.IOException;
 import java.util.Iterator;
 
+/**
+ * This class deserializes a JSON file to a UserData object
+ */
 public final class UserDataDeserializer extends JsonDeserializer<UserData> {
     @Override
     public UserData deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
