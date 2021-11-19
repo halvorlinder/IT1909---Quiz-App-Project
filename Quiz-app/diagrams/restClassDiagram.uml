@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>C:/Users/sanke/gr2114/Quiz-app/rest</OriginalElement>
+  <nodes>
+    <node x="0.0" y="381.0">rest.AuthHandlerTest</node>
+    <node x="238.99999999999997" y="249.0">rest.QuizController</node>
+    <node x="684.0" y="0.0">rest.QuizControllerTest</node>
+    <node x="350.0" y="681.0">rest.QuizServerApplication</node>
+    <node x="158.87499999999997" y="0.0">rest.AuthHandler</node>
+    <node x="0.0" y="681.0">rest.UserControllerTest</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="rest.QuizController" target="rest.AuthHandler" relationship="DEPENDENCY">
+      <point x="100.0" y="-193.5" />
+      <point x="539.0" y="219.0" />
+      <point x="444.0" y="219.0" />
+      <point x="444.0" y="209.0" />
+      <point x="365.875" y="209.0" />
+      <point x="69.0" y="94.5" />
+    </edge>
+    <edge source="rest.QuizController" target="rest.AuthHandler" relationship="TO_ONE">
+      <point x="-100.0" y="-193.5" />
+      <point x="339.0" y="229.0" />
+      <point x="104.49999999999997" y="229.0" />
+      <point x="104.49999999999997" y="209.0" />
+      <point x="227.87499999999997" y="209.0" />
+      <point x="-69.0" y="94.5" />
+    </edge>
+    <edge source="rest.AuthHandlerTest" target="rest.AuthHandler" relationship="DEPENDENCY">
+      <point x="54.75" y="-61.5" />
+      <point x="164.25" y="219.0" />
+      <point x="444.0" y="219.0" />
+      <point x="444.0" y="209.0" />
+      <point x="365.875" y="209.0" />
+      <point x="69.0" y="94.5" />
+    </edge>
+    <edge source="rest.AuthHandlerTest" target="rest.AuthHandler" relationship="TO_ONE">
+      <point x="-54.75" y="-61.5" />
+      <point x="54.75" y="229.0" />
+      <point x="104.49999999999997" y="229.0" />
+      <point x="104.49999999999997" y="209.0" />
+      <point x="227.87499999999997" y="209.0" />
+      <point x="-69.0" y="94.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.6339468302658486" showDependencies="true" x="494.5" y="479.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

@@ -56,6 +56,9 @@ The project is seperated into modules; the core and the ui. The core module cont
 * Jacoco
 * Checkstyle
 * Spotbugs
+* Spring boot
+* Jpackage and jlink
+* Tomcat
 
 #### Checkstyle settings
 We use a default checkstyle template, with minor changes:
@@ -68,6 +71,20 @@ We use a default checkstyle template, with minor changes:
 #### Spotbugs settings
 We have edited a few spotbugs settings:
 - Disabled unused field in controllers that arent linked to a FXML file, because the fields are used but the compiler doesn't understand it
+
+#### Jlink
+The JLink goal is intended to create a Java Run Time Image. Description of a few of the parameters we use
+- MainClass: What main needs to be launched by specifying module, package and class. We set it to ui.App since the application is in the UI module. 
+- Compress: Enables compression of resources, we set to 2 for compressing to ZIP
+- StripDebug: Excludes JRE debug information
+- noManPages: Excludes the JDK docs
+- Launcher: The executable name
+#### JPackage
+- Name: Set the name ofthe application
+- Destination: Sets the destination folder for the generated package 
+- Module: Set the module and the main class of our application since JPackage will generate a new executable for our package 
+- Runtimeimage: We set the parameter to target/quizfx to macth the path of the jlink Runtimeimage
+
 
 <!-- GETTING STARTED -->
 
@@ -84,6 +101,22 @@ To get a local copy up and running follow these simple steps.
   ```sh
   mvn verify
   ```
+* Run the server
+  ```sh
+  mvn spring-boot:run -pl rest
+  ```
+* Create a shippable application in GitPod
+  ```sh
+  sudo apt update && sudo apt install fakeroot
+  mvn clean compile javafx:jlink jpackage:jpackage -pl ui
+  sudo apt install ./target/dist/quizfx_1.0.0-1_amd64.deb
+  ```
+  Now the program can be found in /opt/quizfx/
+
+* Run the application created by jpackage 
+  ```sh
+  /opt/quizfx/bin/quizfx
+  ```
 
 ### Installation
 
@@ -94,117 +127,145 @@ To get a local copy up and running follow these simple steps.
 
 <!-- Core structure -->
 
-## Core
+## CORE
 
-### Core
+### core
 
-[Question](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/core/src/main/java/core/Question.java)
-- Contains the information of a single question with choices and a correct answer.
+- [Question](Quiz-app/core/src/main/java/core/Question.java) - Contains the information of a single question with choices and a correct answer
 
-[Quiz](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/core/src/main/java/core/Quiz.java)
-- Handles a quiz session by keeping track of list of questions.
+- [Quiz](Quiz-app/core/src/main/java/core/Quiz.java) - Stores a list of questions aswell as a name for the quiz and a creator for the quiz 
 
-[User](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/core/src/main/java/core/User.java)
-- Contains the information of a single user, with a set- and get-function for the username.
+- [QuizSession](Quiz-app/core/src/main/java/core/QuizSession.java) - Handles a quiz session. It iterates over the questions in a quiz according to the input from the user
 
-[UserData](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/core/src/main/java/core/UserData.java)
-- Handles User-objects. Links usernames to hashed passwords.
+- [UserData](Quiz-app/core/src/main/java/core/UserData.java) - Handles User-objects. Links usernames to hashed passwords. Handles actions like registration and logins from the user 
+
+- [UserRecord](Quiz-app/core/src/main/java/core/UserRecord.java) - Contains the username and hashed password. 
+
+- [Leaderboard](Quiz-app/core/src/main/java/core/Leaderboard.java) - Contains the name of the quiz related to this leaderboard, list of all the scores and the highest score you could get on this quiz 
+
+- [Score](Quiz-app/core/src/main/java/core/Score.java) - Contains the name of a user and the number of points
 
 ### io
 
-[QuizPersistance](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/core/src/main/java/io/QuizPersistence.java) - Take Json Object of quiz(zes) and persist
+- [QuizPersistance](Quiz-app/core/src/main/java/io/QuizPersistence.java) - Handles the saving of quiz(zes) and loading of quiz(zes) 
 
-[UserPersistance](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/core/src/main/java/io/UserPersistence.java) - Take Json Object user(s) and persist
+- [UserPersistance](Quiz-app/core/src/main/java/io/UserPersistence.java) - Handles the saving of users and loading of users
+
+- [LeaderBoardPersistance](Quiz-app/core/src/main/java/io/LeaderBoardPersistence.java) - Handles the saving and loading of leaderboard(s)
+
+- [SavePaths](Quiz-app/core/src/main/java/io/SavePaths.java) - A soulution to select a different directory for filestorage during testing
 
 **Internal:**
 
-[QuestionDeserializer](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/core/src/main/java/io/internal/QuestionDeserializer.java) 
-- Convert data related to Question from String format to Json Object
+- [QuestionDeserializer](Quiz-app/core/src/main/java/io/internal/QuestionDeserializer.java) - Convert data related to Question from String format to Json Object
 
-[QuestionSerializer](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/core/src/main/java/io/internal/QuestionSerializer.java) 
-- Convert Json object of Question to a String format
+- [QuestionSerializer](Quiz-app/core/src/main/java/io/internal/QuestionSerializer.java) - Convert Json object of Question to a String format
 
-[QuizAppModule](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/core/src/main/java/io/internal/QuizAppModule.java) 
-- A Jackson module for configuring JSON serialization of QuizAppModule instances
+- [QuizAppModule](Quiz-app/core/src/main/java/io/internal/QuizAppModule.java) - A Jackson module for configuring JSON serialization of QuizAppModule instances
 
-[QuizDeserializer](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/core/src/main/java/io/internal/QuizDeserializer.java) 
-- Convert data related to Quiz from String format to Json Object
+- [QuizDeserializer](Quiz-app/core/src/main/java/io/internal/QuizDeserializer.java) - Convert data related to Quiz from String format to Json Object
 
-[QuizSerializer](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/core/src/main/java/io/internal/QuizSerializer.java) 
-- Convert Json object of Quiz to a String format
+- [QuizSerializer](Quiz-app/core/src/main/java/io/internal/QuizSerializer.java) - Convert Json object of Quiz to a String format
 
-[UserDataDeserializer](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/core/src/main/java/io/internal/UserDataDeserializer.java) 
-- Convert data related to UserData from String format to Json Object
+- [UserDataDeserializer](Quiz-app/core/src/main/java/io/internal/UserDataDeserializer.java) - Convert data related to UserData from String format to Json Object
 
-[UserDataSerializer](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/core/src/main/java/io/internal/UserDataSerializer.java) 
-- Convert Json object of UserData to a String format
+- [UserDataSerializer](Quiz-app/core/src/main/java/io/internal/UserDataSerializer.java) - Convert Json object of UserData to a String format
 
+- [LeaderBoardDeserializer](Quiz-app/core/src/main/java/io/internal/UserDataDeserializer.java) - Convert data related to Leaderboard from String format to Json Object
+
+- [LeaderBoardSerializer](Quiz-app/core/src/main/java/io/internal/LeaderBoardSerializer.java) - Convert Json object of UserData to a String format
+
+- [ScoreDeserializer](Quiz-app/core/src/main/java/io/internal/Score.java) - Convert data related to Score from String format to Json Object
+
+- [ScoreSerializer](Quiz-app/core/src/main/java/io/internal/Score.java) - Convert Json object of Score to a String format
+
+- [UserRecordDeserializer](Quiz-app/core/src/main/java/io/internal/UserRecordDeserializer.java) - Convert data related to UserRecord from String format to Json Object
+
+- [UserRecordSerializer](Quiz-app/core/src/main/java/io/internal/UserRecordSerializer.java) - Convert Json object of UserRecord to a String format
 
 ### JSON Format 
-The JSON schema for saving Quizzes can be found [here](docs/JSON/quiz_schema.md)  
-The JSON schema for saving Users can be found [here](docs/JSON/users_schema.md)
-
+The JSON schemas for classes that are serialized can be found here:  
+- [Quiz](docs/JSON/quiz_schema.md)
+- [Question](docs/JSON/question_schema.md)
+- [UserData](docs/JSON/user_data_schema.md)
+- [UserRecord](docs/JSON/user_record_schema.md)
+- [Leaderboard](docs/JSON/leaderboard_schema.md)
+- [Score](docs/JSON/score_schema.md)
 
 ## UI
 
 ### ui
 
-[App](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/ui/src/main/java/ui/App.java)
-- Launches the Quiz App
+- [User](Quiz-app/ui/src/main/java/ui/User.java) - Contains the information of a single user, with a set- and get-function for the username
 
-[Utilities](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/ui/src/main/java/ui/Utilities.java)
-- A utility class 
+- [App](Quiz-app/ui/src/main/java/ui/App.java) - Launches the Quiz App
+
+- [Utilities](Quiz-app/ui/src/main/java/ui/Utilities.java) - A utility class 
+
+- [APIClientService](Quiz-app/ui/src/main/java/ui/APIClientService.java)  - Send request from the client side to the server side. Handles all actions: login, registration, adding a quiz, deleting a quiz, adding a question to the quiz, updating a question, deleting a question and posting score to leaderboard.
 
 **Controllers:**
 
-[HomepageController](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/ui/src/main/java/ui/controllers/HomePageController.java)
-- Controller for homepage
+- [HomePageController](Quiz-app/ui/src/main/java/ui/controllers/HomePageController.java) - Controller for homepage
 
-[NewQuestionController](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/ui/src/main/java/ui/controllers/NewQuestionController.java)
-- Controller for new question page
+- [NewQuestionPageController](Quiz-app/ui/src/main/java/ui/controllers/NewQuestionPageController.java) - Controller for new question page
 
-[QuizController](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/ui/src/main/java/ui/controllers/QuizController.java)
-- Controller for quiz page
+- [QuizPageController](Quiz-app/ui/src/main/java/ui/controllers/QuizPageController.java) - Controller for quiz page
 
-[ResultPageController](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/ui/src/main/java/ui/controllers/ResultPageController.java)
-- Controller for final score after taking the quiz
+- [ResultPageController](Quiz-app/ui/src/main/java/ui/controllers/ResultPageController.java) - Controller for final score after taking the quiz
 
-[LogInController](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/ui/src/main/java/ui/controllers/LogInController.java)
-- Controller for creating a profile and logging in
+- [LogInController](Quiz-app/ui/src/main/java/ui/controllers/LogInController.java) - Controller for creating a profile and logging in
 
+- [BaseController](Quiz-app/ui/src/main/java/ui/controllers/BaseController.java) - Abstract controller extented by all controller classes
+
+- [EditPageController](Quiz-app/ui/src/main/java/ui/controllers/EditPageController.java) - Controller for editing a quiz, where you can delete, change or add a question
+
+- [InitilizableController](Quiz-app/ui/src/main/java/ui/controllers/InitilizableController.java) - Interfaced implemented by all controller-classes, initializes the controller
+
+- [LeaderboardPageController](Quiz-app/ui/src/main/java/ui/controllers/LeaderboardPageController.java) - Controller for showing the leaderboard
+
+- [GoBackController](Quiz-app/ui/src/main/java/ui/controllers/GoBackController.java) - Controller for going back to previous scene
+
+
+## REST
+
+### rest
+
+- [AuthHandler](Quiz-app/rest/src/main/java/rest/AuthHandler.java) - Handles authentication of user, so that the user can only change a quiz they have made themselves 
+
+
+- [QuizController](Quiz-app/rest/src/main/java/rest/QuizController.java) - Defines the API endpoints, by mapping requests from the user by taking the request, path and body to a given method in this controller. Returns the server response
+
+- [QuizServerApllication](Quiz-app/rest/src/main/java/rest/QuizServerApllication.java) - initializes the Spring Boot server
+
+
+## ReportAggregator 
+- This modules' only purpose is to generate a testcoverage file that covers the entire project
 ### Resources
 
-[HomePage fxml](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/ui/src/main/resources/ui/HomePage.fxml)
-- Fxml for the homepage
+- [HomePage fxml](Quiz-app/ui/src/main/resources/ui/HomePage.fxml) - Fxml for the homepage
 
-[New Question fxml](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/ui/src/main/resources/ui/NewQuestion.fxml)
-- Fxml for the new question-page
+- [New Question fxml](Quiz-app/ui/src/main/resources/ui/NewQuestion.fxml) - Fxml for the new question-page
 
-[Quiz fxml](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/ui/src/main/resources/ui/QuestionPage.fxml)
-- Fxml for the quiz-page
+- [Quiz fxml](Quiz-app/ui/src/main/resources/ui/QuestionPage.fxml) - Fxml for the quiz-page
 
-[Result Page fxml](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/ui/src/main/resources/ui/ResultPage.fxml)
-- Fxml for the result-page after the quiz is done
+- [Result Page fxml](Quiz-app/ui/src/main/resources/ui/ResultPage.fxml) - Fxml for the result-page after the quiz is done
 
-[Log In fxml](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/ui/src/main/resources/ui/ResultPage.fxml)
-- Fxml for the log in-page
+- [Log In fxml](Quiz-app/ui/src/main/resources/ui/ResultPage.fxml) - Fxml for the log in-page
+
+
+- [Edit Page fxml](Quiz-app/ui/src/main/resources/ui/EditPage.fxml) - Fxml for the edit page
+
+- [Leaderboard Page fxml](Quiz-app/ui/src/main/resources/ui/LeaderboardPage.fxml) - Fxml for the edit page
+
+
 <!-- ROADMAP -->
 
 ## Architecture
 
 The following diagrams represent the macro architecture of the app:
 
-![image](docs/Diagrams/CreateQuestion.png)  
-Sequence diagram of what happens when a user creates a new question  
 
-![image](docs/Diagrams/SubmitQuestion.png)  
-Sequence diagram of what happens when a user submits an answer in an ongoing quiz  
-
-![image](docs/Diagrams/LogInAttempt.png)  
-Sequence diagram of what happens when a user attempts to log in 
-
-![image](docs/Diagrams/LogInInit.png)  
-Sequence diagram of what happens when the log in page is initialized
 
 ### Storage choices
 

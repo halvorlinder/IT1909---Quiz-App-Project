@@ -13,6 +13,7 @@ import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class APIClientService {
 
@@ -22,7 +23,7 @@ public class APIClientService {
     private final Map<Integer, String> errorMessageMap;
 
     /**
-     *
+     * Initialize a new APIClientService
      */
     public APIClientService() {
         objectMapper = QuizPersistence.createObjectMapper();
@@ -36,11 +37,10 @@ public class APIClientService {
      * @param quizName the name of the quiz to be fetched
      * @return the quiz
      * @throws IOException
-     * @throws InterruptedException
      */
     public Quiz getQuiz(String quizName) throws IOException {
         errorMessageMap.put(404, Errors.GET_QUIZ_404);
-        HttpResponse<String> response = sendRequest("GET", "/quizzes/" + quizName,
+        HttpResponse<String> response = sendRequest("GET", "/quizzes/" + quizName.replaceAll(" ", "\\$"),
                 "", "");
         return objectMapper.readValue(response.body(), Quiz.class);
     }
@@ -50,11 +50,11 @@ public class APIClientService {
      *
      * @return a list of quiz names
      * @throws IOException
-     * @throws InterruptedException
      */
     public List<String> getListOfQuizNames() throws IOException {
         HttpResponse<String> response = sendRequest("GET", "/quizzes", "", "");
-        return objectMapper.readValue(response.body(), List.class);
+        List<String> names = objectMapper.readValue(response.body(), List.class);
+        return names.stream().map(str -> str.replaceAll("\\$", " ")).collect(Collectors.toList());
     }
 
     /**
@@ -62,7 +62,6 @@ public class APIClientService {
      *
      * @param quiz the quiz to be posted
      * @throws IOException
-     * @throws InterruptedException
      */
     public void postQuiz(Quiz quiz) throws IOException {
         errorMessageMap.put(403, Errors.POST_QUIZ_403);
@@ -77,13 +76,12 @@ public class APIClientService {
      * @param newQuestion the new question object
      * @param accessToken token for authorization
      * @throws IOException
-     * @throws InterruptedException
      */
     public void putQuestion(String quizName, int questionID, Question newQuestion, String accessToken)
             throws IOException {
         errorMessageMap.put(403, Errors.PUT_QUESTION_403);
         errorMessageMap.put(404, Errors.PUT_QUESTION_404);
-        sendRequest("PUT", "/quizzes/" + quizName + "/" + questionID,
+        sendRequest("PUT", "/quizzes/" + quizName.replaceAll(" ", "\\$") + "/" + questionID,
                 objectMapper.writeValueAsString(newQuestion), accessToken);
     }
 
@@ -93,12 +91,11 @@ public class APIClientService {
      * @param quizName    the name of the quiz
      * @param accessToken token for authorization
      * @throws IOException
-     * @throws InterruptedException
      */
     public void deleteQuiz(String quizName, String accessToken) throws IOException {
         errorMessageMap.put(403, Errors.DELETE_QUIZ_403);
         errorMessageMap.put(404, Errors.DELETE_QUIZ_404);
-        sendRequest("DELETE", "/quizzes/" + quizName, "", accessToken);
+        sendRequest("DELETE", "/quizzes/" + quizName.replaceAll(" ", "\\$"), "", accessToken);
     }
 
     /**
@@ -108,13 +105,12 @@ public class APIClientService {
      * @param questionID  the id of the question
      * @param accessToken token for authorization
      * @throws IOException
-     * @throws InterruptedException
      */
     public void deleteQuestion(String quizName, int questionID, String accessToken)
             throws IOException {
         errorMessageMap.put(403, Errors.DELETE_QUESTION_403);
         errorMessageMap.put(404, Errors.DELETE_QUESTION_404);
-        sendRequest("DELETE", "/quizzes/" + quizName + "/" + questionID, "", accessToken);
+        sendRequest("DELETE", "/quizzes/" + quizName.replaceAll(" ", "\\$") + "/" + questionID, "", accessToken);
     }
 
     /**
@@ -124,13 +120,13 @@ public class APIClientService {
      * @param newQuestion the name of the question
      * @param accessToken token for authorization
      * @throws IOException
-     * @throws InterruptedException
      */
     public void addQuestion(String quizName, Question newQuestion, String accessToken)
             throws IOException {
         errorMessageMap.put(403, Errors.ADD_QUESTION_403);
         errorMessageMap.put(404, Errors.ADD_QUESTION_404);
-        sendRequest("POST", "/quizzes/" + quizName, objectMapper.writeValueAsString(newQuestion), accessToken);
+        sendRequest("POST", "/quizzes/" + quizName.replaceAll(" ", "\\$"),
+                objectMapper.writeValueAsString(newQuestion), accessToken);
     }
 
     /**
@@ -139,7 +135,6 @@ public class APIClientService {
      * @param userRecord the user data
      * @return the active auth token
      * @throws IOException
-     * @throws InterruptedException
      */
     public String loginUser(UserRecord userRecord) throws IOException {
         errorMessageMap.put(403, Errors.LOGIN_403);
@@ -152,7 +147,6 @@ public class APIClientService {
      * @param userRecord the information about the user
      * @return the active auth token
      * @throws IOException
-     * @throws InterruptedException
      */
     public String registerUser(UserRecord userRecord) throws IOException {
         errorMessageMap.put(403, Errors.REGISTER_403);
@@ -165,11 +159,10 @@ public class APIClientService {
      * @param quizName the name of the quiz mapping to the leaderboard to be fetched
      * @return the leaderboard
      * @throws IOException
-     * @throws InterruptedException
      */
     public Leaderboard getLeaderboard(String quizName) throws IOException {
         errorMessageMap.put(404, Errors.GET_LEADERBOARD_404);
-        HttpResponse<String> response = sendRequest("GET", "/leaderboards/" + quizName, "", "");
+        HttpResponse<String> response = sendRequest("GET", "/leaderboards/" + quizName.replaceAll(" ", "\\$"), "", "");
         return objectMapper.readValue(response.body(), Leaderboard.class);
     }
 
@@ -180,11 +173,11 @@ public class APIClientService {
      * @param quizName the name of the quiz
      * @param newScore the new question object
      * @throws IOException
-     * @throws InterruptedException
      */
     public void postScore(String quizName, Score newScore) throws IOException {
         errorMessageMap.put(404, Errors.POST_SCORE_404);
-        sendRequest("POST", "/leaderboards/" + quizName, objectMapper.writeValueAsString(newScore), "");
+        sendRequest("POST", "/leaderboards/" + quizName.replaceAll(" ", "\\$"),
+                objectMapper.writeValueAsString(newScore), "");
     }
 
 
@@ -197,7 +190,6 @@ public class APIClientService {
      * @param header       the header
      * @return the response of the request
      * @throws IOException
-     * @throws InterruptedException
      */
     private HttpResponse<String> sendRequest(String method, String relativePath,
                                              String body, String header)
@@ -219,5 +211,4 @@ public class APIClientService {
         }
         return response;
     }
-
 }

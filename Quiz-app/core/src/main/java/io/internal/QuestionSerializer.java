@@ -8,11 +8,10 @@ import io.constants.JsonKeys;
 
 import java.io.IOException;
 
+/**
+ * This class serializes a Question object into a JSON file
+ */
 class QuestionSerializer extends JsonSerializer<Question> {
-
-    /*
-     * format: { "text": "...", "checked": false, "deadline": ... }
-     */
 
     @Override
     public void serialize(Question question, JsonGenerator jsonGen, SerializerProvider serializerProvider)

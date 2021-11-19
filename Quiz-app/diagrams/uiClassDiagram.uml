@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>C:/Users/sanke/gr2114/Quiz-app/ui</OriginalElement>
+  <nodes>
+    <node x="490.0" y="1478.0">ui.App</node>
+    <node x="1166.0" y="1134.0">ui.NewQuestionPageTest</node>
+    <node x="10.499999999999943" y="131.0">ui.controllers.QuizPageController</node>
+    <node x="513.0" y="548.0">ui.controllers.NewQuestionPageController</node>
+    <node x="1567.0" y="1134.0">ui.QuizPageTest</node>
+    <node x="582.0" y="1134.0">ui.controllers.LoginPageController</node>
+    <node x="1302.0" y="0.0">ui.APIClientService</node>
+    <node x="525.5" y="285.5">ui.controllers.InitializableController</node>
+    <node x="268.0" y="1478.0">ui.User</node>
+    <node x="765.0" y="647.0">ui.controllers.EditPageController</node>
+    <node x="186.40999999999985" y="0.0">ui.controllers.BaseController</node>
+    <node x="1031.0" y="702.0">ui.controllers.LeaderboardPageController</node>
+    <node x="253.49999999999994" y="219.0">ui.controllers.ResultPageController</node>
+    <node x="776.0" y="1478.0">ui.Utilities</node>
+    <node x="39.52499999999998" y="647.0">ui.controllers.HomePageController</node>
+    <node x="291.0" y="1134.0">ui.EditPageTest</node>
+    <node x="0.0" y="1134.0">ui.HomePageTest</node>
+    <node x="875.0" y="1134.0">ui.LeaderboardPageTest</node>
+    <node x="0.0" y="1478.0">ui.LoginPageTest</node>
+    <node x="738.16" y="230.0">ui.controllers.GoBackController</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="ui.controllers.EditPageController" target="ui.controllers.InitializableController" relationship="REALIZATION">
+      <point x="-61.5" y="-171.5" />
+      <point x="826.5" y="527.0" />
+      <point x="618.0" y="527.0" />
+      <point x="0.0" y="28.0" />
+    </edge>
+    <edge source="ui.controllers.ResultPageController" target="ui.controllers.BaseController" relationship="GENERALIZATION">
+      <point x="0.0" y="-94.5" />
+      <point x="379.49999999999994" y="105.0" />
+      <point x="258.40999999999985" y="105.0" />
+      <point x="0.0" y="39.5" />
+    </edge>
+    <edge source="ui.controllers.QuizPageController" target="ui.controllers.BaseController" relationship="GENERALIZATION">
+      <point x="-1.1368683772161603E-13" y="-182.5" />
+      <point x="121.99999999999983" y="105.0" />
+      <point x="258.40999999999985" y="105.0" />
+      <point x="0.0" y="39.5" />
+    </edge>
+    <edge source="ui.controllers.NewQuestionPageController" target="ui.controllers.InitializableController" relationship="REALIZATION">
+      <point x="-58.0" y="-270.5" />
+      <point x="571.0" y="527.0" />
+      <point x="618.0" y="527.0" />
+      <point x="0.0" y="28.0" />
+    </edge>
+    <edge source="ui.controllers.HomePageController" target="ui.controllers.InitializableController" relationship="REALIZATION">
+      <point x="59.25" y="-171.5" />
+      <point x="217.27499999999998" y="527.0" />
+      <point x="618.0" y="527.0" />
+      <point x="0.0" y="28.0" />
+    </edge>
+    <edge source="ui.controllers.GoBackController" target="ui.controllers.BaseController" relationship="GENERALIZATION">
+      <point x="0.0" y="-83.5" />
+      <point x="910.16" y="105.0" />
+      <point x="258.40999999999985" y="105.0" />
+      <point x="0.0" y="39.5" />
+    </edge>
+    <edge source="ui.controllers.LeaderboardPageController" target="ui.controllers.GoBackController" relationship="GENERALIZATION">
+      <point x="0.0" y="-116.5" />
+      <point x="1144.0" y="517.0" />
+      <point x="910.16" y="517.0" />
+      <point x="0.0" y="83.5" />
+    </edge>
+    <edge source="ui.controllers.EditPageController" target="ui.controllers.GoBackController" relationship="GENERALIZATION">
+      <point x="61.5" y="-171.5" />
+      <point x="949.5" y="517.0" />
+      <point x="910.16" y="517.0" />
+      <point x="0.0" y="83.5" />
+    </edge>
+    <edge source="ui.controllers.HomePageController" target="ui.controllers.BaseController" relationship="GENERALIZATION">
+      <point x="-59.25" y="-171.5" />
+      <point x="98.77499999999998" y="527.0" />
+      <point x="0.0" y="527.0" />
+      <point x="0.0" y="105.0" />
+      <point x="258.40999999999985" y="105.0" />
+      <point x="0.0" y="39.5" />
+    </edge>
+    <edge source="ui.controllers.NewQuestionPageController" target="ui.controllers.GoBackController" relationship="GENERALIZATION">
+      <point x="58.0" y="-270.5" />
+      <point x="687.0" y="517.0" />
+      <point x="910.16" y="517.0" />
+      <point x="0.0" y="83.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.3627852545348157" showDependencies="false" x="895.0" y="844.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

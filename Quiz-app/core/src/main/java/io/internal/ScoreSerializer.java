@@ -8,8 +8,10 @@ import io.constants.JsonKeys;
 
 import java.io.IOException;
 
+/**
+ * This class serializes a Score object into a JSON file
+ */
 class ScoreSerializer extends JsonSerializer<Score> {
-
 
     @Override
     public void serialize(Score score, JsonGenerator jsonGen, SerializerProvider serializerProvider)

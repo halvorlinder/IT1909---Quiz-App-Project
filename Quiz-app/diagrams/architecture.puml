@@ -1,0 +1,57 @@
+
+@startuml
+
+component core {
+	package core.core
+	package core.io
+	package core.io.internal
+}
+
+component jackson {
+}
+
+component ReportAggregator{
+}
+
+component ui {
+	package ui.ui
+	package ui.ui.controllers
+	component APIClientService{
+	}
+}
+
+component javafx {
+    component fxml{
+    }
+}
+
+component rest {
+    package rest.rest
+}
+
+component springboot{
+}
+
+ReportAggregator ..> rest
+ReportAggregator ..> core
+ReportAggregator ..> ui
+core.io ..> core.core
+core.io ..> core.io.internal
+core.io ..> jackson
+core.io.internal ..> jackson
+
+ui.ui ..> ui.ui.controllers
+ui.ui.controllers ..> core
+
+ui ..> javafx
+ui.ui ..> fxml
+ui.ui.controllers ..> fxml
+APIClientService ..> rest.rest
+APIClientService ..> core
+ui.ui.controllers ..> APIClientService
+
+rest.rest ..> core
+rest.rest ..> springboot
+
+
+@enduml

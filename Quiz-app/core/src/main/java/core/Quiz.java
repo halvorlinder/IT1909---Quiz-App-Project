@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class represents a Quiz session in the application
+ * This class represents a quiz with a list of questions
  */
 public class Quiz {
 
-    private final String name;
+    private String name;
     private final List<Question> questions;
     private final String creator;
 
@@ -18,19 +18,25 @@ public class Quiz {
      * @param creator   the creator of the quiz
      */
     public Quiz(String name, List<Question> questions, String creator) {
+        if (name.isEmpty())
+            throw new IllegalArgumentException("The quiz must have a non-empty name");
+        if (creator.isEmpty())
+            throw new IllegalArgumentException("The creator of the quiz must have a non-empty name");
         this.name = name;
         this.questions = new ArrayList<>(questions);
         this.creator = creator;
     }
 
     /**
-     * @param n the index
+     * gets a question from the quiz
+     *
+     * @param questionId the index of the question
      * @return the question at a given index
      */
-    public Question getQuestion(int n) {
-        if (n >= getQuizLength())
+    public Question getQuestion(int questionId) {
+        if (questionId >= getQuizLength() || questionId < 0)
             throw new ArrayIndexOutOfBoundsException();
-        return questions.get(n);
+        return questions.get(questionId);
     }
 
     /**
@@ -52,9 +58,11 @@ public class Quiz {
     /**
      * delete a question from the quiz
      *
-     * @param questionId
+     * @param questionId the index of the question to be removed
      */
     public void deleteQuestion(int questionId) {
+        if (questionId >= getQuizLength() || questionId < 0)
+            throw new ArrayIndexOutOfBoundsException();
         questions.remove(questionId);
     }
 
@@ -65,6 +73,8 @@ public class Quiz {
      * @param question   the new question
      */
     public void setQuestion(int questionId, Question question) {
+        if (questionId >= getQuizLength() || questionId < 0)
+            throw new ArrayIndexOutOfBoundsException();
         questions.set(questionId, question);
     }
 
@@ -85,7 +95,6 @@ public class Quiz {
     /**
      * @return string representation
      */
-
     @Override
     public String toString() {
         return "Quiz{" +
@@ -98,5 +107,13 @@ public class Quiz {
      */
     public String getName() {
         return name;
+    }
+
+    /**
+     * strips and replaces spaces with $ in the quiz name in
+     * order for it to be sent over http
+     */
+    public void legalizeName() {
+        name = name.strip().replaceAll(" ", "$");
     }
 }

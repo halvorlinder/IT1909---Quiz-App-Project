@@ -53,6 +53,11 @@ public class EditPageController extends GoBackController implements Initializabl
         display();
     }
 
+    /**
+     * clears the questionList and fills it with updated list of questions
+     *
+     * @throws IOException
+     */
     private void display() throws IOException {
         questionList.getChildren().clear();
         quiz = apiClientService.getQuiz(quizName);
@@ -62,6 +67,9 @@ public class EditPageController extends GoBackController implements Initializabl
         }
     }
 
+    /**
+     * @return the current scene
+     */
     private Scene getScene() {
         return titleText.getScene();
     }
@@ -102,6 +110,11 @@ public class EditPageController extends GoBackController implements Initializabl
         questionList.getChildren().add(gridPane);
     }
 
+    /**
+     * delete a question by id
+     *
+     * @param questionId the id of the question
+     */
     private void deleteQuestion(int questionId) {
         try {
             apiClientService.deleteQuestion(quizName, questionId, getUser().getAccessToken());
@@ -110,6 +123,12 @@ public class EditPageController extends GoBackController implements Initializabl
         }
     }
 
+    /**
+     * renders the EditQuestion page
+     *
+     * @param questionId the id of the question to be edited
+     * @param question   the question to be edited
+     */
     private void showEditQuestion(int questionId, Question question) {
         FXMLLoader loader = null;
         try {
@@ -153,6 +172,11 @@ public class EditPageController extends GoBackController implements Initializabl
         }
     }
 
+    /**
+     * deletes a quiz by its name
+     *
+     * @throws IOException
+     */
     @FXML
     private void deleteQuiz() throws IOException {
         try {

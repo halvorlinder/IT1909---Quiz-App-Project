@@ -9,8 +9,10 @@ import io.constants.JsonKeys;
 
 import java.io.IOException;
 
+/**
+ * This class serializes a Leaderboard object into a JSON file
+ */
 class LeaderboardSerializer extends JsonSerializer<Leaderboard> {
-
 
     @Override
     public void serialize(Leaderboard leaderboard, JsonGenerator jsonGen, SerializerProvider serializerProvider)

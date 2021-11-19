@@ -10,7 +10,11 @@ import io.constants.JsonKeys;
 
 import java.io.IOException;
 
-public final class UserRecordDeserializer extends JsonDeserializer<UserRecord> {
+/**
+ * This class deserializes a JSON file to a UserRecord object
+ */
+class UserRecordDeserializer extends JsonDeserializer<UserRecord> {
+
     @Override
     public UserRecord deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
             throws IOException {

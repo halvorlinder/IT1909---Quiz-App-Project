@@ -165,7 +165,7 @@ public final class HomePageController extends BaseController implements Initiali
      * @param quizName the name of the quiz to be played
      */
     @FXML
-    public void startQuiz(String quizName) { // Switch scene to StartQuiz
+    public void startQuiz(String quizName) {
         FXMLLoader loader = null;
         try {
             Quiz quiz = apiClientService.getQuiz(quizName);
@@ -195,7 +195,7 @@ public final class HomePageController extends BaseController implements Initiali
      */
     @FXML
     public void addNewQuizFile() {
-        String newQuizName = quizNameField.getText();
+        String newQuizName = quizNameField.getText().strip().replaceAll(" ", "\\$");
         if (newQuizName.isEmpty()) {
             Utilities.alertUser(Errors.EMPTY_NAME);
             return;
@@ -229,6 +229,9 @@ public final class HomePageController extends BaseController implements Initiali
         }
     }
 
+    /**
+     * @return the current scene
+     */
     private Scene getScene() {
         return quizList.getScene();
     }
