@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * This class represents a leaderboard for a quiz
+ */
 public class Leaderboard {
 
     private final String name;
