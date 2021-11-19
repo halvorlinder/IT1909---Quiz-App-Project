@@ -13,6 +13,8 @@ import java.nio.file.Path;
 public final class UserPersistence {
     private final ObjectMapper mapper;
     private static final String FILE_NAME = "users.json";
+
+    //We have decided that this is safe, because in all the tests, the SavePaths.enableTestMode() is called before this class is first mentioned, therefore thisfield will be instantiated after the savepath is set to the test path
     private static final String BASE_PATH = SavePaths.getBasePath();
 
     /**
