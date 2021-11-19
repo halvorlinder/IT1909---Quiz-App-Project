@@ -56,6 +56,8 @@ public class QuizController {
     }
 
     /**
+     * get quiz with given name
+     *
      * @param response
      * @return a list of all quizzes
      */
@@ -221,6 +223,8 @@ public class QuizController {
     }
 
     /**
+     * gets a Leaderboard from its name
+     *
      * @param name     the name of the quiz
      * @param response
      * @return a leaderboard for a quiz given its name
@@ -311,6 +315,4 @@ public class QuizController {
         }
         return null;
     }
-
-
 }
