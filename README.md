@@ -112,7 +112,7 @@ To get a local copy up and running follow these simple steps.
   mvn clean compile javafx:jlink jpackage:jpackage -pl ui
   sudo apt install ./ui/target/dist/quizfx_1.0.0-1_amd64.deb
   ```
-  Now the program can be found in /opt/quizfx/
+  Now the program can be found in /opt/QuizFX/
 
 * Run the application created by jpackage 
   ```sh
