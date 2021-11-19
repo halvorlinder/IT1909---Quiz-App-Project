@@ -64,21 +64,21 @@ public class QuizTest {
 
     @Test
     public void getNonExistingQuestion() {
-        Assertions.assertThrows(ArrayIndexOutOfBoundsException.class, () -> quiz.getQuestion(-1));
-        Assertions.assertThrows(ArrayIndexOutOfBoundsException.class, () -> quiz.getQuestion(quiz.getQuizLength()));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> quiz.getQuestion(-1));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> quiz.getQuestion(quiz.getQuizLength()));
     }
 
     @Test
     public void deleteNonExistingQuestion() {
-        Assertions.assertThrows(ArrayIndexOutOfBoundsException.class, () -> quiz.deleteQuestion(-1));
-        Assertions.assertThrows(ArrayIndexOutOfBoundsException.class, () -> quiz.deleteQuestion(quiz.getQuizLength()));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> quiz.deleteQuestion(-1));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> quiz.deleteQuestion(quiz.getQuizLength()));
     }
 
     @Test
     public void setNonExistingQuestion() {
         Question q = new Question("?", List.of("1", "2", "3", "4"), 0);
-        Assertions.assertThrows(ArrayIndexOutOfBoundsException.class, () -> quiz.setQuestion(-1, q));
-        Assertions.assertThrows(ArrayIndexOutOfBoundsException.class, () -> quiz.setQuestion(quiz.getQuizLength(), q));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> quiz.setQuestion(-1, q));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> quiz.setQuestion(quiz.getQuizLength(), q));
     }
 
     @Test
