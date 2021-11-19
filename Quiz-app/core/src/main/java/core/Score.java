@@ -2,6 +2,9 @@ package core;
 
 import java.util.Objects;
 
+/**
+ * This class represents a score for a leaderboard
+ */
 public class Score implements Comparable<Score> {
 
     private final String name;
