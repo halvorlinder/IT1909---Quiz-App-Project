@@ -127,9 +127,9 @@ To get a local copy up and running follow these simple steps.
 
 <!-- Core structure -->
 
-## Core
+## CORE
 
-### Core
+### core
 
 [Question](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/core/src/main/java/core/Question.java) - Contains the information of a single question with choices and a correct answer.
 
@@ -147,11 +147,11 @@ To get a local copy up and running follow these simple steps.
 
 ### io
 
-[QuizPersistance](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/core/src/main/java/io/QuizPersistence.java)- Handles the saving of quiz(zes) and loading of quiz(zes). 
+[QuizPersistance](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/core/src/main/java/io/QuizPersistence.java)- Handles the saving of quiz(zes) and loading of quiz(zes) 
 
-[UserPersistance](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/core/src/main/java/io/UserPersistence.java)- Handles the saving of users and loading of users. 
+[UserPersistance](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/core/src/main/java/io/UserPersistence.java)- Handles the saving of users and loading of users
 
-[LeaderBoardPersistance](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/core/src/main/java/io/LeaderBoardPersistence.java) - Handles the saving and loading of leaderboard(s). 
+[LeaderBoardPersistance](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/core/src/main/java/io/LeaderBoardPersistence.java) - Handles the saving and loading of leaderboard(s)
 
 [SavePaths](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/core/src/main/java/io/SavePaths.java) - A soulution to select a different directory for filestorage during testing.
 
@@ -185,14 +185,14 @@ To get a local copy up and running follow these simple steps.
 
 ### JSON Format 
 The JSON schema for saving Quizzes can be found [here](docs/JSON/quiz_schema.md)  
-The JSON schema for saving Users can be found [here](docs/JSON/user_data_schema.md)
+The JSON schema for saving Users can be found [here](docs/JSON/users_schema.md)
 
 
 ## UI
 
 ### ui
 
-[User](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/ui/src/main/java/ui/User.java) - Contains the information of a single user, with a set- and get-function for the username.
+[User](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/ui/src/main/java/ui/User.java) - Contains the information of a single user, with a set- and get-function for the username
 
 [App](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/ui/src/main/java/ui/App.java) - Launches the Quiz App
 
@@ -214,7 +214,7 @@ The JSON schema for saving Users can be found [here](docs/JSON/user_data_schema.
 
 [BaseController](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/ui/src/main/java/ui/controllers/BaseController.java) - Abstract controller extented by all controller classes
 
-[EditPageController](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/ui/src/main/java/ui/controllers/EditPageController.java) - Controller for editing a quiz, where you can delete, change or add a question.
+[EditPageController](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/ui/src/main/java/ui/controllers/EditPageController.java) - Controller for editing a quiz, where you can delete, change or add a question
 
 [InitilizableController](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/ui/src/main/java/ui/controllers/InitilizableController.java) - Interfaced implemented by all controller-classes, initializes the controller
 
@@ -223,7 +223,19 @@ The JSON schema for saving Users can be found [here](docs/JSON/user_data_schema.
 [GoBackController](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/ui/src/main/java/ui/controllers/GoBackController.java) - Controller for going back to previous scene
 
 
+## REST
 
+### rest
+
+[AuthHandler](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/rest/src/main/java/rest/AuthHandler.java) - Handles authentication of user, so that the user can only change a quiz they have made themselves 
+
+
+[QuizController](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/rest/src/main/java/rest/QuizController.java) - Defines the API endpoints, by mapping requests from the user by taking the request, path and body to a given method in this controller. Returns the server response
+
+[QuizServerApllication](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/rest/src/main/java/rest/QuizServerApllication.java) - initializes the Spring Boot server
+
+
+## ReportAggregator 
 ### Resources
 
 [HomePage fxml](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/Quiz-app/ui/src/main/resources/ui/HomePage.fxml)
