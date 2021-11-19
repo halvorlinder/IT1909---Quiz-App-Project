@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>C:/Users/sanke/gr2114/Quiz-app/core</OriginalElement>
+  <nodes>
+    <node x="2286.0" y="1447.0">io.internal.UserDataSerializer</node>
+    <node x="1199.0" y="1447.0">io.SavePaths</node>
+    <node x="0.0" y="1447.0">io.LeaderboardSerializeDeserializeTest</node>
+    <node x="3365.25" y="774.0">core.QuizTest</node>
+    <node x="2115.0" y="917.5">io.internal.UserDataDeserializer</node>
+    <node x="690.0" y="884.0">core.LeaderboardTest</node>
+    <node x="3086.0" y="1447.0">io.internal.ScoreSerializer</node>
+    <node x="3030.3621495327106" y="339.0">core.Quiz</node>
+    <node x="791.25" y="44.0">core.Score</node>
+    <node x="0.0" y="906.0">io.internal.LeaderboardDeserializer</node>
+    <node x="1288.0" y="862.0">core.UserDataTest</node>
+    <node x="910.0" y="917.5">io.internal.UserRecordDeserializer</node>
+    <node x="2835.5" y="829.0">io.QuizPersistence</node>
+    <node x="19.0" y="460.5">io.internal.ScoreDeserializer</node>
+    <node x="1771.0" y="840.5">io.TestHelpers</node>
+    <node x="633.0" y="1447.0">io.UserDataSerializeDeserializeTest</node>
+    <node x="3107.5" y="818.0">core.QuizSession</node>
+    <node x="3264.875" y="0.0">core.Question</node>
+    <node x="1513.0" y="1246.0">io.UserPersistenceTest</node>
+    <node x="385.0" y="840.0">io.LeaderboardPersistence</node>
+    <node x="320.0" y="1447.0">io.UserRecordSerializeDeserializeTest</node>
+    <node x="3381.75" y="383.0">core.QuestionTest</node>
+    <node x="894.157710280374" y="438.0">core.ScoreTest</node>
+    <node x="2773.3621495327106" y="1246.0">io.QuizPersistenceTest</node>
+    <node x="376.0" y="1637.0">io.internal.QuizAppModule</node>
+    <node x="1510.282710280374" y="394.0">core.UserData</node>
+    <node x="1499.0" y="840.0">io.UserPersistence</node>
+    <node x="2687.0" y="1447.0">io.internal.QuestionSerializer</node>
+    <node x="930.0" y="1447.0">io.QuizSerializeDeserializeTest</node>
+    <node x="550.6203271028039" y="383.0">core.Leaderboard</node>
+    <node x="3238.995327102804" y="1191.0">core.QuizSessionTest</node>
+    <node x="376.0" y="1246.0">io.LeaderboardPersistenceTest</node>
+    <node x="2469.5" y="460.5">io.internal.QuestionDeserializer</node>
+    <node x="1873.0" y="1447.0">io.internal.UserRecordSerializer</node>
+    <node x="2481.0" y="906.0">io.internal.QuizDeserializer</node>
+    <node x="1453.0" y="1447.0">io.internal.LeaderboardSerializer</node>
+    <node x="0.0" y="1637.0">io.internal.QuizSerializer</node>
+    <node x="1175.032710280374" y="438.0">core.UserRecord</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="io.QuizPersistenceTest" target="io.QuizPersistence" relationship="DEPENDENCY">
+      <point x="-56.0" y="-50.5" />
+      <point x="2829.3621495327106" y="1170.0" />
+      <point x="2898.5" y="1170.0" />
+      <point x="-63.0" y="127.5" />
+    </edge>
+    <edge source="io.internal.LeaderboardDeserializer" target="io.internal.ScoreDeserializer" relationship="DEPENDENCY">
+      <point x="91.25" y="-50.5" />
+      <point x="273.75" y="752.0" />
+      <point x="160.3703271028039" y="752.0" />
+      <point x="160.3703271028039" y="732.0" />
+      <point x="264.25" y="732.0" />
+      <point x="81.75" y="39.0" />
+    </edge>
+    <edge source="core.QuizSession" target="core.Quiz" relationship="DEPENDENCY">
+      <point x="-55.25" y="-138.5" />
+      <point x="3162.75" y="752.0" />
+      <point x="2894.907710280374" y="752.0" />
+      <point x="2894.907710280374" y="742.0" />
+      <point x="2957.907710280374" y="742.0" />
+      <point x="2957.907710280374" y="692.0" />
+      <point x="3083.6121495327106" y="692.0" />
+      <point x="-53.25" y="160.5" />
+    </edge>
+    <edge source="core.ScoreTest" target="core.Score" relationship="TO_ONE">
+      <point x="50.0" y="-61.5" />
+      <point x="1044.157710280374" y="308.0" />
+      <point x="999.157710280374" y="308.0" />
+      <point x="999.157710280374" y="298.0" />
+      <point x="921.75" y="298.0" />
+      <point x="43.5" y="94.5" />
+    </edge>
+    <edge source="io.LeaderboardPersistenceTest" target="io.LeaderboardPersistence" relationship="TO_ONE">
+      <point x="75.75" y="-50.5" />
+      <point x="603.25" y="1170.0" />
+      <point x="598.75" y="1170.0" />
+      <point x="71.25" y="116.5" />
+    </edge>
+    <edge source="core.Quiz" target="core.Question" relationship="DEPENDENCY">
+      <point x="-53.25" y="-160.5" />
+      <point x="3083.6121495327106" y="318.0" />
+      <point x="3164.75" y="318.0" />
+      <point x="3164.75" y="298.0" />
+      <point x="3311.375" y="298.0" />
+      <point x="-46.5" y="138.5" />
+    </edge>
+    <edge source="core.UserDataTest" target="core.UserRecord" relationship="TO_ONE">
+      <point x="-47.75" y="-94.5" />
+      <point x="1335.75" y="752.0" />
+      <point x="1378.5" y="752.0" />
+      <point x="1378.5" y="702.0" />
+      <point x="1297.282710280374" y="702.0" />
+      <point x="40.75" y="61.5" />
+    </edge>
+    <edge source="core.UserDataTest" target="core.UserData" relationship="TO_ONE">
+      <point x="-47.75" y="-94.5" />
+      <point x="1335.75" y="752.0" />
+      <point x="1378.5" y="752.0" />
+      <point x="1378.5" y="702.0" />
+      <point x="1573.032710280374" y="702.0" />
+      <point x="-62.75" y="105.5" />
+    </edge>
+    <edge source="core.UserDataTest" target="core.UserRecord" relationship="DEPENDENCY">
+      <point x="47.75" y="-94.5" />
+      <point x="1431.25" y="752.0" />
+      <point x="1388.5" y="752.0" />
+      <point x="1388.5" y="732.0" />
+      <point x="1139.2581775700937" y="732.0" />
+      <point x="1139.2581775700937" y="702.0" />
+      <point x="1215.782710280374" y="702.0" />
+      <point x="-40.75" y="61.5" />
+    </edge>
+    <edge source="io.TestHelpers" target="core.UserData" relationship="DEPENDENCY">
+      <point x="0.0" y="-116.0" />
+      <point x="1933.0" y="702.0" />
+      <point x="1779.0" y="702.0" />
+      <point x="1779.0" y="692.0" />
+      <point x="1698.532710280374" y="692.0" />
+      <point x="62.75" y="105.5" />
+    </edge>
+    <edge source="core.QuizTest" target="core.Question" relationship="DEPENDENCY">
+      <point x="-57.0" y="-182.5" />
+      <point x="3422.25" y="752.0" />
+      <point x="3371.25" y="752.0" />
+      <point x="3371.25" y="318.0" />
+      <point x="3164.75" y="318.0" />
+      <point x="3164.75" y="298.0" />
+      <point x="3311.375" y="298.0" />
+      <point x="-46.5" y="138.5" />
+    </edge>
+    <edge source="core.Leaderboard" target="core.Score" relationship="DEPENDENCY">
+      <point x="-53.0" y="-116.5" />
+      <point x="603.6203271028039" y="318.0" />
+      <point x="650.2126168224299" y="318.0" />
+      <point x="650.2126168224299" y="298.0" />
+      <point x="834.75" y="298.0" />
+      <point x="-43.5" y="94.5" />
+    </edge>
+    <edge source="core.QuizTest" target="core.Quiz" relationship="DEPENDENCY">
+      <point x="-57.0" y="-182.5" />
+      <point x="3422.25" y="752.0" />
+      <point x="3371.25" y="752.0" />
+      <point x="3371.25" y="702.0" />
+      <point x="2957.907710280374" y="702.0" />
+      <point x="2957.907710280374" y="692.0" />
+      <point x="3083.6121495327106" y="692.0" />
+      <point x="-53.25" y="160.5" />
+    </edge>
+    <edge source="core.QuizSessionTest" target="core.Question" relationship="TO_MANY">
+      <point x="62.75" y="-105.5" />
+      <point x="3427.245327102804" y="1170.0" />
+      <point x="3369.495327102804" y="1170.0" />
+      <point x="3369.495327102804" y="1160.0" />
+      <point x="3626.25" y="1160.0" />
+      <point x="3626.25" y="308.0" />
+      <point x="3519.08761682243" y="308.0" />
+      <point x="3519.08761682243" y="298.0" />
+      <point x="3404.375" y="298.0" />
+      <point x="46.5" y="138.5" />
+    </edge>
+    <edge source="core.QuizSessionTest" target="core.QuizSession" relationship="TO_ONE">
+      <point x="62.75" y="-105.5" />
+      <point x="3427.245327102804" y="1170.0" />
+      <point x="3369.495327102804" y="1170.0" />
+      <point x="3369.495327102804" y="1160.0" />
+      <point x="3273.25" y="1160.0" />
+      <point x="55.25" y="138.5" />
+    </edge>
+    <edge source="core.QuizTest" target="core.Question" relationship="TO_MANY">
+      <point x="57.0" y="-182.5" />
+      <point x="3536.25" y="752.0" />
+      <point x="3587.25" y="752.0" />
+      <point x="3587.25" y="308.0" />
+      <point x="3519.08761682243" y="308.0" />
+      <point x="3519.08761682243" y="298.0" />
+      <point x="3404.375" y="298.0" />
+      <point x="46.5" y="138.5" />
+    </edge>
+    <edge source="io.internal.LeaderboardDeserializer" target="io.internal.ScoreDeserializer" relationship="TO_ONE">
+      <point x="-91.25" y="-50.5" />
+      <point x="91.25" y="752.0" />
+      <point x="100.75" y="752.0" />
+      <point x="-81.75" y="39.0" />
+    </edge>
+    <edge source="core.Leaderboard" target="core.Score" relationship="TO_MANY">
+      <point x="53.0" y="-116.5" />
+      <point x="709.6203271028039" y="308.0" />
+      <point x="999.157710280374" y="308.0" />
+      <point x="999.157710280374" y="298.0" />
+      <point x="921.75" y="298.0" />
+      <point x="43.5" y="94.5" />
+    </edge>
+    <edge source="core.LeaderboardTest" target="core.Leaderboard" relationship="TO_ONE">
+      <point x="50.0" y="-72.5" />
+      <point x="840.0" y="742.0" />
+      <point x="709.6203271028039" y="742.0" />
+      <point x="53.0" y="116.5" />
+    </edge>
+    <edge source="io.internal.ScoreDeserializer" target="core.Score" relationship="DEPENDENCY">
+      <point x="0.0" y="-39.0" />
+      <point x="182.5" y="318.0" />
+      <point x="650.2126168224299" y="318.0" />
+      <point x="650.2126168224299" y="298.0" />
+      <point x="834.75" y="298.0" />
+      <point x="-43.5" y="94.5" />
+    </edge>
+    <edge source="core.QuestionTest" target="core.Question" relationship="DEPENDENCY">
+      <point x="-48.75" y="-116.5" />
+      <point x="3430.5" y="318.0" />
+      <point x="3164.75" y="318.0" />
+      <point x="3164.75" y="298.0" />
+      <point x="3311.375" y="298.0" />
+      <point x="-46.5" y="138.5" />
+    </edge>
+    <edge source="core.QuizSession" target="core.Question" relationship="DEPENDENCY">
+      <point x="-55.25" y="-138.5" />
+      <point x="3162.75" y="752.0" />
+      <point x="2894.907710280374" y="752.0" />
+      <point x="2894.907710280374" y="712.0" />
+      <point x="2889.657710280374" y="712.0" />
+      <point x="2889.657710280374" y="318.0" />
+      <point x="3164.75" y="318.0" />
+      <point x="3164.75" y="298.0" />
+      <point x="3311.375" y="298.0" />
+      <point x="-46.5" y="138.5" />
+    </edge>
+    <edge source="core.QuestionTest" target="core.Question" relationship="TO_ONE">
+      <point x="48.75" y="-116.5" />
+      <point x="3528.0" y="308.0" />
+      <point x="3519.08761682243" y="308.0" />
+      <point x="3519.08761682243" y="298.0" />
+      <point x="3404.375" y="298.0" />
+      <point x="46.5" y="138.5" />
+    </edge>
+    <edge source="core.LeaderboardTest" target="core.Leaderboard" relationship="DEPENDENCY">
+      <point x="-50.0" y="-72.5" />
+      <point x="740.0" y="752.0" />
+      <point x="651.6203271028039" y="752.0" />
+      <point x="651.6203271028039" y="702.0" />
+      <point x="603.6203271028039" y="702.0" />
+      <point x="-53.0" y="116.5" />
+    </edge>
+    <edge source="io.UserPersistenceTest" target="io.UserPersistence" relationship="TO_ONE">
+      <point x="56.0" y="-50.5" />
+      <point x="1681.0" y="1170.0" />
+      <point x="1688.0" y="1170.0" />
+      <point x="63.0" y="116.5" />
+    </edge>
+    <edge source="io.QuizPersistence" target="core.Quiz" relationship="DEPENDENCY">
+      <point x="0.0" y="-127.5" />
+      <point x="2961.5" y="712.0" />
+      <point x="2957.907710280374" y="712.0" />
+      <point x="2957.907710280374" y="692.0" />
+      <point x="3083.6121495327106" y="692.0" />
+      <point x="-53.25" y="160.5" />
+    </edge>
+    <edge source="core.QuizTest" target="core.Quiz" relationship="TO_ONE">
+      <point x="57.0" y="-182.5" />
+      <point x="3536.25" y="752.0" />
+      <point x="3587.25" y="752.0" />
+      <point x="3587.25" y="692.0" />
+      <point x="3254.875" y="692.0" />
+      <point x="3254.875" y="682.0" />
+      <point x="3190.1121495327106" y="682.0" />
+      <point x="53.25" y="160.5" />
+    </edge>
+    <edge source="io.TestHelpers" target="core.Quiz" relationship="DEPENDENCY">
+      <point x="0.0" y="-116.0" />
+      <point x="1933.0" y="722.0" />
+      <point x="2957.907710280374" y="722.0" />
+      <point x="2957.907710280374" y="692.0" />
+      <point x="3083.6121495327106" y="692.0" />
+      <point x="-53.25" y="160.5" />
+    </edge>
+    <edge source="core.QuizSessionTest" target="core.QuizSession" relationship="DEPENDENCY">
+      <point x="-62.75" y="-105.5" />
+      <point x="3301.745327102804" y="1170.0" />
+      <point x="3180.1121495327106" y="1170.0" />
+      <point x="3180.1121495327106" y="1160.0" />
+      <point x="3162.75" y="1160.0" />
+      <point x="-55.25" y="138.5" />
+    </edge>
+    <edge source="io.internal.LeaderboardDeserializer" target="core.Leaderboard" relationship="DEPENDENCY">
+      <point x="91.25" y="-50.5" />
+      <point x="273.75" y="752.0" />
+      <point x="160.3703271028039" y="752.0" />
+      <point x="160.3703271028039" y="742.0" />
+      <point x="651.6203271028039" y="742.0" />
+      <point x="651.6203271028039" y="702.0" />
+      <point x="603.6203271028039" y="702.0" />
+      <point x="-53.0" y="116.5" />
+    </edge>
+    <edge source="io.internal.QuizDeserializer" target="io.internal.QuestionDeserializer" relationship="DEPENDENCY">
+      <point x="80.5" y="-50.5" />
+      <point x="2722.5" y="752.0" />
+      <point x="2621.7581775700937" y="752.0" />
+      <point x="2621.7581775700937" y="712.0" />
+      <point x="2728.25" y="712.0" />
+      <point x="86.25" y="39.0" />
+    </edge>
+    <edge source="core.QuizSessionTest" target="core.Question" relationship="DEPENDENCY">
+      <point x="-62.75" y="-105.5" />
+      <point x="3301.745327102804" y="1170.0" />
+      <point x="3180.1121495327106" y="1170.0" />
+      <point x="3180.1121495327106" y="1160.0" />
+      <point x="2825.0" y="1160.0" />
+      <point x="2825.0" y="318.0" />
+      <point x="3164.75" y="318.0" />
+      <point x="3164.75" y="298.0" />
+      <point x="3311.375" y="298.0" />
+      <point x="-46.5" y="138.5" />
+    </edge>
+    <edge source="io.internal.QuizDeserializer" target="core.Quiz" relationship="DEPENDENCY">
+      <point x="80.5" y="-50.5" />
+      <point x="2722.5" y="752.0" />
+      <point x="2621.7581775700937" y="752.0" />
+      <point x="2621.7581775700937" y="732.0" />
+      <point x="2957.907710280374" y="732.0" />
+      <point x="2957.907710280374" y="692.0" />
+      <point x="3083.6121495327106" y="692.0" />
+      <point x="-53.25" y="160.5" />
+    </edge>
+    <edge source="io.internal.UserDataDeserializer" target="core.UserData" relationship="DEPENDENCY">
+      <point x="0.0" y="-39.0" />
+      <point x="2288.0" y="752.0" />
+      <point x="1779.0" y="752.0" />
+      <point x="1779.0" y="692.0" />
+      <point x="1698.532710280374" y="692.0" />
+      <point x="62.75" y="105.5" />
+    </edge>
+    <edge source="io.LeaderboardPersistenceTest" target="io.LeaderboardPersistence" relationship="DEPENDENCY">
+      <point x="-75.75" y="-50.5" />
+      <point x="451.75" y="1170.0" />
+      <point x="456.25" y="1170.0" />
+      <point x="-71.25" y="116.5" />
+    </edge>
+    <edge source="io.internal.QuizDeserializer" target="io.internal.QuestionDeserializer" relationship="TO_ONE">
+      <point x="-80.5" y="-50.5" />
+      <point x="2561.5" y="712.0" />
+      <point x="2555.75" y="712.0" />
+      <point x="-86.25" y="39.0" />
+    </edge>
+    <edge source="core.QuizSession" target="core.Quiz" relationship="TO_ONE">
+      <point x="55.25" y="-138.5" />
+      <point x="3273.25" y="752.0" />
+      <point x="3254.875" y="752.0" />
+      <point x="3254.875" y="682.0" />
+      <point x="3190.1121495327106" y="682.0" />
+      <point x="53.25" y="160.5" />
+    </edge>
+    <edge source="core.Quiz" target="core.Question" relationship="TO_MANY">
+      <point x="53.25" y="-160.5" />
+      <point x="3190.1121495327106" y="308.0" />
+      <point x="3519.08761682243" y="308.0" />
+      <point x="3519.08761682243" y="298.0" />
+      <point x="3404.375" y="298.0" />
+      <point x="46.5" y="138.5" />
+    </edge>
+    <edge source="io.LeaderboardPersistence" target="core.Leaderboard" relationship="DEPENDENCY">
+      <point x="0.0" y="-116.5" />
+      <point x="527.5" y="752.0" />
+      <point x="651.6203271028039" y="752.0" />
+      <point x="651.6203271028039" y="702.0" />
+      <point x="603.6203271028039" y="702.0" />
+      <point x="-53.0" y="116.5" />
+    </edge>
+    <edge source="core.UserDataTest" target="core.UserData" relationship="DEPENDENCY">
+      <point x="47.75" y="-94.5" />
+      <point x="1431.25" y="752.0" />
+      <point x="1388.5" y="752.0" />
+      <point x="1388.5" y="742.0" />
+      <point x="1779.0" y="742.0" />
+      <point x="1779.0" y="692.0" />
+      <point x="1698.532710280374" y="692.0" />
+      <point x="62.75" y="105.5" />
+    </edge>
+    <edge source="io.TestHelpers" target="core.Leaderboard" relationship="DEPENDENCY">
+      <point x="0.0" y="-116.0" />
+      <point x="1933.0" y="712.0" />
+      <point x="651.6203271028039" y="712.0" />
+      <point x="651.6203271028039" y="702.0" />
+      <point x="603.6203271028039" y="702.0" />
+      <point x="-53.0" y="116.5" />
+    </edge>
+    <edge source="core.ScoreTest" target="core.Score" relationship="DEPENDENCY">
+      <point x="-50.0" y="-61.5" />
+      <point x="944.157710280374" y="318.0" />
+      <point x="650.2126168224299" y="318.0" />
+      <point x="650.2126168224299" y="298.0" />
+      <point x="834.75" y="298.0" />
+      <point x="-43.5" y="94.5" />
+    </edge>
+    <edge source="io.internal.QuestionDeserializer" target="core.Question" relationship="DEPENDENCY">
+      <point x="0.0" y="-39.0" />
+      <point x="2642.0" y="318.0" />
+      <point x="3164.75" y="318.0" />
+      <point x="3164.75" y="298.0" />
+      <point x="3311.375" y="298.0" />
+      <point x="-46.5" y="138.5" />
+    </edge>
+    <edge source="io.internal.UserRecordDeserializer" target="core.UserRecord" relationship="DEPENDENCY">
+      <point x="0.0" y="-39.0" />
+      <point x="1089.0" y="752.0" />
+      <point x="1139.2581775700937" y="752.0" />
+      <point x="1139.2581775700937" y="702.0" />
+      <point x="1215.782710280374" y="702.0" />
+      <point x="-40.75" y="61.5" />
+    </edge>
+    <edge source="io.UserPersistenceTest" target="io.UserPersistence" relationship="DEPENDENCY">
+      <point x="-56.0" y="-50.5" />
+      <point x="1569.0" y="1170.0" />
+      <point x="1562.0" y="1170.0" />
+      <point x="-63.0" y="116.5" />
+    </edge>
+    <edge source="io.QuizPersistenceTest" target="io.QuizPersistence" relationship="TO_ONE">
+      <point x="56.0" y="-50.5" />
+      <point x="2941.3621495327106" y="1170.0" />
+      <point x="3024.5" y="1170.0" />
+      <point x="63.0" y="127.5" />
+    </edge>
+    <edge source="io.UserPersistence" target="core.UserData" relationship="DEPENDENCY">
+      <point x="0.0" y="-116.5" />
+      <point x="1625.0" y="752.0" />
+      <point x="1779.0" y="752.0" />
+      <point x="1779.0" y="692.0" />
+      <point x="1698.532710280374" y="692.0" />
+      <point x="62.75" y="105.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.908472717301892" showDependencies="true" x="673.018917227473" y="455.81381439392095" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
