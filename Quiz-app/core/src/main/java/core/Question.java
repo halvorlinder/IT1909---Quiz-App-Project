@@ -3,6 +3,9 @@ package core;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class represents a question in a given quiz
+ */
 public class Question {
     private final String question;
     private final List<String> choices;
@@ -10,9 +13,9 @@ public class Question {
     private static final int NUMBER_OF_CHOICES = 4;
 
     /**
-     * @param question a string representing the question text
-     * @param choices  a list a strings representing the choices for the question
-     * @param correctAnswer   an int corresponding to the index of the correct answer
+     * @param question      a string representing the question text
+     * @param choices       a list a strings representing the choices for the question
+     * @param correctAnswer an int corresponding to the index of the correct answer
      */
     public Question(String question, List<String> choices, int correctAnswer) {
         if (choices.size() != NUMBER_OF_CHOICES)

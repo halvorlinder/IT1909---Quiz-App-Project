@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class represents a Quiz session in the application
+ * This class represents a quiz with a list of questions
  */
 public class Quiz {
 
@@ -28,13 +28,15 @@ public class Quiz {
     }
 
     /**
-     * @param n the index
+     * gets a question from the quiz
+     *
+     * @param questionId the index of the question
      * @return the question at a given index
      */
-    public Question getQuestion(int n) {
-        if (n >= getQuizLength() || n < 0)
+    public Question getQuestion(int questionId) {
+        if (questionId >= getQuizLength() || questionId < 0)
             throw new ArrayIndexOutOfBoundsException();
-        return questions.get(n);
+        return questions.get(questionId);
     }
 
     /**

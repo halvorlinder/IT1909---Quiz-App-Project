@@ -7,6 +7,9 @@ import core.Question;
 
 import java.io.IOException;
 
+/**
+ * This class serializes a Question object into a JSON file
+ */
 class QuestionSerializer extends JsonSerializer<Question> {
 
     @Override

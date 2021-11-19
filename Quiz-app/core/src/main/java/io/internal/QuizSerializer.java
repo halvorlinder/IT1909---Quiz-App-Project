@@ -8,6 +8,9 @@ import core.Quiz;
 
 import java.io.IOException;
 
+/**
+ * This class serializes a Quiz object into a JSON file
+ */
 class QuizSerializer extends JsonSerializer<Quiz> {
 
     @Override

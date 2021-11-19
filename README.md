@@ -56,6 +56,9 @@ The project is seperated into modules; the core and the ui. The core module cont
 * Jacoco
 * Checkstyle
 * Spotbugs
+* Spring boot
+* Jpackage and jlink
+* Tomcat
 
 #### Checkstyle settings
 We use a default checkstyle template, with minor changes:
@@ -68,6 +71,21 @@ We use a default checkstyle template, with minor changes:
 #### Spotbugs settings
 We have edited a few spotbugs settings:
 - Disabled unused field in controllers that arent linked to a FXML file, because the fields are used but the compiler doesn't understand it
+
+#### Jlink
+The JLink goal is intended to create a Java Run Time Image. Description of a few of the parameters we use
+- MainClass: What main needs to be launched by specifying module, package and class. We set it to ui.App since the application is in the UI module. 
+- Compress: Enables compression of resources, we set to 2 for compressing to ZIP
+- StripDebug: Excludes JRE debug information
+- noManPages: Excludes the JDK docs
+- Launcher: The executable name
+#### JPackage
+:
+- Name: Set the name ofthe application
+- Destination: Sets the destination folder for the generated package 
+- Module: Set the module and the main class of our application since JPackage will generate a new executable for our package 
+- Runtimeimage: We set the parameter to target/quizfx to macth the path of the jlink Runtimeimage
+
 
 <!-- GETTING STARTED -->
 
