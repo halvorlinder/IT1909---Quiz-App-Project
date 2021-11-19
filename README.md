@@ -94,7 +94,8 @@ To get a local copy up and running follow these simple steps.
 
 * Run the app from terminal
   ```sh
-  mvn clean install
+  mvn clean compile
+  mvn javafx:run -pl ui
   ```
 
 * Run tests and test coverage
@@ -109,7 +110,7 @@ To get a local copy up and running follow these simple steps.
   ```sh
   sudo apt update && sudo apt install fakeroot
   mvn clean compile javafx:jlink jpackage:jpackage -pl ui
-  sudo apt install ./target/dist/quizfx_1.0.0-1_amd64.deb
+  sudo apt install ./ui/target/dist/quizfx_1.0.0-1_amd64.deb
   ```
   Now the program can be found in /opt/quizfx/
 
