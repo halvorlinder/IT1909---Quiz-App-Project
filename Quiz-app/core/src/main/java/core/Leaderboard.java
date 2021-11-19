@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * This class represents a leaderboard for a quiz
+ */
 public class Leaderboard {
 
     private final String name;
@@ -12,7 +15,7 @@ public class Leaderboard {
 
     /**
      * @param quizName the name of the quiz relating to this Leaderboard
-     * @param scores   list of all recordes scores for this quiz
+     * @param scores   list of all records scores for this quiz
      * @param maxScore the highest score you can get on the quiz
      */
     public Leaderboard(String quizName, List<Score> scores, int maxScore) {

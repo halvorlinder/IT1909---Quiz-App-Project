@@ -9,6 +9,9 @@ import core.UserRecord;
 
 import java.io.IOException;
 
+/**
+ * This class deserializes a JSON file to a UserRecord object
+ */
 class UserRecordDeserializer extends JsonDeserializer<UserRecord> {
 
     @Override

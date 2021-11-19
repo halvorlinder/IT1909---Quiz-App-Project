@@ -7,6 +7,9 @@ import core.UserRecord;
 
 import java.io.IOException;
 
+/**
+ * This class serializes a UserRecord object into a JSON file
+ */
 class UserRecordSerializer extends JsonSerializer<UserRecord> {
 
     @Override

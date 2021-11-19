@@ -47,6 +47,9 @@ public class LeaderboardPageController extends GoBackController {
         display();
     }
 
+    /**
+     * adds all scores to a list so that they can be rendered
+     */
     private void display() throws IOException {
         leaderboardList.getChildren().clear();
         leaderboard = apiClientService.getLeaderboard(quizName);

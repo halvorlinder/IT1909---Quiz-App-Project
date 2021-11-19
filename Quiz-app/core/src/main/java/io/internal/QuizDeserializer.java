@@ -15,7 +15,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * This class deserializes a JSON file to a Quiz object
+ */
 class QuizDeserializer extends JsonDeserializer<Quiz> {
 
     private final QuestionDeserializer questionDeserializer = new QuestionDeserializer();

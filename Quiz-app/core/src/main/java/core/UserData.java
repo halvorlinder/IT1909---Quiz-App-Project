@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * This class represents a dictionary of users, mapping their name to their hashed password
+ */
 public final class UserData {
     private final Map<String, Integer> users = new HashMap<>();
 

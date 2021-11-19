@@ -9,6 +9,9 @@ import core.Score;
 
 import java.io.IOException;
 
+/**
+ * This class deserializes a JSON file to a Score object
+ */
 class ScoreDeserializer extends JsonDeserializer<Score> {
 
     @Override

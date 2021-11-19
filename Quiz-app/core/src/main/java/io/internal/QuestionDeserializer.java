@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class deserializes a JSON file to a Question object
+ */
 class QuestionDeserializer extends JsonDeserializer<Question> {
 
     @Override
