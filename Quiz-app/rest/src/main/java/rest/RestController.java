@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-@RestController
+@org.springframework.web.bind.annotation.RestController
 @RequestMapping("/api")
-public class QuizController {
+public class RestController {
 
     private final QuizPersistence quizPersistence;
     private final UserPersistence userPersistence;
@@ -30,7 +30,7 @@ public class QuizController {
      *
      * @throws IOException
      */
-    public QuizController() throws IOException {
+    public RestController() throws IOException {
         this.objectMapper = UserPersistence.createObjectMapper();
         this.quizPersistence = new QuizPersistence();
         this.userPersistence = new UserPersistence();
