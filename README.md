@@ -18,6 +18,18 @@
       <ul>
         <li><a href="#installation">Installation</a></li>
       </ul>
+    </li>    
+    <li>
+      <a href="#About-the-API">About the API</a>
+      <ul>
+        <li><a href="#description">Description</a></li>
+      </ul>
+      <ul>
+        <li><a href="#restrictions">Restrictions</a></li>
+      </ul>
+      <ul>
+        <li><a href="#documentation">Documentation</a></li>
+      </ul>
     </li>
     <li>
         <a href="#Core">Core</a>
@@ -125,6 +137,28 @@ To get a local copy up and running follow these simple steps.
    ```sh
    git clone https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114.git
    ```
+
+## About the API
+
+### Description
+
+The api has endpoints that allow creation of quizzes, editing of quizzes and deletion of quizzes. 
+The quizzes can also be fetched.
+It also has endpoints for login and user registration as well as score submission and leaderboard fetching.
+
+### Restrictions
+
+To alter a quiz an active access token needs to be supplied. 
+The token can be retrieved by login in or registering.
+It is also worth to mention that only the user that created a quiz has editing
+rights.
+
+The name of a quiz acts as a unique key and no two quizzes can share names.
+
+### Documentation
+
+The API documentation can be found [here](docs/API_Documentation.md)
+
 
 <!-- Core structure -->
 
