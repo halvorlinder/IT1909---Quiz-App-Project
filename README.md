@@ -185,7 +185,7 @@ To get a local copy up and running follow these simple steps.
 
 ### JSON Format 
 The JSON schema for saving Quizzes can be found [here](docs/JSON/quiz_schema.md)  
-The JSON schema for saving Users can be found [here](docs/JSON/users_schema.md)
+The JSON schema for saving Users can be found [here](docs/JSON/user_data_schema.md)
 
 
 ## UI

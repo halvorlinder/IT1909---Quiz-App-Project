@@ -1,5 +1,4 @@
-Type: `object`
-
+Type: `UserData`
 
 **_Properties_**
 
