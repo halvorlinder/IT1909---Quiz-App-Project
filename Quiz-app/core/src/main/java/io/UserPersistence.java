@@ -16,7 +16,7 @@ public final class UserPersistence {
     private static final String BASE_PATH = SavePaths.getBasePath();
 
     /**
-     * Inits a new QuizPersistence Object
+     * Inits a new UserPersistence Object
      *
      * @throws IOException
      */
@@ -28,7 +28,7 @@ public final class UserPersistence {
     }
 
     /**
-     * @return an ObjectMapper for handling quizzes
+     * @return an ObjectMapper for handling UserData
      */
     public static ObjectMapper createObjectMapper() {
         return new ObjectMapper().registerModule(createJacksonModule());
@@ -42,8 +42,8 @@ public final class UserPersistence {
     }
 
     /**
-     * @param reader a Reader containing a file with a Quiz
-     * @return a Quiz object read from the Reader
+     * @param reader a Reader containing a file with UserData
+     * @return a UserData object read from the Reader
      * @throws IOException
      */
     public UserData readUserData(Reader reader) throws IOException {
@@ -51,9 +51,9 @@ public final class UserPersistence {
     }
 
     /**
-     * writes a Quiz object to the file
+     * writes a UserData object to the file
      *
-     * @param userData the Quiz to be written
+     * @param userData the UserData to be written
      * @param writer   the Writer containing the file
      * @throws IOException
      */
@@ -62,9 +62,9 @@ public final class UserPersistence {
     }
 
     /**
-     * Loads a QuizAppModule from the saved file (saveFilePath) in the user.home folder.
+     * Loads UserData from the saved file (saveFilePath) in the user.home folder.
      *
-     * @return the loaded QuizAppModule
+     * @return the loaded UserData
      */
     public UserData loadUserData() throws IOException {
         File file = new File(BASE_PATH + FILE_NAME);
@@ -81,9 +81,9 @@ public final class UserPersistence {
     }
 
     /**
-     * Saves a Quiz to the saveFilePath in the user.home folder.
+     * Saves UserData to the saveFilePath in the user.home folder.
      *
-     * @param userData the quiz to save
+     * @param userData the UserData to save
      */
     public void saveUserData(UserData userData) throws IOException {
         File file = new File(BASE_PATH + FILE_NAME);
@@ -95,5 +95,4 @@ public final class UserPersistence {
             writeUserData(userData, writer);
         }
     }
-
 }
