@@ -9,7 +9,6 @@ import java.io.IOException;
 
 class ScoreSerializer extends JsonSerializer<Score> {
 
-
     @Override
     public void serialize(Score score, JsonGenerator jsonGen, SerializerProvider serializerProvider)
             throws IOException {

@@ -11,7 +11,8 @@ import core.UserRecord;
 import java.io.IOException;
 import java.util.Iterator;
 
-public final class UserDataDeserializer extends JsonDeserializer<UserData> {
+class UserDataDeserializer extends JsonDeserializer<UserData> {
+
     @Override
     public UserData deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
             throws IOException {

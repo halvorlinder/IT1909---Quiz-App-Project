@@ -9,7 +9,8 @@ import core.UserRecord;
 
 import java.io.IOException;
 
-public final class UserRecordDeserializer extends JsonDeserializer<UserRecord> {
+class UserRecordDeserializer extends JsonDeserializer<UserRecord> {
+
     @Override
     public UserRecord deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
             throws IOException {

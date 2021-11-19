@@ -7,15 +7,8 @@ import core.UserRecord;
 
 import java.io.IOException;
 
-public class UserRecordSerializer extends JsonSerializer<UserRecord> {
-    /**
-     * serializes a UserRecord
-     *
-     * @param userRecord         the UserRecord
-     * @param jsonGenerator
-     * @param serializerProvider
-     * @throws IOException
-     */
+class UserRecordSerializer extends JsonSerializer<UserRecord> {
+
     @Override
     public void serialize(UserRecord userRecord, JsonGenerator jsonGenerator, SerializerProvider serializerProvider)
             throws IOException {
