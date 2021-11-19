@@ -12,7 +12,8 @@ import java.io.IOException;
 /**
  * This class deserializes a JSON file to a Score object
  */
-public final class ScoreDeserializer extends JsonDeserializer<Score> {
+class ScoreDeserializer extends JsonDeserializer<Score> {
+
     @Override
     public Score deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
             throws IOException {

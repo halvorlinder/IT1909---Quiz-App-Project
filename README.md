@@ -84,6 +84,22 @@ To get a local copy up and running follow these simple steps.
   ```sh
   mvn verify
   ```
+* Run the server
+  ```sh
+  mvn spring-boot:run -pl rest
+  ```
+* Create a shippable application in GitPod
+  ```sh
+  sudo apt update && sudo apt install fakeroot
+  mvn clean compile javafx:jlink jpackage:jpackage -pl ui
+  sudo apt install ./target/dist/quizfx_1.0.0-1_amd64.deb
+  ```
+  Now the program can be found in /opt/quizfx/
+
+* Run the application created by jpackage 
+  ```sh
+  /opt/quizfx/bin/quizfx
+  ```
 
 ### Installation
 
