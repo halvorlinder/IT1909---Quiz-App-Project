@@ -10,6 +10,6 @@
 | GET | localhost : 8080/api/leaderboards/{name} | - | - | Responds with the leaderboard of the quiz with the specified name | {"name" : "quizname", "maxScore" : 5, "scores" : [{"name" : "username", "points" : 0}]} |
 | POST | localhost : 8080/api/leaderboards/{name} | - | {"name" : "username", "points" : 0} | Submits a score to the scoreboard of the quiz with the specified name | - |
 | POST | localhost : 8080/api/users/login | - | {"username" : "username", "password" : 23797} | Responds with an Authorization token if the username and password correlate to a registered user | "wuyygfuwetr7i4trayergfrbgifera" |
-| POST | localhost : 8080/api/users/register | - | {"username" : "username", "password" : 23797} | Registers the user corresponding to the body if the username is not taken, and return an Authorization token | "wuyygfuwetr7i4trayergfrbgifera" |
+| POST | localhost : 8080/api/users/register | - | {"username" : "username", "password" : 23797} | Registers the user corresponding to the body if the username is not taken, and responds an Authorization token | "wuyygfuwetr7i4trayergfrbgifera" |
 
 
