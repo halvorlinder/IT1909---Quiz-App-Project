@@ -13,11 +13,17 @@ public class AuthHandlerTest {
     private AuthHandler authHandler;
     private final String username1 = "username";
 
+    /**
+     * Initalize new AuthHandler
+     */
     @BeforeEach
     public void setup() {
         authHandler = new AuthHandler();
     }
 
+    /**
+     * Test creating and getting new tokens
+     */
     @Test
     public void testRegisterAndGetToken() {
         for (int i = 0; i < 1000; i++) {
@@ -27,6 +33,10 @@ public class AuthHandlerTest {
         }
     }
 
+    /**
+     * Test if users have access to quizzes they created and
+     * verify that they don't have access to quizzes they didn't create
+     */
     @Test
     public void testHasAccess() {
         String username2 = "name";
