@@ -10,7 +10,6 @@ import java.io.IOException;
 
 class LeaderboardSerializer extends JsonSerializer<Leaderboard> {
 
-
     @Override
     public void serialize(Leaderboard leaderboard, JsonGenerator jsonGen, SerializerProvider serializerProvider)
             throws IOException {

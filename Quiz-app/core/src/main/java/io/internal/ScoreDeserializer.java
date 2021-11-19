@@ -10,7 +10,8 @@ import core.Score;
 import java.io.IOException;
 
 
-public final class ScoreDeserializer extends JsonDeserializer<Score> {
+class ScoreDeserializer extends JsonDeserializer<Score> {
+
     @Override
     public Score deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
             throws IOException {
