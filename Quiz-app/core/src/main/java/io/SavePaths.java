@@ -8,6 +8,9 @@ public final class SavePaths {
     private static final String ABSOLUTE_BASE_PATH = System.getProperty("user.home") + "/QuizApp/";
     private static String basePathExtension = "";
 
+    /**
+     * Constructor is private to prevent it from being called elsewhere
+     */
     private SavePaths() {
 
     }
