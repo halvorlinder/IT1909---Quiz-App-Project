@@ -24,7 +24,7 @@ public class QuizSession {
      */
     public Question getCurrentQuestion() {
         if (currentQuestionNumber >= quiz.getQuizLength())
-            throw new ArrayIndexOutOfBoundsException("The quiz does not contain more questions");
+            throw new IllegalStateException("There are no more questions");
         return quiz.getQuestion(currentQuestionNumber);
     }
 
