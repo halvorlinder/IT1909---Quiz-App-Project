@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import core.Score;
+import io.constants.JsonKeys;
 
 import java.io.IOException;
 
@@ -19,8 +20,8 @@ public final class ScoreDeserializer extends JsonDeserializer<Score> {
 
     Score deserialize(JsonNode jsonNode) {
         if (jsonNode instanceof ObjectNode objectNode) {
-            JsonNode nameTextNode = objectNode.get("name");
-            JsonNode correctAnswerNode = objectNode.get("points");
+            JsonNode nameTextNode = objectNode.get(JsonKeys.POINT_NAME);
+            JsonNode correctAnswerNode = objectNode.get(JsonKeys.POINT_POINTS);
             String name = nameTextNode.asText();
             int points = correctAnswerNode.asInt();
             return new Score(name, points);

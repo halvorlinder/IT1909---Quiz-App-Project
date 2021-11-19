@@ -17,8 +17,8 @@ import javafx.scene.layout.VBox;
 import ui.*;
 import ui.constants.Errors;
 import ui.constants.FilePaths;
+import ui.constants.Style;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -80,10 +80,10 @@ public final class HomePageController extends BaseController implements Initiali
      */
     private void addQuizElement(String quizName) {
         GridPane gridPane = new GridPane();
-        ColumnConstraints column1 = new ColumnConstraints(300);
-        ColumnConstraints column2 = new ColumnConstraints(100);
-        ColumnConstraints column3 = new ColumnConstraints(100);
-        ColumnConstraints column4 = new ColumnConstraints(100);
+        ColumnConstraints column1 = new ColumnConstraints(Style.TABLE_SPACE_LARGE);
+        ColumnConstraints column2 = new ColumnConstraints(Style.TABLE_SPACE_SMALL);
+        ColumnConstraints column3 = new ColumnConstraints(Style.TABLE_SPACE_SMALL);
+        ColumnConstraints column4 = new ColumnConstraints(Style.TABLE_SPACE_SMALL);
         gridPane.getColumnConstraints().addAll(column1, column2, column3, column4);
         gridPane.getStyleClass().add("light-grid");
         Label name = new Label();

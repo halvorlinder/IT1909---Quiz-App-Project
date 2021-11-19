@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import core.Question;
+import io.constants.JsonKeys;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,12 +22,12 @@ public final class QuestionDeserializer extends JsonDeserializer<Question> {
 
     Question deserialize(JsonNode jsonNode) {
         if (jsonNode instanceof ObjectNode objectNode) {
-            JsonNode questionTextNode = objectNode.get("question");
-            JsonNode correctAnswerNode = objectNode.get("answer");
+            JsonNode questionTextNode = objectNode.get(JsonKeys.QST_TEXT);
+            JsonNode correctAnswerNode = objectNode.get(JsonKeys.QST_ANSWER);
             String questionText = questionTextNode.asText();
             int correctAnswer = correctAnswerNode.asInt();
             List<String> choiceList = new ArrayList<>();
-            JsonNode choicesNode = objectNode.get("choices");
+            JsonNode choicesNode = objectNode.get(JsonKeys.QST_CHOICES);
             boolean hasChoices = choicesNode instanceof ArrayNode;
             if (hasChoices) {
                 for (JsonNode choiceNode : choicesNode) {

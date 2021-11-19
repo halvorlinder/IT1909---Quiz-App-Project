@@ -15,6 +15,7 @@ import javafx.scene.layout.VBox;
 import ui.*;
 import ui.constants.Errors;
 import ui.constants.FilePaths;
+import ui.constants.Style;
 
 import java.io.IOException;
 
@@ -73,9 +74,9 @@ public class EditPageController extends GoBackController implements Initializabl
     private void addQuestionElement(int questionId) {
         Question question = quiz.getQuestions().get(questionId);
         GridPane gridPane = new GridPane();
-        ColumnConstraints column1 = new ColumnConstraints(300);
-        ColumnConstraints column2 = new ColumnConstraints(100);
-        ColumnConstraints column3 = new ColumnConstraints(100);
+        ColumnConstraints column1 = new ColumnConstraints(Style.TABLE_SPACE_LARGE);
+        ColumnConstraints column2 = new ColumnConstraints(Style.TABLE_SPACE_SMALL);
+        ColumnConstraints column3 = new ColumnConstraints(Style.TABLE_SPACE_SMALL);
         gridPane.getColumnConstraints().addAll(column1, column2, column3);
         Label name = new Label();
         name.setText(question.getQuestion());

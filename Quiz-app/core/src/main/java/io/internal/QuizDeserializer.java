@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import core.Question;
 import core.Quiz;
+import io.constants.JsonKeys;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,12 +29,12 @@ class QuizDeserializer extends JsonDeserializer<Quiz> {
 
     Quiz deserialize(JsonNode jsonNode) {
         if (jsonNode instanceof ObjectNode objectNode) {
-            JsonNode textNode = objectNode.get("name");
+            JsonNode textNode = objectNode.get(JsonKeys.QUIZ_NAME);
             String name = textNode.asText();
-            JsonNode creatorNode = objectNode.get("creator");
+            JsonNode creatorNode = objectNode.get(JsonKeys.QUIZ_CREATOR);
             String creator = creatorNode.asText();
             List<Question> questionList = new ArrayList<>();
-            JsonNode questionsNode = objectNode.get("questions");
+            JsonNode questionsNode = objectNode.get(JsonKeys.QUIZ_QUESTIONS);
             boolean hasQuestions = questionsNode instanceof ArrayNode;
             if (hasQuestions) {
                 for (JsonNode questionNode : questionsNode) {
