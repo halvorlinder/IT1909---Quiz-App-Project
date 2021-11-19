@@ -16,6 +16,6 @@ public abstract class BaseController {
      * @return the current user
      */
     protected User getUser() {
-        return new User(user.getUsername());
+        return new User(user.getUsername(), user.getAccessToken());
     }
 }

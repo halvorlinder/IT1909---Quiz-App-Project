@@ -11,6 +11,7 @@ import javafx.scene.control.ToggleGroup;
 import ui.APIClientService;
 import ui.App;
 import ui.User;
+import ui.Utilities;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -32,7 +33,8 @@ public class QuizPageController extends BaseController {
     @FXML
     private Button submitAnswer;
 
-    private final QuizSession quizSession;
+    private QuizSession quizSession;
+    private final String quizName;
     private List<RadioButton> radios;
     private APIClientService apiClientService = new APIClientService();
 
@@ -42,6 +44,7 @@ public class QuizPageController extends BaseController {
      * @throws IOException
      */
     public void initialize() throws IOException {
+        quizSession = new QuizSession(apiClientService.getQuiz(quizName));
         radios = Arrays.asList(option1, option2, option3, option4);
         radios.forEach(radio -> radio.setOnAction(ae -> submitAnswer.setDisable(false)));
         displayQuestion();
@@ -51,9 +54,9 @@ public class QuizPageController extends BaseController {
      * @param quizName the name of the quiz
      * @param user     the current user
      */
-    public QuizPageController(String quizName, User user) throws IOException, InterruptedException {
+    public QuizPageController(String quizName, User user) {
         super(user);
-        quizSession = new QuizSession(apiClientService.getQuiz(quizName));
+        this.quizName = quizName;
     }
 
     /**
@@ -90,12 +93,24 @@ public class QuizPageController extends BaseController {
      *
      * @throws IOException
      */
-    private void endQuiz() throws IOException {
-        FXMLLoader loader = App.getFXMLLoader("ResultPage.fxml");
-        ResultPageController controller = new ResultPageController(quizSession.getNumberOfCorrect(),
-                quizSession.getQuizLength(), quizSession.getQuizName(), getUser());
-        loader.setController(controller);
-        submitAnswer.getScene().setRoot(loader.load());
+    private void endQuiz() {
+        FXMLLoader loader = null;
+        try {
+            loader = App.getFXMLLoader("ResultPage.fxml");
+            ResultPageController controller = new ResultPageController(quizSession.getNumberOfCorrect(),
+                    quizSession.getQuizLength(), quizSession.getQuizName(), getUser());
+            loader.setController(controller);
+            submitAnswer.getScene().setRoot(loader.load());
+        } catch (IOException ignored) {
+            try {
+                loader = App.getFXMLLoader("HomePage.fxml");
+                HomePageController controller = new HomePageController(getUser());
+                loader.setController(controller);
+                submitAnswer.getScene().setRoot(loader.load());
+            } catch (IOException ioException) {
+                Utilities.alertUser("En fatal feil har oppstått, vennligst start appen på nytt");
+            }
+        }
     }
 
 

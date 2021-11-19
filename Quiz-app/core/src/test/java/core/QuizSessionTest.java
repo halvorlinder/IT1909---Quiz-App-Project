@@ -19,7 +19,7 @@ public class QuizSessionTest {
         for (int i = 0; i < num_questions; i++) {
             questions.add(new Question("Question number " + i, List.of("1", "2", "3", "4"), i % 4));
         }
-        quizSession = new QuizSession(new Quiz("quiz101", questions));
+        quizSession = new QuizSession(new Quiz("quiz101", questions, "hallvard"));
     }
 
     @Test

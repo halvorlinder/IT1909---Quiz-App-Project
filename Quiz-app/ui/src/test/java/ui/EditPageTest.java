@@ -36,14 +36,14 @@ public class EditPageTest extends ApplicationTest {
         WireMock.configureFor("localhost", config.portNumber());
         stubFor(get(urlEqualTo("/api/quizzes/x"))
                 .willReturn(aResponse()
-                        .withBody("{\"name\":\"x\",\"questions\":[{\"question\":\"?\",\"answer\":0,\"choices\":[\"a\",\"b\",\"c\",\"d\"]}]}")));
+                        .withBody("{\"name\":\"x\",\"creator\":\"user\",\"questions\":[{\"question\":\"?\",\"answer\":0,\"choices\":[\"a\",\"b\",\"c\",\"d\"]}]}")));
         FXMLLoader loader = new FXMLLoader(getClass().getResource("EditPage.fxml"));
-        EditPageController editPageController = new EditPageController("x", new User(""));
+        EditPageController editPageController = new EditPageController("x", new User("user", ""));
 
         stubFor(get(urlEqualTo("/api/quizzes"))
                 .willReturn(aResponse()
                         .withBody("[\"x\"]")));
-        HomePageController homePageController = new HomePageController(new User(""));
+        HomePageController homePageController = new HomePageController(new User("", ""));
         FXMLLoader loader2 = new FXMLLoader(getClass().getResource("HomePage.fxml"));
         loader2.setController(homePageController);
         editPageController.setPreviousPageInfo(homePageController, loader2.load());
@@ -63,7 +63,7 @@ public class EditPageTest extends ApplicationTest {
         WireMock.configureFor("localhost", config.portNumber());
         stubFor(get(urlEqualTo("/api/quizzes/x"))
                 .willReturn(aResponse()
-                        .withBody("{\"name\":\"x\",\"questions\":[{\"question\":\"?\",\"answer\":0,\"choices\":[\"a\",\"b\",\"c\",\"d\"]}]}")
+                        .withBody("{\"name\":\"x\",\"creator\":\"user\",\"questions\":[{\"question\":\"?\",\"answer\":0,\"choices\":[\"a\",\"b\",\"c\",\"d\"]}]}")
                         .withStatus(200)));
     }
 
@@ -92,7 +92,7 @@ public class EditPageTest extends ApplicationTest {
                         .withStatus(200)));
         stubFor(get(urlEqualTo("/api/quizzes/x"))
                 .willReturn(aResponse()
-                        .withBody("{\"name\":\"x\",\"questions\":[]}")
+                        .withBody("{\"name\":\"x\",\"creator\":\"user\",\"questions\":[]}")
                         .withStatus(200)));
         VBox vBox = lookup("#questionList").query();
         clickOn(from(vBox).lookup((Button b) -> b.getText().equals("Slett")).queryButton());

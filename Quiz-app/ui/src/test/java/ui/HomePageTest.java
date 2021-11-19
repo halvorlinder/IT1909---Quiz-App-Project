@@ -41,7 +41,7 @@ public class HomePageTest extends ApplicationTest {
                 .willReturn(aResponse()
                         .withBody("[]")));
         loader = new FXMLLoader(getClass().getResource("HomePage.fxml"));
-        HomePageController homePageController = new HomePageController(new User(""));
+        HomePageController homePageController = new HomePageController(new User("user", ""));
         loader.setController(homePageController);
         final Parent root = loader.load();
         wireMockServer.stop();
@@ -51,7 +51,7 @@ public class HomePageTest extends ApplicationTest {
 
     private void initQuiz() {
         stubFor(post(urlEqualTo("/api/quizzes"))
-                .withRequestBody(equalToJson("{\"name\":\"x\",\"questions\":[]}"))
+                .withRequestBody(equalToJson("{\"name\":\"x\",\"creator\":\"user\",\"questions\":[]}"))
                 .willReturn(aResponse()
                         .withBody("[\"x\"]")
                         .withStatus(200)));
@@ -83,8 +83,11 @@ public class HomePageTest extends ApplicationTest {
 
     @Test
     public void testCreateEmptyNameQuiz() {
-        HomePageController controller = loader.getController();
-        Assertions.assertThrows(IllegalArgumentException.class, controller::addNewQuizFile);
+        clickOn("#addNewQuizButton");
+        Node dialogPane = lookup(".dialog-pane").query();
+        Assertions.assertDoesNotThrow(() -> {
+            from(dialogPane).lookup((Text t) -> t.getText().startsWith("Vennligst fyll inn et navn")).query();
+        });
     }
 
     @Test
@@ -101,7 +104,7 @@ public class HomePageTest extends ApplicationTest {
         initQuiz();
         stubFor(get(urlEqualTo("/api/quizzes/x"))
                 .willReturn(aResponse()
-                        .withBody("{\"name\":\"x\",\"questions\":[]}")
+                        .withBody("{\"name\":\"x\",\"creator\":\"user\",\"questions\":[]}")
                         .withStatus(200)));
         VBox vBox = lookup("#quizList").query();
         clickOn(from(vBox).lookup((Button b) -> b.getText().equals("Spill")).queryButton());
@@ -116,7 +119,7 @@ public class HomePageTest extends ApplicationTest {
         initQuiz();
         stubFor(get(urlEqualTo("/api/quizzes/x"))
                 .willReturn(aResponse()
-                        .withBody("{\"name\":\"x\",\"questions\":[{\"question\":\"?\",\"answer\":0,\"choices\":[\"a\",\"b \",\"c \",\"d \"]}]}")
+                        .withBody("{\"name\":\"x\",\"creator\":\"user\",\"questions\":[{\"question\":\"?\",\"answer\":0,\"choices\":[\"a\",\"b \",\"c \",\"d \"]}]}")
                         .withStatus(200)));
         VBox vBox = lookup("#quizList").query();
         clickOn(from(vBox).lookup((Button b) -> b.getText().equals("Spill")).queryButton());
@@ -130,7 +133,7 @@ public class HomePageTest extends ApplicationTest {
         initQuiz();
         stubFor(get(urlEqualTo("/api/quizzes/x"))
                 .willReturn(aResponse()
-                        .withBody("{\"name\":\"x\",\"questions\":[]}")
+                        .withBody("{\"name\":\"x\",\"creator\":\"user\",\"questions\":[]}")
                         .withStatus(200)));
         VBox vBox = lookup("#quizList").query();
         clickOn(from(vBox).lookup((Button b) -> b.getText().equals("Endre")).queryButton());

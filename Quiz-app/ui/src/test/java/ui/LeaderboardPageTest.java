@@ -40,7 +40,7 @@ public class LeaderboardPageTest extends ApplicationTest {
                 .willReturn(aResponse()
                         .withBody("[]")));
         loader = new FXMLLoader(getClass().getResource("HomePage.fxml"));
-        HomePageController homePageController = new HomePageController(new User(""));
+        HomePageController homePageController = new HomePageController(new User("user", ""));
         loader.setController(homePageController);
         final Parent root = loader.load();
         wireMockServer.stop();
@@ -50,7 +50,7 @@ public class LeaderboardPageTest extends ApplicationTest {
 
     private void initQuiz() {
         stubFor(post(urlEqualTo("/api/quizzes"))
-                .withRequestBody(equalToJson("{\"name\":\"x\",\"questions\":[]}"))
+                .withRequestBody(equalToJson("{\"name\":\"x\",\"creator\":\"user\",\"questions\":[]}"))
                 .willReturn(aResponse()
                         .withBody("[\"x\"]")
                         .withStatus(200)));
