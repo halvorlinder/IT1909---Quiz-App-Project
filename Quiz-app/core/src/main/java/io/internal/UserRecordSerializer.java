@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * This class serializes a UserRecord object into a JSON file
  */
-public class UserRecordSerializer extends JsonSerializer<UserRecord> {
+class UserRecordSerializer extends JsonSerializer<UserRecord> {
 
     @Override
     public void serialize(UserRecord userRecord, JsonGenerator jsonGenerator, SerializerProvider serializerProvider)
