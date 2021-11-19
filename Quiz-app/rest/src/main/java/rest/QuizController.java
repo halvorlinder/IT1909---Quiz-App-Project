@@ -153,7 +153,7 @@ public class QuizController {
                 return objectMapper.writeValueAsString(quiz);
             }
             response.setStatus(403);
-        } catch (FileNotFoundException | IndexOutOfBoundsException notFoundException) {
+        } catch (FileNotFoundException | IllegalArgumentException | IndexOutOfBoundsException notFoundException) {
             System.out.println(notFoundException);
             response.setStatus(404);
         } catch (IOException ioException) {
@@ -212,7 +212,7 @@ public class QuizController {
                 return objectMapper.writeValueAsString(quiz);
             } else
                 response.setStatus(403);
-        } catch (FileNotFoundException | IndexOutOfBoundsException notFoundException) {
+        } catch (FileNotFoundException | IllegalArgumentException | IndexOutOfBoundsException notFoundException) {
             response.setStatus(404);
             System.out.println(notFoundException);
         } catch (IOException ioException) {
