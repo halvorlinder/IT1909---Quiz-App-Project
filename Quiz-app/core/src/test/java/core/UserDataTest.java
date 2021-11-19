@@ -3,6 +3,8 @@ package core;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.NoSuchElementException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UserDataTest {
@@ -36,7 +38,7 @@ public class UserDataTest {
         UserRecord userRecord3 = new UserRecord("user2", "password");
         userData.attemptRegister(userRecord3);
         assertEquals(UserData.hash("password"), userData.getPasswordHash("user2"));
-        assertThrows(IllegalStateException.class, () ->
+        assertThrows(NoSuchElementException.class, () ->
                 userData.getPasswordHash("user3"));
     }
 
