@@ -184,9 +184,13 @@ To get a local copy up and running follow these simple steps.
 - [UserRecordSerializer](Quiz-app/core/src/main/java/io/internal/UserRecordSerializer.java) - Convert Json object of UserRecord to a String format
 
 ### JSON Format 
-The JSON schema for saving Quizzes can be found [here](docs/JSON/quiz_schema.md)  
-The JSON schema for saving Users can be found [here](docs/JSON/users_schema.md)
-
+The JSON schemas for classes that are serialized can be found here:  
+- [Quiz](docs/JSON/quiz_schema.md)
+- [Question](docs/JSON/question_schema.md)
+- [UserData](docs/JSON/user_data_schema.md)
+- [UserRecord](docs/JSON/user_record_schema.md)
+- [Leaderboard](docs/JSON/leaderboard_schema.md)
+- [Score](docs/JSON/score_schema.md)
 
 ## UI
 
