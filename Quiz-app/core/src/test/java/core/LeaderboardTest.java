@@ -15,7 +15,7 @@ public class LeaderboardTest {
     public void testValidConstructor() {
         assertDoesNotThrow(() -> leaderboard = new Leaderboard("test", 3));
         assertEquals(3, leaderboard.getMaxScore());
-        assertEquals("test", leaderboard.getName());
+        assertEquals("test", leaderboard.getQuizName());
         assertEquals(0, leaderboard.getScoreLength());
     }
 
