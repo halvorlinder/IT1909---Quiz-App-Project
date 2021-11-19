@@ -13,9 +13,7 @@ import java.nio.file.Path;
 public final class UserPersistence {
     private final ObjectMapper mapper;
     private static final String FILE_NAME = "users.json";
-
-    //We have decided that this is safe, because in all the tests, the SavePaths.enableTestMode() is called before this class is first mentioned, therefore thisfield will be instantiated after the savepath is set to the test path
-    private static final String BASE_PATH = SavePaths.getBasePath();
+    private final String basePath;
 
     /**
      * Inits a new UserPersistence Object
@@ -23,9 +21,10 @@ public final class UserPersistence {
      * @throws IOException
      */
     public UserPersistence() throws IOException {
+        basePath = SavePaths.getBasePath();
         mapper = createObjectMapper();
-        if (!Files.exists(Path.of(BASE_PATH))) {
-            Files.createDirectory(Path.of(BASE_PATH));
+        if (!Files.exists(Path.of(basePath))) {
+            Files.createDirectory(Path.of(basePath));
         }
     }
 
@@ -69,7 +68,7 @@ public final class UserPersistence {
      * @return the loaded UserData
      */
     public UserData loadUserData() throws IOException {
-        File file = new File(BASE_PATH + FILE_NAME);
+        File file = new File(basePath + FILE_NAME);
         if (!file.exists()) {
             if (!file.createNewFile())
                 throw new IOException();
@@ -77,7 +76,7 @@ public final class UserPersistence {
             saveUserData(userData);
             return userData;
         }
-        try (Reader reader = new FileReader(BASE_PATH + FILE_NAME, StandardCharsets.UTF_8)) {
+        try (Reader reader = new FileReader(basePath + FILE_NAME, StandardCharsets.UTF_8)) {
             return readUserData(reader);
         }
     }
@@ -88,12 +87,12 @@ public final class UserPersistence {
      * @param userData the UserData to save
      */
     public void saveUserData(UserData userData) throws IOException {
-        File file = new File(BASE_PATH + FILE_NAME);
+        File file = new File(basePath + FILE_NAME);
         if (!file.exists()) {
             if (!file.createNewFile())
                 throw new IOException();
         }
-        try (Writer writer = new FileWriter(BASE_PATH + FILE_NAME, StandardCharsets.UTF_8)) {
+        try (Writer writer = new FileWriter(basePath + FILE_NAME, StandardCharsets.UTF_8)) {
             writeUserData(userData, writer);
         }
     }
