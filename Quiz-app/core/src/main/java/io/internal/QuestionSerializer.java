@@ -12,10 +12,6 @@ import java.io.IOException;
  */
 class QuestionSerializer extends JsonSerializer<Question> {
 
-    /*
-     * format: { "text": "...", "checked": false, "deadline": ... }
-     */
-
     @Override
     public void serialize(Question question, JsonGenerator jsonGen, SerializerProvider serializerProvider)
             throws IOException {
