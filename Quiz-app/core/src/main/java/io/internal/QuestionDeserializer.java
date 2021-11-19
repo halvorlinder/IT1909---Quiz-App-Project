@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class QuestionDeserializer extends JsonDeserializer<Question> {
+
     @Override
     public Question deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
             throws IOException {
