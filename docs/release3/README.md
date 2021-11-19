@@ -80,7 +80,8 @@ We improved our work efficiency by shortening the time used to pass (or fail) a 
 by optimizing our tests.
 We have also created issue templates for more clear communication. 
 In addition to this we have started using a shared commit format that revolves around providing a short header and a 
-more expansive description.
+more expansive description.  
+All commits, except for documentation, are linked to a branch, which itself linkes to a single issue. This is not visible in the history section, but the issue can be found by clicking on the issue and then clicking on the merge request it is linked to
 
 
 ## Design
