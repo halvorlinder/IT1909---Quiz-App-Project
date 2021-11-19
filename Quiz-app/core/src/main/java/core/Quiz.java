@@ -18,6 +18,10 @@ public class Quiz {
      * @param creator   the creator of the quiz
      */
     public Quiz(String name, List<Question> questions, String creator) {
+        if (name.isEmpty())
+            throw new IllegalArgumentException("The quiz must have a non-empty name");
+        if (creator.isEmpty())
+            throw new IllegalArgumentException("The creator of the quiz must have a non-empty name");
         this.name = name;
         this.questions = new ArrayList<>(questions);
         this.creator = creator;
@@ -28,7 +32,7 @@ public class Quiz {
      * @return the question at a given index
      */
     public Question getQuestion(int n) {
-        if (n >= getQuizLength())
+        if (n >= getQuizLength() || n < 0)
             throw new ArrayIndexOutOfBoundsException();
         return questions.get(n);
     }
@@ -52,9 +56,11 @@ public class Quiz {
     /**
      * delete a question from the quiz
      *
-     * @param questionId
+     * @param questionId the index of the question to be removed
      */
     public void deleteQuestion(int questionId) {
+        if (questionId >= getQuizLength() || questionId < 0)
+            throw new ArrayIndexOutOfBoundsException();
         questions.remove(questionId);
     }
 
@@ -65,6 +71,8 @@ public class Quiz {
      * @param question   the new question
      */
     public void setQuestion(int questionId, Question question) {
+        if (questionId >= getQuizLength() || questionId < 0)
+            throw new ArrayIndexOutOfBoundsException();
         questions.set(questionId, question);
     }
 
@@ -85,7 +93,6 @@ public class Quiz {
     /**
      * @return string representation
      */
-
     @Override
     public String toString() {
         return "Quiz{" +
