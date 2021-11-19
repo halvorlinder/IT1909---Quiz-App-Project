@@ -231,7 +231,7 @@ The JSON schemas for classes that are serialized can be found here:
 
 ### rest
 
-- [AuthHandler](Quiz-app/rest/src/main/java/rest/AuthHandler.java) - Handles authentication of user, so that the user can only change a quiz they have made themselves 
+- [AuthHandler](Quiz-app/rest/src/main/java/rest/AuthHandler.java) - Handles authentication of user, so that the user can only change a quiz they have made themselves. We have made our own auth system that works by sending users an access token upon login, which they can later use to verify themselves when accessing endpoints in the api.
 
 
 - [QuizController](Quiz-app/rest/src/main/java/rest/QuizController.java) - Defines the API endpoints, by mapping requests from the user by taking the request, path and body to a given method in this controller. Returns the server response
@@ -263,26 +263,8 @@ The JSON schemas for classes that are serialized can be found here:
 
 ## Architecture
 
-### Package diagram
- - The following diagrams represent the macro architecture of the app: [package/architecture diagram](Quiz-app/diagrams/architecture.png)
+The following diagrams represent the macro architecture of the app:
 
-
-### Class diagram
-
-A class diagram is a diagram that describes the structure of a system by showing the system's classes, their attributes, operations (or methods), and the relationships among objects
-
- - The following diagram represents a class diagram of the core: [core class diagram](Quiz-app/diagrams/coreClassDiagram.png)
-
- - The following diagram represents a class  of the rest: [rest class diagram](Quiz-app/diagrams/restClassDiagram.png)
-
- - The following diagram represents a class diagram of the ui: [ui class diagram](Quiz-app/diagrams/uiClassDiagram.png)
-
-### Sequence diagram
-
-A sequence diagram is a type of interaction diagram because it describes how—and in what order—a group of objects works together.
-
- - The following diagram represents a sequence diagram of submitting a question in the new question page: [diagram](Quiz-app/diagrams/NewQuestionPageController_submitQuestionSequenceDiagram.png)
- - The following diagram represents a sequence diagram of going to the edit quiz page : [diagram](Quiz-app/diagrams/HomePageController_showEditPageSequenceDiagram.png)
 
 
 ### Storage choices
