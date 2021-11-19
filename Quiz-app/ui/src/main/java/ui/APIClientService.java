@@ -22,7 +22,7 @@ public class APIClientService {
     private final Map<Integer, String> errorMessageMap;
 
     /**
-     *
+     * Initialize a new APIClientService
      */
     public APIClientService() {
         objectMapper = QuizPersistence.createObjectMapper();
@@ -222,5 +222,4 @@ public class APIClientService {
         }
         return response;
     }
-
 }
