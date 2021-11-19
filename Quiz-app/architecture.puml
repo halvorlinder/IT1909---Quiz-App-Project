@@ -11,12 +11,13 @@ component jackson {
 }
 
 component ReportAggregator{
-
 }
 
 component ui {
 	package ui.ui
 	package ui.ui.controllers
+	component APIClientService{
+	}
 }
 
 component javafx {
@@ -31,20 +32,23 @@ component rest {
 component springboot{
 }
 
+ReportAggregator ..> rest
+ReportAggregator ..> core
+ReportAggregator ..> ui
+core.io ..> core.core
 core.io ..> core.io.internal
 core.io ..> jackson
 core.io.internal ..> jackson
 
 ui.ui ..> ui.ui.controllers
-ui.ui.controllers ..> core.core
-ui.ui.controllers ..> core.io
+ui.ui.controllers ..> core
 
 ui ..> javafx
-ui ..> fxml
-ui.ui.controllers ..> rest
-ui.ui ..> rest.rest
-ui.ui --> core.io
-ui.ui --> core.core
+ui.ui ..> fxml
+ui.ui.controllers ..> fxml
+APIClientService ..> rest.rest
+APIClientService ..> core
+ui.ui.controllers ..> APIClientService
 
 rest.rest ..> core
 rest.rest ..> springboot
