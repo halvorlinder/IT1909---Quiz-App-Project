@@ -1,5 +1,8 @@
 package core;
 
+/**
+ * This class represents a user with a name and a password
+ */
 public class UserRecord {
 
     private final String username;
