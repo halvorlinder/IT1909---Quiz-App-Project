@@ -36,7 +36,6 @@ public class APIClientService {
      * @param quizName the name of the quiz to be fetched
      * @return the quiz
      * @throws IOException
-     * @throws InterruptedException
      */
     public Quiz getQuiz(String quizName) throws IOException {
         errorMessageMap.put(404, "Beklager, quizen finnes ikke lenger");
@@ -50,7 +49,6 @@ public class APIClientService {
      *
      * @return a list of quiz names
      * @throws IOException
-     * @throws InterruptedException
      */
     public List<String> getListOfQuizNames() throws IOException {
         HttpResponse<String> response = sendRequest("GET", "/quizzes", "", "");
@@ -63,7 +61,6 @@ public class APIClientService {
      *
      * @param quiz the quiz to be posted
      * @throws IOException
-     * @throws InterruptedException
      */
     public void postQuiz(Quiz quiz) throws IOException {
         errorMessageMap.put(403, "Denne quizen finnes allerede");
@@ -78,7 +75,6 @@ public class APIClientService {
      * @param newQuestion the new question object
      * @param accessToken token for authorization
      * @throws IOException
-     * @throws InterruptedException
      */
     public void putQuestion(String quizName, int questionID, Question newQuestion, String accessToken)
             throws IOException {
@@ -94,7 +90,6 @@ public class APIClientService {
      * @param quizName    the name of the quiz
      * @param accessToken token for authorization
      * @throws IOException
-     * @throws InterruptedException
      */
     public void deleteQuiz(String quizName, String accessToken) throws IOException {
         errorMessageMap.put(403, "Du eier ikke denne quizen og du kan derfor ikke slette den");
@@ -109,7 +104,6 @@ public class APIClientService {
      * @param questionID  the id of the question
      * @param accessToken token for authorization
      * @throws IOException
-     * @throws InterruptedException
      */
     public void deleteQuestion(String quizName, int questionID, String accessToken)
             throws IOException {
@@ -125,7 +119,6 @@ public class APIClientService {
      * @param newQuestion the name of the question
      * @param accessToken token for authorization
      * @throws IOException
-     * @throws InterruptedException
      */
     public void addQuestion(String quizName, Question newQuestion, String accessToken)
             throws IOException {
@@ -141,7 +134,6 @@ public class APIClientService {
      * @param userRecord the user data
      * @return the active auth token
      * @throws IOException
-     * @throws InterruptedException
      */
     public String loginUser(UserRecord userRecord) throws IOException {
         errorMessageMap.put(403, "Brukernavn eller passord er feil");
@@ -154,7 +146,6 @@ public class APIClientService {
      * @param userRecord the information about the user
      * @return the active auth token
      * @throws IOException
-     * @throws InterruptedException
      */
     public String registerUser(UserRecord userRecord) throws IOException {
         errorMessageMap.put(403, "Beklager, dette brukernavnet er tatt");
@@ -167,7 +158,6 @@ public class APIClientService {
      * @param quizName the name of the quiz mapping to the leaderboard to be fetched
      * @return the leaderboard
      * @throws IOException
-     * @throws InterruptedException
      */
     public Leaderboard getLeaderboard(String quizName) throws IOException {
         errorMessageMap.put(404, "Beklager, denne ledertavlen finnes ikke lenger");
@@ -182,7 +172,6 @@ public class APIClientService {
      * @param quizName the name of the quiz
      * @param newScore the new question object
      * @throws IOException
-     * @throws InterruptedException
      */
     public void postScore(String quizName, Score newScore) throws IOException {
         errorMessageMap.put(404, "Beklager, kunne ikke registrere poengsum fordi quizen ikke finnes lenger");
@@ -200,7 +189,6 @@ public class APIClientService {
      * @param header       the header
      * @return the response of the request
      * @throws IOException
-     * @throws InterruptedException
      */
     private HttpResponse<String> sendRequest(String method, String relativePath,
                                              String body, String header)
