@@ -1,7 +1,8 @@
 # Release 3
 This is the documentation for the third release
 
-The gitlab sprint can be found [here](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/milestones/3)
+The gitlab sprint can be found [here](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/milestones/3)  
+For a more detailed description of the project, please consult the project [README](../../README.md)
 
 ## Functionality
 This release was split into two main parts: revamping the UI and adding new functionality,
@@ -77,10 +78,16 @@ Our goal is small, short-lived branches that address one specific issue.
 This way we avoid unnecessary merge conflicts that need to be resolved manually. 
 We improved our work efficiency by shortening the time used to pass (or fail) a pipeline, 
 by optimizing our tests.
-We have also created issue templates for more clear communication. 
-In addition to this we have started using a shared commit format that revolves around providing a short header and a 
-more expansive description.
 
+We have also created issue templates for more clear communication. We used Gitlabs built-in function which automatically
+links a branch to an issue by creating the branches from within the issue. In theory, this would mean that as the branch
+was merged, the issue was automatically closed, but we experienced several times that this was not the case, which meant
+we had to manually close the issue when merging a branch. In addition to this we have started using a shared commit
+format that revolves around providing a short header and a more expansive description.
+
+All commits, except for documentation, are linked to a branch, which itself links to a single issue. This is not visible in the history section, but the issue can be found by clicking on the issue and then clicking on the merge request it is linked to
+
+We continued our trunk-based development from release 2 which you can read more about [here](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/docs/release2/README.md#trunk-based-development)
 
 ## Design
 

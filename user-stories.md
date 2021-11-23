@@ -43,19 +43,24 @@ As a user, I would like to create and sumbit new questions to be added to the qu
 
 ## Create and edit quiz(us-3)
 
-As a user, I would like to create a new quiz, and be able to edit this by adding, removing and editing questions
+As a user, I would like to create a new quiz, and be able to edit this by adding, removing and editing questions, as well as being able to delete any quiz I have created
 
 ### Important to see
 
 - A button to create a new quiz and specify quiz name
 - An edit button for the quizzes the user has created
-- List of questions with buttons for removing and editing for each question
-- Button to add question to quiz
+- The edit quiz page should contain:
+    - List of questions
+    - Buttons for removing and editing for each question
+    - Button to add question to quiz
+    - Button for deleting the entire quiz
 
 ### Important to do
 
 - Create new quiz with a custom name
-- Ability to edit this quiz, aka add questions and edit all its questions
+- Ability to edit all quizes created by the user, aka add questions and edit all its questions
+- Ability to delete all quizes created by the user
+
 
 ## Multiple quizzes (us-4)
 

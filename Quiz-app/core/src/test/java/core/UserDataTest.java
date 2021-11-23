@@ -12,12 +12,18 @@ public class UserDataTest {
     UserRecord userRecord1 = new UserRecord("user1", "pWord");
     UserRecord userRecord2 = new UserRecord("user2", "pWord");
 
+    /**
+     * Set up a UserData object
+     */
     @BeforeEach
     public void setup() {
         userData = new UserData();
         userData.attemptRegister(userRecord1);
     }
 
+    /**
+     * Test registering a new user and re-registering an existing user
+     */
     @Test
     public void testAttemptRegister() {
         assertFalse(userData.attemptRegister(userRecord1));
@@ -25,6 +31,9 @@ public class UserDataTest {
         assertEquals(userData.getUserNames().size(), 2);
     }
 
+    /**
+     * Test logging in with an existing and non-existing user
+     */
     @Test
     public void testAttemptLogIn() {
         assertTrue(userData.attemptLogIn(userRecord1));
@@ -32,6 +41,9 @@ public class UserDataTest {
         assertFalse(userData.attemptRegister(userRecord1));
     }
 
+    /**
+     * Test hash function for password of users
+     */
     @Test
     public void testHash() {
         assertEquals(0, UserData.hash(""));
@@ -41,7 +53,4 @@ public class UserDataTest {
         assertThrows(NoSuchElementException.class, () ->
                 userData.getPasswordHash("user3"));
     }
-
-
-
 }

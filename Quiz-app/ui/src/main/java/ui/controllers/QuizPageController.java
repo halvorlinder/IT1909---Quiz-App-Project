@@ -8,10 +8,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
-import ui.APIClientService;
-import ui.App;
-import ui.User;
-import ui.Utilities;
+import ui.*;
+import ui.constants.Errors;
+import ui.constants.FilePaths;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -96,19 +95,19 @@ public class QuizPageController extends BaseController {
     private void endQuiz() {
         FXMLLoader loader = null;
         try {
-            loader = App.getFXMLLoader("ResultPage.fxml");
+            loader = App.getFXMLLoader(FilePaths.RESULT_PAGE);
             ResultPageController controller = new ResultPageController(quizSession.getNumOfCorrectAnswers(),
                     quizSession.getQuizLength(), quizSession.getQuizName(), getUser());
             loader.setController(controller);
             submitAnswer.getScene().setRoot(loader.load());
         } catch (IOException ignored) {
             try {
-                loader = App.getFXMLLoader("HomePage.fxml");
+                loader = App.getFXMLLoader(FilePaths.HOME_PAGE);
                 HomePageController controller = new HomePageController(getUser());
                 loader.setController(controller);
                 submitAnswer.getScene().setRoot(loader.load());
             } catch (IOException ioException) {
-                Utilities.alertUser("En fatal feil har oppstått, vennligst start appen på nytt");
+                Utilities.alertUser(Errors.TOTAL_FAILURE);
             }
         }
     }
