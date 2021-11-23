@@ -11,13 +11,18 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class SystemTest {
+
     private static Process serverProcess;
+
     @BeforeAll
     public static void startServer() throws IOException {
         Path pathToRest = Paths.get("../rest");
-        ProcessBuilder builder = new ProcessBuilder("dir")
+        ProcessBuilder builder = new ProcessBuilder("mvn.exe", "exec:java", "spring:boot-run")
                 .redirectErrorStream(true)
                 .directory(pathToRest.toFile());
+//        ProcessBuilder builder = new ProcessBuilder();
+//        builder.command("mvn.cmd", "exec:java", "spring:boot-run");
+//        builder.directory(pathToRest.toFile());
 
         serverProcess = builder.start();
     }
