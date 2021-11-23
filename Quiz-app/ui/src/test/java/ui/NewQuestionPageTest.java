@@ -29,6 +29,7 @@ public class NewQuestionPageTest extends ApplicationTest {
 
     @Override
     public void start(final Stage stage) throws Exception {
+        //starts the server and loads the new question page
         SavePaths.enableTestMode();
         final FXMLLoader loader = new FXMLLoader(getClass().getResource("NewQuestionPage.fxml"));
         NewQuestionPageController controller = new NewQuestionPageController("a", new User("user", ""));
@@ -41,7 +42,7 @@ public class NewQuestionPageTest extends ApplicationTest {
                 .willReturn(aResponse()
                         .withBody("{\"name\":\"a\",\"creator\":\"user\",\"questions\":[{\"question\":\"?\",\"answer\":0,\"choices\":[\"a\",\"b \",\"c \",\"d \"]}]}")
                         .withStatus(200)));
-
+        //loads editpage and sets it as the previous page
         EditPageController editPageController = new EditPageController("a", new User("", ""));
         FXMLLoader loader2 = new FXMLLoader(getClass().getResource("EditPage.fxml"));
         loader2.setController(editPageController);
@@ -54,6 +55,8 @@ public class NewQuestionPageTest extends ApplicationTest {
         stage.show();
     }
 
+    //tests that the correct error is displayed
+    // when a quiz with an empty choice is submitted
     @Test
     public void testSubmitEmptyFields() {
         writeQuestion("?", "1", "", "3", "4", 0);
@@ -63,6 +66,8 @@ public class NewQuestionPageTest extends ApplicationTest {
         });
     }
 
+    //tests that the correct error is displayed
+    // when a quiz with an empty question text is submitted
     @Test
     public void testSubmitEmptyQuestion() {
         writeQuestion("", "1", "2", "3", "4", 0);
@@ -72,12 +77,16 @@ public class NewQuestionPageTest extends ApplicationTest {
         });
     }
 
+    //tests that the correct request is sent when a question is submitted and that
+    //the edit page is loaded and that it is displayed correctly
     @Test
     public void testSubmitQuestion() {
+        //starts the server
         config = WireMockConfiguration.wireMockConfig().port(8080);
         wireMockServer = new WireMockServer(config.portNumber());
         wireMockServer.start();
         WireMock.configureFor("localhost", config.portNumber());
+        //mocks posting and getting a quiz, getting all quizzes
         stubFor(post(urlEqualTo("/api/quizzes/a"))
                 .withRequestBody(equalToJson("{\"question\":\"?\",\"answer\":0,\"choices\":[\"a\",\"b\",\"c\",\"d\"]}"))
                 .willReturn(aResponse()
@@ -105,6 +114,7 @@ public class NewQuestionPageTest extends ApplicationTest {
         writeQuestion("?", "a", "b", "c", "d", 0);
     }
 
+    //writes a question and submits it
     private void writeQuestion(String question, String choice1, String choice2, String choice3, String choice4, int rightAnswer) {
         clickOn("#questionText").write(question);
         clickOn("#choice1").write(choice1);
@@ -116,6 +126,7 @@ public class NewQuestionPageTest extends ApplicationTest {
         clickOn("#submitButton");
     }
 
+    //stops the server
     @AfterEach
     public void stopServer() {
         if (wireMockServer != null)

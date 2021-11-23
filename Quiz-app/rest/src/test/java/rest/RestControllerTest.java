@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = QuizServerApplication.class)
 @WebAppConfiguration
-public class QuizControllerTest {
+public class RestControllerTest {
     private MockMvc mvc;
     @Autowired
     private WebApplicationContext webApplicationContext;
@@ -48,12 +48,19 @@ public class QuizControllerTest {
     private final UserRecord defaultUser = new UserRecord("username", "password");
     private String token;
 
-
+    /**
+     * Enable test mode (save paths to different folder)
+     */
     @BeforeAll
     public static void start() {
         SavePaths.enableTestMode();
     }
 
+    /**
+     * Setup a mock server
+     *
+     * @throws Exception
+     */
     @BeforeEach
     public void setUp() throws Exception {
         mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
@@ -65,6 +72,11 @@ public class QuizControllerTest {
         request("POST", "/api/quizzes", objectMapper.writeValueAsString(defaultQuiz), "");
     }
 
+    /**
+     * Test getting all quiz names
+     *
+     * @throws Exception
+     */
     @Test
     public void testGetQuizNames() throws Exception {
         String uri = "/api/quizzes";
@@ -75,6 +87,11 @@ public class QuizControllerTest {
         assertEquals("testQuiz", names.get(0));
     }
 
+    /**
+     * Test getting a quiz with a given name
+     *
+     * @throws Exception
+     */
     @Test
     public void testGetQuiz() throws Exception {
         System.out.println(SavePaths.getBasePath());
@@ -86,6 +103,11 @@ public class QuizControllerTest {
         assertEquals(404, request("GET", uri + 1, "", token).getResponse().getStatus());
     }
 
+    /**
+     * Test posting quizzes to the backend. Only unique quiz names should be posted
+     *
+     * @throws Exception
+     */
     @Test
     public void testPostQuiz() throws Exception {
         String uri = "/api/quizzes";
@@ -103,6 +125,11 @@ public class QuizControllerTest {
         assertEquals(exampleQuiz, mvcResult.getResponse().getContentAsString());
     }
 
+    /**
+     * Test adding questions to a quiz
+     *
+     * @throws Exception
+     */
     @Test
     public void testAddQuestion() throws Exception {
         String uri = "/api/quizzes/testQuiz";
@@ -119,6 +146,11 @@ public class QuizControllerTest {
                 .getResponse().getStatus());
     }
 
+    /**
+     * Test editing an existing question
+     *
+     * @throws Exception
+     */
     @Test
     public void testEditQuestion() throws Exception {
         String uri = "/api/quizzes/testQuiz/0";
@@ -135,6 +167,12 @@ public class QuizControllerTest {
                 .getResponse().getStatus());
     }
 
+    /**
+     * Test deleting a quiz by name
+     * Only existing quizzes can be deleted
+     *
+     * @throws Exception
+     */
     @Test
     public void testDeleteQuiz() throws Exception {
         String uri = "/api/quizzes/testQuiz";
@@ -145,6 +183,11 @@ public class QuizControllerTest {
         assertEquals(404, request("GET", uri2, "", token).getResponse().getStatus());
     }
 
+    /**
+     * Test deleting a question from a quiz
+     *
+     * @throws Exception
+     */
     @Test
     public void testDeleteQuestion() throws Exception {
         String uri = "/api/quizzes/testQuiz/0";
@@ -160,15 +203,25 @@ public class QuizControllerTest {
                 .getResponse().getStatus());
     }
 
+    /**
+     * Test posting a new score to a leaderboard
+     *
+     * @throws Exception
+     */
     @Test
     public void testPostScore() throws Exception {
         String uri = "/api/leaderboards/testQuiz";
         assertEquals(200, request("POST", uri, objectMapper.writeValueAsString(score3), token)
                 .getResponse().getStatus());
-        assertEquals(404, request("POST", uri+1, objectMapper.writeValueAsString(score3), token)
+        assertEquals(404, request("POST", uri + 1, objectMapper.writeValueAsString(score3), token)
                 .getResponse().getStatus());
     }
 
+    /**
+     * Teardown: delete all test files created
+     *
+     * @throws IOException
+     */
     @AfterEach
     public void deleteFiles() throws IOException {
         FileUtils.cleanDirectory(new File(SavePaths.getBasePath() + "/Quizzes"));
@@ -177,21 +230,35 @@ public class QuizControllerTest {
 
     }
 
+    /**
+     * @return a default quiz
+     */
     private Quiz getExampleQuiz() {
         return new Quiz("exampleQuiz",
                 List.of(new Question("b", List.of("11", "21", "31", "41"), 1)), "hallvard");
     }
 
+    /**
+     * @return a default leaderboard
+     */
     private Leaderboard getExampleLeaderboard() {
         Quiz quiz = getExampleQuiz();
         return new Leaderboard(quiz.getName(), quiz.getQuizLength());
     }
 
+    /**
+     * @param httpMethod the method (POST/GET/DELETE)
+     * @param uri        the uri destination
+     * @param body       the body of the request
+     * @param header     the auth token
+     * @return the response of performing the request
+     * @throws Exception
+     */
     private MvcResult request(String httpMethod, String uri, String body, String header) throws Exception {
         return mvc.perform(MockMvcRequestBuilders.request(httpMethod, URI.create(uri))
-                .header("Authorization", header)
-                .content(body)
-                .accept(MediaType.APPLICATION_JSON_VALUE))
+                        .header("Authorization", header)
+                        .content(body)
+                        .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andReturn();
     }
 

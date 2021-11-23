@@ -13,6 +13,9 @@ public class QuestionTest {
     private final int correctAnswer = 1;
     private final Question correctQuestion = new Question(correctQuestionText, correctChoices, correctAnswer);
 
+    /**
+     * Test the Question constructor with both valid and invalid arguments
+     */
     @Test
     public void testConstructor() {
         Assertions.assertThrows(IllegalArgumentException.class,
@@ -36,8 +39,11 @@ public class QuestionTest {
                 () -> new Question(correctQuestionText, wrongChoices, correctAnswer));
     }
 
+    /**
+     * Test whether an answer is correct
+     */
     @Test
-    public void testIsCorrect() {
+    public void testIsCorrectAnswer() {
         Assertions.assertThrows(IllegalArgumentException.class, () ->
                 correctQuestion.isCorrect(-1));
         Assertions.assertThrows(IllegalArgumentException.class, () ->
@@ -46,7 +52,9 @@ public class QuestionTest {
         Assertions.assertTrue(correctQuestion.isCorrect(correctAnswer));
     }
 
-
+    /**
+     * Test getting all answers
+     */
     @Test
     public void testGetChoice() {
         Assertions.assertThrows(IllegalArgumentException.class, () ->
@@ -56,8 +64,11 @@ public class QuestionTest {
         Assertions.assertEquals("1", correctQuestion.getChoice(0));
     }
 
+    /**
+     * Test getting the correct answers
+     */
     @Test
-    public void testGetAnswer() {
+    public void testGetCorrectAnswer() {
         Assertions.assertEquals(correctAnswer, correctQuestion.getAnswer());
         for (int i = 0; i < 4; i++) {
             if (correctQuestion.isCorrect(i)) {
@@ -66,6 +77,9 @@ public class QuestionTest {
         }
     }
 
+    /**
+     * Test toString method
+     */
     @Test
     public void testToString() {
         String test = correctQuestion.toString();
