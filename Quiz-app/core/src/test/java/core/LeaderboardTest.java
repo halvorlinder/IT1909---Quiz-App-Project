@@ -13,6 +13,9 @@ public class LeaderboardTest {
     private final String quizName = "test";
     private final String username = "user";
 
+    /**
+     * Test different valid constructors
+     */
     @Test
     public void testValidConstructor() {
         int maxScore = 3;
@@ -22,11 +25,17 @@ public class LeaderboardTest {
         assertEquals(0, leaderboard.getScoreLength());
     }
 
+    /**
+     * Test an invalid constructor
+     */
     @Test
     public void testInvalidConstructor() {
         assertThrows(IllegalArgumentException.class, () -> new Leaderboard(quizName, -1));
     }
 
+    /**
+     * Test adding scores to a leaderboard
+     */
     @Test
     public void testAddScore() {
         leaderboard = new Leaderboard(quizName, 3);
@@ -35,6 +44,9 @@ public class LeaderboardTest {
         assertEquals(1, leaderboard.getScoreLength());
     }
 
+    /**
+     * Test sorting multiple scores
+     */
     @Test
     public void testSortScores() {
         int maxScore = 10;
@@ -52,6 +64,4 @@ public class LeaderboardTest {
             assertEquals(sortedScores.get(i).getPoints(), actualSortedScores.get(i).getPoints());
         }
     }
-
-
 }

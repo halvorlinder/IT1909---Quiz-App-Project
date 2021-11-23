@@ -32,6 +32,7 @@ public class LeaderboardPageTest extends ApplicationTest {
     @Override
     public void start(final Stage stage) throws Exception {
         SavePaths.enableTestMode();
+        //starts the server and loads the home page
         config = WireMockConfiguration.wireMockConfig().port(8080);
         wireMockServer = new WireMockServer(config.portNumber());
         wireMockServer.start();
@@ -48,6 +49,7 @@ public class LeaderboardPageTest extends ApplicationTest {
         stage.show();
     }
 
+    //mocks getting and posting leaderboards and quizzes, and creates a quiz
     private void initQuiz() {
         stubFor(post(urlEqualTo("/api/quizzes"))
                 .withRequestBody(equalToJson("{\"name\":\"x\",\"creator\":\"user\",\"questions\":[]}"))
@@ -71,6 +73,7 @@ public class LeaderboardPageTest extends ApplicationTest {
         clickOn("#addNewQuizButton");
     }
 
+    //starts the server
     @BeforeEach
     public void startWireMockServerAndSetup() throws IOException, InterruptedException {
         config = WireMockConfiguration.wireMockConfig().port(8080);
@@ -79,6 +82,7 @@ public class LeaderboardPageTest extends ApplicationTest {
         WireMock.configureFor("localhost", config.portNumber());
     }
 
+    //tests that the page is loaded correctly given an empty leaderboard
     @Test
     public void testInitEmptyLeaderboard() {
         initQuiz();
@@ -90,6 +94,7 @@ public class LeaderboardPageTest extends ApplicationTest {
         clickOn(from(vBox).lookup((Button b) -> b.getText().equals("Ledertavle")).queryButton());
     }
 
+    //tests that the page is loaded correctly given a non-empty leaderboard
     @Test
     public void testInitLeaderboard() {
         initQuiz();

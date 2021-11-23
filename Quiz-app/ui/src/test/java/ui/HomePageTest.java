@@ -34,6 +34,8 @@ public class HomePageTest extends ApplicationTest {
 
     @Override
     public void start(final Stage stage) throws Exception {
+        //starts the server, sets up mock for fetching quizzes and
+        //loads the homepage
         config = WireMockConfiguration.wireMockConfig().port(8080);
         wireMockServer = new WireMockServer(config.portNumber());
         wireMockServer.start();
@@ -50,6 +52,8 @@ public class HomePageTest extends ApplicationTest {
         stage.show();
     }
 
+    //sets up mocks for posting a quiz, getting quizzes, and getting leaderboards,
+    //and creates a quiz
     private void initQuiz() {
         stubFor(post(urlEqualTo("/api/quizzes"))
                 .withRequestBody(equalToJson("{\"name\":\"x\",\"creator\":\"user\",\"questions\":[]}"))
@@ -73,6 +77,7 @@ public class HomePageTest extends ApplicationTest {
         clickOn("#addNewQuizButton");
     }
 
+    //starts the server
     @BeforeEach
     public void startWireMockServerAndSetup() throws IOException, InterruptedException {
         config = WireMockConfiguration.wireMockConfig().port(8080);
@@ -82,6 +87,8 @@ public class HomePageTest extends ApplicationTest {
     }
 
 
+    //tests if the correct error message is displayed when an empty name quiz is
+    //attempted created
     @Test
     public void testCreateEmptyNameQuiz() {
         clickOn("#addNewQuizButton");
@@ -91,6 +98,8 @@ public class HomePageTest extends ApplicationTest {
         });
     }
 
+    // tests if the correct request is sent when creating a quiz
+    // and that the ui is updated correctly
     @Test
     public void testCreateQuiz() {
         initQuiz();
@@ -100,6 +109,8 @@ public class HomePageTest extends ApplicationTest {
         });
     }
 
+    //tests that the correct error message is displayed when a questionless
+    // quiz is attempted started
     @Test
     public void testStartEmptyQuiz() {
         initQuiz();
@@ -109,12 +120,15 @@ public class HomePageTest extends ApplicationTest {
                         .withStatus(200)));
         VBox vBox = lookup("#quizList").query();
         clickOn(from(vBox).lookup((Button b) -> b.getText().equals("Spill")).queryButton());
+        //checks the error message
         Node dialogPane = lookup(".dialog-pane").query();
         Assertions.assertDoesNotThrow(() -> {
             from(dialogPane).lookup((Text t) -> t.getText().startsWith(Errors.EMPTY_QUIZ)).query();
         });
     }
 
+    //tests that the correct request is sent when a quiz is started and that the quiz page
+    //is loaded and displayed correctly
     @Test
     public void testStartQuiz() {
         initQuiz();
@@ -129,6 +143,8 @@ public class HomePageTest extends ApplicationTest {
         });
     }
 
+    //tests the back system by traversing from homepage to editpage to newQuestionpage
+    //and back to homepage again.
     @Test
     public void testTraversal() {
         initQuiz();
@@ -136,15 +152,18 @@ public class HomePageTest extends ApplicationTest {
                 .willReturn(aResponse()
                         .withBody("{\"name\":\"x\",\"creator\":\"user\",\"questions\":[]}")
                         .withStatus(200)));
+        //traverses
         VBox vBox = lookup("#quizList").query();
         clickOn(from(vBox).lookup((Button b) -> b.getText().equals("Endre")).queryButton());
         Assertions.assertDoesNotThrow(() -> lookup("#newQuestionButton").query());
         clickOn(lookup("#newQuestionButton").queryButton());
         clickOn(lookup("#backButton").queryButton());
         clickOn(lookup("#backButton").queryButton());
+        //checks that the homepage is loaded
         Assertions.assertDoesNotThrow(() -> lookup("#nameDisplay").query());
     }
 
+    //stops the server
     @AfterEach
     public void stopServer() {
         wireMockServer.stop();
