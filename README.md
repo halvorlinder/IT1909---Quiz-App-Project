@@ -5,10 +5,10 @@
 
 <!-- TABLE OF CONTENTS -->
 <details open="open">
-  <summary><h2 style="display: inline-block">Project structure</h2></summary>
+  <summary><h2 style="display: inline-block">Table of contents</h2></summary>
   <ol>
     <li>
-      <a href="#project-structure">About the project</a>
+      <a href="#project-structure">Project structure</a>
       <ul>
         <li><a href="#built-with">Built With</a></li>
         <li><a href="#checkstyle-settings">Checkstyle settings</a></li>
