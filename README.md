@@ -11,11 +11,16 @@
       <a href="#about-the-project">Project Structure</a>
       <ul>
         <li><a href="#built-with">Built With</a></li>
+        <li><a href="#checkstyle-settings">Checkstyle settings</a></li>
+        <li><a href="#jlink">Jlink</a></li>
+        <li><a href="#jpackage">Jpackage</a></li>
       </ul>
     </li>
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
+        <li><a href="#terminal">Run from terminal</a></li>
+        <li><a href="#create-a-shippable-product">Create a shippable product</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
@@ -24,6 +29,8 @@
         <ul>
             <li><a href="#core">core</a></li>
             <li><a href="#io">io</a></li>
+            <li><a href="#internal">Internal</a></li>
+            <li><a href="#json-format">Json format</a></li>
         </ul>
     </li>
     <li>
@@ -31,6 +38,27 @@
         <ul>
             <li><a href="#ui">ui</a></li>
             <li><a href="#resources">Resources</a></li>
+        </ul>
+    </li>
+    <li>
+        <a href="#Rest">Rest</a>
+        <ul>
+            <li><a href="#rest">Rest components</a></li>
+        </ul>
+    </li>
+    <li>
+        <a href="#repportaggregator">ReportAggregator</a>
+        <ul>
+            <li><a href="#rest">Rest components</a></li>
+        </ul>
+    </li>
+    <li>
+        <a href="#architecture">Architecture</a>
+        <ul>
+            <li><a href="#package-diagram">Package diagram</a></li>
+            <li><a href="#class-diagram">Class diagram</a></li>
+            <li><a href="#sequence-diagram">Sequence diagram</a></li>
+            <li><a href="#storage-choices">Storage choices</a></li>
         </ul>
     </li>
     <li><a href="#contact">Contact</a></li>
@@ -90,11 +118,14 @@ The JLink goal is intended to create a Java Run Time Image. Description of a few
 
 ## Getting Started
 
-To get a local copy up and running follow these simple steps.
+To get a local copy up and running follow these simple steps. Everything needs to be run from the Quiz-app directory
 
+
+### Terminal
 * Run the app from terminal
   ```sh
-  mvn clean install
+  mvn clean compile
+  mvn javafx:run -pl ui
   ```
 
 * Run tests and test coverage
@@ -105,17 +136,19 @@ To get a local copy up and running follow these simple steps.
   ```sh
   mvn spring-boot:run -pl rest
   ```
-* Create a shippable application in GitPod
+### Create a shippable product
+* For gitpod
   ```sh
+  mvn clean compile
   sudo apt update && sudo apt install fakeroot
-  mvn clean compile javafx:jlink jpackage:jpackage -pl ui
-  sudo apt install ./target/dist/quizfx_1.0.0-1_amd64.deb
+  mvn javafx:jlink jpackage:jpackage -pl ui
+  sudo apt install ./ui/target/dist/quizfx_1.0.0-1_amd64.deb
   ```
   Now the program can be found in /opt/quizfx/
 
 * Run the application created by jpackage 
   ```sh
-  /opt/quizfx/bin/quizfx
+  /opt/quizfx/bin/QuizFX
   ```
 
 ### Installation
@@ -226,21 +259,6 @@ The JSON schemas for classes that are serialized can be found here:
 
 - [GoBackController](Quiz-app/ui/src/main/java/ui/controllers/GoBackController.java) - Controller for going back to previous scene
 
-
-## REST
-
-### rest
-
-- [AuthHandler](Quiz-app/rest/src/main/java/rest/AuthHandler.java) - Handles authentication of user, so that the user can only change a quiz they have made themselves. We have made our own auth system that works by sending users an access token upon login, which they can later use to verify themselves when accessing endpoints in the api.
-
-
-- [QuizController](Quiz-app/rest/src/main/java/rest/QuizController.java) - Defines the API endpoints, by mapping requests from the user by taking the request, path and body to a given method in this controller. Returns the server response
-
-- [QuizServerApllication](Quiz-app/rest/src/main/java/rest/QuizServerApllication.java) - initializes the Spring Boot server
-
-
-## ReportAggregator 
-- This modules' only purpose is to generate a testcoverage file that covers the entire project
 ### Resources
 
 - [HomePage fxml](Quiz-app/ui/src/main/resources/ui/HomePage.fxml) - Fxml for the homepage
@@ -258,6 +276,20 @@ The JSON schemas for classes that are serialized can be found here:
 
 - [Leaderboard Page fxml](Quiz-app/ui/src/main/resources/ui/LeaderboardPage.fxml) - Fxml for the edit page
 
+## REST
+
+### rest
+
+- [AuthHandler](Quiz-app/rest/src/main/java/rest/AuthHandler.java) - Handles authentication of user, so that the user can only change a quiz they have made themselves. We have made our own auth system that works by sending users an access token upon login, which they can later use to verify themselves when accessing endpoints in the api.
+
+
+- [QuizController](Quiz-app/rest/src/main/java/rest/QuizController.java) - Defines the API endpoints, by mapping requests from the user by taking the request, path and body to a given method in this controller. Returns the server response
+
+- [QuizServerApllication](Quiz-app/rest/src/main/java/rest/QuizServerApllication.java) - initializes the Spring Boot server
+
+
+## ReportAggregator 
+This modules only purpose is to generate a testcoverage file that covers the entire project
 
 <!-- ROADMAP -->
 
@@ -265,6 +297,26 @@ The JSON schemas for classes that are serialized can be found here:
 
 The following diagrams represent the macro architecture of the app:
 
+### Package diagram
+ - The following diagrams represent the macro architecture of the app: [package/architecture diagram](Quiz-app/diagrams/architecture.png)
+
+
+### Class diagram
+
+A class diagram is a diagram that describes the structure of a system by showing the system's classes, their attributes, operations (or methods), and the relationships among objects
+
+ - The following diagram represents a class diagram of the core: [core class diagram](Quiz-app/diagrams/coreClassDiagram.png)
+
+ - The following diagram represents a class  of the rest: [rest class diagram](Quiz-app/diagrams/restClassDiagram.png)
+
+ - The following diagram represents a class diagram of the ui: [ui class diagram](Quiz-app/diagrams/uiClassDiagram.png)
+
+### Sequence diagram
+
+A sequence diagram is a type of interaction diagram because it describes how—and in what order—a group of objects works together.
+
+ - The following diagram represents a sequence diagram of submitting a question in the new question page: [diagram](Quiz-app/diagrams/NewQuestionPageController_submitQuestionSequenceDiagram.png)
+ - The following diagram represents a sequence diagram of going to the edit quiz page : [diagram](Quiz-app/diagrams/HomePageController_showEditPageSequenceDiagram.png)
 
 
 ### Storage choices

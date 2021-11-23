@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = QuizServerApplication.class)
 @WebAppConfiguration
-public class QuizControllerTest {
+public class RestControllerTest {
     private MockMvc mvc;
     @Autowired
     private WebApplicationContext webApplicationContext;
