@@ -7,7 +7,7 @@ test:
   stage: test
   script:
     - cd Quiz-app
-    - mvn verify -DskipUiTests=true
+    - mvn verify -DskipUiTests=true -DskipSystemTests=true
     - cat ReportAggregator/target/site/jacoco-aggregate/index.html | grep -o '<tfoot>.*</tfoot>'
   artifacts:
     when: always
