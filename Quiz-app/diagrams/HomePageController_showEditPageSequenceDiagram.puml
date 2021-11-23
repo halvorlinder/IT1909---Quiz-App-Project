@@ -1,0 +1,34 @@
+@startuml
+participant Actor
+Actor -> HomePageController : showEditPage
+activate HomePageController
+HomePageController -> App : getFXMLLoader
+activate App
+App --> HomePageController
+deactivate App
+HomePageController -> EditPageController : new
+activate EditPageController
+EditPageController -> GoBackController : new
+activate GoBackController
+GoBackController -> BaseController : new
+activate BaseController
+BaseController --> GoBackController
+deactivate BaseController
+GoBackController --> EditPageController
+deactivate GoBackController
+EditPageController --> HomePageController
+deactivate EditPageController
+HomePageController -> GoBackController : setPreviousPageInfo
+activate GoBackController
+GoBackController --> HomePageController
+deactivate GoBackController
+HomePageController -> Utilities : alertUser
+activate Utilities
+Utilities --> HomePageController
+deactivate Utilities
+HomePageController -> Utilities : alertUser
+activate Utilities
+Utilities --> HomePageController
+deactivate Utilities
+return
+@enduml

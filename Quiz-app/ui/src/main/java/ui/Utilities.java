@@ -18,7 +18,7 @@ public abstract class Utilities {
     }
 
     /**
-     * displays a modal window to the user with the message "Noe gikk galt."
+     * displays a modal window to the user with a default error message
      */
     public static void alertUser() {
         Alert alert = new Alert(Alert.AlertType.ERROR, "Noe gikk galt.");

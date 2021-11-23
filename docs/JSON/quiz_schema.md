@@ -4,6 +4,8 @@ Type: `Quiz`
 
  - <b id="#/properties/name">name</b> `required`
 	 - Type: `string`
+ - <b id="#/properties/creator">creator</b> `required`
+	 - Type: `string`
  - <b id="#/properties/questions">questions</b> `required`
 	 - Type: `array`
 		 - **_Items_**

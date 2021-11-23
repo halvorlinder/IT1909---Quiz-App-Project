@@ -12,16 +12,21 @@ public class QuizSessionTest {
     private QuizSession quizSession;
     List<Question> questions;
 
-
+    /**
+     * Set up a quiz session
+     */
     @BeforeEach
     public void setUp() {
         questions = new ArrayList<>();
         for (int i = 0; i < num_questions; i++) {
             questions.add(new Question("Question number " + i, List.of("1", "2", "3", "4"), i % 4));
         }
-        quizSession = new QuizSession(new Quiz("quiz101", questions, ""));
+        quizSession = new QuizSession(new Quiz("quiz101", questions, "hallvard"));
     }
 
+    /**
+     * Test getting the index of the current question
+     */
     @Test
     public void testGetCurrentQuestionNumber() {
         for (int i = 0; i < num_questions; i++) {
@@ -30,6 +35,9 @@ public class QuizSessionTest {
         }
     }
 
+    /**
+     * Test getting the current question
+     */
     @Test
     public void testGetCurrentQuestion() {
         for (int i = 0; i < num_questions; i++) {
@@ -40,24 +48,30 @@ public class QuizSessionTest {
         Assertions.assertTrue(quizSession.isFinished());
     }
 
+    /**
+     *  Test asserting how many correct answers to a quiz
+     */
     @Test
     public void testCorrect1() {
-        int num_correct = 0;
+        int numOfCorrect = 0;
         for (int i = 0; i < num_questions; i++) {
             quizSession.submitAnswer(0);
             if (i % 4 == 0) {
-                num_correct += 1;
+                numOfCorrect += 1;
             }
         }
-        Assertions.assertEquals(num_correct, quizSession.getCorrect());
+        Assertions.assertEquals(numOfCorrect, quizSession.getCorrect());
     }
 
+    /**
+     *  Test asserting how many correct answers to a quiz
+     */
     @Test
     public void testCorrect2() {
-        int num_correct = 0;
+        int numOfCorrect = 0;
         for (int i = 0; i < num_questions; i++) {
             quizSession.submitAnswer((i + 1) % 4);
         }
-        Assertions.assertEquals(num_correct, quizSession.getCorrect());
+        Assertions.assertEquals(numOfCorrect, quizSession.getCorrect());
     }
 }

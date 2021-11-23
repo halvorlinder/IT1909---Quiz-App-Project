@@ -11,6 +11,7 @@ public class AuthHandler {
     private final Map<String, String> userToTokenMapping;
     private final SecureRandom secureRandom = new SecureRandom();
     private final Base64.Encoder base64Encoder = Base64.getUrlEncoder();
+    private static final int TOKEN_SIZE = 24;
 
     /**
      *
@@ -42,7 +43,7 @@ public class AuthHandler {
      * @return a random auth token
      */
     private String getRandomToken() {
-        byte[] randomBytes = new byte[24];
+        byte[] randomBytes = new byte[TOKEN_SIZE];
         secureRandom.nextBytes(randomBytes);
         return base64Encoder.encodeToString(randomBytes);
     }

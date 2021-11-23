@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
+import ui.constants.Errors;
 import ui.controllers.LoginPageController;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
@@ -26,8 +27,10 @@ public class LoginPageTest extends ApplicationTest {
 
     private WireMockServer wireMockServer;
 
+
     @Override
     public void start(final Stage stage) throws Exception {
+        //starts server and loads loginpage
         LoginPageController logInPageController = new LoginPageController();
         final FXMLLoader loader = new FXMLLoader(getClass().getResource("LoginPage.fxml"));
         loader.setController(logInPageController);
@@ -38,6 +41,8 @@ public class LoginPageTest extends ApplicationTest {
 
     @BeforeEach
     public void setupItems() {
+        //starts the server and mocks login and registration with both failures and successes,
+        //as well as fetching quizzes
         WireMockConfiguration config = WireMockConfiguration.wireMockConfig().port(8080);
         wireMockServer = new WireMockServer(config.portNumber());
         wireMockServer.start();
@@ -64,6 +69,8 @@ public class LoginPageTest extends ApplicationTest {
                         .withStatus(200)));
     }
 
+    //tests that a successful login loads and displays the homepage and that the signout button relaods
+    //the login page
     @Test
     public void testLogInOut() {
         clickOn("#logInUserName").write("h");
@@ -76,6 +83,7 @@ public class LoginPageTest extends ApplicationTest {
         assertEquals(welcome.getText(), "Velkommen til Quiz-appen");
     }
 
+    //tests that the correct error is thrown when a login fails
     @Test
     public void testFailedLogIn() {
         clickOn("#logInUserName").write("h");
@@ -83,10 +91,11 @@ public class LoginPageTest extends ApplicationTest {
         clickOn("#logIn");
         Node dialogPane = lookup(".dialog-pane").query();
         Assertions.assertDoesNotThrow(() -> {
-            from(dialogPane).lookup((Text t) -> t.getText().startsWith("Brukernavn eller passord er feil")).query();
+            from(dialogPane).lookup((Text t) -> t.getText().startsWith(Errors.LOGIN_403)).query();
         });
     }
 
+    //tests that a successful registration loads and displays the homepage correctly
     @Test
     public void testRegister() {
         clickOn("#registerUserName").write("i");
@@ -96,6 +105,7 @@ public class LoginPageTest extends ApplicationTest {
         assertEquals(name.getText(), "Logget inn som i");
     }
 
+    //tests that an unsuccessful registration displays the correct error message
     @Test
     public void testFailedRegister() {
         clickOn("#registerUserName").write("h");
@@ -103,10 +113,11 @@ public class LoginPageTest extends ApplicationTest {
         clickOn("#register");
         Node dialogPane = lookup(".dialog-pane").query();
         Assertions.assertDoesNotThrow(() -> {
-            from(dialogPane).lookup((Text t) -> t.getText().startsWith("Beklager, dette brukernavnet er tatt")).query();
+            from(dialogPane).lookup((Text t) -> t.getText().startsWith(Errors.REGISTER_403)).query();
         });
     }
 
+    //stops the server
     @AfterEach
     public void stopServer() {
         wireMockServer.stop();
