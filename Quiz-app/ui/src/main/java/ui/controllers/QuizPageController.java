@@ -97,7 +97,7 @@ public class QuizPageController extends BaseController {
         FXMLLoader loader = null;
         try {
             loader = App.getFXMLLoader("ResultPage.fxml");
-            ResultPageController controller = new ResultPageController(quizSession.getNumberOfCorrect(),
+            ResultPageController controller = new ResultPageController(quizSession.getNumOfCorrectAnswers(),
                     quizSession.getQuizLength(), quizSession.getQuizName(), getUser());
             loader.setController(controller);
             submitAnswer.getScene().setRoot(loader.load());
