@@ -18,7 +18,7 @@ class LeaderboardSerializer extends JsonSerializer<Leaderboard> {
     public void serialize(Leaderboard leaderboard, JsonGenerator jsonGen, SerializerProvider serializerProvider)
             throws IOException {
         jsonGen.writeStartObject();
-        jsonGen.writeStringField(JsonKeys.LB_NAME, leaderboard.getName());
+        jsonGen.writeStringField(JsonKeys.LB_NAME, leaderboard.getQuizName());
         jsonGen.writeNumberField(JsonKeys.LB_MAX, leaderboard.getMaxScore());
         jsonGen.writeArrayFieldStart(JsonKeys.LB_SCORES);
         for (Score score : leaderboard.getScores()) {

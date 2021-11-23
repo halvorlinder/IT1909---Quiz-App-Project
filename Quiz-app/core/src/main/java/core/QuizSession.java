@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class QuizSession {
 
     private final Quiz quiz;
-    private int correct;
+    private int numOfCorrectAnswers;
     private int currentQuestionNumber;
 
 
@@ -24,7 +24,7 @@ public class QuizSession {
      */
     public Question getCurrentQuestion() {
         if (currentQuestionNumber >= quiz.getQuizLength())
-            throw new ArrayIndexOutOfBoundsException("The quiz does not contain more questions");
+            throw new IllegalStateException("There are no more questions");
         return quiz.getQuestion(currentQuestionNumber);
     }
 
@@ -46,7 +46,7 @@ public class QuizSession {
             throw new IllegalStateException("All questions have already been answered");
         boolean isCorrect = getCurrentQuestion().isCorrect(answer);
         if (isCorrect)
-            correct++;
+            numOfCorrectAnswers++;
         currentQuestionNumber++;
     }
 
@@ -65,13 +65,6 @@ public class QuizSession {
     }
 
     /**
-     * @return the number of correct submitted answers
-     */
-    public int getNumberOfCorrect() {
-        return correct;
-    }
-
-    /**
      * @return the index of the current question
      */
     public int getCurrentQuestionNumber() {
@@ -81,7 +74,7 @@ public class QuizSession {
     /**
      * @return the number of correctly submitted answers
      */
-    public int getCorrect() {
-        return correct;
+    public int getNumOfCorrectAnswers() {
+        return numOfCorrectAnswers;
     }
 }

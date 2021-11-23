@@ -82,7 +82,7 @@ public class LeaderboardPersistence {
      * @param leaderboard the quiz to save
      */
     public void saveLeaderboard(Leaderboard leaderboard) throws IOException {
-        String quizName = leaderboard.getName();
+        String quizName = leaderboard.getQuizName();
         File file = new File(basePath + quizName + ".json");
         if (!file.exists()) {
             if (!file.createNewFile())

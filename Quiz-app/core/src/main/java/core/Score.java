@@ -18,6 +18,8 @@ public class Score implements Comparable<Score> {
         if (points < 0) {
             throw new IllegalArgumentException("Cannot have a negative score");
         }
+        if (name.isEmpty())
+            throw new IllegalArgumentException("Username cannot be empty");
         this.name = name;
         this.points = points;
     }
