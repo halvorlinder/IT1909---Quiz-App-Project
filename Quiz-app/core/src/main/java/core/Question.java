@@ -3,6 +3,9 @@ package core;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class represents a question in a given quiz
+ */
 public class Question {
     private final String question;
     private final List<String> choices;
@@ -10,16 +13,20 @@ public class Question {
     private static final int NUMBER_OF_CHOICES = 4;
 
     /**
-     * @param question a string representing the question text
-     * @param choices  a list a strings representing the choices for the question
-     * @param answer   an int corresponding to the index of the correct answer
+     * @param question      a string representing the question text
+     * @param choices       a list a strings representing the choices for the question
+     * @param correctAnswer an int corresponding to the index of the correct answer
      */
-    public Question(String question, List<String> choices, int answer) {
-        if (answer >= choices.size() || answer < 0 || choices.size() != NUMBER_OF_CHOICES)
-            throw new IllegalArgumentException("The answer is greater than the permitted number of choices");
+    public Question(String question, List<String> choices, int correctAnswer) {
+        if (choices.size() != NUMBER_OF_CHOICES)
+            throw new IllegalArgumentException("A question must have exactly four choices");
+        if (correctAnswer >= choices.size() || correctAnswer < 0)
+            throw new IllegalArgumentException("The correct answer must be between 0 and " + (NUMBER_OF_CHOICES - 1));
+        if (question.isEmpty())
+            throw new IllegalArgumentException("The question can't be empty");
         this.question = question;
         this.choices = new ArrayList<>(choices);
-        this.answer = answer;
+        this.answer = correctAnswer;
     }
 
     /**

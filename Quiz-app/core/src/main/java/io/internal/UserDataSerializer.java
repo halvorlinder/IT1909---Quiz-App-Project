@@ -7,7 +7,11 @@ import core.UserData;
 
 import java.io.IOException;
 
-public final class UserDataSerializer extends JsonSerializer<UserData> {
+/**
+ * This class serializes a UserData object into a JSON file
+ */
+class UserDataSerializer extends JsonSerializer<UserData> {
+
     @Override
     public void serialize(UserData userData, JsonGenerator jsonGenerator, SerializerProvider serializerProvider)
             throws IOException {

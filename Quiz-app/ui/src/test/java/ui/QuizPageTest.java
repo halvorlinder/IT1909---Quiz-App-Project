@@ -25,6 +25,7 @@ public class QuizPageTest extends ApplicationTest {
 
     @Override
     public void start(final Stage stage) throws Exception {
+        //starts the server and loads the quiz page
         config = WireMockConfiguration.wireMockConfig().port(8080);
         wireMockServer = new WireMockServer(config.portNumber());
         wireMockServer.start();
@@ -43,6 +44,7 @@ public class QuizPageTest extends ApplicationTest {
         stage.show();
     }
 
+    //starts the server and mocks posting scores
     @BeforeEach
     public void startServer() {
         config = WireMockConfiguration.wireMockConfig().port(8080);
@@ -59,6 +61,8 @@ public class QuizPageTest extends ApplicationTest {
                         .withStatus(200)));
     }
 
+    //test that the score is updated correctly given a correct answer, that the request
+    //is sent correctly and that the ui is updated correctly given the response
     @Test
     public void testAnswerQuizCorrect() {
         clickOn("#option" + 1);
@@ -66,6 +70,8 @@ public class QuizPageTest extends ApplicationTest {
         assertDoesNotThrow(() -> lookup((Label t) -> t.getText().startsWith("Du fikk 1/1 poeng!")).query());
     }
 
+    //test that the score is updated correctly given a wrong answer, that the request
+    //is sent correctly and that the ui is updated correctly given the response
     @Test
     public void testAnswerQuizWrong() {
         clickOn("#option" + 2);
@@ -73,6 +79,7 @@ public class QuizPageTest extends ApplicationTest {
         assertDoesNotThrow(() -> lookup((Label t) -> t.getText().startsWith("Du fikk 0/1 poeng!")).query());
     }
 
+    //stops the server
     @AfterEach
     public void stopServer() {
         if (wireMockServer != null)

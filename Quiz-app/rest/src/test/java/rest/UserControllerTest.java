@@ -47,18 +47,21 @@ public class UserControllerTest {
         mvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
+    private final String username1 = "username";
+    private final String password1 = "password";
+
     @Test
     public void testSuccessfulRegister() throws Exception {
         String uri = "/api/users/register";
-        MvcResult mvcResult = request("POST", uri, objectMapper.writeValueAsString(new UserRecord("a", "password")));
+        MvcResult mvcResult = request("POST", uri, objectMapper.writeValueAsString(new UserRecord(username1, password1)));
         assertEquals(200, mvcResult.getResponse().getStatus());
     }
 
     @Test
     public void testFailedRegister() throws Exception {
         String uri = "/api/users/register";
-        MvcResult mvcResult = request("POST", uri, objectMapper.writeValueAsString(new UserRecord("a", "password")));
-        MvcResult mvcResult2 = request("POST", uri, objectMapper.writeValueAsString(new UserRecord("a", "password")));
+        MvcResult mvcResult = request("POST", uri, objectMapper.writeValueAsString(new UserRecord(username1, password1)));
+        MvcResult mvcResult2 = request("POST", uri, objectMapper.writeValueAsString(new UserRecord(username1, password1)));
         assertEquals(403, mvcResult2.getResponse().getStatus());
     }
 
@@ -66,8 +69,8 @@ public class UserControllerTest {
     public void testSuccessfulLogin() throws Exception {
         String uri = "/api/users/register";
         String uri2 = "/api/users/login";
-        MvcResult mvcResult = request("POST", uri, objectMapper.writeValueAsString(new UserRecord("a", "password")));
-        MvcResult mvcResult2 = request("POST", uri2, objectMapper.writeValueAsString(new UserRecord("a", "password")));
+        MvcResult mvcResult = request("POST", uri, objectMapper.writeValueAsString(new UserRecord(username1, password1)));
+        MvcResult mvcResult2 = request("POST", uri2, objectMapper.writeValueAsString(new UserRecord(username1, password1)));
         assertEquals(200, mvcResult2.getResponse().getStatus());
     }
 
@@ -75,10 +78,12 @@ public class UserControllerTest {
     public void testFailedLogin() throws Exception {
         String uri = "/api/users/register";
         String uri2 = "/api/users/login";
-        MvcResult mvcResult = request("POST", uri, objectMapper.writeValueAsString(new UserRecord("a", "password")));
-        MvcResult mvcResult2 = request("POST", uri2, objectMapper.writeValueAsString(new UserRecord("a", "password2")));
-        MvcResult mvcResult3 = request("POST", uri2, objectMapper.writeValueAsString(new UserRecord("b", "password")));
-        MvcResult mvcResult4 = request("POST", uri2, objectMapper.writeValueAsString(new UserRecord("b", "password2")));
+        String username2 = "name";
+        String password2 = "word";
+        MvcResult mvcResult = request("POST", uri, objectMapper.writeValueAsString(new UserRecord(username1, password1)));
+        MvcResult mvcResult2 = request("POST", uri2, objectMapper.writeValueAsString(new UserRecord(username1, password2)));
+        MvcResult mvcResult3 = request("POST", uri2, objectMapper.writeValueAsString(new UserRecord(username2, password1)));
+        MvcResult mvcResult4 = request("POST", uri2, objectMapper.writeValueAsString(new UserRecord(username2, password2)));
         assertEquals(403, mvcResult2.getResponse().getStatus());
         assertEquals(403, mvcResult3.getResponse().getStatus());
         assertEquals(403, mvcResult4.getResponse().getStatus());

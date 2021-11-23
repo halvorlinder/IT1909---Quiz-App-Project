@@ -63,10 +63,10 @@ public class LeaderboardPersistence {
     }
 
     /**
-     * Loads a QuizAppModule from the saved file (saveFilePath) in the user.home folder.
+     * Loads a leaderboard from the saved file (saveFilePath) in the user.home folder.
      *
      * @param quizName the name of the quiz
-     * @return the loaded QuizAppModule
+     * @return the leaderboard for the quiz with the given name
      */
     public Leaderboard loadLeaderboard(String quizName) throws IOException {
         if (!Files.exists(Path.of(basePath + quizName + ".json")))

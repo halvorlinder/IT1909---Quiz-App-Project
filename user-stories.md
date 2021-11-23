@@ -41,9 +41,30 @@ As a user, I would like to create and sumbit new questions to be added to the qu
 - Ability to mark correct answer
 - Push button to submit question
 
-## Multiple quizzes (us-3)
+## Create and edit quiz(us-3)
 
-As a user, I would like to select between different quizzes to play depending on genre.
+As a user, I would like to create a new quiz, and be able to edit this by adding, removing and editing questions, as well as being able to delete any quiz I have created
+
+### Important to see
+
+- A button to create a new quiz and specify quiz name
+- An edit button for the quizzes the user has created
+- The edit quiz page should contain:
+    - List of questions
+    - Buttons for removing and editing for each question
+    - Button to add question to quiz
+    - Button for deleting the entire quiz
+
+### Important to do
+
+- Create new quiz with a custom name
+- Ability to edit all quizes created by the user, aka add questions and edit all its questions
+- Ability to delete all quizes created by the user
+
+
+## Multiple quizzes (us-4)
+
+As a user, I would like to select between different quizzes to play.
 
 ### Important to see
 
@@ -56,7 +77,7 @@ As a user, I would like to select between different quizzes to play depending on
 
 - Select quiz among list of all quizzes
 
-## Username and leaderboard (us-4)
+## Username and leaderboard (us-5)
 
 As a user I would like to see my score on a leaderboard after I am done taking the quiz. It should be easy to see which score was mine.
 
