@@ -151,7 +151,7 @@ To get a local copy up and running follow these simple steps. Everything needs t
 ### Create a shippable product
 * For gitpod
   ```sh
-  mvn clean compile
+  mvn clean install
   sudo apt update && sudo apt install fakeroot
   mvn javafx:jlink jpackage:jpackage -pl ui
   sudo apt install ./ui/target/dist/quizfx_1.0.0-1_amd64.deb
