@@ -8,7 +8,7 @@
   <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
   <ol>
     <li>
-      <a href="#about-the-project">Project Structure</a>
+      <a href="#project-structure">About the project</a>
       <ul>
         <li><a href="#built-with">Built With</a></li>
         <li><a href="#checkstyle-settings">Checkstyle settings</a></li>
