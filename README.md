@@ -25,7 +25,7 @@
       </ul>
     </li>
     <li>
-      <a href="#About-the-API">About the API</a>
+      <a href="#about-the-API">About the API</a>
       <ul>
         <li><a href="#description">Description</a></li>
       </ul>
@@ -37,7 +37,7 @@
       </ul>
     </li>
     <li>
-        <a href="#Core">Core</a>
+        <a href="#core">Core</a>
         <ul>
             <li><a href="#core">core</a></li>
             <li><a href="#io">io</a></li>
@@ -46,14 +46,14 @@
         </ul>
     </li>
     <li>
-        <a href="#UI">UI</a>
+        <a href="#ui">UI</a>
         <ul>
             <li><a href="#ui">ui</a></li>
             <li><a href="#resources">Resources</a></li>
         </ul>
     </li>
     <li>
-        <a href="#Rest">Rest</a>
+        <a href="#rest">Rest</a>
         <ul>
             <li><a href="#rest">Rest components</a></li>
         </ul>
