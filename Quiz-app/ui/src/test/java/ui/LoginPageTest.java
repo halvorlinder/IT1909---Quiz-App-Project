@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
+import ui.constants.Errors;
 import ui.controllers.LoginPageController;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
@@ -83,7 +84,7 @@ public class LoginPageTest extends ApplicationTest {
         clickOn("#logIn");
         Node dialogPane = lookup(".dialog-pane").query();
         Assertions.assertDoesNotThrow(() -> {
-            from(dialogPane).lookup((Text t) -> t.getText().startsWith("Brukernavn eller passord er feil")).query();
+            from(dialogPane).lookup((Text t) -> t.getText().startsWith(Errors.LOGIN_403)).query();
         });
     }
 
@@ -103,7 +104,7 @@ public class LoginPageTest extends ApplicationTest {
         clickOn("#register");
         Node dialogPane = lookup(".dialog-pane").query();
         Assertions.assertDoesNotThrow(() -> {
-            from(dialogPane).lookup((Text t) -> t.getText().startsWith("Beklager, dette brukernavnet er tatt")).query();
+            from(dialogPane).lookup((Text t) -> t.getText().startsWith(Errors.REGISTER_403)).query();
         });
     }
 

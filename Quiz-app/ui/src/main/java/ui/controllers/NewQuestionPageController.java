@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import ui.APIClientService;
+import ui.constants.Errors;
 import ui.User;
 import ui.Utilities;
 
@@ -117,12 +118,12 @@ public final class NewQuestionPageController extends GoBackController implements
     @FXML
     public void submitQuestion(ActionEvent actionEvent) {
         if (questionText.getText().isEmpty()) {
-            Utilities.alertUser("Du må skrive inn et spørsmål");
+            Utilities.alertUser(Errors.EMPTY_QUESTION_TEXT);
             return;
         }
         for (TextField textField : listOfTextFields) {
             if (textField.getText().isEmpty()) {
-                Utilities.alertUser("Du må fylle ut alle feltene!");
+                Utilities.alertUser(Errors.EMPTY_CHOICE_TEXT);
                 return;
             }
         }

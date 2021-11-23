@@ -2,6 +2,7 @@ package ui.controllers;
 
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import ui.constants.Errors;
 import ui.User;
 import ui.Utilities;
 
@@ -46,7 +47,7 @@ public class GoBackController extends BaseController {
         try {
             previousController.initialize();
         } catch (IOException ioException) {
-            Utilities.alertUser("Kunne ikke gå tilbake");
+            Utilities.alertUser(Errors.GO_BACK);
             return;
         }
         button.getScene().setRoot(previousRoot);

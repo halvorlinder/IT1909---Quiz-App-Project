@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import ui.APIClientService;
 import ui.User;
 import ui.Utilities;
+import ui.constants.FilePaths;
 
 import java.io.IOException;
 
@@ -52,7 +53,7 @@ public class ResultPageController extends BaseController {
      * @throws IOException
      */
     public void returnToHomePage(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = Utilities.getFXMLLoader("HomePage.fxml");
+        FXMLLoader loader = Utilities.getFXMLLoader(FilePaths.HOME_PAGE);
         loader.setController(new HomePageController(getUser()));
         ((Node) actionEvent.getSource()).getScene().setRoot(loader.load());
     }

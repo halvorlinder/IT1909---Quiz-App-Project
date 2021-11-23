@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
+import ui.constants.Errors;
 import ui.controllers.HomePageController;
 
 import java.io.IOException;
@@ -86,7 +87,7 @@ public class HomePageTest extends ApplicationTest {
         clickOn("#addNewQuizButton");
         Node dialogPane = lookup(".dialog-pane").query();
         Assertions.assertDoesNotThrow(() -> {
-            from(dialogPane).lookup((Text t) -> t.getText().startsWith("Vennligst fyll inn et navn")).query();
+            from(dialogPane).lookup((Text t) -> t.getText().startsWith(Errors.EMPTY_NAME)).query();
         });
     }
 
@@ -110,7 +111,7 @@ public class HomePageTest extends ApplicationTest {
         clickOn(from(vBox).lookup((Button b) -> b.getText().equals("Spill")).queryButton());
         Node dialogPane = lookup(".dialog-pane").query();
         Assertions.assertDoesNotThrow(() -> {
-            from(dialogPane).lookup((Text t) -> t.getText().startsWith("Denne quizen har ingen spørsmål")).query();
+            from(dialogPane).lookup((Text t) -> t.getText().startsWith(Errors.EMPTY_QUIZ)).query();
         });
     }
 

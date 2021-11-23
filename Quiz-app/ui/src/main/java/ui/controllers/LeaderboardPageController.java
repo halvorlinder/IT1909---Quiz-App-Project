@@ -10,6 +10,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import ui.APIClientService;
 import ui.User;
+import ui.constants.Style;
 
 import java.io.IOException;
 
@@ -67,9 +68,9 @@ public class LeaderboardPageController extends GoBackController {
     private void addScoreElement(int scoreId) {
         Score score = leaderboard.getSortedScores().get(scoreId);
         GridPane gridPane = new GridPane();
-        ColumnConstraints column1 = new ColumnConstraints(100);
-        ColumnConstraints column2 = new ColumnConstraints(250);
-        ColumnConstraints column3 = new ColumnConstraints(250);
+        ColumnConstraints column1 = new ColumnConstraints(Style.TABLE_SPACE_SMALL);
+        ColumnConstraints column2 = new ColumnConstraints(Style.TABLE_SPACE_MEDIUM);
+        ColumnConstraints column3 = new ColumnConstraints(Style.TABLE_SPACE_MEDIUM);
         gridPane.getColumnConstraints().addAll(column1, column2, column3);
 
         Label position = new Label();

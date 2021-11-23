@@ -15,6 +15,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
+import ui.constants.Errors;
 import ui.controllers.EditPageController;
 import ui.controllers.NewQuestionPageController;
 
@@ -58,7 +59,7 @@ public class NewQuestionPageTest extends ApplicationTest {
         writeQuestion("?", "1", "", "3", "4", 0);
         Node dialogPane = lookup(".dialog-pane").query();
         Assertions.assertDoesNotThrow(() -> {
-            from(dialogPane).lookup((Text t) -> t.getText().startsWith("Du må fylle ut alle feltene!")).query();
+            from(dialogPane).lookup((Text t) -> t.getText().startsWith(Errors.EMPTY_CHOICE_TEXT)).query();
         });
     }
 
@@ -67,7 +68,7 @@ public class NewQuestionPageTest extends ApplicationTest {
         writeQuestion("", "1", "2", "3", "4", 0);
         Node dialogPane = lookup(".dialog-pane").query();
         Assertions.assertDoesNotThrow(() -> {
-            from(dialogPane).lookup((Text t) -> t.getText().startsWith("Du må skrive inn et spørsmål")).query();
+            from(dialogPane).lookup((Text t) -> t.getText().startsWith(Errors.EMPTY_QUESTION_TEXT)).query();
         });
     }
 

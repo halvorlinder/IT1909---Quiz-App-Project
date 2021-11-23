@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class AuthHandlerTest {
     private AuthHandler authHandler;
+    private final String username1 = "username";
 
     @BeforeEach
     public void setup() {
@@ -20,18 +21,19 @@ public class AuthHandlerTest {
     @Test
     public void testRegisterAndGetToken() {
         for (int i = 0; i < 1000; i++) {
-            String token = authHandler.registerAndGetToken("username");
+            String token = authHandler.registerAndGetToken(username1);
             assertTrue(Pattern.matches("[0-9a-zA-Z\\-_]{32}", token));
-            assertEquals(token, authHandler.getToken("username"));
+            assertEquals(token, authHandler.getToken(username1));
         }
     }
 
     @Test
     public void testHasAccess() {
-        Quiz quiz1 = new Quiz("quiz1", new ArrayList<>(), "username");
-        Quiz quiz2 = new Quiz("quiz2", new ArrayList<>(), "name");
-        String token1 = authHandler.registerAndGetToken("username");
-        String token2 = authHandler.registerAndGetToken("name");
+        String username2 = "name";
+        Quiz quiz1 = new Quiz("quiz1", new ArrayList<>(), username1);
+        Quiz quiz2 = new Quiz("quiz2", new ArrayList<>(), username2);
+        String token1 = authHandler.registerAndGetToken(username1);
+        String token2 = authHandler.registerAndGetToken(username2);
         assertTrue(authHandler.hasAccess(token1, quiz1));
         assertFalse(authHandler.hasAccess(token1, quiz2));
         assertFalse(authHandler.hasAccess(token2, quiz1));
