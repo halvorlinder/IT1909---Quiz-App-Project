@@ -5,7 +5,7 @@
 
 <!-- TABLE OF CONTENTS -->
 <details open="open">
-  <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
+  <summary><h2 style="display: inline-block">Project structure</h2></summary>
   <ol>
     <li>
       <a href="#project-structure">About the project</a>
