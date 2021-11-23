@@ -30,13 +30,13 @@ public class Quiz {
     /**
      * gets a question from the quiz
      *
-     * @param questionId the index of the question
+     * @param questionIndex the index of the question
      * @return the question at a given index
      */
-    public Question getQuestion(int questionId) {
-        if (questionId >= getQuizLength() || questionId < 0)
-            throw new ArrayIndexOutOfBoundsException();
-        return questions.get(questionId);
+    public Question getQuestion(int questionIndex) {
+        if (questionIndex >= getQuizLength() || questionIndex < 0)
+            throw new IllegalArgumentException("Question index must be between 0 and " + (getQuizLength() - 1));
+        return questions.get(questionIndex);
     }
 
     /**
@@ -58,24 +58,24 @@ public class Quiz {
     /**
      * delete a question from the quiz
      *
-     * @param questionId the index of the question to be removed
+     * @param questionIndex the index of the question to be removed
      */
-    public void deleteQuestion(int questionId) {
-        if (questionId >= getQuizLength() || questionId < 0)
-            throw new ArrayIndexOutOfBoundsException();
-        questions.remove(questionId);
+    public void deleteQuestion(int questionIndex) {
+        if (questionIndex >= getQuizLength() || questionIndex < 0)
+            throw new IllegalArgumentException("Question index must be between 0 and " + (getQuizLength() - 1));
+        questions.remove(questionIndex);
     }
 
     /**
      * sets a new question at a given index
      *
-     * @param questionId the index of the question
+     * @param questionIndex the index of the question
      * @param question   the new question
      */
-    public void setQuestion(int questionId, Question question) {
-        if (questionId >= getQuizLength() || questionId < 0)
-            throw new ArrayIndexOutOfBoundsException();
-        questions.set(questionId, question);
+    public void setQuestion(int questionIndex, Question question) {
+        if (questionIndex >= getQuizLength() || questionIndex < 0)
+            throw new IllegalArgumentException("Question index must be between 0 and " + (getQuizLength() - 1));
+        questions.set(questionIndex, question);
     }
 
     /**

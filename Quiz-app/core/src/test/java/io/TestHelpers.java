@@ -53,7 +53,7 @@ public class TestHelpers {
     }
 
     static void checkLeaderboard(Leaderboard leaderboard1, Leaderboard leaderboard2) {
-        assertEquals(leaderboard1.getName(), leaderboard2.getName());
+        assertEquals(leaderboard1.getQuizName(), leaderboard2.getQuizName());
         assertEquals(leaderboard1.getScoreLength(), leaderboard2.getScoreLength());
         for (int i = 0; i < leaderboard1.getScoreLength(); i++) {
             checkScore(leaderboard1.getScores().get(i), leaderboard2.getScores().get(i));

@@ -157,7 +157,7 @@ public class RestController {
                 return objectMapper.writeValueAsString(quiz);
             }
             response.setStatus(FBN);
-        } catch (FileNotFoundException | IndexOutOfBoundsException notFoundException) {
+        } catch (FileNotFoundException | IllegalArgumentException | IndexOutOfBoundsException notFoundException) {
             System.out.println(notFoundException);
             response.setStatus(NF);
         } catch (IOException ioException) {
@@ -216,7 +216,7 @@ public class RestController {
                 return objectMapper.writeValueAsString(quiz);
             } else
                 response.setStatus(FBN);
-        } catch (FileNotFoundException | IndexOutOfBoundsException notFoundException) {
+        } catch (FileNotFoundException | IllegalArgumentException | IndexOutOfBoundsException notFoundException) {
             response.setStatus(NF);
             System.out.println(notFoundException);
         } catch (IOException ioException) {

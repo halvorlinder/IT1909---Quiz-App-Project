@@ -18,19 +18,19 @@
     <children>
         <VBox prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <Label fx:id="headline" alignment="CENTER" contentDisplay="CENTER" prefHeight="70.0" prefWidth="600.0" text="Write A New Question" styleClass="h1">
+                <Label fx:id="headline" alignment="CENTER" contentDisplay="CENTER" prefHeight="70.0" prefWidth="600.0" text="Skriv et nytt spørsmål" styleClass="h1">
                 </Label>
-                <Label alignment="CENTER" prefHeight="18.0" prefWidth="650.0" text="Question" styleClass="h3">
+                <Label alignment="CENTER" prefHeight="18.0" prefWidth="650.0" text="Spørsmål" styleClass="h3">
                     <padding>
                         <Insets bottom="5.0" />
                     </padding>
                 </Label>
-                <TextField id="questionText" fx:id="questionText" alignment="TOP_LEFT" prefHeight="120.0" prefWidth="400.0" promptText="Write your question here...">
+                <TextField id="questionText" fx:id="questionText" alignment="TOP_LEFT" prefHeight="120.0" prefWidth="400.0" promptText="Skriv spørsmålet ditt her...">
                     <VBox.margin>
                         <Insets left="80.0" right="80.0" />
                     </VBox.margin>
                 </TextField>
-                <Label alignment="CENTER" prefHeight="18.0" prefWidth="633.0" text="Answer (check off the correct one)" styleClass="h3">
+                <Label alignment="CENTER" prefHeight="18.0" prefWidth="633.0" text="Svaralternativ (marker det rikitge)" styleClass="h3">
                     <VBox.margin>
                         <Insets top="5.0" />
                     </VBox.margin>
@@ -54,7 +54,7 @@
                     <children>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                             <children>
-                                <TextField id="choice1" fx:id="choice1" prefHeight="26.0" prefWidth="200.0" promptText="Answer 1...">
+                                <TextField id="choice1" fx:id="choice1" prefHeight="26.0" prefWidth="200.0" promptText="Svar 1...">
                                     <HBox.margin>
                                         <Insets bottom="16.0" left="20.0" top="16.0" />
                                     </HBox.margin>
@@ -71,7 +71,7 @@
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                             <children>
-                                <TextField id="choice2" fx:id="choice2" prefHeight="26.0" prefWidth="200.0" promptText="Answer 2...">
+                                <TextField id="choice2" fx:id="choice2" prefHeight="26.0" prefWidth="200.0" promptText="Svar 2...">
                                     <HBox.margin>
                                         <Insets bottom="16.0" left="20.0" top="16.0" />
                                     </HBox.margin>
@@ -85,7 +85,7 @@
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
                             <children>
-                                <TextField id="choice3" fx:id="choice3" prefHeight="26.0" prefWidth="200.0" promptText="Answer 3...">
+                                <TextField id="choice3" fx:id="choice3" prefHeight="26.0" prefWidth="200.0" promptText="Svar 3...">
                                     <HBox.margin>
                                         <Insets bottom="16.0" left="20.0" top="16.0" />
                                     </HBox.margin>
@@ -99,7 +99,7 @@
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                             <children>
-                                <TextField id="choice4" fx:id="choice4" prefHeight="26.0" prefWidth="200.0" promptText="Answer 4...">
+                                <TextField id="choice4" fx:id="choice4" prefHeight="26.0" prefWidth="200.0" promptText="Svar 4...">
                                     <HBox.margin>
                                         <Insets bottom="16.0" left="20.0" top="16.0" />
                                     </HBox.margin>

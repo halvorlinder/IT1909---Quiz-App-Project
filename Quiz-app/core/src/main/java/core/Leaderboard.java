@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class Leaderboard {
 
-    private final String name;
+    private final String quizName;
     private final List<Score> scores;
     private final int maxScore;
 
@@ -22,7 +22,9 @@ public class Leaderboard {
         if (maxScore < 0) {
             throw new IllegalArgumentException("Cannot have a negative max score");
         }
-        this.name = quizName;
+        if (quizName.isEmpty())
+            throw new IllegalArgumentException("Can not have empty name");
+        this.quizName = quizName;
         this.scores = new ArrayList<>(scores);
         this.maxScore = maxScore;
     }
@@ -56,8 +58,8 @@ public class Leaderboard {
     /**
      * @return the name of the quiz
      */
-    public String getName() {
-        return name;
+    public String getQuizName() {
+        return quizName;
     }
 
     /**
