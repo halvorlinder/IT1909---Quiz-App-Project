@@ -46,6 +46,8 @@
                             <excludes>
                                 <exclude>
                                     ui/**/*
+                                </exclude>
+                                <exclude>
                                     IntegrationTest/**/*
                                 </exclude>
                             </excludes>
