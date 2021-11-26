@@ -153,6 +153,7 @@ To get a local copy up and running follow these simple steps. Everything needs t
 
 * Run tests and test coverage
   ```sh
+  mvn clean compile
   mvn verify
   ```
 * Run the server
