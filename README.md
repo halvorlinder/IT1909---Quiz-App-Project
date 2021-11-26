@@ -76,6 +76,14 @@
             <li><a href="#storage-choices">Storage choices</a></li>
         </ul>
     </li>
+    <li>
+    <a href="#tests">Tests</a>
+    <ul>
+    <li><a href="#unit-test">Unit test</a></li>
+    <li><a href="#integration-test">Integration test</a></li>
+    <li><a href="#system-test">System test</a></li>
+    </ul>
+    </li>
     <li><a href="#contact">Contact</a></li>
   </ol>
 </details>
@@ -376,7 +384,21 @@ See the [open issues](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/
 features (and known issues).
 
 
+## Tests
 
+The level of testing we are covering in this project are unit test, integration test and system test. The test for are properly documented in the code.
+
+### Unit test
+
+A Unit is the smallest testable portion of system or application which can be compiled, liked, loaded, and executed. This kind of testing helps to test each module separately. 
+
+### Integration test
+
+Integration means combining. For Example, In this testing phase, different software modules are combined and tested as a group to make sure that integrated system is ready for system testing.
+
+### System test
+
+System testing is performed on a complete, integrated system. It allows checking system’s compliance as per the requirements. It tests the overall interaction of components. It involves load, performance, reliability and security testing.
 <!-- CONTACT -->
 
 ## Contact
