@@ -1,10 +1,13 @@
 import io.SavePaths;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.junit.jupiter.api.AfterAll;
@@ -12,7 +15,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
+import org.testfx.service.query.EmptyNodeQueryException;
 import ui.App;
+import ui.constants.Errors;
 import ui.controllers.LoginPageController;
 
 import java.io.File;
@@ -25,6 +30,9 @@ public class SystemIT extends ApplicationTest {
     private final String username = "user";
     private final String password = "pass";
     private final String wrongPassword = "ass";
+
+    private final String username2 = "hallvard";
+    private final String password2 = "hunter2";
 
     private final String quizName = "q";
 
@@ -112,6 +120,64 @@ public class SystemIT extends ApplicationTest {
             from(lbList).lookup((Label label) -> label.getText().equals("2/2")).query();
             from(lbList).lookup((Label label) -> label.getText().equals(username)).query();
         });
+        clickOn(lookup("#backButton").queryButton());
+
+        // Change a question in the quiz
+        quizList = lookup("#quizList").query();
+        clickOn(from(quizList).lookup((Button b) -> b.getText().equals("Endre")).queryButton());
+        VBox questionList = lookup("#questionList").query();
+        clickOn(from(questionList).lookup((Button b) -> b.getText().equals("Endre")).queryButton());
+        clickOn("#radioButton4");
+        clickOn("#submitButton");
+
+        // Verify that the leaderboard is now reset
+        clickOn(lookup("#backButton").queryButton());
+        quizList = lookup("#quizList").query();
+        clickOn(from(quizList).lookup((Button b) -> b.getText().equals("Ledertavle")).queryButton());
+        VBox lbList2 = lookup("#leaderboardList").query();
+        Assertions.assertThrows(EmptyNodeQueryException.class, () -> from(lbList2).lookup((Label label) -> label.getText().equals(username)).query());
+
+        // Log out of the app
+        clickOn(lookup("#backButton").queryButton());
+        clickOn("#signOut");
+
+        // Register a new user
+        clickOn("#registerUserName").write(username2);
+        clickOn("#registerPassword").write(password2);
+        clickOn("#register");
+
+        // Verify that this user cannot delete the quiz created by the first user
+        quizList = lookup("#quizList").query();
+        clickOn(from(quizList).lookup((Button b) -> b.getText().equals("Endre")).queryButton());
+        clickOn("#deleteQuizButton");
+        Node dialogPane = lookup(".dialog-pane").query();
+        Assertions.assertDoesNotThrow(() -> {
+            from(dialogPane).lookup((Text t) -> t.getText().startsWith(Errors.DELETE_QUIZ_403)).query();
+        });
+        press(KeyCode.ENTER);
+        release(KeyCode.ENTER);
+
+        // Log out of the app
+        clickOn(lookup("#backButton").queryButton());
+        clickOn("#signOut");
+
+        // Attempt to login as the first user, but you forgot your password
+        clickOn("#logInUserName").write(username);
+        clickOn("#logInPassword").write(wrongPassword);
+        clickOn("#logIn");
+        Node dialogPane2 = lookup(".dialog-pane").query();
+        Assertions.assertDoesNotThrow(() -> {
+            from(dialogPane2).lookup((Text t) -> t.getText().startsWith(Errors.LOGIN_403)).query();
+        });
+        press(KeyCode.ENTER);
+        release(KeyCode.ENTER);
+
+        // Remeber your password and login
+        doubleClickOn("#logInPassword").write(password);
+        clickOn("#logIn");
+
+        // Log out
+        clickOn("#signOut");
     }
 
     /**
