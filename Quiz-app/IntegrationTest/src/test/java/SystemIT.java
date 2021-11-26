@@ -53,6 +53,7 @@ public class SystemIT extends ApplicationTest {
     @Override
     public void start(final Stage stage) throws Exception {
         // Start the app (server is starten in POM file)
+        SavePaths.enableTestMode();
         LoginPageController logInPageController = new LoginPageController();
         final FXMLLoader loader = App.getFXMLLoader("LoginPage.fxml");
         loader.setController(logInPageController);
@@ -66,6 +67,7 @@ public class SystemIT extends ApplicationTest {
     // are problems with SavePath.enableTestMode()
     @BeforeAll
     public static void preTestTeardown() {
+        SavePaths.enableTestMode();
         try {
             FileUtils.cleanDirectory(new File(SavePaths.getBasePath() + "/Quizzes"));
         } catch (IOException e) {
@@ -77,7 +79,9 @@ public class SystemIT extends ApplicationTest {
             e.printStackTrace();
         }
         try {
-            Files.delete(Path.of(SavePaths.getBasePath() + "users.json"));
+            Path path = Path.of(SavePaths.getBasePath() + "users.json");
+            if (Files.exists(path))
+                Files.delete(Path.of(SavePaths.getBasePath() + "users.json"));
         } catch (IOException e) {
             e.printStackTrace();
         }

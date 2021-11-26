@@ -17,7 +17,7 @@ public class QuizServerApplication {
      * @param args
      */
     public static void main(String[] args) {
-        if (args[0].equals("test"))
+        if (args.length>0 && args[0].equals("test"))
             SavePaths.enableTestMode();
         SpringApplication.run(QuizServerApplication.class, args);
     }
