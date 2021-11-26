@@ -23,7 +23,7 @@
         </Label>
         <Label text="Du fikk 2/5 poeng" fx:id="result" GridPane.rowIndex="1" styleClass="h2">
         </Label>
-        <Button mnemonicParsing="false" prefHeight="67.0" prefWidth="327.0" text="Gå til hjemskjermen"
+        <Button mnemonicParsing="false" fx:id="returnButton" prefHeight="67.0" prefWidth="327.0" text="Gå til hjemskjermen"
                 GridPane.rowIndex="2" onAction="#returnToHomePage" styleClass="blue-button, h2">
         </Button>
     </children>
