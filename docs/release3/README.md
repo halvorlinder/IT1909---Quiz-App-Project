@@ -24,37 +24,6 @@ The API handles saving, loading, editing, deletion and authorization. The API ca
 
 ### User Stories
 
-### Create and edit quiz(us-3)
-
-As a user, I would like to create a new quiz, and be able to edit this by adding, removing and editing questions
-
-#### Important to see
-
-- A button to create a new quiz and specify quiz name
-- An edit button for the quizzes the user has created
-- List of questions with buttons for removing and editing for each question
-- Button to add question to quiz
-
-#### Important to do
-
-- Create new quiz with a custom name
-- Ability to edit this quiz, aka add questions and edit all its questions
-
-### Multiple quizzes (us-4)
-
-As a user, I would like to select between different quizzes to play.
-
-#### Important to see
-
-- A dropdown menu containing all quizzes
-    - Names of quizzes
-    - Total number of questions
-- Ability to view selected quiz
-
-#### Important to do
-
-- Select quiz among list of all quizzes
-
 ### Username and leaderboard (us-5)
 
 As a user I would like to see my score on a leaderboard after I am done taking the quiz. It should be easy to see which score was mine.
@@ -68,6 +37,7 @@ As a user I would like to see my score on a leaderboard after I am done taking t
 
 - Exit from scoreboard to main page (or play quiz again)
 
+This release also saw us implement the features discussed in [us-3](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/tree/main/docs/release2#multiple-quizzes-us-3) and [us-4](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/tree/main/docs/release2#username-and-leaderboard-us-4)
 
 
 
@@ -78,11 +48,16 @@ Our goal is small, short-lived branches that address one specific issue.
 This way we avoid unnecessary merge conflicts that need to be resolved manually. 
 We improved our work efficiency by shortening the time used to pass (or fail) a pipeline, 
 by optimizing our tests.
-We have also created issue templates for more clear communication. 
-In addition to this we have started using a shared commit format that revolves around providing a short header and a 
-more expansive description.  
-All commits, except for documentation, are linked to a branch, which itself linkes to a single issue. This is not visible in the history section, but the issue can be found by clicking on the issue and then clicking on the merge request it is linked to
 
+We have also created issue templates for more clear communication. We used Gitlabs built-in function which automatically
+links a branch to an issue by creating the branches from within the issue. In theory, this would mean that as the branch
+was merged, the issue was automatically closed, but we experienced several times that this was not the case, which meant
+we had to manually close the issue when merging a branch. In addition to this we have started using a shared commit
+format that revolves around providing a short header and a more expansive description.
+
+All commits, except for documentation, are linked to a branch, which itself links to a single issue. This is not visible in the history section, but the issue can be found by clicking on the issue and then clicking on the merge request it is linked to
+
+We continued our trunk-based development from release 2 which you can read more about [here](https://gitlab.stud.idi.ntnu.no/it1901/groups-2021/gr2114/gr2114/-/blob/main/docs/release2/README.md#trunk-based-development)
 
 ## Design
 

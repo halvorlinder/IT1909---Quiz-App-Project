@@ -5,10 +5,10 @@
 
 <!-- TABLE OF CONTENTS -->
 <details open="open">
-  <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
+  <summary><h2 style="display: inline-block">Table of contents</h2></summary>
   <ol>
     <li>
-      <a href="#about-the-project">Project Structure</a>
+      <a href="#project-structure">Project structure</a>
       <ul>
         <li><a href="#built-with">Built With</a></li>
         <li><a href="#checkstyle-settings">Checkstyle settings</a></li>
@@ -25,7 +25,7 @@
       </ul>
     </li>
     <li>
-      <a href="#About-the-API">About the API</a>
+      <a href="#about-the-API">About the API</a>
       <ul>
         <li><a href="#description">Description</a></li>
       </ul>
@@ -37,23 +37,26 @@
       </ul>
     </li>
     <li>
-        <a href="#Core">Core</a>
+        <a href="#core">Core</a>
         <ul>
             <li><a href="#core">core</a></li>
             <li><a href="#io">io</a></li>
             <li><a href="#internal">Internal</a></li>
+            <li><a href="#constants">Constants</a></li>
             <li><a href="#json-format">Json format</a></li>
         </ul>
     </li>
     <li>
-        <a href="#UI">UI</a>
+        <a href="#ui">UI</a>
         <ul>
             <li><a href="#ui">ui</a></li>
+            <li><a href="#constants">Constants</a></li>
+            <li><a href="#controller">ui</a></li>
             <li><a href="#resources">Resources</a></li>
         </ul>
     </li>
     <li>
-        <a href="#Rest">Rest</a>
+        <a href="#rest">Rest</a>
         <ul>
             <li><a href="#rest">Rest components</a></li>
         </ul>
@@ -149,9 +152,9 @@ To get a local copy up and running follow these simple steps. Everything needs t
   mvn spring-boot:run -pl rest
   ```
 ### Create a shippable product
-* For gitpod
+* For gitpod. Remember to run the server before you start the application.
   ```sh
-  mvn clean compile
+  mvn clean install
   sudo apt update && sudo apt install fakeroot
   mvn javafx:jlink jpackage:jpackage -pl ui
   sudo apt install ./ui/target/dist/quizfx_1.0.0-1_amd64.deb
@@ -212,6 +215,10 @@ The API documentation can be found [here](docs/API_Documentation.md)
 - [Leaderboard](Quiz-app/core/src/main/java/core/Leaderboard.java) - Contains the name of the quiz related to this leaderboard, list of all the scores and the highest score you could get on this quiz 
 
 - [Score](Quiz-app/core/src/main/java/core/Score.java) - Contains the name of a user and the number of points
+
+### constants
+
+- [Constants](Quiz-app/core/src/main/java/io/constants/Constants.java) - A class that contains all magic numbers as contants for the core module. 
 
 ### io
 
@@ -293,6 +300,10 @@ The JSON schemas for classes that are serialized can be found here:
 - [LeaderboardPageController](Quiz-app/ui/src/main/java/ui/controllers/LeaderboardPageController.java) - Controller for showing the leaderboard
 
 - [GoBackController](Quiz-app/ui/src/main/java/ui/controllers/GoBackController.java) - Controller for going back to previous scene
+
+### constants
+
+- [Constants](Quiz-app/core/src/main/java/constants/Constants.java) - A class that contains all magic numbers as contants for the ui module. 
 
 ### Resources
 

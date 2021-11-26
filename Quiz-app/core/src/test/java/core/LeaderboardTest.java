@@ -21,7 +21,7 @@ public class LeaderboardTest {
         int maxScore = 3;
         assertDoesNotThrow(() -> leaderboard = new Leaderboard(quizName, maxScore));
         assertEquals(maxScore, leaderboard.getMaxScore());
-        assertEquals(quizName, leaderboard.getName());
+        assertEquals(quizName, leaderboard.getQuizName());
         assertEquals(0, leaderboard.getScoreLength());
     }
 

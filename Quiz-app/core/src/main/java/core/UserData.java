@@ -2,6 +2,7 @@ package core;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 /**
@@ -31,7 +32,7 @@ public final class UserData {
      */
     public int getPasswordHash(String username) {
         if (!users.containsKey(username))
-            throw new IllegalStateException("No such user");
+            throw new NoSuchElementException("No such user");
         return users.get(username);
     }
 

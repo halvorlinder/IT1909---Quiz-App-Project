@@ -60,7 +60,7 @@ public class QuizSessionTest {
                 numOfCorrect += 1;
             }
         }
-        Assertions.assertEquals(numOfCorrect, quizSession.getCorrect());
+        Assertions.assertEquals(numOfCorrect, quizSession.getNumOfCorrectAnswers());
     }
 
     /**
@@ -72,6 +72,6 @@ public class QuizSessionTest {
         for (int i = 0; i < num_questions; i++) {
             quizSession.submitAnswer((i + 1) % 4);
         }
-        Assertions.assertEquals(numOfCorrect, quizSession.getCorrect());
+        Assertions.assertEquals(numOfCorrect, quizSession.getNumOfCorrectAnswers());
     }
 }
